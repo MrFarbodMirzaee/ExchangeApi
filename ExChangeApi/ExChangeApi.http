@@ -1,0 +1,6 @@
+@ExChangeApi_HostAddress = http://localhost:5085
+
+GET {{ExChangeApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
