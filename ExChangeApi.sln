@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34322.80
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExChangeApi", "ExChangeApi\ExChangeApi.csproj", "{FA825A0E-1830-4D84-8137-4C164F422653}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExchangeApi", "ExChangeApi\ExchangeApi.csproj", "{FA825A0E-1830-4D84-8137-4C164F422653}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
