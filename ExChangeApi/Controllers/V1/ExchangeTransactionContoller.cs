@@ -1,17 +1,24 @@
 ﻿using ExchangeApi.Contract;
 using ExchangeApi.Dtos;
-using ExChangeApi.Dtos;
 using ExchangeApi.Models;
 using Microsoft.AspNetCore.Mvc;
+using AutoMapper;
+using ExchangeApi.Shered;
+using Microsoft.Extensions.Options;
+using System.Net.Mime;
 
 namespace ExchangeApi.Controllers.V1;
 
 public class ExchangeTransactionContoller : BaseContoller
 {
     private readonly IExchangeTransactionBusiness _exchangeTranzacstionBusiness;
-    public ExchangeTransactionContoller(IExchangeTransactionBusiness exchangeTranzacstionBusiness)
+    private readonly IMapper _mapper;
+    private readonly MySettings _settings;
+    public ExchangeTransactionContoller(IExchangeTransactionBusiness exchangeTranzacstionBusiness,IMapper mapper,IOptionsMonitor<MySettings> settings)
     {
+        _settings = settings.CurrentValue;
         _exchangeTranzacstionBusiness = exchangeTranzacstionBusiness;
+        _mapper = mapper;
     }
 
     [Route("{id}")]
@@ -23,16 +30,8 @@ public class ExchangeTransactionContoller : BaseContoller
         {
             return NotFound();
         }
-        ExchangeTransactionDto exchangeTRansaction = new ExchangeTransactionDto()
-        {
-            Id = data.Id,
-            Amount = data.Amount,
-            ExchangeRateId = data.ExChangeRateId,
-            FromCurrencyId = data.FromCurrencyId,
-            ToCurrencyId = data.ToCurrencyId,
-            ResultAmount = data.ResultAmount
-        };
-        return Ok(exchangeTRansaction);
+       var exchangeTransaction = _mapper.Map<ExchangeTransactionDto>(data);
+        return Ok(exchangeTransaction);
     }
     [HttpGet]
     public ExchangeTransaction GetExChangeTransaction()
@@ -50,18 +49,18 @@ public class ExchangeTransactionContoller : BaseContoller
             Created = DateTime.Now
         };
     }
-    public IActionResult AddExchangeTransaction([FromBody] AddExchangeTransaction addExchangeTransaction)
+    [HttpPost]
+    [Consumes(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public IActionResult AddExchangeTransaction([FromBody] ExchangeTransactionDto addExchangeTransaction)
     {
         if (addExchangeTransaction.FromCurrencyId < 0 || addExchangeTransaction.ToCurrencyId < 0 )
         {
             return BadRequest();
         }
-        var ExchangeTransactiondata = new ExchangeTransaction()
-        {
-            Id = 1,
-            Created = DateTime.Now,
-        };
-        _exchangeTranzacstionBusiness.CreateExchangeTransaction(ExchangeTransactiondata);
+        var exchangetransaction = _mapper.Map<ExchangeTransaction>(addExchangeTransaction);
+        _exchangeTranzacstionBusiness.CreateExchangeTransaction(exchangetransaction);
         return Created();
     }
 }

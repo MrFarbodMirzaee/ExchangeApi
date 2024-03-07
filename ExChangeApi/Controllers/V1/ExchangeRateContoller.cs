@@ -1,19 +1,26 @@
-﻿using ExchangeApi.Contract;
+﻿using AutoMapper;
+using ExchangeApi.Contract;
 using ExchangeApi.Dtos;
 using ExchangeApi.Models;
+using ExchangeApi.Shered;
 using ExChangeApi.Business;
-using ExChangeApi.Dtos;
 using ExChangeApi.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using System.Net.Mime;
 
 namespace ExchangeApi.Controllers.V1;
 
 public class ExchangeRateContoller : BaseContoller
 {
     private readonly IExchangeRateBusiness _exchangeRateBusiness;
-    public ExchangeRateContoller(IExchangeRateBusiness exchangeRateBusiness)
+    private readonly IMapper _mapper;
+    private readonly MySettings _settings;
+    public ExchangeRateContoller(IExchangeRateBusiness exchangeRateBusiness,IMapper mapper,IOptionsMonitor<MySettings> settings)
     {
+        _settings = settings.CurrentValue;
         _exchangeRateBusiness = exchangeRateBusiness;
+        _mapper = mapper;
     }
 
 
@@ -26,15 +33,8 @@ public class ExchangeRateContoller : BaseContoller
         {
             return NotFound();
         }
-        ExchangeRateDto exchangeRate = new ExchangeRateDto()
-        {
-            Id = data.Id,
-            FromCurrency = data.FromCurrency,
-            LastUpdate = data.LastUpdate,
-            ToCurrency = data.ToCurrency,
-            Rate = data.Rate,
-        };
-        return Ok(exchangeRate);
+        var exchangeRateDto = _mapper.Map<ExchangeRateDto>(data);
+        return Ok(exchangeRateDto);
     }
     [HttpGet]
     public ExchangeRate GetExChangeRate()
@@ -50,21 +50,18 @@ public class ExchangeRateContoller : BaseContoller
             LastUpdate = DateTime.Now,
         };
     }
-    public IActionResult AddExchangeRate([FromBody] AddExchangeRate addExchangeRate)
+    [HttpPost]
+    [Consumes(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public IActionResult AddExchangeRate([FromBody] AddExchangeRateDto addExchangeRate)
     {
         if (addExchangeRate.FromCurrency < 0 || addExchangeRate.ToCurrency < 0 || addExchangeRate.Rate < 0)
         {
             return BadRequest();
         }
-        var ExchangeRatedata = new ExchangeRate()
-        {
-            Id = 1,
-            FromCurrency = addExchangeRate.FromCurrency,
-            ToCurrency = addExchangeRate.ToCurrency,
-            Rate = addExchangeRate.Rate,
-            Created = DateTime.Now,
-        };
-        _exchangeRateBusiness.CreateExchangeRate(ExchangeRatedata);
+        var exchangeRate = _mapper.Map<ExchangeRate>(addExchangeRate);
+        _exchangeRateBusiness.CreateExchangeRate(exchangeRate);
         return Created();
     }
 }

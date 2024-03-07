@@ -1,8 +1,8 @@
 ﻿using ExchangeApi.Dtos;
 
-namespace ExChangeApi.Dtos
+namespace ExchangeApi.Dtos
 {
-    public class ExchangeRateDto : AddExchangeRate
+    public class ExchangeRateDto : AddExchangeRateDto
     {
         public int Id { get; set; }
     }

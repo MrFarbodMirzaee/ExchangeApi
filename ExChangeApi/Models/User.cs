@@ -1,7 +1,7 @@
 ﻿using ExchangeApi.Models;
 using ExChangeApi.Contract;
 
-namespace ExChangeApi.Models;
+namespace ExchangeApi.Models;
 
 public class User : IBaseEntity<int>
 {

@@ -1,16 +1,23 @@
+using ExchangeApi;
 using ExchangeApi.Contract;
+using ExchangeApi.MiddelWare;
+using ExchangeApi.Shered;
 using ExChangeApi.Business;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var configurationBuilder = new ConfigurationBuilder()
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile($"appsetting.Develeopment.json", optional: true, reloadOnChange: true)
+    .AddJsonFile($"appsettings.json", optional: true, reloadOnChange: true);
+var configure = configurationBuilder.Build();
 // Add services to the container.
 
-builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddSingleton<ICurrencyBusiness, CurrencyBusiness>();
-builder.Services.AddSingleton<IExchangeRateBusiness, ExchangeRateBusiness>();
-builder.Services.AddSingleton<IExchangeTransactionBusiness, ExchangeTransactionBusiness>();
-builder.Services.AddSingleton<IUserBusiness, UserBusiness>();
+builder.Services.Configure<MySettings>(builder.Configuration.GetSection("MySettings"));
+builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
+builder.Services.RegisterPresentationServices();
+builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -26,6 +33,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+//My Custome MidleWares
+app.UseLogUrl();
 
 app.MapControllers();
 

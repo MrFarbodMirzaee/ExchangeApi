@@ -1,8 +1,8 @@
 ﻿using ExchangeApi.Dtos;
 
-namespace ExChangeApi.Dtos
+namespace ExchangeApi.Dtos
 {
-    public sealed class CurrencyDto : AddCurency
+    public sealed class CurrencyDto : AddCurencyDto
     {
         public int Id { get; set; }
     }

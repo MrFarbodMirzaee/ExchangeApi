@@ -1,4 +1,5 @@
-﻿using ExChangeApi.Models;
+﻿using ExchangeApi.Models;
+
 
 namespace ExchangeApi.Contract;
 

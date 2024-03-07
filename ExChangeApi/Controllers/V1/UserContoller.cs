@@ -1,18 +1,25 @@
 ﻿using ExchangeApi.Contract;
 using ExchangeApi.Dtos;
-using ExChangeApi.Dtos;
-using ExchangeApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using ExChangeApi.Models;
+using System.Net.Mime;
+using AutoMapper;
+using ExchangeApi.Shered;
+using Microsoft.Extensions.Options;
+using ExchangeApi.Models;
 
 namespace ExchangeApi.Controllers.V1;
 
 public class UserContoller : BaseContoller
 {
     private readonly IUserBusiness _userBusiness;
-    public UserContoller(IUserBusiness userBusiness)
+    private readonly IMapper _mapper;
+    private readonly MySettings _mySettings;
+    public UserContoller(IUserBusiness userBusiness,IMapper mapper ,IOptionsMonitor<MySettings> settings)
     {
+        _mySettings = settings.CurrentValue;
         _userBusiness = userBusiness;
+        _mapper = mapper;
     }
 
     [Route("{id}")]
@@ -24,13 +31,7 @@ public class UserContoller : BaseContoller
         {
             return NotFound();
         }
-        UserDto user = new UserDto()
-        {
-            Id = data.Id,
-            EmailAddress = data.EmailAddress,
-            Name = data.Name,
-            UserName = data.UserName,
-        };
+        var user = _mapper.Map<UserDto>(data);
         return Ok(user);
     }
     [HttpGet]
@@ -46,19 +47,18 @@ public class UserContoller : BaseContoller
             Created = DateTime.Now
         };
     }
-    public IActionResult AddUser([FromBody] AddUser addUser)
+    [HttpPost]
+    [Consumes(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public IActionResult AddUser([FromBody] AddUserDto addUser)
     {
         if (string.IsNullOrEmpty(addUser.UserName) || string.IsNullOrEmpty(addUser.EmailAddress) )
         {
             return BadRequest();
         }
-        var Userdata = new User()
-        {
-            Id = 1,
-
-            Created = DateTime.Now,
-        };
-        _userBusiness.CreateUser(Userdata);
+        var UserData = _mapper.Map<User>(addUser);
+        _userBusiness.CreateUser(UserData);
         return Created();
     }
 }

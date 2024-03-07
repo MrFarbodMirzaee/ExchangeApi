@@ -1,8 +1,9 @@
 ﻿using ExchangeApi.Dtos;
+using FluentValidation;
 
-namespace ExChangeApi.Dtos;
+namespace ExchangeApi.Dtos;
 
-public sealed class UserDto : AddUser
+public sealed class UserDto : AddUserDto
 {
     public int Id { get; set; }
 

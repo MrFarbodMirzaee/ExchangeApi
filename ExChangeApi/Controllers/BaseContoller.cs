@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Mvc;
-
-namespace ExchangeApi.Controllers;
+﻿using Microsoft.AspNetCore.Mvc;
 
 [Route("api/V1/[controller]/[action]")]
 [ApiController]
