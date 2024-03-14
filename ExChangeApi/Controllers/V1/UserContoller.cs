@@ -24,28 +24,24 @@ public class UserContoller : BaseContoller
 
     [Route("{id}")]
     [HttpGet]
-    public async Task<IActionResult> Get([FromRoute] int id)
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetUserById([FromRoute] int id)
     {
         var data = _userBusiness.GetUserById(id);
-        if (data == null)
-        {
-            return NotFound();
-        }
         var user = _mapper.Map<UserDto>(data);
         return Ok(user);
     }
     [HttpGet]
-    public User GetUser()
+    [Consumes(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+
+    public async Task<IActionResult> GetActiveUsers()
     {
-        return new User()
-        {
-            Id = 1,
-            Name = "Farbod",
-            EmailAddress = "Farbod@gmail.com",
-            UserName = "Farbod",
-            IsActive = true,
-            Created = DateTime.Now
-        };
+        var data = _userBusiness.GetActiveUsers();
+        var UserDtos = _mapper.Map<List<UserDto>>(data);
+        return Ok(UserDtos);
     }
     [HttpPost]
     [Consumes(MediaTypeNames.Application.Json)]
@@ -53,12 +49,29 @@ public class UserContoller : BaseContoller
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public IActionResult AddUser([FromBody] AddUserDto addUser)
     {
-        if (string.IsNullOrEmpty(addUser.UserName) || string.IsNullOrEmpty(addUser.EmailAddress) )
-        {
-            return BadRequest();
-        }
+        
         var UserData = _mapper.Map<User>(addUser);
         _userBusiness.CreateUser(UserData);
         return Created();
+    }
+    [HttpGet]
+    [Consumes(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> GetAllUser() 
+    {
+        var data = _userBusiness.GetAllUsers();
+        var UserDto = _mapper.Map<List<UserDto>>(data);
+        return Ok(UserDto);
+    }
+    [HttpGet]
+    [Consumes(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetUserByEmail(string email) 
+    {
+        var data = _userBusiness.GetUserByEmail(email);
+        var UserDto = _mapper.Map<UserDto>(data);
+        return Ok(UserDto);
     }
 }

@@ -11,5 +11,13 @@ public class UserProfile : Profile
     {
         CreateMap<User, UserDto>();
         CreateMap<UserDto, User>();
+        CreateMap<List<User>, User>();
+        CreateMap<User, List<User>>();
+        CreateMap<List<UserDto>, User>();
+        CreateMap<User, List<UserDto>>();
+        CreateMap<AddUserDto, User>();
+        CreateMap<User, AddUserDto>();
+        CreateMap<List<AddUserDto>, User>();
+        CreateMap<List<User>, AddUserDto>();
     }
 }

@@ -1,5 +1,8 @@
 ﻿using ExchangeApi.Contract;
 using ExchangeApi.Models;
+using ExChangeApi.Models;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace ExChangeApi.Business;
 
@@ -68,12 +71,24 @@ public class ExchangeTransactionBusiness : IExchangeTransactionBusiness
 
     public List<ExchangeTransaction> GetTransactionsByCurrencyPair(int fromCurrencyId, int toCurrencyId)
     {
-        throw new NotImplementedException();
+        //The GetTransactionsByCurrencyPair method filters the exchangeTransactions list to find exchange transactions for the given pair of fromCurrencyId and toCurrencyId.
+        //It then returns a list of exchange transactions for the specified currency pair.
+
+         List <ExchangeTransaction> result = exchangeTransactions
+        .Where(t => t.FromCurrencyId == fromCurrencyId && t.ToCurrencyId == toCurrencyId)
+        .ToList();
+        return result;
     }
 
     public List<ExchangeTransaction> GetTransactionsByUserId(int userId)
     {
-        throw new NotImplementedException();
+        //The GetTransactionsByUserId method filters the exchangeTransactions list to find exchange transactions for the given userId.
+        //It then returns a list of exchange transactions associated with the specified user ID.
+        
+        List<ExchangeTransaction> result = exchangeTransactions
+       .Where(t => t.Id == userId)
+       .ToList();
+        return result;
     }
 
     public bool UpdateExchangeTransaction(ExchangeTransaction transaction)

@@ -23,31 +23,23 @@ public class ExchangeTransactionContoller : BaseContoller
 
     [Route("{id}")]
     [HttpGet]
-    public async Task<IActionResult> Get([FromRoute] int id)
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetExchangeTransactionById([FromRoute] int id)
     {
         var data = _exchangeTranzacstionBusiness.GetExchangeTransactionById(id);
-        if (data == null)
-        {
-            return NotFound();
-        }
-       var exchangeTransaction = _mapper.Map<ExchangeTransactionDto>(data);
+        var exchangeTransaction = _mapper.Map<ExchangeTransactionDto>(data);
         return Ok(exchangeTransaction);
     }
     [HttpGet]
-    public ExchangeTransaction GetExChangeTransaction()
+    [Consumes(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetAllExchangeTransactions()
     {
-        return new ExchangeTransaction()
-        {
-            Id = 1,
-            Amount = 30.00m,
-            ResultAmount = 70.00m,
-            ExChangeRateId = 4,
-            FromCurrencyId = 3,
-            ToCurrencyId = 2,
-            TransactionDate = DateTime.Now,
-            IsActive = true,
-            Created = DateTime.Now
-        };
+        var data = _exchangeTranzacstionBusiness.GetAllExchangeTransactions();
+        var ExchangeTranzactionDto = _mapper.Map<List<ExchangeTransactionDto>>(data);
+        return Ok(ExchangeTranzactionDto);
     }
     [HttpPost]
     [Consumes(MediaTypeNames.Application.Json)]
@@ -55,12 +47,28 @@ public class ExchangeTransactionContoller : BaseContoller
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public IActionResult AddExchangeTransaction([FromBody] ExchangeTransactionDto addExchangeTransaction)
     {
-        if (addExchangeTransaction.FromCurrencyId < 0 || addExchangeTransaction.ToCurrencyId < 0 )
-        {
-            return BadRequest();
-        }
         var exchangetransaction = _mapper.Map<ExchangeTransaction>(addExchangeTransaction);
         _exchangeTranzacstionBusiness.CreateExchangeTransaction(exchangetransaction);
         return Created();
+    }
+    [HttpGet]
+    [Consumes(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetTransactionsByCurrencyPair(int from_currencies,int to_currencies) 
+    {
+        var data = _exchangeTranzacstionBusiness.GetTransactionsByCurrencyPair(from_currencies,to_currencies);
+        var exchangeTranzacstionDto = _mapper.Map<List<ExchangeTransaction>>(data);
+        return Ok(exchangeTranzacstionDto);
+    }
+    [HttpGet]
+    [Consumes(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetTransactionsByUserId(int userid) 
+    {
+        var data = _exchangeTranzacstionBusiness.GetTransactionsByUserId(userid);
+        var exchangeTranzacstionDto = _mapper.Map<List<ExchangeTransactionDto>>(data);
+        return Ok(exchangeTranzacstionDto);
     }
 }

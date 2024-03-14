@@ -104,12 +104,21 @@ public class ExchangeRateBusiness : IExchangeRateBusiness
 
     public List<ExchangeRate> GetExchangeRatesByCurrencyPair(int fromCurrencyId, int toCurrencyId)
     {
-        throw new NotImplementedException();
+        //The GetExchangeRatesByCurrencyPair method filters the exchangeRates list to find exchange rates that match the given pair of fromCurrencyId and toCurrencyId
+        List<ExchangeRate> result = exchangeRates.Where(e => e.FromCurrency == fromCurrencyId && e.ToCurrency == toCurrencyId).ToList();
+        return result;
     }
 
     public ExchangeRate GetLatestExchangeRate(int fromCurrencyId, int toCurrencyId)
     {
-        throw new NotImplementedException();
+        //The GetLatestExchangeRate method filters the exchangeRates list to find the exchange rate for the given pair of fromCurrencyId and toCurrencyId.
+        // It then orders the filtered rates by LastUpdate in descending order to get the latest exchange rate.
+        //Finally, it returns the latest exchange rate for the specified currency pair.
+        ExchangeRate latestRate = exchangeRates
+        .Where(e => e.FromCurrency == fromCurrencyId && e.ToCurrency == toCurrencyId)
+        .OrderByDescending(e => e.LastUpdate)
+        .FirstOrDefault();
+        return latestRate;
     }
 
   

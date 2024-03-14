@@ -1,6 +1,7 @@
 ﻿using ExchangeApi.Contract;
 using ExchangeApi.Models;
 using ExChangeApi.Models;
+using System.Text.RegularExpressions;
 
 namespace ExChangeApi.Business;
 
@@ -12,7 +13,7 @@ public class UserBusiness : IUserBusiness
             Id = 1 ,
             Name = "Farbod", 
             UserName ="FarbodDeveloper501",
-            EmailAddress = "Mr.FarbodMirzaee@gmail.com", 
+            EmailAddress = "mr.farbodmirzaee@gmail.com", 
             Password = "123456789",
             IsActive = true,
             Created = DateTime.Now,
@@ -59,9 +60,10 @@ public class UserBusiness : IUserBusiness
 
     public List<User> GetActiveUsers()
     {
-       throw new NotImplementedException();
-    }
+        List<User> _users = users.Where(u => u.IsActive).ToList();
 
+        return _users;
+    }
     public List<User> GetAllUsers()
     {
         return users;
@@ -69,11 +71,17 @@ public class UserBusiness : IUserBusiness
 
     public User GetUserByEmail(string email)
     {
-        throw new NotImplementedException();
+        User user = users.FirstOrDefault(u => u.EmailAddress.Equals(email, StringComparison.OrdinalIgnoreCase));
+
+        return user;
     }
 
     public User GetUserById(int userId)
     {
+        //The GetUserByEmail method searches for a user in the users list based on the provided email address.
+        //It uses a case -insensitive comparison to match the email address.
+        //The method returns the user with the specified email address or null if no user is found with that email.
+        
         var User = users.Where(x => x.Id == userId).FirstOrDefault();
         return User;
     }
@@ -81,5 +89,5 @@ public class UserBusiness : IUserBusiness
     public bool UpdateUser(User user)
     {
         throw new NotImplementedException();
-    }
+    }    
 }

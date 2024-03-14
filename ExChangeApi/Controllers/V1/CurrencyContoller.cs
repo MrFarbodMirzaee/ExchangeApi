@@ -20,43 +20,55 @@ public class CurrencyContoller : BaseContoller
         _currencyBusiness = currencyBusiness;
         _mapper = mapper;
     }
-
-
-    [Route("{id}")]
     [HttpGet]
-    public async Task<IActionResult> Get([FromRoute] int id)
+    [Consumes(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+
+    public async Task<IActionResult> GetPopularCurrencies()
     {
-        var data = _currencyBusiness.GetCurrencyById(id);
-        if (data is null)
-        {
-            return NotFound();
-        }
-        var currencyDto = _mapper.Map<CurrencyDto>(data);
+        var data = _currencyBusiness.GetPopularCurrencies();
+        var currencyDto = _mapper.Map<List<Currency>>(data);
         return Ok(currencyDto);
     }
     [HttpGet]
-    public Currency GetCurrency()
+    [Consumes(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetActiveCurrencies() 
     {
-        return new Currency()
-        {
-            Id = 1,
-            Name = "Euro",
-            Created = DateTime.Now,
-            CurrencyCode = "EUR"
-        };
+        var data = _currencyBusiness.GetAllActiveCurrencies();
+        var currenciesDto = _mapper.Map<List<Currency>>(data);
+        return Ok(currenciesDto);
+    }
+    [HttpGet]
+    [Consumes(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetCurrenciesById(int id) 
+    {
+        var data = _currencyBusiness.GetCurrencyById(id);
+        var currenciesDto = _mapper.Map<Currency>(data);
+        return Ok(currenciesDto);
     }
     [HttpPost]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public IActionResult AddCurrencies([FromBody] AddCurencyDto addCurency)
-    {
-        if (string.IsNullOrEmpty(addCurency.Name) || string.IsNullOrEmpty(addCurency.CurrencyCode)) 
-        {
-            return BadRequest();
-        }
+    { 
         var currency = _mapper.Map<Currency>(addCurency);
         _currencyBusiness.CreateCurrency(currency);
          return Created();
     }
+    [HttpGet]
+    [Consumes(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> SearchCurrencies(string word) 
+    {
+        var data = _currencyBusiness.SearchCurrencies(word);
+        var currencyDto = _mapper.Map<List<Currency>>(data);
+        return Ok(currencyDto);
+    }
+
 }

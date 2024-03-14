@@ -10,5 +10,6 @@ public interface IUserBusiness
     bool UpdateUser(User user);
     bool DeleteUser(int userId);
     User GetUserByEmail(string email);
+    List<User> GetAllUsers();
     List<User> GetActiveUsers();
 }

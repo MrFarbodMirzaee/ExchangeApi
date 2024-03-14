@@ -26,42 +26,55 @@ public class ExchangeRateContoller : BaseContoller
 
     [Route("{id}")]
     [HttpGet]
-    public async Task<IActionResult> Get([FromRoute] int id)
+    [Consumes(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+
+    public async Task<IActionResult> GetExchangeRateById([FromRoute] int id)
     {
         var data = _exchangeRateBusiness.GetExchangeRateById(id);
-        if (data == null)
-        {
-            return NotFound();
-        }
         var exchangeRateDto = _mapper.Map<ExchangeRateDto>(data);
         return Ok(exchangeRateDto);
     }
     [HttpGet]
-    public ExchangeRate GetExChangeRate()
+    [Consumes(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetAllExchangeRates()
     {
-        return new ExchangeRate()
-        {
-            Id = 1,
-            FromCurrency = 1,
-            ToCurrency = 3,
-            Rate = 25.03m,
-            IsActive = true,
-            Created = DateTime.Now,
-            LastUpdate = DateTime.Now,
-        };
+        var data = _exchangeRateBusiness.GetAllExchangeRates();
+        var exchangeRateDto = _mapper.Map<List<ExchangeRateDto>>(data);
+        return Ok(exchangeRateDto);
     }
     [HttpPost]
     [Consumes(MediaTypeNames.Application.Json)]
-    [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status201Created)]
     public IActionResult AddExchangeRate([FromBody] AddExchangeRateDto addExchangeRate)
     {
-        if (addExchangeRate.FromCurrency < 0 || addExchangeRate.ToCurrency < 0 || addExchangeRate.Rate < 0)
-        {
-            return BadRequest();
-        }
         var exchangeRate = _mapper.Map<ExchangeRate>(addExchangeRate);
         _exchangeRateBusiness.CreateExchangeRate(exchangeRate);
         return Created();
     }
+    [HttpGet]
+    [Consumes(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetExchangeRatesByCurrencyPair(int from_currencies,int to_currencies) 
+    {
+        var data = _exchangeRateBusiness.GetExchangeRatesByCurrencyPair(from_currencies,to_currencies);
+        var exchangeRatesDto = _mapper.Map<List<ExchangeRateDto>>(data);
+        return Ok(exchangeRatesDto);
+    }
+    [HttpGet]
+    [Consumes(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetLatestExchangeRate(int from_currencies, int to_currencies) 
+    {
+        var data = _exchangeRateBusiness.GetLatestExchangeRate(from_currencies,to_currencies);
+        var exchangeRatesDto = _mapper.Map<ExchangeRateDto>(data);
+        return Ok(exchangeRatesDto);
+    }
+
 }
