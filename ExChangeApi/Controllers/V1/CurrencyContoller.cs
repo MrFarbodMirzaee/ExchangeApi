@@ -6,6 +6,7 @@ using ExchangeApi.Shered;
 using ExchangeApi.Dtos;
 using ExChangeApi.Models;
 using System.Net.Mime;
+using ExchangeApi.Models;
 
 namespace ExchangeApi.Controllers.V1;
 
@@ -14,11 +15,13 @@ public class CurrencyContoller : BaseContoller
     private readonly ICurrencyBusiness _currencyBusiness;
     private readonly IMapper _mapper;
     private readonly MySettings _settings;
-    public CurrencyContoller(ICurrencyBusiness currencyBusiness, IMapper mapper,IOptionsMonitor<MySettings> settings)
+    private readonly IIpAddresssValdatorClass _ipAddresssValdatorClass;
+    public CurrencyContoller(ICurrencyBusiness currencyBusiness, IMapper mapper,IOptionsMonitor<MySettings> settings, IIpAddresssValdatorClass ipAddresssValdatorClass)
     {
         _settings = settings.CurrentValue;
         _currencyBusiness = currencyBusiness;
         _mapper = mapper;
+        _ipAddresssValdatorClass = ipAddresssValdatorClass;
     }
     [HttpGet]
     [Consumes(MediaTypeNames.Application.Json)]
@@ -27,6 +30,14 @@ public class CurrencyContoller : BaseContoller
 
     public async Task<IActionResult> GetPopularCurrencies()
     {
+        string ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
+        IpAddress ipAddress = new IpAddress { IPAddress = ClientIpAddress };
+        bool IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
+        if (!IsValidAddress) 
+        {
+            return BadRequest();
+        }
+
         var data = _currencyBusiness.GetPopularCurrencies();
         var currencyDto = _mapper.Map<List<Currency>>(data);
         return Ok(currencyDto);

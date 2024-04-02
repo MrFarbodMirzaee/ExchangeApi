@@ -2,6 +2,7 @@
 using ExchangeApi.Contract;
 using FluentValidation.AspNetCore;
 using ExchangeApi.Profiles;
+using ExchangeApi.Business;
 
 namespace ExchangeApi;
 
@@ -13,6 +14,7 @@ public static class ConfigureService
        Services.AddScoped<IExchangeRateBusiness, ExchangeRateBusiness>();
        Services.AddScoped<IExchangeTransactionBusiness, ExchangeTransactionBusiness>();
        Services.AddScoped<IUserBusiness, UserBusiness>();
+       Services.AddScoped<IIpAddresssValdatorClass, IpAddreesBusiness>();
        Services.AddFluentValidation();
        Services.AddAutoMapper(typeof(CurrencyProfile));
        Services.AddAutoMapper(typeof(ExchangeRateProfile));
