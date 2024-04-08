@@ -1,5 +1,5 @@
 ﻿using ExchangeApi.Models;
-using ExChangeApi.Contract;
+using ExChangeApi.Contracts;
 
 namespace ExChangeApi.Models;
 
@@ -19,6 +19,8 @@ public class Currency : IBaseEntity<int>
     public string Name { get; set; }
     public DateTime Created { get; set; }
     public bool IsActive { get; set; }
+    public DateTime Updated { get; set; }
+
     /// <summary>
     /// Represents a collection of exchange rates associated with this currency.
     /// </summary>

@@ -1,4 +1,4 @@
-﻿using ExChangeApi.Contract;
+﻿using ExChangeApi.Contracts;
 using ExChangeApi.Models;
 using System.Data.Common;
 using System.Diagnostics.Metrics;
@@ -39,4 +39,5 @@ public class ExchangeTransaction : IBaseEntity<int>
     public DateTime? TransactionDate { get; set; }
     public DateTime Created { get; set; }
     public bool IsActive { get; set; }
+    public DateTime Updated { get; set; }
 }

@@ -1,5 +1,4 @@
-﻿using ExchangeApi.Contract;
-using ExchangeApi.Dtos;
+﻿using ExchangeApi.Dtos;
 using Microsoft.AspNetCore.Mvc;
 using ExChangeApi.Models;
 using System.Net.Mime;
@@ -7,19 +6,22 @@ using AutoMapper;
 using ExchangeApi.Shered;
 using Microsoft.Extensions.Options;
 using ExchangeApi.Models;
+using ExchangeApi.Contracts;
 
 namespace ExchangeApi.Controllers.V1;
 
 public class UserContoller : BaseContoller
 {
-    private readonly IUserBusiness _userBusiness;
+    private readonly IUserBusiness _userService;
     private readonly IMapper _mapper;
     private readonly MySettings _mySettings;
-    public UserContoller(IUserBusiness userBusiness,IMapper mapper ,IOptionsMonitor<MySettings> settings)
+    private readonly IIpAddresssValdatorClass _ipAddresssValdatorClass;
+    public UserContoller(IUserBusiness userService, IMapper mapper ,IOptionsMonitor<MySettings> settings,IIpAddresssValdatorClass ipAddresssValdatorClass)
     {
         _mySettings = settings.CurrentValue;
-        _userBusiness = userBusiness;
+        _userService = userService;
         _mapper = mapper;
+        _ipAddresssValdatorClass = ipAddresssValdatorClass;
     }
 
     [Route("{id}")]
@@ -28,7 +30,15 @@ public class UserContoller : BaseContoller
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetUserById([FromRoute] int id)
     {
-        var data = _userBusiness.GetUserById(id);
+        var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
+        var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
+        bool IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
+        if (!IsValidAddress)
+        {
+            return BadRequest();
+        }
+
+        var data = _userService.GetUserById(id);
         var user = _mapper.Map<UserDto>(data);
         return Ok(user);
     }
@@ -39,7 +49,15 @@ public class UserContoller : BaseContoller
 
     public async Task<IActionResult> GetActiveUsers()
     {
-        var data = _userBusiness.GetActiveUsers();
+        var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
+        var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
+        bool IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
+        if (!IsValidAddress)
+        {
+            return BadRequest();
+        }
+
+        var data = _userService.GetActiveUsers();
         var UserDtos = _mapper.Map<List<UserDto>>(data);
         return Ok(UserDtos);
     }
@@ -49,9 +67,16 @@ public class UserContoller : BaseContoller
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public IActionResult AddUser([FromBody] AddUserDto addUser)
     {
-        
+        var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
+        var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
+        bool IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
+        if (!IsValidAddress)
+        {
+            return BadRequest();
+        }
+
         var UserData = _mapper.Map<User>(addUser);
-        _userBusiness.CreateUser(UserData);
+        _userService.CreateUser(UserData);
         return Created();
     }
     [HttpGet]
@@ -60,7 +85,15 @@ public class UserContoller : BaseContoller
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetAllUser() 
     {
-        var data = _userBusiness.GetAllUsers();
+        var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
+        var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
+        bool IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
+        if (!IsValidAddress)
+        {
+            return BadRequest();
+        }
+
+        var data = _userService.GetAllUsers();
         var UserDto = _mapper.Map<List<UserDto>>(data);
         return Ok(UserDto);
     }
@@ -70,8 +103,54 @@ public class UserContoller : BaseContoller
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetUserByEmail(string email) 
     {
-        var data = _userBusiness.GetUserByEmail(email);
+        var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
+        var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
+        bool IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
+        if (!IsValidAddress)
+        {
+            return BadRequest();
+        }
+
+        var data = _userService.GetUserByEmail(email);
         var UserDto = _mapper.Map<UserDto>(data);
+        return Ok(UserDto);
+    }
+    [HttpDelete]
+    [Consumes(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> DeleteUser(int id)
+    {
+        var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
+        var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
+        bool IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
+        if (!IsValidAddress)
+        {
+            return BadRequest();
+        }
+
+        var data = _userService.DeleteUser(id);
+        var UserDto = _mapper.Map<bool>(data);
+        return Ok(UserDto);
+    }
+    [HttpPut]
+    [Consumes(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> UpdateUser(int id, User user)
+    {
+        var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
+        var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
+        bool IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
+        if (!IsValidAddress)
+        {
+            return BadRequest();
+        }
+
+        user.Id = id;
+
+        var data = _userService.UpdateUser(user);
+        var UserDto = _mapper.Map<User>(data);
         return Ok(UserDto);
     }
 }

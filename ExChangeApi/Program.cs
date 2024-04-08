@@ -1,10 +1,14 @@
 using ExchangeApi;
-using ExchangeApi.Contract;
+using ExchangeApi.Contexts;
 using ExchangeApi.MiddelWare;
 using ExchangeApi.Shered;
-using ExChangeApi.Business;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var connectionstring = builder.Configuration.GetConnectionString("ExchangeApi");
+
+builder.Services.AddDbContext<ApplicationDbContext>(option => option.UseSqlServer(connectionstring));
 
 var configurationBuilder = new ConfigurationBuilder()
     .SetBasePath(Directory.GetCurrentDirectory())

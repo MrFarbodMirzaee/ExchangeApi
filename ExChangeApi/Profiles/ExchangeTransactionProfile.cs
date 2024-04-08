@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ExchangeApi.Dtos;
 using ExchangeApi.Models;
+using ExChangeApi.Models;
 
 
 namespace ExchangeApi.Profiles;
@@ -19,5 +20,7 @@ public class ExchangeTransactionProfile : Profile
         CreateMap<ExchangeTransaction, AddExchangeTransactionDto>();
         CreateMap<List<AddExchangeTransactionDto>, ExchangeTransaction>();
         CreateMap<List<ExchangeTransaction>, AddExchangeTransactionDto>();
+        CreateMap<bool, ExchangeTransaction>()
+          .ConvertUsing(src => src ? new ExchangeTransaction() : null);
     }
 }

@@ -1,4 +1,4 @@
-﻿using ExChangeApi.Contract;
+﻿using ExChangeApi.Contracts;
 
 namespace ExchangeApi.Models;
 
@@ -20,10 +20,11 @@ public class ExchangeRate : IBaseEntity<int>
     /// Represents the exchange rate value between the two currencies.
     /// </summary>
     public decimal Rate { get; set; }
+ 
+    public DateTime Created { get; set; }
+    public bool IsActive { get; set; }
     /// <summary>
     ///  Represents the date and time when the exchange rate was last updated.
     /// </summary>
-    public DateTime LastUpdate { get; set; }
-    public DateTime Created { get; set; }
-    public bool IsActive { get; set; }
+    public DateTime Updated { get; set; }
 }

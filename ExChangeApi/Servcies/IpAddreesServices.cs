@@ -1,9 +1,9 @@
-﻿using ExchangeApi.Contract;
+﻿using ExchangeApi.Contracts;
 using ExchangeApi.Models;
 
-namespace ExchangeApi.Business;
+namespace ExchangeApi.Servcies;
 
-public class IpAddreesBusiness : IIpAddresssValdatorClass
+public class IpAddreesServices : IIpAddresssValdatorClass
 {
     public bool ValidatorIpAddress(IpAddress ipAddress)
     {
@@ -24,7 +24,7 @@ public class IpAddreesBusiness : IIpAddresssValdatorClass
             }
             else if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6) // IPv6
             {
-                
+
             }
         }
         else if (ipAddress.IPAddress == "127.0.0.1" || ipAddress.IPAddress == "::1")

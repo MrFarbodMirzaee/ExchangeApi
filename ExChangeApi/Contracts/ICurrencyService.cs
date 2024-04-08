@@ -1,8 +1,8 @@
 ﻿using ExChangeApi.Models;
 
-namespace ExchangeApi.Contract;
+namespace ExchangeApi.Contracts;
 
-public interface ICurrencyBusiness
+public interface ICurrencyService
 {
     List<Currency> GetAllActiveCurrencies();
     Currency GetCurrencyById(int currencyId);

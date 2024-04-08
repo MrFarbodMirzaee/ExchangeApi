@@ -7,6 +7,7 @@ public class AddExchangeRateDto
     public int FromCurrency { get; set; }
     public int ToCurrency { get; set; }
     public decimal Rate { get; set; }
+    public bool IsActive { get; set; }
     public DateTime LastUpdate { get; set; }
 }
 public class AddExchangeRateDtoValidator : AbstractValidator<AddExchangeRateDto>

@@ -19,5 +19,7 @@ public class UserProfile : Profile
         CreateMap<User, AddUserDto>();
         CreateMap<List<AddUserDto>, User>();
         CreateMap<List<User>, AddUserDto>();
+        CreateMap<bool, User>()
+        .ConvertUsing(src => src ? new User() : null);
     }
 }

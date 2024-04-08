@@ -21,5 +21,7 @@ public class ExchangeRateProfile : Profile
         CreateMap<ExchangeRate, AddExchangeRateDto>();
         CreateMap<List<AddExchangeRateDto>, ExchangeRate>();
         CreateMap<List<ExchangeRate>, AddCurencyDto>();
+        CreateMap<bool, ExchangeRate>()
+          .ConvertUsing(src => src ? new ExchangeRate() : null);
     }
 }

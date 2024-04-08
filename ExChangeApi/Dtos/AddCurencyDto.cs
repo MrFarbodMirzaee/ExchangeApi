@@ -6,6 +6,7 @@ public class AddCurencyDto
 {
     public string CurrencyCode { get; set; }
     public string Name { get; set; }
+    public bool IsActive { get; set; }
 }
 
 public class AddCurrecyDtoValidator : AbstractValidator<AddCurencyDto> 

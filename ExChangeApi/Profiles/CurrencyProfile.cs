@@ -19,5 +19,7 @@ public class CurrencyProfile : Profile
         CreateMap<Currency, AddCurencyDto>();
         CreateMap<List<AddCurencyDto>, Currency>();
         CreateMap<List<Currency>, AddCurencyDto>();
+        CreateMap<bool, Currency>()
+            .ConvertUsing(src => src ? new Currency() : null);
     }
 }

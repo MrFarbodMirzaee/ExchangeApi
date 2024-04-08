@@ -9,6 +9,7 @@ public class AddExchangeTransactionDto
     public decimal Amount { get; set; }
     public decimal ResultAmount { get; set; }
     public int ExchangeRateId { get; set; }
+    public bool IsActive { get; set; }
     public DateTime TransactionDate { get; set; }
 }
 public class AddExchangeTransactionDtoValidator : AbstractValidator<AddExchangeTransactionDto>

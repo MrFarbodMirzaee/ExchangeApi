@@ -1,6 +1,6 @@
 ﻿using ExchangeApi.Models;
 
-namespace ExchangeApi.Contract;
+namespace ExchangeApi.Contracts;
 
 public interface IExchangeTransactionBusiness
 {

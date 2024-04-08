@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace ExchangeApi.Filter;
+namespace ExchangeApi.Filters;
 
-public class LogAttribute : Attribute , IActionFilter
+public class LogAttribute : Attribute, IActionFilter
 {
 
-    public LogAttribute() 
+    public LogAttribute()
     {
-    
+
     }
 
     public void OnActionExecuted(ActionExecutedContext context)
