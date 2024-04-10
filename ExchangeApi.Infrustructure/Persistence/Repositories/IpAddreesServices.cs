@@ -1,9 +1,10 @@
-﻿using ExchangeApi.Contracts;
-using ExchangeApi.Models;
+﻿using ExchangeApi.Application.Contracts;
+using ExchangeApi.Domain.Entitiess;
 
-namespace ExchangeApi.Servcies;
 
-public class IpAddreesServices : IIpAddresssValdatorClass
+namespace ExchangeApi.Infrustructure.Entitiesss;
+
+public class IpAddreesServices : IIpAddresssValdatorServices
 {
     public bool ValidatorIpAddress(IpAddress ipAddress)
     {

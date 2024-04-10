@@ -1,7 +1,8 @@
-﻿using ExchangeApi.Models;
-using ExChangeApi.Contracts;
+﻿
+using ExchangeApi.Domain.Entitiess;
+using ExChangeApi.Domain.Contracts;
 
-namespace ExChangeApi.Models;
+namespace ExChangeApi.Domain.Entities;
 
 public class Currency : IBaseEntity<int>
 {

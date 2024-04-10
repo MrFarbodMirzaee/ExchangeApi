@@ -1,11 +1,7 @@
-﻿using ExChangeApi.Contracts;
-using ExChangeApi.Models;
-using System.Data.Common;
-using System.Diagnostics.Metrics;
-using System.Transactions;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+﻿using ExChangeApi.Domain.Contracts;
 
-namespace ExchangeApi.Models;
+
+namespace ExchangeApi.Domain.Entitiess;
 
 public class ExchangeTransaction : IBaseEntity<int>
 {

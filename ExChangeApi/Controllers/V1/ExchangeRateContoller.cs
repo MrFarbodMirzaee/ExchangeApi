@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
-using ExchangeApi.Contracts;
+using ExchangeApi.Application.Contracts;
+using ExchangeApi.Domain.Entitiess;
 using ExchangeApi.Dtos;
-using ExchangeApi.Models;
 using ExchangeApi.Shered;
-using ExChangeApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Net.Mime;
@@ -12,11 +11,11 @@ namespace ExchangeApi.Controllers.V1;
 
 public class ExchangeRateContoller : BaseContoller
 {
-    private readonly IExchangeRateBusiness _exchangeRateService;
+    private readonly IExchangeRateService _exchangeRateService;
     private readonly IMapper _mapper;
     private readonly MySettings _settings;
-    private readonly IIpAddresssValdatorClass _ipAddresssValdatorClass;
-    public ExchangeRateContoller(IExchangeRateBusiness exchangeRateService,IMapper mapper,IOptionsMonitor<MySettings> settings, IIpAddresssValdatorClass ipAddresssValdatorClass)
+    private readonly IIpAddresssValdatorServices _ipAddresssValdatorClass;
+    public ExchangeRateContoller(IExchangeRateService exchangeRateService,IMapper mapper,IOptionsMonitor<MySettings> settings, IIpAddresssValdatorServices ipAddresssValdatorClass)
     {
         _settings = settings.CurrentValue;
         _exchangeRateService = exchangeRateService;
@@ -40,7 +39,7 @@ public class ExchangeRateContoller : BaseContoller
             return BadRequest();
         }
 
-        var data = _exchangeRateService.GetExchangeRateById(id);
+        var data = await _exchangeRateService.GetExchangeRateById(id);
         var exchangeRateDto = _mapper.Map<ExchangeRateDto>(data);
         return Ok(exchangeRateDto);
     }
@@ -58,7 +57,7 @@ public class ExchangeRateContoller : BaseContoller
             return BadRequest();
         }
 
-        var data = _exchangeRateService.GetAllExchangeRates();
+        var data = await _exchangeRateService.GetAllExchangeRates();
         var exchangeRateDto = _mapper.Map<List<ExchangeRateDto>>(data);
         return Ok(exchangeRateDto);
     }
@@ -66,7 +65,7 @@ public class ExchangeRateContoller : BaseContoller
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    public IActionResult AddExchangeRate([FromBody] AddExchangeRateDto addExchangeRate)
+    public async Task<IActionResult> AddExchangeRate([FromBody] AddExchangeRateDto addExchangeRate)
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
@@ -77,7 +76,7 @@ public class ExchangeRateContoller : BaseContoller
         }
 
         var exchangeRate = _mapper.Map<ExchangeRate>(addExchangeRate);
-        _exchangeRateService.CreateExchangeRate(exchangeRate);
+       await _exchangeRateService.CreateExchangeRate(exchangeRate);
         return Created();
     }
     [HttpGet]
@@ -94,7 +93,7 @@ public class ExchangeRateContoller : BaseContoller
             return BadRequest();
         }
 
-        var data = _exchangeRateService.GetExchangeRatesByCurrencyPair(from_currencies,to_currencies);
+        var data = await _exchangeRateService.GetExchangeRatesByCurrencyPair(from_currencies,to_currencies);
         var exchangeRatesDto = _mapper.Map<List<ExchangeRateDto>>(data);
         return Ok(exchangeRatesDto);
     }
@@ -112,7 +111,7 @@ public class ExchangeRateContoller : BaseContoller
             return BadRequest();
         }
 
-        var data = _exchangeRateService.GetLatestExchangeRate(from_currencies,to_currencies);
+        var data = await _exchangeRateService.GetLatestExchangeRate(from_currencies,to_currencies);
         var exchangeRatesDto = _mapper.Map<ExchangeRateDto>(data);
         return Ok(exchangeRatesDto);
     }
@@ -130,7 +129,7 @@ public class ExchangeRateContoller : BaseContoller
             return BadRequest();
         }
 
-        var data = _exchangeRateService.DeleteExchangeRate(id);
+        var data = await _exchangeRateService.DeleteExchangeRate(id);
         var exchangeRatesDto = _mapper.Map<bool>(data);
         return Ok(exchangeRatesDto);
     }
@@ -150,7 +149,7 @@ public class ExchangeRateContoller : BaseContoller
 
         exchangeRate.Id = id;
 
-        var data = _exchangeRateService.UpdateExchangeRate(exchangeRate);
+        var data = await _exchangeRateService.UpdateExchangeRate(exchangeRate);
         var exchangeRatesDto = _mapper.Map<ExchangeRate>(data);
         return Ok(exchangeRatesDto);
     }

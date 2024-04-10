@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using ExchangeApi.Shered;
 using ExchangeApi.Dtos;
-using ExChangeApi.Models;
 using System.Net.Mime;
-using ExchangeApi.Models;
-using ExchangeApi.Contracts;
+using ExchangeApi.Domain.Entitiess;
+using ExChangeApi.Domain.Entities;
+using ExchangeApi.Application.Contracts;
 
 namespace ExchangeApi.Controllers.V1;
 
@@ -15,8 +15,8 @@ public class CurrencyContoller : BaseContoller
     private readonly ICurrencyService _currencyService;
     private readonly IMapper _mapper;
     private readonly MySettings _settings;
-    private readonly IIpAddresssValdatorClass _ipAddresssValdatorClass;
-    public CurrencyContoller(ICurrencyService currencyService, IMapper mapper,IOptionsMonitor<MySettings> settings, IIpAddresssValdatorClass ipAddresssValdatorClass)
+    private readonly IIpAddresssValdatorServices _ipAddresssValdatorClass;
+    public CurrencyContoller(ICurrencyService currencyService, IMapper mapper,IOptionsMonitor<MySettings> settings, IIpAddresssValdatorServices ipAddresssValdatorClass)
     {
         _settings = settings.CurrentValue;
         _currencyService = currencyService;
@@ -37,7 +37,7 @@ public class CurrencyContoller : BaseContoller
             return BadRequest();
         }
 
-        var data = _currencyService.GetPopularCurrencies();
+        var data = await _currencyService.GetPopularCurrencies();
         var currencyDto = _mapper.Map<List<Currency>>(data);
         return Ok(currencyDto);
     }
@@ -54,7 +54,7 @@ public class CurrencyContoller : BaseContoller
             return BadRequest();
         }
 
-        var data = _currencyService.GetAllActiveCurrencies();
+        var data = await _currencyService.GetAllActiveCurrencies();
         var currenciesDto = _mapper.Map<List<Currency>>(data);
         return Ok(currenciesDto);
     }
@@ -72,7 +72,7 @@ public class CurrencyContoller : BaseContoller
             return BadRequest();
         }
 
-        var data = _currencyService.GetCurrencyById(id);
+        var data = await _currencyService.GetCurrencyById(id);
         var currenciesDto = _mapper.Map<Currency>(data);
         return Ok(currenciesDto);
     }
@@ -80,7 +80,7 @@ public class CurrencyContoller : BaseContoller
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public IActionResult AddCurrencies([FromBody] AddCurencyDto addCurency)
+    public async Task<IActionResult> AddCurrencies([FromBody] AddCurencyDto addCurency)
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
@@ -91,7 +91,7 @@ public class CurrencyContoller : BaseContoller
         }
 
         var currency = _mapper.Map<Currency>(addCurency);
-        _currencyService.CreateCurrency(currency);
+        await _currencyService.CreateCurrency(currency);
          return Created();
     }
     [HttpGet]
@@ -111,7 +111,7 @@ public class CurrencyContoller : BaseContoller
             return BadRequest("Invalid IP Address");
         }
 
-        var data = _currencyService.SearchCurrencies(word);
+        var data = await _currencyService.SearchCurrencies(word);
         var currencyDto = _mapper.Map<List<Currency>>(data);
 
         return Ok(currencyDto); // Returning the value of currencyDto
@@ -129,7 +129,7 @@ public class CurrencyContoller : BaseContoller
         {
             return BadRequest();
         }
-        var data = _currencyService.DeleteCurrency(id);
+        var data = await _currencyService.DeleteCurrency(id);
         var CurrenciesDto = _mapper.Map<bool>(data);
         return Ok(CurrenciesDto);
     }
@@ -150,7 +150,7 @@ public class CurrencyContoller : BaseContoller
         // Set the id for the currency based on the route parameter
         currency.Id = id;
 
-        var updatedCurrency = _currencyService.UpdateCurrency(currency);
+        var updatedCurrency = await _currencyService.UpdateCurrency(currency);
         var updatedCurrencyDto = _mapper.Map<Currency>(updatedCurrency); // Assuming CurrencyDto is the DTO for Currency
 
         return Ok(updatedCurrencyDto);

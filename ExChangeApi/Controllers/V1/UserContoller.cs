@@ -1,22 +1,22 @@
 ﻿using ExchangeApi.Dtos;
 using Microsoft.AspNetCore.Mvc;
-using ExChangeApi.Models;
 using System.Net.Mime;
 using AutoMapper;
 using ExchangeApi.Shered;
 using Microsoft.Extensions.Options;
-using ExchangeApi.Models;
-using ExchangeApi.Contracts;
+using ExchangeApi.Domain.Entitiess;
+using ExChangeApi.Domain.Entities;
+using ExchangeApi.Application.Contracts;
 
 namespace ExchangeApi.Controllers.V1;
 
 public class UserContoller : BaseContoller
 {
-    private readonly IUserBusiness _userService;
+    private readonly IUserService _userService;
     private readonly IMapper _mapper;
     private readonly MySettings _mySettings;
-    private readonly IIpAddresssValdatorClass _ipAddresssValdatorClass;
-    public UserContoller(IUserBusiness userService, IMapper mapper ,IOptionsMonitor<MySettings> settings,IIpAddresssValdatorClass ipAddresssValdatorClass)
+    private readonly IIpAddresssValdatorServices _ipAddresssValdatorClass;
+    public UserContoller(IUserService userService, IMapper mapper ,IOptionsMonitor<MySettings> settings,IIpAddresssValdatorServices ipAddresssValdatorClass)
     {
         _mySettings = settings.CurrentValue;
         _userService = userService;
@@ -65,7 +65,7 @@ public class UserContoller : BaseContoller
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public IActionResult AddUser([FromBody] AddUserDto addUser)
+    public async Task<IActionResult> AddUser([FromBody] AddUserDto addUser)
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);

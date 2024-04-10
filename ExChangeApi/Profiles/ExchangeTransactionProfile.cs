@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
+using ExchangeApi.Domain.Entitiess;
 using ExchangeApi.Dtos;
-using ExchangeApi.Models;
-using ExChangeApi.Models;
+
 
 
 namespace ExchangeApi.Profiles;

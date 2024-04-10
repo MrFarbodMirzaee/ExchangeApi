@@ -1,6 +1,6 @@
-﻿using ExChangeApi.Contracts;
+﻿using ExChangeApi.Domain.Contracts;
 
-namespace ExchangeApi.Models;
+namespace ExchangeApi.Domain.Entitiess;
 
 public class ExchangeRate : IBaseEntity<int>
 {

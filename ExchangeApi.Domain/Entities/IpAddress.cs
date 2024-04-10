@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.ComponentModel.DataAnnotations;
 
-namespace ExchangeApi.Models;
+namespace ExchangeApi.Domain.Entitiess;
 
 public class IpAddress
 {
