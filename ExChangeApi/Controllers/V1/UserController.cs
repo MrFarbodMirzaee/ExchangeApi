@@ -1,24 +1,25 @@
 ﻿using ExchangeApi.Dtos;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Mime;
 using AutoMapper;
 using ExchangeApi.Shered;
 using Microsoft.Extensions.Options;
-using System.Net.Mime;
 using ExchangeApi.Domain.Entitiess;
+using ExChangeApi.Domain.Entities;
 using ExchangeApi.Application.Contracts;
 
 namespace ExchangeApi.Controllers.V1;
 
-public class ExchangeTransactionContoller : BaseContoller
+public class UserController : BaseContoller
 {
-    private readonly IExchangeTransactionServices _exchangeTranzacstionService;
+    private readonly IUserService _userService;
     private readonly IMapper _mapper;
-    private readonly MySettings _settings;
+    private readonly MySettings _mySettings;
     private readonly IIpAddresssValdatorServices _ipAddresssValdatorClass;
-    public ExchangeTransactionContoller(IExchangeTransactionServices exchangeTranzacstionService,IMapper mapper,IOptionsMonitor<MySettings> settings, IIpAddresssValdatorServices ipAddresssValdatorClass)
+    public UserController(IUserService userService, IMapper mapper ,IOptionsMonitor<MySettings> settings,IIpAddresssValdatorServices ipAddresssValdatorClass)
     {
-        _settings = settings.CurrentValue;
-        _exchangeTranzacstionService = exchangeTranzacstionService;
+        _mySettings = settings.CurrentValue;
+        _userService = userService;
         _mapper = mapper;
         _ipAddresssValdatorClass = ipAddresssValdatorClass;
     }
@@ -27,7 +28,7 @@ public class ExchangeTransactionContoller : BaseContoller
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetExchangeTransactionById([FromRoute] int id)
+    public async Task<IActionResult> GetUserById([FromRoute] int id)
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
@@ -37,15 +38,16 @@ public class ExchangeTransactionContoller : BaseContoller
             return BadRequest();
         }
 
-        var data = await _exchangeTranzacstionService.GetExchangeTransactionById(id);
-        var exchangeTransaction = _mapper.Map<ExchangeTransactionDto>(data);
-        return Ok(exchangeTransaction);
+        var data = _userService.GetUserById(id);
+        var user = _mapper.Map<UserDto>(data);
+        return Ok(user);
     }
     [HttpGet]
     [Consumes(MediaTypeNames.Application.Json)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetAllExchangeTransactions()
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+
+    public async Task<IActionResult> GetActiveUsers()
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
@@ -55,15 +57,15 @@ public class ExchangeTransactionContoller : BaseContoller
             return BadRequest();
         }
 
-        var data = await _exchangeTranzacstionService.GetAllExchangeTransactions();
-        var ExchangeTranzactionDto = _mapper.Map<List<ExchangeTransactionDto>>(data);
-        return Ok(ExchangeTranzactionDto);
+        var data = _userService.GetActiveUsers();
+        var UserDtos = _mapper.Map<List<UserDto>>(data);
+        return Ok(UserDtos);
     }
     [HttpPost]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> AddExchangeTransaction(ExchangeTransactionDto addExchangeTransaction)
+    public async Task<IActionResult> AddUser([FromBody] AddUserDto addUser)
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
@@ -73,15 +75,15 @@ public class ExchangeTransactionContoller : BaseContoller
             return BadRequest();
         }
 
-        var exchangetransaction = _mapper.Map<ExchangeTransaction>(addExchangeTransaction);
-        await _exchangeTranzacstionService.CreateExchangeTransaction(exchangetransaction);
+        var UserData = _mapper.Map<User>(addUser);
+        _userService.CreateUser(UserData);
         return Created();
     }
     [HttpGet]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetTransactionsByCurrencyPair(int from_currencies,int to_currencies) 
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> GetAllUser() 
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
@@ -91,15 +93,15 @@ public class ExchangeTransactionContoller : BaseContoller
             return BadRequest();
         }
 
-        var data = await _exchangeTranzacstionService.GetTransactionsByCurrencyPair(from_currencies,to_currencies);
-        var exchangeTranzacstionDto = _mapper.Map<List<ExchangeTransaction>>(data);
-        return Ok(exchangeTranzacstionDto);
+        var data = _userService.GetAllUsers();
+        var UserDto = _mapper.Map<List<UserDto>>(data);
+        return Ok(UserDto);
     }
     [HttpGet]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetTransactionsByUserId(int userid) 
+    public async Task<IActionResult> GetUserByEmail(string email) 
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
@@ -109,15 +111,15 @@ public class ExchangeTransactionContoller : BaseContoller
             return BadRequest();
         }
 
-        var data = await _exchangeTranzacstionService.GetTransactionsByUserId(userid);
-        var exchangeTranzacstionDto = _mapper.Map<List<ExchangeTransactionDto>>(data);
-        return Ok(exchangeTranzacstionDto);
+        var data = _userService.GetUserByEmail(email);
+        var UserDto = _mapper.Map<UserDto>(data);
+        return Ok(UserDto);
     }
     [HttpDelete]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> DeleteTransactions(int userid)
+    public async Task<IActionResult> DeleteUser(int id)
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
@@ -127,15 +129,15 @@ public class ExchangeTransactionContoller : BaseContoller
             return BadRequest();
         }
 
-        var data = await _exchangeTranzacstionService.DeleteExchangeTransaction(userid);
-        var exchangeTranzacstionDto = _mapper.Map<bool>(data);
-        return Ok(exchangeTranzacstionDto);
+        var data = _userService.DeleteUser(id);
+        var UserDto = _mapper.Map<bool>(data);
+        return Ok(UserDto);
     }
     [HttpPut]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> UpdateTransactions(int id ,ExchangeTransaction exchangeTransaction)
+    public async Task<IActionResult> UpdateUser(int id, User user)
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
@@ -145,10 +147,10 @@ public class ExchangeTransactionContoller : BaseContoller
             return BadRequest();
         }
 
-        exchangeTransaction.Id = id;
+        user.Id = id;
 
-        var data = await _exchangeTranzacstionService.UpdateExchangeTransaction(exchangeTransaction);
-        var exchangeTranzacstionDto = _mapper.Map<List<ExchangeTransactionDto>>(data);
-        return Ok(exchangeTranzacstionDto);
+        var data = _userService.UpdateUser(user);
+        var UserDto = _mapper.Map<User>(data);
+        return Ok(UserDto);
     }
 }

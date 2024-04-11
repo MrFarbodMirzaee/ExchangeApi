@@ -1,50 +1,35 @@
 ﻿using AutoMapper;
+using ExchangeApi.Application.Contracts;
+using ExchangeApi.Domain.Entitiess;
+using ExchangeApi.Dtos;
+using ExchangeApi.Shered;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using ExchangeApi.Shered;
-using ExchangeApi.Dtos;
 using System.Net.Mime;
-using ExchangeApi.Domain.Entitiess;
-using ExChangeApi.Domain.Entities;
-using ExchangeApi.Application.Contracts;
 
 namespace ExchangeApi.Controllers.V1;
 
-public class CurrencyContoller : BaseContoller
+public class ExchangeRateController : BaseContoller
 {
-    private readonly ICurrencyService _currencyService;
+    private readonly IExchangeRateService _exchangeRateService;
     private readonly IMapper _mapper;
     private readonly MySettings _settings;
     private readonly IIpAddresssValdatorServices _ipAddresssValdatorClass;
-    public CurrencyContoller(ICurrencyService currencyService, IMapper mapper,IOptionsMonitor<MySettings> settings, IIpAddresssValdatorServices ipAddresssValdatorClass)
+    public ExchangeRateController(IExchangeRateService exchangeRateService,IMapper mapper,IOptionsMonitor<MySettings> settings, IIpAddresssValdatorServices ipAddresssValdatorClass)
     {
         _settings = settings.CurrentValue;
-        _currencyService = currencyService;
+        _exchangeRateService = exchangeRateService;
         _mapper = mapper;
         _ipAddresssValdatorClass = ipAddresssValdatorClass;
     }
+
+
+    [Route("{id}")]
     [HttpGet]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetPopularCurrencies()
-    {
-        var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
-        var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
-        bool IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
-        if (!IsValidAddress) 
-        {
-            return BadRequest();
-        }
-
-        var data = await _currencyService.GetPopularCurrencies();
-        var currencyDto = _mapper.Map<List<Currency>>(data);
-        return Ok(currencyDto);
-    }
-    [HttpGet]
-    [Consumes(MediaTypeNames.Application.Json)]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetActiveCurrencies() 
+    public async Task<IActionResult> GetExchangeRateById([FromRoute] int id)
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
@@ -54,15 +39,15 @@ public class CurrencyContoller : BaseContoller
             return BadRequest();
         }
 
-        var data = await _currencyService.GetAllActiveCurrencies();
-        var currenciesDto = _mapper.Map<List<Currency>>(data);
-        return Ok(currenciesDto);
+        var data = await _exchangeRateService.GetExchangeRateById(id);
+        var exchangeRateDto = _mapper.Map<ExchangeRateDto>(data);
+        return Ok(exchangeRateDto);
     }
     [HttpGet]
     [Consumes(MediaTypeNames.Application.Json)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetCurrencyById(int id) 
+    public async Task<IActionResult> GetAllExchangeRates()
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
@@ -72,15 +57,15 @@ public class CurrencyContoller : BaseContoller
             return BadRequest();
         }
 
-        var data = await _currencyService.GetCurrencyById(id);
-        var currenciesDto = _mapper.Map<Currency>(data);
-        return Ok(currenciesDto);
+        var data = await _exchangeRateService.GetAllExchangeRates();
+        var exchangeRateDto = _mapper.Map<List<ExchangeRateDto>>(data);
+        return Ok(exchangeRateDto);
     }
     [HttpPost]
     [Consumes(MediaTypeNames.Application.Json)]
-    [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> AddCurrencies([FromBody] AddCurencyDto addCurency)
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    public async Task<IActionResult> AddExchangeRate([FromBody] AddExchangeRateDto addExchangeRate)
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
@@ -90,37 +75,51 @@ public class CurrencyContoller : BaseContoller
             return BadRequest();
         }
 
-        var currency = _mapper.Map<Currency>(addCurency);
-        await _currencyService.CreateCurrency(currency);
-         return Created();
+        var exchangeRate = _mapper.Map<ExchangeRate>(addExchangeRate);
+       await _exchangeRateService.CreateExchangeRate(exchangeRate);
+        return Created();
     }
     [HttpGet]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> SearchCurrency(string word)
+    public async Task<IActionResult> GetExchangeRatesByCurrencyPair(int from_currencies,int to_currencies) 
     {
-        var clientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
-        var ipAddress = _mapper.Map<IpAddress>(clientIpAddress);
-
-        // Assuming that ValidatorIpAddress returns a boolean indicating the validity of the IP address
-        bool isValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
-
-        if (!isValidAddress)
+        var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
+        var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
+        bool IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
+        if (!IsValidAddress)
         {
-            return BadRequest("Invalid IP Address");
+            return BadRequest();
         }
 
-        var data = await _currencyService.SearchCurrencies(word);
-        var currencyDto = _mapper.Map<List<Currency>>(data);
+        var data = await _exchangeRateService.GetExchangeRatesByCurrencyPair(from_currencies,to_currencies);
+        var exchangeRatesDto = _mapper.Map<List<ExchangeRateDto>>(data);
+        return Ok(exchangeRatesDto);
+    }
+    [HttpGet]
+    [Consumes(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetLatestExchangeRate(int from_currencies, int to_currencies) 
+    {
+        var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
+        var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
+        bool IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
+        if (!IsValidAddress)
+        {
+            return BadRequest();
+        }
 
-        return Ok(currencyDto); // Returning the value of currencyDto
+        var data = await _exchangeRateService.GetLatestExchangeRate(from_currencies,to_currencies);
+        var exchangeRatesDto = _mapper.Map<ExchangeRateDto>(data);
+        return Ok(exchangeRatesDto);
     }
     [HttpDelete]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> DeleteCurrency(int id) 
+    public async Task<IActionResult> DeleteExchangeRate(int id)
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
@@ -129,15 +128,16 @@ public class CurrencyContoller : BaseContoller
         {
             return BadRequest();
         }
-        var data = await _currencyService.DeleteCurrency(id);
-        var CurrenciesDto = _mapper.Map<bool>(data);
-        return Ok(CurrenciesDto);
+
+        var data = await _exchangeRateService.DeleteExchangeRate(id);
+        var exchangeRatesDto = _mapper.Map<bool>(data);
+        return Ok(exchangeRatesDto);
     }
     [HttpPut]
     [Consumes(MediaTypeNames.Application.Json)]
-    [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> UpdateCurrency(int id, Currency currency)
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> UpdateExchangeRate(int id,ExchangeRate exchangeRate)
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
@@ -147,12 +147,10 @@ public class CurrencyContoller : BaseContoller
             return BadRequest();
         }
 
-        // Set the id for the currency based on the route parameter
-        currency.Id = id;
+        exchangeRate.Id = id;
 
-        var updatedCurrency = await _currencyService.UpdateCurrency(currency);
-        var updatedCurrencyDto = _mapper.Map<Currency>(updatedCurrency); // Assuming CurrencyDto is the DTO for Currency
-
-        return Ok(updatedCurrencyDto);
+        var data = await _exchangeRateService.UpdateExchangeRate(exchangeRate);
+        var exchangeRatesDto = _mapper.Map<ExchangeRate>(data);
+        return Ok(exchangeRatesDto);
     }
 }
