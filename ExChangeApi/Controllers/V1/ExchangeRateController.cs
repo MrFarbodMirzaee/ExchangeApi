@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using ExchangeApi.Application.Contracts;
+using ExchangeApi.Application.Dtos;
 using ExchangeApi.Domain.Entitiess;
-using ExchangeApi.Dtos;
 using ExchangeApi.Shered;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;

@@ -1,6 +1,6 @@
-﻿
+﻿using ExchangeApi.Domain.Contracts;
 using ExchangeApi.Domain.Entitiess;
-using ExChangeApi.Domain.Contracts;
+
 
 namespace ExChangeApi.Domain.Entities;
 

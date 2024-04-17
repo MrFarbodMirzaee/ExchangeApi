@@ -4,7 +4,7 @@ using ExChangeApi.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace ExchangeApi.Infrustructure.Entitiesss;
+namespace ExchangeApi.Infrustructure.Repository;
 
 public class CurrencyService : ICurrencyService
 {
@@ -46,7 +46,7 @@ public class CurrencyService : ICurrencyService
     public async Task<List<Currency>> GetPopularCurrencies()
     {
         // The GetPopularCurrencies method filters the currencies list to include only currencies that have IsActive set to true, considering them as popular currencies.
-        List<Currency> popularCurrencies = await _context.Currency.ToListAsync();
+        List<Currency> popularCurrencies = await _context.Currency.AsNoTracking().ToListAsync();
 
         return popularCurrencies;
     }
@@ -54,7 +54,7 @@ public class CurrencyService : ICurrencyService
     public async Task<List<Currency>> SearchCurrencies(string keyword)
     {
         //It searches for currencies where the currency name or currency code contains the specified keyword (case-insensitive).
-        List<Currency> result = await _context.Currency.Where(c => c.Name.ToLower().Contains(keyword.ToLower()) || c.CurrencyCode.ToLower().Contains(keyword.ToLower())).ToListAsync();
+        List<Currency> result = await _context.Currency.Where(c => c.Name.ToLower().Contains(keyword.ToLower()) || c.CurrencyCode.ToLower().Contains(keyword.ToLower())).AsNoTracking().ToListAsync();
 
         return result;
     }

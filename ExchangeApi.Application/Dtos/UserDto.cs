@@ -1,7 +1,6 @@
-﻿using ExchangeApi.Dtos;
-using FluentValidation;
+﻿using FluentValidation;
 
-namespace ExchangeApi.Dtos;
+namespace ExchangeApi.Application.Dtos;
 
 public sealed class UserDto : AddUserDto
 {

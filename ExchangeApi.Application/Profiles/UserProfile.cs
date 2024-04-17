@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using ExchangeApi.Dtos;
+using ExchangeApi.Application.Dtos;
 using ExChangeApi.Domain.Entities;
 
 
-namespace ExchangeApi.Profiles;
+namespace ExchangeApi.Application.Profiles;
 
 public class UserProfile : Profile
 {

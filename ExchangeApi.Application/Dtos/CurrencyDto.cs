@@ -1,6 +1,6 @@
-﻿using ExchangeApi.Dtos;
+﻿
 
-namespace ExchangeApi.Dtos
+namespace ExchangeApi.Application.Dtos
 {
     public sealed class CurrencyDto : AddCurencyDto
     {

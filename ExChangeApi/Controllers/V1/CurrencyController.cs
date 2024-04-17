@@ -2,11 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using ExchangeApi.Shered;
-using ExchangeApi.Dtos;
 using System.Net.Mime;
 using ExchangeApi.Domain.Entitiess;
 using ExChangeApi.Domain.Entities;
 using ExchangeApi.Application.Contracts;
+using ExchangeApi.Application.Dtos;
 
 namespace ExchangeApi.Controllers.V1;
 

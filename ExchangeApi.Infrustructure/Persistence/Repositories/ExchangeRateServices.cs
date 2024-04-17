@@ -5,7 +5,7 @@ using ExchangeApi.Infrustructure.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using ExchangeApi.Application.Contracts;
 
-namespace ExchangeApi.Infrustructure.Entitiesss;
+namespace ExchangeApi.Infrustructure.Repository;
 
 public class ExchangeRateServices : IExchangeRateService
 {
@@ -45,6 +45,7 @@ public class ExchangeRateServices : IExchangeRateService
         ExchangeRate latestRate = await _context.ExchangeRate
         .Where(e => e.FromCurrency == fromCurrencyId && e.ToCurrency == toCurrencyId)
         .OrderByDescending(e => e.Updated)
+        .AsNoTracking()
         .FirstOrDefaultAsync();
         return latestRate;
     }

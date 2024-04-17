@@ -1,5 +1,4 @@
-﻿
-using ExChangeApi.Domain.Contracts;
+﻿using ExchangeApi.Domain.Contracts;
 
 namespace ExChangeApi.Domain.Entities;
 
