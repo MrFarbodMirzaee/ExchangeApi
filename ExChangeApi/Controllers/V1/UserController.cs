@@ -1,4 +1,4 @@
-﻿using ExchangeApi.Dtos;
+﻿
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Mime;
 using AutoMapper;
@@ -7,6 +7,7 @@ using Microsoft.Extensions.Options;
 using ExchangeApi.Domain.Entitiess;
 using ExChangeApi.Domain.Entities;
 using ExchangeApi.Application.Contracts;
+using ExchangeApi.Application.Dtos;
 
 namespace ExchangeApi.Controllers.V1;
 

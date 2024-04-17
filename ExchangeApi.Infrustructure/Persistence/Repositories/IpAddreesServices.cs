@@ -2,7 +2,7 @@
 using ExchangeApi.Domain.Entitiess;
 
 
-namespace ExchangeApi.Infrustructure.Entitiesss;
+namespace ExchangeApi.Infrustructure.Repository;
 
 public class IpAddreesServices : IIpAddresssValdatorServices
 {

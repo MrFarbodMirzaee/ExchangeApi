@@ -1,4 +1,4 @@
-﻿namespace ExChangeApi.Domain.Contracts;
+﻿namespace ExchangeApi.Domain.Contracts;
 
 public interface IBaseEntity<T>
 {

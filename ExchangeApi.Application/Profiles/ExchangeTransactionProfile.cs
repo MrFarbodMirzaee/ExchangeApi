@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using ExchangeApi.Domain.Entitiess;
-using ExchangeApi.Dtos;
+using ExchangeApi.Application.Dtos;
 
 
 
-namespace ExchangeApi.Profiles;
+namespace ExchangeApi.Application.Profiles;
 
 public class ExchangeTransactionProfile : Profile
 {

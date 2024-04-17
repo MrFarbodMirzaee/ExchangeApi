@@ -1,11 +1,11 @@
-﻿using ExchangeApi.Dtos;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
 using ExchangeApi.Shered;
 using Microsoft.Extensions.Options;
 using System.Net.Mime;
 using ExchangeApi.Domain.Entitiess;
 using ExchangeApi.Application.Contracts;
+using ExchangeApi.Application.Dtos;
 
 namespace ExchangeApi.Controllers.V1;
 

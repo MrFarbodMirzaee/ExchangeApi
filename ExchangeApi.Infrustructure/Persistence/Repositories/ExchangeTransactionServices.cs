@@ -4,7 +4,7 @@ using ExchangeApi.Infrustructure.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace ExchangeApi.Infrustructure.Entitiesss;
+namespace ExchangeApi.Infrustructure.Repository;
 
 public class ExchangeTransactionServices : IExchangeTransactionServices
 {
@@ -63,6 +63,7 @@ public class ExchangeTransactionServices : IExchangeTransactionServices
 
         List<ExchangeTransaction> result = await _context.ExchangeTransaction
        .Where(t => t.Id == userId)
+       .AsNoTracking()
        .ToListAsync();
         return result;
     }

@@ -7,12 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ExchangeApi.Domain\ExchangeApi.Domain.csproj" />
-    <ProjectReference Include="..\ExchangeApi.Infrustructure\ExchangeApi.Infrustructure.csproj" />
+    <Folder Include="UseCases\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="UseCases\" />
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ExchangeApi.Domain\ExchangeApi.Domain.csproj" />
   </ItemGroup>
 
 </Project>

@@ -4,7 +4,7 @@ using ExChangeApi.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace ExchangeApi.Infrustructure.Entitiesss;
+namespace ExchangeApi.Infrustructure.Repository;
 public class UserServices : IUserService
 {
     private readonly ApplicationDbContext _context;
@@ -33,6 +33,7 @@ public class UserServices : IUserService
     {
         List<User> _users = await _context.User
             .Where(u => u.IsActive)
+            .AsNoTracking()
             .ToListAsync();
 
         return _users;

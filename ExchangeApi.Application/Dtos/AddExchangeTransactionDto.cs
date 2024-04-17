@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace ExchangeApi.Dtos;
+namespace ExchangeApi.Application.Dtos;
 
 public class AddExchangeTransactionDto
 {

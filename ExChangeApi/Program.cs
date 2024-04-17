@@ -8,19 +8,20 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionstring = builder.Configuration.GetConnectionString("ExchangeApi");
+
 var configurationBuilder = new ConfigurationBuilder()
     .SetBasePath(Directory.GetCurrentDirectory())
     .AddJsonFile($"appsetting.Develeopment.json", optional: true, reloadOnChange: true)
+    .AddJsonFile("secrets.json", optional: true, reloadOnChange: true)
     .AddJsonFile($"appsettings.json", optional: true, reloadOnChange: true);
 var configure = configurationBuilder.Build();
 // Add services to the container.
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.Configure<MySettings>(builder.Configuration.GetSection("MySettings"));
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 builder.Services
-    .RegisterPresentationServices()
     .RegisterApplicationServices()
+    .RegisterPresentationServices(builder.Configuration)
     .RegisterInfrustructureServices(connectionstring);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
