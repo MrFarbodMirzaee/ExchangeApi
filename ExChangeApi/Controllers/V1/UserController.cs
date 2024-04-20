@@ -75,7 +75,7 @@ public class UserController : BaseContoller
             return BadRequest();
         }
 
-        var UserData =  _mapper.Map<User>(addUser);
+        var UserData = _mapper.Map<User>(addUser);
         await _userService.CreateUser(UserData);
         return Created();
     }

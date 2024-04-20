@@ -151,6 +151,8 @@ public class CurrencyController : BaseContoller
         currency.Id = id;
 
         var updatedCurrency = await _currencyService.UpdateCurrency(currency);
+        if (updatedCurrency is false) 
+            return NotFound();
         var updatedCurrencyDto = _mapper.Map<Currency>(updatedCurrency); // Assuming CurrencyDto is the DTO for Currency
 
         return Ok(updatedCurrencyDto);
