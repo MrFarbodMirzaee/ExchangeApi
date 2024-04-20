@@ -2,8 +2,10 @@
 
 namespace ExchangeApi.Application.Dtos
 {
-    public sealed class CurrencyDto : AddCurencyDto
+    public record class CurrencyDto 
     {
         public int Id { get; set; }
+        public string CurrencyCode { get; set; }
+        public string Name { get; set; }
     }
 }

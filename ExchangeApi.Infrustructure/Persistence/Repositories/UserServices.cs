@@ -1,6 +1,7 @@
 ﻿using ExchangeApi.Application.Contracts;
 using ExchangeApi.Infrustructure.Persistence.Contexts;
 using ExChangeApi.Domain.Entities;
+using System.Runtime;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -31,12 +32,12 @@ public class UserServices : IUserService
 
     public async Task<List<User>> GetActiveUsers()
     {
-        List<User> _users = await _context.User
+        var users = await _context.User
             .Where(u => u.IsActive)
             .AsNoTracking()
             .ToListAsync();
 
-        return _users;
+        return users;
     }
     public async Task<List<User>> GetAllUsers()
     {
@@ -46,9 +47,10 @@ public class UserServices : IUserService
 
     public async Task<User> GetUserByEmail(string email)
     {
-        User user = await _context.User
+        var lowercaseEmail = email.ToLower();
+        var user = await _context.User
             .AsNoTracking()
-            .FirstOrDefaultAsync(u => u.EmailAddress.Equals(email, StringComparison.OrdinalIgnoreCase));
+            .FirstOrDefaultAsync(u => u.EmailAddress.ToLower() == lowercaseEmail);
         return user;
     }
 
@@ -58,10 +60,11 @@ public class UserServices : IUserService
         //It uses a case -insensitive comparison to match the email address.
         //The method returns the user with the specified email address or null if no user is found with that email.
 
-        var User = await _context.User.Where(x => x.Id == userId)
+        var user = await _context.User
+            .Where(x => x.Id == userId)
             .AsNoTracking()
             .FirstOrDefaultAsync();
-        return User;
+        return user;
     }
 
     public async Task<bool> UpdateUser(User user)
@@ -74,7 +77,8 @@ public class UserServices : IUserService
             updateUser.EmailAddress = user.EmailAddress;
             updateUser.Password = user.Password;
             updateUser.IsActive = user.IsActive;
-            updateUser.Updated = user.Updated;
+            updateUser.Updated = DateTime.Now;
+            await _context.SaveChangesAsync();
             return true;
         }
         return false;

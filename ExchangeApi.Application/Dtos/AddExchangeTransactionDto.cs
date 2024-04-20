@@ -11,6 +11,7 @@ public class AddExchangeTransactionDto
     public int ExchangeRateId { get; set; }
     public bool IsActive { get; set; }
     public DateTime TransactionDate { get; set; }
+
 }
 public class AddExchangeTransactionDtoValidator : AbstractValidator<AddExchangeTransactionDto>
 {

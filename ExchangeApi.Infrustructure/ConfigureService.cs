@@ -3,11 +3,7 @@ using ExchangeApi.Infrustructure.Persistence.Contexts;
 using ExchangeApi.Infrustructure.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace ExchangeApi.Infrustructure;
 

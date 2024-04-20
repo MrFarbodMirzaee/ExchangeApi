@@ -38,6 +38,10 @@ public class ExchangeTransactionController : BaseContoller
         }
 
         var data = await _exchangeTranzacstionService.GetExchangeTransactionById(id);
+        if (data is null) 
+        {
+            return NotFound();
+        }
         var exchangeTransaction = _mapper.Map<ExchangeTransactionDto>(data);
         return Ok(exchangeTransaction);
     }
@@ -63,7 +67,7 @@ public class ExchangeTransactionController : BaseContoller
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> AddExchangeTransaction(ExchangeTransactionDto addExchangeTransaction)
+    public async Task<IActionResult> AddExchangeTransaction(AddExchangeTransactionDto addExchangeTransaction)
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
@@ -92,14 +96,18 @@ public class ExchangeTransactionController : BaseContoller
         }
 
         var data = await _exchangeTranzacstionService.GetTransactionsByCurrencyPair(from_currencies,to_currencies);
-        var exchangeTranzacstionDto = _mapper.Map<List<ExchangeTransaction>>(data);
+        if (data is null) 
+        {
+            return NotFound(); 
+        }
+        var exchangeTranzacstionDto = _mapper.Map<List<ExchangeTransactionDto>>(data);
         return Ok(exchangeTranzacstionDto);
     }
     [HttpGet]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetTransactionsByUserId(int userid) 
+    public async Task<IActionResult> GetTransactionsById(int userid) 
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
@@ -110,6 +118,10 @@ public class ExchangeTransactionController : BaseContoller
         }
 
         var data = await _exchangeTranzacstionService.GetTransactionsByUserId(userid);
+        if (data is null) 
+        {
+            return NotFound();
+        }
         var exchangeTranzacstionDto = _mapper.Map<List<ExchangeTransactionDto>>(data);
         return Ok(exchangeTranzacstionDto);
     }
@@ -148,7 +160,7 @@ public class ExchangeTransactionController : BaseContoller
         exchangeTransaction.Id = id;
 
         var data = await _exchangeTranzacstionService.UpdateExchangeTransaction(exchangeTransaction);
-        var exchangeTranzacstionDto = _mapper.Map<List<ExchangeTransactionDto>>(data);
+        var exchangeTranzacstionDto = _mapper.Map<ExchangeTransaction>(data);
         return Ok(exchangeTranzacstionDto);
     }
 }

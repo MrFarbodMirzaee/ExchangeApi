@@ -35,11 +35,10 @@ public class UserController : BaseContoller
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
         bool IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
         if (!IsValidAddress)
-        {
             return BadRequest();
-        }
-
-        var data = _userService.GetUserById(id);
+        var data = await _userService.GetUserById(id);
+        if (data == null)
+            return NotFound();
         var user = _mapper.Map<UserDto>(data);
         return Ok(user);
     }
@@ -58,7 +57,7 @@ public class UserController : BaseContoller
             return BadRequest();
         }
 
-        var data = _userService.GetActiveUsers();
+        var data = await _userService.GetActiveUsers();
         var UserDtos = _mapper.Map<List<UserDto>>(data);
         return Ok(UserDtos);
     }
@@ -76,8 +75,8 @@ public class UserController : BaseContoller
             return BadRequest();
         }
 
-        var UserData = _mapper.Map<User>(addUser);
-        _userService.CreateUser(UserData);
+        var UserData =  _mapper.Map<User>(addUser);
+        await _userService.CreateUser(UserData);
         return Created();
     }
     [HttpGet]
@@ -94,7 +93,7 @@ public class UserController : BaseContoller
             return BadRequest();
         }
 
-        var data = _userService.GetAllUsers();
+        var data = await _userService.GetAllUsers();
         var UserDto = _mapper.Map<List<UserDto>>(data);
         return Ok(UserDto);
     }
@@ -112,7 +111,7 @@ public class UserController : BaseContoller
             return BadRequest();
         }
 
-        var data = _userService.GetUserByEmail(email);
+        var data = await _userService.GetUserByEmail(email);
         var UserDto = _mapper.Map<UserDto>(data);
         return Ok(UserDto);
     }
@@ -130,7 +129,7 @@ public class UserController : BaseContoller
             return BadRequest();
         }
 
-        var data = _userService.DeleteUser(id);
+        var data = await _userService.DeleteUser(id);
         var UserDto = _mapper.Map<bool>(data);
         return Ok(UserDto);
     }
@@ -150,7 +149,7 @@ public class UserController : BaseContoller
 
         user.Id = id;
 
-        var data = _userService.UpdateUser(user);
+        var data = await _userService.UpdateUser(user);
         var UserDto = _mapper.Map<User>(data);
         return Ok(UserDto);
     }

@@ -5,13 +5,13 @@ using System.Xml;
 
 namespace ExchangeApi.DataBaseConfiguration;
 
-public class UserConfig
+public class UserConfig : IEntityTypeConfiguration<User>
 {
-    public void Configuration(EntityTypeBuilder<User> builder) 
+    public void Configure(EntityTypeBuilder<User> builder)
     {
         builder.HasKey(x => x.Id)
-            .IsClustered()
-            .HasName("Pk_BASE_User");
+          .IsClustered()
+          .HasName("Pk_BASE_User");
         builder.Property(x => x.Name)
             .IsRequired()
             .HasMaxLength(50);

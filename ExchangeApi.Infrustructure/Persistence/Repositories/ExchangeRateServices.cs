@@ -1,9 +1,8 @@
-﻿using ExchangeApi.Domain.Entitiess;
-using ExchangeApi.Application;
-using ExchangeApi.Infrustructure.Persistence.Contexts;
+﻿using ExchangeApi.Infrustructure.Persistence.Contexts;
 
 using Microsoft.EntityFrameworkCore;
 using ExchangeApi.Application.Contracts;
+using ExchangeApi.Domain.Entities;
 
 namespace ExchangeApi.Infrustructure.Repository;
 
@@ -73,7 +72,7 @@ public class ExchangeRateServices : IExchangeRateService
             exisitingExchangeRate.FromCurrency = rate.FromCurrency;
             exisitingExchangeRate.ToCurrency = rate.ToCurrency;
             exisitingExchangeRate.Rate = rate.Rate;
-            exisitingExchangeRate.Updated = rate.Updated;
+            exisitingExchangeRate.Updated = DateTime.Now;
             exisitingExchangeRate.IsActive = rate.IsActive;
             await _context.SaveChangesAsync();
             return true;

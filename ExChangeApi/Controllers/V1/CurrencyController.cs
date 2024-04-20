@@ -38,7 +38,7 @@ public class CurrencyController : BaseContoller
         }
 
         var data = await _currencyService.GetPopularCurrencies();
-        var currencyDto = _mapper.Map<List<Currency>>(data);
+        var currencyDto = _mapper.Map<List<CurrencyDto>>(data);
         return Ok(currencyDto);
     }
     [HttpGet]
@@ -55,7 +55,7 @@ public class CurrencyController : BaseContoller
         }
 
         var data = await _currencyService.GetAllActiveCurrencies();
-        var currenciesDto = _mapper.Map<List<Currency>>(data);
+        var currenciesDto = _mapper.Map<List<CurrencyDto>>(data);
         return Ok(currenciesDto);
     }
     [HttpGet]
@@ -73,7 +73,7 @@ public class CurrencyController : BaseContoller
         }
 
         var data = await _currencyService.GetCurrencyById(id);
-        var currenciesDto = _mapper.Map<Currency>(data);
+        var currenciesDto = _mapper.Map<CurrencyDto>(data);
         return Ok(currenciesDto);
     }
     [HttpPost]
@@ -112,7 +112,7 @@ public class CurrencyController : BaseContoller
         }
 
         var data = await _currencyService.SearchCurrencies(word);
-        var currencyDto = _mapper.Map<List<Currency>>(data);
+        var currencyDto = _mapper.Map<List<CurrencyDto>>(data);
 
         return Ok(currencyDto); // Returning the value of currencyDto
     }

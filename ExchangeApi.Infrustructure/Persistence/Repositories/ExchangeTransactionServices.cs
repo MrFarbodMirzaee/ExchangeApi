@@ -79,7 +79,8 @@ public class ExchangeTransactionServices : IExchangeTransactionServices
             ExchangeTransaction.ResultAmount = transaction.ResultAmount;
             ExchangeTransaction.ExChangeRateId = transaction.ExChangeRateId;
             ExchangeTransaction.IsActive = transaction.IsActive;
-            ExchangeTransaction.Updated = transaction.Updated;
+            ExchangeTransaction.Updated = DateTime.Now;
+            await _context.SaveChangesAsync();
             return true;
         }
         return false;

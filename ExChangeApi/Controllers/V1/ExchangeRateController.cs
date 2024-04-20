@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ExchangeApi.Application.Contracts;
 using ExchangeApi.Application.Dtos;
+using ExchangeApi.Domain.Entities;
 using ExchangeApi.Domain.Entitiess;
 using ExchangeApi.Shered;
 using Microsoft.AspNetCore.Mvc;
@@ -38,8 +39,11 @@ public class ExchangeRateController : BaseContoller
         {
             return BadRequest();
         }
-
         var data = await _exchangeRateService.GetExchangeRateById(id);
+        if (data is null) 
+        {
+            return NotFound();
+        }
         var exchangeRateDto = _mapper.Map<ExchangeRateDto>(data);
         return Ok(exchangeRateDto);
     }
@@ -94,6 +98,10 @@ public class ExchangeRateController : BaseContoller
         }
 
         var data = await _exchangeRateService.GetExchangeRatesByCurrencyPair(from_currencies,to_currencies);
+        if (data is null) 
+        {
+            return NotFound();
+        }
         var exchangeRatesDto = _mapper.Map<List<ExchangeRateDto>>(data);
         return Ok(exchangeRatesDto);
     }
@@ -112,6 +120,10 @@ public class ExchangeRateController : BaseContoller
         }
 
         var data = await _exchangeRateService.GetLatestExchangeRate(from_currencies,to_currencies);
+        if (data is null)
+        {
+            return NotFound();
+        }
         var exchangeRatesDto = _mapper.Map<ExchangeRateDto>(data);
         return Ok(exchangeRatesDto);
     }

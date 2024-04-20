@@ -1,9 +1,11 @@
 ﻿
 
-namespace ExchangeApi.Application.Dtos
+namespace ExchangeApi.Application.Dtos;
+
+public class ExchangeRateDto 
 {
-    public class ExchangeRateDto : AddExchangeRateDto
-    {
-        public int Id { get; set; }
-    }
+    public int Id { get; set; }
+    public int FromCurrency { get; set; }
+    public int ToCurrency { get; set; }
+    public decimal Rate { get; set; }
 }

@@ -1,16 +1,17 @@
-﻿using ExchangeApi.Domain.Entitiess;
+﻿using ExchangeApi.Domain.Entities;
+using ExchangeApi.Domain.Entitiess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ExchangeApi.DataBaseConfiguration;
 
-public class ExchangeTransactionConfig
+public class ExchangeTransactionConfig : IEntityTypeConfiguration<ExchangeTransaction>
 {
-    public void Configuration(EntityTypeBuilder<ExchangeTransaction> builder)
+    public void Configure(EntityTypeBuilder<ExchangeTransaction> builder)
     {
         builder.HasKey(x => x.Id)
-                .IsClustered()
-                .HasName("Pk_BASE_ExchangeTransaction");
+            .IsClustered()
+            .HasName("Pk_BASE_ExchangeTransaction");
         builder.Property(x => x.Amount)
             .IsRequired();
         builder.Property(x => x.ResultAmount)

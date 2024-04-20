@@ -8,7 +8,6 @@ public class AddExchangeRateDto
     public int ToCurrency { get; set; }
     public decimal Rate { get; set; }
     public bool IsActive { get; set; }
-    public DateTime LastUpdate { get; set; }
 }
 public class AddExchangeRateDtoValidator : AbstractValidator<AddExchangeRateDto>
 {
@@ -31,10 +30,5 @@ public class AddExchangeRateDtoValidator : AbstractValidator<AddExchangeRateDto>
             .NotNull()
             .GreaterThan(0)
             .WithMessage("Rate must be greater than 0");
-
-        RuleFor(x => x.LastUpdate)
-            .NotEmpty()
-            .NotNull()
-            .WithMessage("Last Update Date cannot be in the future");
     }
 }

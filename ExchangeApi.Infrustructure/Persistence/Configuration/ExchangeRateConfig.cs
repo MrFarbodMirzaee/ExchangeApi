@@ -1,12 +1,12 @@
-﻿using ExchangeApi.Domain.Entitiess;
+﻿using ExchangeApi.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ExchangeApi.DataBaseConfiguration;
 
-public class ExchangeRateConfog
+public class ExchangeRateConfig : IEntityTypeConfiguration<ExchangeRate>
 {
-    public void Configuration(EntityTypeBuilder<ExchangeRate> builder) 
+    public void Configure(EntityTypeBuilder<ExchangeRate> builder)
     {
         builder.HasKey(x => x.Id)
             .IsClustered()
@@ -16,12 +16,12 @@ public class ExchangeRateConfog
         builder.Property(x => x.ToCurrency)
         .IsRequired();
         builder.Property(x => x.Created)
-            .IsRequired()
-            .HasDefaultValue(DateTime.Now);
+          .IsRequired()
+          .HasDefaultValue(DateTime.Now);
         builder.Property(x => x.IsActive)
             .IsRequired()
             .HasDefaultValue(false);
         builder.Property(x => x.Rate)
-            .IsRequired();
+                .IsRequired();
     }
 }
