@@ -35,4 +35,6 @@ public class ExchangeTransaction : IBaseEntity<int>
     public DateTime Created { get; set; }
     public bool IsActive { get; set; }
     public DateTime Updated { get; set; }
+    public string Description { get; set; }
+    public string MetaDescription { get; set; }
 }

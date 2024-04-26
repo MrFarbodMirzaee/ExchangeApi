@@ -5,11 +5,16 @@ using System.Runtime;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace ExchangeApi.Infrustructure.Repository;
+namespace ExchangeApi.Infrustructure.Services;
 public class UserServices : IUserService
 {
     private readonly ApplicationDbContext _context;
     public UserServices(ApplicationDbContext context) => _context = context;
+
+    public Task<bool> Activate(int userId)
+    {
+        throw new NotImplementedException();
+    }
 
     public async Task<bool> CreateUser(User user)
     {

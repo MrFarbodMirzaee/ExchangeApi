@@ -27,4 +27,6 @@ public class ExchangeRate : IBaseEntity<int>
     ///  Represents the date and time when the exchange rate was last updated.
     /// </summary>
     public DateTime Updated { get; set; }
+    public string Description { get; set; }
+    public string MetaDescription { get; set; }
 }

@@ -11,7 +11,7 @@ using ExchangeApi.Application.Dtos;
 
 namespace ExchangeApi.Controllers.V1;
 
-public class UserController : BaseContoller
+public class UserController : BaseController
 {
     private readonly IUserService _userService;
     private readonly IMapper _mapper;

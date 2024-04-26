@@ -9,7 +9,7 @@ using ExchangeApi.Application.Dtos;
 
 namespace ExchangeApi.Controllers.V1;
 
-public class ExchangeTransactionController : BaseContoller
+public class ExchangeTransactionController : BaseController
 {
     private readonly IExchangeTransactionServices _exchangeTranzacstionService;
     private readonly IMapper _mapper;

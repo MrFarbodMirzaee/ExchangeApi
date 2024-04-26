@@ -10,7 +10,7 @@ using ExchangeApi.Application.Dtos;
 
 namespace ExchangeApi.Controllers.V1;
 
-public class CurrencyController : BaseContoller
+public class CurrencyController : BaseController
 {
     private readonly ICurrencyService _currencyService;
     private readonly IMapper _mapper;

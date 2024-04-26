@@ -11,4 +11,5 @@ public interface IUserService
     Task<User> GetUserByEmail(string email);
     Task<List<User>> GetAllUsers();
     Task<List<User>> GetActiveUsers();
+    Task<bool> Activate(int userId);
 }

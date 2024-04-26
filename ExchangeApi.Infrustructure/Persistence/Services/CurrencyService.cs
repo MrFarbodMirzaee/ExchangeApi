@@ -4,12 +4,20 @@ using ExChangeApi.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace ExchangeApi.Infrustructure.Repository;
+namespace ExchangeApi.Infrustructure.Services;
 
 public class CurrencyService : ICurrencyService
 {
     private readonly ApplicationDbContext _context;
     public CurrencyService(ApplicationDbContext context) => _context = context;
+
+    public async Task<bool> Activate(int currencyId)
+    {
+        var currency =  _context.Currency.Where(x => x.Id == currencyId).FirstOrDefault();
+        currency.Activate();
+        await _context.SaveChangesAsync();
+        return true;
+    }
 
     public async Task<bool> CreateCurrency(Currency currency)
     {
@@ -67,8 +75,6 @@ public class CurrencyService : ICurrencyService
             existingCurrency.Name = currency.Name; // Update other properties as needed
             existingCurrency.CurrencyCode = currency.CurrencyCode;// Update other properties as needed
             existingCurrency.Updated = DateTime.Now;
-            existingCurrency.IsActive = currency.IsActive;
-
             await  _context.SaveChangesAsync();
             return true; // Assuming the update was successful
         }

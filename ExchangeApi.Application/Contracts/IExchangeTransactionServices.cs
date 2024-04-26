@@ -1,5 +1,4 @@
 ﻿using ExchangeApi.Domain.Entitiess;
-
 namespace ExchangeApi.Application.Contracts;
 
 public interface IExchangeTransactionServices
@@ -11,4 +10,5 @@ public interface IExchangeTransactionServices
     Task<bool> DeleteExchangeTransaction(int transactionId);
     Task<List<ExchangeTransaction>> GetTransactionsByUserId(int userId);
     Task<List<ExchangeTransaction>> GetTransactionsByCurrencyPair(int fromCurrencyId, int toCurrencyId);
+    Task<bool> Activate(int exchangeTransactionId);
 }

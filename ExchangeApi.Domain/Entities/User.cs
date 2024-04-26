@@ -1,4 +1,5 @@
 ﻿using ExchangeApi.Domain.Contracts;
+using ExchangeApi.Domain.Entitiess;
 
 namespace ExChangeApi.Domain.Entities;
 
@@ -11,6 +12,8 @@ public class User : IBaseEntity<int>
     public string Password { get; set; }
     public DateTime Created { get; set; }
     public bool IsActive { get; set; }
-    //public ICollection<ExchangeTransaction> ExchangeTransactions { get; set; }
+    public ICollection<ExchangeTransaction> ExchangeTransactions { get; set; }
     public DateTime Updated { get; set; }
+    public string Description { get; set; }
+    public string MetaDescription { get; set; }
 }

@@ -1,0 +1,29 @@
+{
+  "GlobalConfiguration": {
+    "BaseUrl": "https://localhost:5003"
+  },
+  "Routes": [
+    {
+      "UpstreamPathTemplate": [
+        "/api/V1/Currency/{everything}",
+        "/api/V1/ExchangeRate/{everything}",
+        "/api/V1/ExchangeTransaction/{everything}",
+        "/api/V1/User/{everything}"
+      ],
+      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+      "DownstreamPathTemplate": [
+        "/api/V1/Currency/{everything}",
+        "/api/V1/ExchangeRate/{everything}",
+        "/api/V1/ExchangeTransaction/{everything}",
+        "/api/V1/User/{everything}"
+      ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7178
+        }
+      ]
+    }
+  ]
+}

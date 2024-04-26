@@ -13,4 +13,5 @@ public interface IExchangeRateService
     Task<bool> DeleteExchangeRate(int rateId);
     Task<List<ExchangeRate>> GetExchangeRatesByCurrencyPair(int fromCurrencyId, int toCurrencyId);
     Task<ExchangeRate> GetLatestExchangeRate(int fromCurrencyId, int toCurrencyId);
+    Task<bool> Activate(int exchangeRateId);
 }

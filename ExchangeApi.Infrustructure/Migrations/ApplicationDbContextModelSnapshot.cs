@@ -34,17 +34,25 @@ namespace ExchangeApi.Infrustructure.Migrations
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 4, 20, 14, 9, 41, 874, DateTimeKind.Local).AddTicks(5982));
+                        .HasDefaultValue(new DateTime(2024, 4, 26, 11, 11, 6, 426, DateTimeKind.Local).AddTicks(645));
 
                     b.Property<string>("CurrencyCode")
                         .IsRequired()
                         .HasMaxLength(3)
                         .HasColumnType("nvarchar(3)");
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsActive")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
+
+                    b.Property<string>("MetaDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -72,7 +80,11 @@ namespace ExchangeApi.Infrustructure.Migrations
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 4, 20, 14, 9, 41, 875, DateTimeKind.Local).AddTicks(1833));
+                        .HasDefaultValue(new DateTime(2024, 4, 26, 11, 11, 6, 426, DateTimeKind.Local).AddTicks(8711));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EmailAddress")
                         .IsRequired()
@@ -83,6 +95,10 @@ namespace ExchangeApi.Infrustructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
+
+                    b.Property<string>("MetaDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -121,7 +137,11 @@ namespace ExchangeApi.Infrustructure.Migrations
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 4, 20, 14, 9, 41, 874, DateTimeKind.Local).AddTicks(7368));
+                        .HasDefaultValue(new DateTime(2024, 4, 26, 11, 11, 6, 426, DateTimeKind.Local).AddTicks(2728));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("FromCurrency")
                         .HasColumnType("int");
@@ -130,6 +150,10 @@ namespace ExchangeApi.Infrustructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
                         .HasDefaultValue(false);
+
+                    b.Property<string>("MetaDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Rate")
                         .HasColumnType("decimal(18,2)");
@@ -162,7 +186,11 @@ namespace ExchangeApi.Infrustructure.Migrations
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 4, 20, 14, 9, 41, 874, DateTimeKind.Local).AddTicks(9657));
+                        .HasDefaultValue(new DateTime(2024, 4, 26, 11, 11, 6, 426, DateTimeKind.Local).AddTicks(5250));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ExChangeRateId")
                         .HasColumnType("int");
@@ -172,6 +200,10 @@ namespace ExchangeApi.Infrustructure.Migrations
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
+
+                    b.Property<string>("MetaDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("ResultAmount")
                         .HasColumnType("decimal(18,2)");
@@ -183,17 +215,34 @@ namespace ExchangeApi.Infrustructure.Migrations
                         .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 4, 20, 14, 9, 41, 875, DateTimeKind.Local).AddTicks(57));
+                        .HasDefaultValue(new DateTime(2024, 4, 26, 11, 11, 6, 426, DateTimeKind.Local).AddTicks(5917));
 
                     b.Property<DateTime>("Updated")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id")
                         .HasName("Pk_BASE_ExchangeTransaction");
 
                     SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"));
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("ExchangeTransaction", "BASE");
+                });
+
+            modelBuilder.Entity("ExchangeApi.Domain.Entitiess.ExchangeTransaction", b =>
+                {
+                    b.HasOne("ExChangeApi.Domain.Entities.User", null)
+                        .WithMany("ExchangeTransactions")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("ExChangeApi.Domain.Entities.User", b =>
+                {
+                    b.Navigation("ExchangeTransactions");
                 });
 #pragma warning restore 612, 618
         }

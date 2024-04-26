@@ -2,12 +2,14 @@ using ExchangeApi;
 using ExchangeApi.Application;
 using ExchangeApi.Infrustructure;
 using ExchangeApi.MiddelWare;
-using ExchangeApi.Shered;
 using Microsoft.EntityFrameworkCore;
+using Asp.Versioning;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionstring = builder.Configuration.GetConnectionString("ExchangeApi");
+
+
 
 var configurationBuilder = new ConfigurationBuilder()
     .SetBasePath(Directory.GetCurrentDirectory())
@@ -26,6 +28,16 @@ builder.Services
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+var apiVersioning = builder.Services.AddApiVersioning(o =>
+{
+    o.AssumeDefaultVersionWhenUnspecified = true;
+    o.DefaultApiVersion = new ApiVersion(1.0);
+    o.ReportApiVersions = true;
+    o.ApiVersionReader = ApiVersionReader.Combine(
+        new QueryStringApiVersionReader("api-version"),
+        new HeaderApiVersionReader("x.Version"),
+        new MediaTypeApiVersionReader("ver"));
+});
 
 var app = builder.Build();
 

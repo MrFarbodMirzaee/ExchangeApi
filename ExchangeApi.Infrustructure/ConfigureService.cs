@@ -1,6 +1,6 @@
 ﻿using ExchangeApi.Application.Contracts;
 using ExchangeApi.Infrustructure.Persistence.Contexts;
-using ExchangeApi.Infrustructure.Repository;
+using ExchangeApi.Infrustructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 

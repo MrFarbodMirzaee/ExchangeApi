@@ -4,12 +4,18 @@ using ExchangeApi.Infrustructure.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace ExchangeApi.Infrustructure.Repository;
+namespace ExchangeApi.Infrustructure.Services;
 
 public class ExchangeTransactionServices : IExchangeTransactionServices
 {
     private readonly ApplicationDbContext _context;
     public ExchangeTransactionServices(ApplicationDbContext context) => _context = context;
+
+    public Task<bool> Activate(int exchangeTransactionId)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<bool> CreateExchangeTransaction(ExchangeTransaction transaction)
     {
         _context.ExchangeTransaction.Add(transaction);

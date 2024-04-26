@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using ExchangeApi.Application.Contracts;
 using ExchangeApi.Domain.Entities;
 
-namespace ExchangeApi.Infrustructure.Repository;
+namespace ExchangeApi.Infrustructure.Services;
 
 public class ExchangeRateServices : IExchangeRateService
 {
@@ -78,5 +78,10 @@ public class ExchangeRateServices : IExchangeRateService
             return true;
         }
         return false;
+    }
+
+    public Task<bool> Activate(int exchangeRateId)
+    {
+        throw new NotImplementedException();
     }
 }

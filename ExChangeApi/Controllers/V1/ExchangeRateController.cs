@@ -10,7 +10,7 @@ using System.Net.Mime;
 
 namespace ExchangeApi.Controllers.V1;
 
-public class ExchangeRateController : BaseContoller
+public class ExchangeRateController : BaseController
 {
     private readonly IExchangeRateService _exchangeRateService;
     private readonly IMapper _mapper;
