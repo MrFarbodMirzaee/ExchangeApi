@@ -18,6 +18,8 @@
   <ItemGroup>
     <PackageReference Include="Asp.Versioning.Mvc" Version="8.1.0" />
     <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.1.0" />
+    <PackageReference Include="AspNetCore.HealthChecks.SqlServer" Version="8.0.2" />
+    <PackageReference Include="AspNetCore.HealthChecks.UI" Version="8.0.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -35,6 +37,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ExchangeApi.Application\ExchangeApi.Application.csproj" />
+    <ProjectReference Include="..\ExchangeApi.Infrustructure.Identity\ExchangeApi.Infrustructure.Identity.csproj" />
     <ProjectReference Include="..\ExchangeApi.Infrustructure\ExchangeApi.Infrustructure.csproj" />
   </ItemGroup>
 

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ExchangeApi.Application.Contracts;
 using ExchangeApi.Application.Dtos;
 using ExchangeApi.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -8,13 +9,20 @@ namespace ExchangeApi.Controllers.V1;
 
 public class AutenticationController : BaseController
 {
+    private readonly IAutenticationService _autenticationService;
+    public AutenticationController(IAutenticationService autenticationService) 
+    {
+        _autenticationService = autenticationService;
+
+    }
     [HttpPost]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Login([FromBody] LoginDto dto,CancellationToken ct)
     {
-        return Created();
+        var result = await _autenticationService.Login(dto);
+        return Ok(result);
     }
     [HttpPost]
     [Consumes(MediaTypeNames.Application.Json)]
@@ -22,6 +30,7 @@ public class AutenticationController : BaseController
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Register([FromBody] RegisterDto dto, CancellationToken ct)
     {
+        var result = await _autenticationService.Register(dto);
         return Created();
     }
 }

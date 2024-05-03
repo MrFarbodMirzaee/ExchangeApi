@@ -4,12 +4,12 @@ using ExchangeApi.Infrustructure;
 using ExchangeApi.MiddelWare;
 using Microsoft.EntityFrameworkCore;
 using Asp.Versioning;
+using ExchangeApi.Infrustructure.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionstring = builder.Configuration.GetConnectionString("ExchangeApi");
-
-
+var Identityconnectionstring = builder.Configuration.GetConnectionString("ExchangeApiIdentity");
 
 var configurationBuilder = new ConfigurationBuilder()
     .SetBasePath(Directory.GetCurrentDirectory())
@@ -23,7 +23,8 @@ var configure = configurationBuilder.Build();
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 builder.Services
     .RegisterApplicationServices()
-    .RegisterPresentationServices(builder.Configuration)
+    .RegisterPresentationServices(builder.Configuration,connectionstring)
+    .RegisterIdentityServices(builder.Configuration, Identityconnectionstring)
     .RegisterInfrustructureServices(connectionstring);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -40,6 +41,7 @@ var apiVersioning = builder.Services.AddApiVersioning(o =>
 });
 
 var app = builder.Build();
+app.MapHealthChecks("/healthz");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -48,10 +50,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
 //My Custome MidleWares
+
 app.UseLogUrl();
 
 app.MapControllers();
