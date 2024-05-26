@@ -6,6 +6,9 @@ using System.Net.Mime;
 using ExchangeApi.Domain.Entitiess;
 using ExchangeApi.Application.Contracts;
 using ExchangeApi.Application.Dtos;
+using ExchangeApi.Domain.Wrappers;
+using ExchangeApi.Domain.Entities;
+using ExchangeApi.Infrustructure.Services;
 
 namespace ExchangeApi.Controllers.V1;
 
@@ -31,19 +34,14 @@ public class ExchangeTransactionController : BaseController
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
-        bool IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
-        if (!IsValidAddress)
-        {
-            return BadRequest();
-        }
-
-        var data = await _exchangeTranzacstionService.GetExchangeTransactionById(id);
+        Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
+        Response<List<ExchangeTransaction>> data = await _exchangeTranzacstionService.FindByCondition(x => x.Id == id);
         if (data is null) 
         {
             return NotFound();
         }
         var exchangeTransaction = _mapper.Map<ExchangeTransactionDto>(data);
-        return Ok(exchangeTransaction);
+        return Ok(new Response<ExchangeTransactionDto>(exchangeTransaction));
     }
     [HttpGet]
     [Consumes(MediaTypeNames.Application.Json)]
@@ -53,15 +51,12 @@ public class ExchangeTransactionController : BaseController
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
-        bool IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
-        if (!IsValidAddress)
-        {
-            return BadRequest();
-        }
+        Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
+        
 
-        var data = await _exchangeTranzacstionService.GetAllExchangeTransactions();
+        Response<List<ExchangeTransaction>> data = await _exchangeTranzacstionService.GetAllAsync();
         var ExchangeTranzactionDto = _mapper.Map<List<ExchangeTransactionDto>>(data);
-        return Ok(ExchangeTranzactionDto);
+        return Ok(new Response<List<ExchangeTransactionDto>>(ExchangeTranzactionDto));
     }
     [HttpPost]
     [Consumes(MediaTypeNames.Application.Json)]
@@ -71,14 +66,11 @@ public class ExchangeTransactionController : BaseController
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
-        bool IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
-        if (!IsValidAddress)
-        {
-            return BadRequest();
-        }
+        Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
+        
 
         var exchangetransaction = _mapper.Map<ExchangeTransaction>(addExchangeTransaction);
-        await _exchangeTranzacstionService.CreateExchangeTransaction(exchangetransaction);
+        await _exchangeTranzacstionService.AddAsync(exchangetransaction);
         return Created();
     }
     [HttpGet]
@@ -89,19 +81,16 @@ public class ExchangeTransactionController : BaseController
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
-        bool IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
-        if (!IsValidAddress)
-        {
-            return BadRequest();
-        }
+        Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
+        
 
-        var data = await _exchangeTranzacstionService.GetTransactionsByCurrencyPair(from_currencies,to_currencies);
+        Response<List<ExchangeTransaction>> data = await _exchangeTranzacstionService.FindByCondition(f => f.FromCurrencyId == from_currencies && f.ToCurrencyId == to_currencies);
         if (data is null) 
         {
             return NotFound(); 
         }
         var exchangeTranzacstionDto = _mapper.Map<List<ExchangeTransactionDto>>(data);
-        return Ok(exchangeTranzacstionDto);
+        return Ok(new Response<List<ExchangeTransactionDto>>(exchangeTranzacstionDto));
     }
     [HttpGet]
     [Consumes(MediaTypeNames.Application.Json)]
@@ -111,19 +100,16 @@ public class ExchangeTransactionController : BaseController
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
-        bool IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
-        if (!IsValidAddress)
-        {
-            return BadRequest();
-        }
+        Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
+        
 
-        var data = await _exchangeTranzacstionService.GetTransactionsByUserId(userid);
+        Response<List<ExchangeTransaction>> data = await _exchangeTranzacstionService.FindByCondition(x => x.Id == userid);
         if (data is null) 
         {
             return NotFound();
         }
         var exchangeTranzacstionDto = _mapper.Map<List<ExchangeTransactionDto>>(data);
-        return Ok(exchangeTranzacstionDto);
+        return Ok(new Response<List<ExchangeTransactionDto>>(exchangeTranzacstionDto));
     }
     [HttpDelete]
     [Consumes(MediaTypeNames.Application.Json)]
@@ -133,15 +119,25 @@ public class ExchangeTransactionController : BaseController
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
-        bool IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
-        if (!IsValidAddress)
+        Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
+
+        var exchangeTransactionsResponse = await _exchangeTranzacstionService.FindByCondition(x => x.Id == userid);
+        if (!exchangeTransactionsResponse.Succeeded)
         {
-            return BadRequest();
+            // Handle the case where the currency was not found
+            return NotFound();
         }
 
-        var data = await _exchangeTranzacstionService.DeleteExchangeTransaction(userid);
+        var exchangeTransactions = exchangeTransactionsResponse.Data.FirstOrDefault();
+
+        var data = await _exchangeTranzacstionService.DeleteAsync(exchangeTransactions);
+        if (!data.Succeeded)
+        {
+            // Handle the case where the delete operation failed
+            return StatusCode(500, data.Message);
+        }
         var exchangeTranzacstionDto = _mapper.Map<bool>(data);
-        return Ok(exchangeTranzacstionDto);
+        return Ok(new Response<bool>(exchangeTranzacstionDto));
     }
     [HttpPut]
     [Consumes(MediaTypeNames.Application.Json)]
@@ -151,16 +147,12 @@ public class ExchangeTransactionController : BaseController
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
-        bool IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
-        if (!IsValidAddress)
-        {
-            return BadRequest();
-        }
-
+        Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
+        
         exchangeTransaction.Id = id;
 
-        var data = await _exchangeTranzacstionService.UpdateExchangeTransaction(exchangeTransaction);
+        Response<bool> data = await _exchangeTranzacstionService.UpdateAsync(exchangeTransaction);
         var exchangeTranzacstionDto = _mapper.Map<ExchangeTransaction>(data);
-        return Ok(exchangeTranzacstionDto);
+        return Ok(new Response<ExchangeTransaction>(exchangeTranzacstionDto));
     }
 }

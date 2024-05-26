@@ -1,4 +1,5 @@
 ﻿using ExchangeApi.Application.Dtos;
+using ExchangeApi.Domain.Wrappers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace ExchangeApi.Application.Contracts;
 
 public interface IAutenticationService
 {
-    Task<AuthenticationResponseDto> Login(LoginDto dto);
-    Task<AuthenticationResponseDto> Register(RegisterDto dto);
+    Task<Response<AuthenticationResponseDto>> Login(LoginDto dto);
+    Task<Response<AuthenticationResponseDto>> Register(RegisterDto dto);
 }

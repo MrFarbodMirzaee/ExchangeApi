@@ -5,9 +5,10 @@ using AutoMapper;
 using ExchangeApi.Shered;
 using Microsoft.Extensions.Options;
 using ExchangeApi.Domain.Entitiess;
-using ExChangeApi.Domain.Entities;
 using ExchangeApi.Application.Contracts;
 using ExchangeApi.Application.Dtos;
+using ExchangeApi.Domain.Wrappers;
+using User = ExChangeApi.Domain.Entities.User;
 
 namespace ExchangeApi.Controllers.V1;
 
@@ -33,14 +34,12 @@ public class UserController : BaseController
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
-        bool IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
-        if (!IsValidAddress)
-            return BadRequest();
-        var data = await _userService.GetUserById(id);
+        Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
+        Response<List<User>> data = await _userService.FindByCondition(x => x.Id == id);
         if (data == null)
             return NotFound();
         var user = _mapper.Map<UserDto>(data);
-        return Ok(user);
+        return Ok(new Response<UserDto>(user));
     }
     [HttpGet]
     [Consumes(MediaTypeNames.Application.Json)]
@@ -51,15 +50,11 @@ public class UserController : BaseController
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
-        bool IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
-        if (!IsValidAddress)
-        {
-            return BadRequest();
-        }
-
-        var data = await _userService.GetActiveUsers();
+        Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
+        
+        Response<List<User>> data = await _userService.FindByCondition(A => A.IsActive == true);
         var UserDtos = _mapper.Map<List<UserDto>>(data);
-        return Ok(UserDtos);
+        return Ok(new Response<List<UserDto>>(UserDtos));
     }
     [HttpPost]
     [Consumes(MediaTypeNames.Application.Json)]
@@ -69,14 +64,10 @@ public class UserController : BaseController
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
-        bool IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
-        if (!IsValidAddress)
-        {
-            return BadRequest();
-        }
-
+        Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
+        
         var UserData = _mapper.Map<User>(addUser);
-        await _userService.CreateUser(UserData);
+        await _userService.AddAsync(UserData);
         return Created();
     }
     [HttpGet]
@@ -87,15 +78,12 @@ public class UserController : BaseController
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
-        bool IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
-        if (!IsValidAddress)
-        {
-            return BadRequest();
-        }
+        Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
+        
 
-        var data = await _userService.GetAllUsers();
+        Response<List<User>> data = await _userService.GetAllAsync();
         var UserDto = _mapper.Map<List<UserDto>>(data);
-        return Ok(UserDto);
+        return Ok(new Response<List<UserDto>>(UserDto));
     }
     [HttpGet]
     [Consumes(MediaTypeNames.Application.Json)]
@@ -105,15 +93,12 @@ public class UserController : BaseController
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
-        bool IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
-        if (!IsValidAddress)
-        {
-            return BadRequest();
-        }
+        Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
+        
 
-        var data = await _userService.GetUserByEmail(email);
+        Response<List<User>> data = await _userService.FindByCondition(e => e.EmailAddress == email);
         var UserDto = _mapper.Map<UserDto>(data);
-        return Ok(UserDto);
+        return Ok(new Response<UserDto>(UserDto));
     }
     [HttpDelete]
     [Consumes(MediaTypeNames.Application.Json)]
@@ -123,13 +108,24 @@ public class UserController : BaseController
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
-        bool IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
-        if (!IsValidAddress)
+        Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
+
+
+        var UserResponse = await _userService.FindByCondition(x => x.Id == id);
+        if (!UserResponse.Succeeded)
         {
-            return BadRequest();
+            // Handle the case where the currency was not found
+            return NotFound();
         }
 
-        var data = await _userService.DeleteUser(id);
+        var user = UserResponse.Data.FirstOrDefault();
+
+        var data = await _userService.DeleteAsync(user);
+        if (!data.Succeeded)
+        {
+            // Handle the case where the delete operation failed
+            return StatusCode(500, data.Message);
+        }
         var UserDto = _mapper.Map<bool>(data);
         return Ok(UserDto);
     }
@@ -141,16 +137,13 @@ public class UserController : BaseController
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
-        bool IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
-        if (!IsValidAddress)
-        {
-            return BadRequest();
-        }
+        Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
+        
 
         user.Id = id;
 
-        var data = await _userService.UpdateUser(user);
+        Response<bool> data = await _userService.UpdateAsync(user);
         var UserDto = _mapper.Map<User>(data);
-        return Ok(UserDto);
+        return Ok(new Response<User>(UserDto));
     }
 }

@@ -1,8 +1,9 @@
 ﻿using ExchangeApi.Domain.Entities;
+using ExchangeApi.Domain.Wrappers;
 
 namespace ExchangeApi.Application.Contracts;
 
 public interface ICurrencyAttributeService
 {
-    Task<bool> CreateCurrencyAttribute(CurrencyAttribute currencyAttribute);
+    Task<Response<bool>> CreateCurrencyAttribute(CurrencyAttribute currencyAttribute);
 }

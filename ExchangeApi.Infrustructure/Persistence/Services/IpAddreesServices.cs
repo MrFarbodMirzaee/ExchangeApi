@@ -1,4 +1,5 @@
 ﻿using ExchangeApi.Application.Contracts;
+using ExchangeApi.Domain.Wrappers;
 using ExchangeApi.Domain.Entitiess;
 
 
@@ -6,12 +7,12 @@ namespace ExchangeApi.Infrustructure.Services;
 
 public class IpAddreesServices : IIpAddresssValdatorServices
 {
-    public bool ValidatorIpAddress(IpAddress ipAddress)
+    public Response<bool> ValidatorIpAddress(IpAddress ipAddress)
     {
         // Check if the IP address is not null or empty
         if (string.IsNullOrEmpty(ipAddress.IPAddress))
         {
-            return false;
+            return new Response<bool>(false);
         }
         // Validate IP address format for public IPv4 addresses
         if (System.Net.IPAddress.TryParse(ipAddress.IPAddress, out System.Net.IPAddress ip))
@@ -20,7 +21,7 @@ public class IpAddreesServices : IIpAddresssValdatorServices
             {
                 if (!System.Text.RegularExpressions.Regex.IsMatch(ipAddress.IPAddress, @"\b(?:\d{1,3}\.){3}\d{1,3}\b"))
                 {
-                    return false;
+                    return new Response<bool>(false);
                 }
             }
             else if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6) // IPv6
@@ -31,9 +32,9 @@ public class IpAddreesServices : IIpAddresssValdatorServices
         else if (ipAddress.IPAddress == "127.0.0.1" || ipAddress.IPAddress == "::1")
         {
             // Allow local IP addresses (loopback addresses)
-            return true;
+            return new Response<bool>(true);
         }
 
-        return true; // Valid IP address
+        return new Response<bool>(true); // Valid IP address
     }
 }

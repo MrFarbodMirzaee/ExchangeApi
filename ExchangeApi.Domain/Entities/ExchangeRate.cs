@@ -29,4 +29,6 @@ public class ExchangeRate : IBaseEntity<int>
     public DateTime Updated { get; set; }
     public string Description { get; set; }
     public string MetaDescription { get; set; }
+    public void Activate() => IsActive = true;
+    public void Deactivate() => IsActive = false;
 }

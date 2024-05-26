@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option csharp_namespace = "ExchangeAPi.GrpcServer";
+
+service CurrencyRepository {
+  // Sends a greeting
+  rpc SayHello (HelloRequest) returns (HelloReply);
+}
+
+// The request message containing the user's name.
+message GetCurrencyResponseDto {
+  int64 id = 1;
+}
+
+// The response message containing the greetings.
+message HelloReply {
+  string code = 1;
+  string name = 2;
+}

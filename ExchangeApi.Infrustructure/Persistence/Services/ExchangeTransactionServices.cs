@@ -1,94 +1,70 @@
 ﻿using ExchangeApi.Application.Contracts;
+using ExchangeApi.Domain.Wrappers;
+using ExchangeApi.Domain.Entities;
 using ExchangeApi.Domain.Entitiess;
 using ExchangeApi.Infrustructure.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
+using ExchangeApi.Infrustructure.Persistence.Services;
 
 
 namespace ExchangeApi.Infrustructure.Services;
 
-public class ExchangeTransactionServices : IExchangeTransactionServices
+public class ExchangeTransactionServices : GengericRepository<ExchangeTransaction>, IExchangeTransactionServices
 {
     private readonly ApplicationDbContext _context;
-    public ExchangeTransactionServices(ApplicationDbContext context) => _context = context;
-
-    public Task<bool> Activate(int exchangeTransactionId)
+    public ExchangeTransactionServices(ApplicationDbContext context) : base(context) 
     {
-        throw new NotImplementedException();
+        _context = context;
     }
 
-    public async Task<bool> CreateExchangeTransaction(ExchangeTransaction transaction)
+    public async Task<Response<bool>> Activate(int exchangeTransactionId)
     {
-        _context.ExchangeTransaction.Add(transaction);
+        var exchangeTransaction = _context.ExchangeTransaction.Where(x => x.Id == exchangeTransactionId).FirstOrDefault();
+        exchangeTransaction.Activate();
         await _context.SaveChangesAsync();
-        return true;
+        return new Response<bool>(true);
     }
 
-    public async Task<bool> DeleteExchangeTransaction(int transactionId)
-    {
-        var transaction = _context.ExchangeTransaction.FirstOrDefault(x => x.Id == transactionId);
-        if (transaction != null) 
-        {
-            _context.ExchangeTransaction
-            .Remove(transaction);
-            await _context.SaveChangesAsync();
-            return true;
-        }
-        return false;
-    }
 
-    public async Task<List<ExchangeTransaction>> GetAllExchangeTransactions()
-    {
-        return await _context.ExchangeTransaction.AsNoTracking().ToListAsync();
-    }
+    //public async Task<Response<List<ExchangeTransaction>>> GetExchangeTransactionById(int transactionId)
+    //{
+    //    var exchangeTrans = await _context.ExchangeTransaction
+    //        .Where(x => x.Id == transactionId)
+    //        .AsNoTracking()
+    //        .ToListAsync();
 
-    public async Task<ExchangeTransaction> GetExchangeTransactionById(int transactionId)
-    {
-        var ExcahngeTran = await _context.ExchangeTransaction
-            .Where(x => x.Id == transactionId)
-            .AsNoTracking()
-            .FirstOrDefaultAsync();
-        return ExcahngeTran;
-    }
+    //    if (exchangeTrans.Count == 0)
+    //    {
+    //        return new Response<List<ExchangeTransaction>>(null, "No exchange transactions found");
+    //    }
 
-    public async Task<List<ExchangeTransaction>> GetTransactionsByCurrencyPair(int fromCurrencyId, int toCurrencyId)
-    {
-        //The GetTransactionsByCurrencyPair method filters the exchangeTransactions list to find exchange transactions for the given pair of fromCurrencyId and toCurrencyId.
-        //It then returns a list of exchange transactions for the specified currency pair.
+    //    return new Response<List<ExchangeTransaction>>(exchangeTrans);
+    //}
 
-        List<ExchangeTransaction> result = await _context.ExchangeTransaction
-       .Where(t => t.FromCurrencyId == fromCurrencyId && t.ToCurrencyId == toCurrencyId)
-       .AsNoTracking()
-       .ToListAsync();
-        return result;
-    }
 
-    public async Task<List<ExchangeTransaction>> GetTransactionsByUserId(int userId)
-    {
-        //The GetTransactionsByUserId method filters the exchangeTransactions list to find exchange transactions for the given userId.
-        //It then returns a list of exchange transactions associated with the specified user ID.
+    //public async Task<Response<List<ExchangeTransaction>>> GetTransactionsByCurrencyPair(int fromCurrencyId, int toCurrencyId)
+    //{
+    //    //The GetTransactionsByCurrencyPair method filters the exchangeTransactions list to find exchange transactions for the given pair of fromCurrencyId and toCurrencyId.
+    //    //It then returns a list of exchange transactions for the specified currency pair.
 
-        List<ExchangeTransaction> result = await _context.ExchangeTransaction
-       .Where(t => t.Id == userId)
-       .AsNoTracking()
-       .ToListAsync();
-        return result;
-    }
+    //    List<ExchangeTransaction> result = await _context.ExchangeTransaction
+    //   .Where(t => t.FromCurrencyId == fromCurrencyId && t.ToCurrencyId == toCurrencyId)
+    //   .AsNoTracking()
+    //   .ToListAsync();
+    //    return new Response<List<ExchangeTransaction>>(result);
+    //}
 
-    public async Task<bool> UpdateExchangeTransaction(ExchangeTransaction transaction)
-    {
-        var ExchangeTransaction = await _context.ExchangeTransaction.FirstOrDefaultAsync(x => x.Id == transaction.Id);
-        if (ExchangeTransaction != null)
-        {
-            ExchangeTransaction.FromCurrencyId = transaction.FromCurrencyId;
-            ExchangeTransaction.ToCurrencyId = transaction.ToCurrencyId;
-            ExchangeTransaction.Amount = transaction.Amount;
-            ExchangeTransaction.ResultAmount = transaction.ResultAmount;
-            ExchangeTransaction.ExChangeRateId = transaction.ExChangeRateId;
-            ExchangeTransaction.IsActive = transaction.IsActive;
-            ExchangeTransaction.Updated = DateTime.Now;
-            await _context.SaveChangesAsync();
-            return true;
-        }
-        return false;
-    }
+    //public async Task<Response<List<ExchangeTransaction>>> GetTransactionsByUserId(int userId)
+    //{
+    //    //The GetTransactionsByUserId method filters the exchangeTransactions list to find exchange transactions for the given userId.
+    //    //It then returns a list of exchange transactions associated with the specified user ID.
+
+    //    List<ExchangeTransaction> result = await _context.ExchangeTransaction
+    //   .Where(t => t.Id == userId)
+    //   .AsNoTracking()
+    //   .ToListAsync();
+    //    return new Response<List<ExchangeTransaction>>(result);
+    //}
+
+
 }

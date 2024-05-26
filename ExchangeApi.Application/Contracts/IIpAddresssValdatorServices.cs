@@ -1,8 +1,9 @@
-﻿using ExchangeApi.Domain.Entitiess;
+﻿using ExchangeApi.Domain.Wrappers;
+using ExchangeApi.Domain.Entitiess;
 
 namespace ExchangeApi.Application.Contracts;
 
 public interface IIpAddresssValdatorServices
 {
-    bool ValidatorIpAddress(IpAddress ipAddress);
+    Response<bool> ValidatorIpAddress(IpAddress ipAddress);
 }

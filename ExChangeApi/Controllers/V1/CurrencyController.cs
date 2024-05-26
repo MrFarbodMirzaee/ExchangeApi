@@ -7,6 +7,7 @@ using ExchangeApi.Domain.Entitiess;
 using ExChangeApi.Domain.Entities;
 using ExchangeApi.Application.Contracts;
 using ExchangeApi.Application.Dtos;
+using ExchangeApi.Domain.Wrappers;
 
 namespace ExchangeApi.Controllers.V1;
 
@@ -31,15 +32,12 @@ public class CurrencyController : BaseController
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
-        bool IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
-        if (!IsValidAddress) 
-        {
-            return BadRequest();
-        }
+        Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
 
-        var data = await _currencyService.GetPopularCurrencies();
-        var currencyDto = _mapper.Map<List<CurrencyDto>>(data);
-        return Ok(currencyDto);
+
+        Response<List<Currency>> data = await _currencyService.GetAllAsync();
+        var currencyDto = _mapper.Map<List<CurrencyDto>>(data.Data);
+        return Ok(new Response<List<CurrencyDto>>(currencyDto));
     }
     [HttpGet]
     [Consumes(MediaTypeNames.Application.Json)]
@@ -48,15 +46,15 @@ public class CurrencyController : BaseController
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
-        bool IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
-        if (!IsValidAddress)
-        {
-            return BadRequest();
-        }
+        Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
 
-        var data = await _currencyService.GetAllActiveCurrencies();
-        var currenciesDto = _mapper.Map<List<CurrencyDto>>(data);
-        return Ok(currenciesDto);
+        Response<List<Currency>> data = await _currencyService.FindByCondition(x => x.IsActive == true);
+        if (data is null)
+        {
+            return NotFound();
+        }
+        var currencies = _mapper.Map<List<CurrencyDto>>(data);
+        return Ok(new Response<List<CurrencyDto>>(currencies));
     }
     [HttpGet]
     [Consumes(MediaTypeNames.Application.Json)]
@@ -66,15 +64,16 @@ public class CurrencyController : BaseController
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
-        bool IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
-        if (!IsValidAddress)
-        {
-            return BadRequest();
-        }
+        Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
 
-        var data = await _currencyService.GetCurrencyById(id);
-        var currenciesDto = _mapper.Map<CurrencyDto>(data);
-        return Ok(currenciesDto);
+
+        Response<List<Currency>> data = await _currencyService.FindByCondition(x => x.Id == id);
+        if (data is null)
+        {
+            return NotFound();
+        }
+        var currencyDto = _mapper.Map<CurrencyDto>(data);
+        return Ok(new Response<CurrencyDto>(currencyDto));
     }
     [HttpPost]
     [Consumes(MediaTypeNames.Application.Json)]
@@ -84,14 +83,11 @@ public class CurrencyController : BaseController
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
-        bool IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
-        if (!IsValidAddress)
-        {
-            return BadRequest();
-        }
+        Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
+        
 
-        var currency = _mapper.Map<Currency>(addCurency);
-        await _currencyService.CreateCurrency(currency);
+         var currency = _mapper.Map<Currency>(addCurency);
+         await _currencyService.AddAsync(currency);
          return Created();
     }
     [HttpGet]
@@ -104,33 +100,47 @@ public class CurrencyController : BaseController
         var ipAddress = _mapper.Map<IpAddress>(clientIpAddress);
 
         // Assuming that ValidatorIpAddress returns a boolean indicating the validity of the IP address
-        bool isValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
+        Response<bool> isValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
 
-        if (!isValidAddress)
+        Response<List<Currency>> data = await _currencyService.FindByCondition(x => x.CurrencyCode ==  word);
+        if (data is null) 
         {
-            return BadRequest("Invalid IP Address");
+            return NotFound();
         }
-
-        var data = await _currencyService.SearchCurrencies(word);
-        var currencyDto = _mapper.Map<List<CurrencyDto>>(data);
-
-        return Ok(currencyDto); // Returning the value of currencyDto
+        var currencies = _mapper.Map<List<Currency>>(data);
+        return Ok(new Response<List<Currency>>(currencies)); // Returning the value of currencyDto
     }
     [HttpDelete]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> DeleteCurrency(int id) 
+    public async Task<IActionResult> DeleteCurrency(int id)
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
-        bool IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
-        if (!IsValidAddress)
+        Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
+
+        // Find the currency by ID
+        var currencyResponse = await _currencyService.FindByCondition(x => x.Id == id);
+        if (!currencyResponse.Succeeded)
         {
-            return BadRequest();
+            // Handle the case where the currency was not found
+            return NotFound();
         }
-        var data = await _currencyService.DeleteCurrency(id);
-        var CurrenciesDto = _mapper.Map<bool>(data);
+
+        // Get the currency object from the response
+        var currency = currencyResponse.Data.FirstOrDefault();
+
+        // Delete the currency
+        var deleteResponse = await _currencyService.DeleteAsync(currency);
+        if (!deleteResponse.Succeeded)
+        {
+            // Handle the case where the delete operation failed
+            return StatusCode(500, deleteResponse.Message);
+        }
+
+        // Map the delete response to a boolean DTO
+        var CurrenciesDto = _mapper.Map<bool>(deleteResponse.Data);
         return Ok(CurrenciesDto);
     }
     [HttpPut]
@@ -141,18 +151,13 @@ public class CurrencyController : BaseController
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
-        bool IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
-        if (!IsValidAddress)
-        {
-            return BadRequest();
-        }
-
+        Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
+        
         // Set the id for the currency based on the route parameter
         currency.Id = id;
 
-        var updatedCurrency = await _currencyService.UpdateCurrency(currency);
-        if (updatedCurrency is false) 
-            return NotFound();
+        var updatedCurrency = await _currencyService.UpdateAsync(currency);
+   
         var updatedCurrencyDto = _mapper.Map<Currency>(updatedCurrency); // Assuming CurrencyDto is the DTO for Currency
 
         return Ok(updatedCurrencyDto);

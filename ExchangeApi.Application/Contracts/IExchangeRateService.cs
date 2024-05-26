@@ -1,17 +1,15 @@
-﻿using ExchangeApi.Domain.Entities;
+﻿using ExchangeApi.Domain.Wrappers;
+using ExchangeApi.Domain.Entities;
+using ExchangeApi.Domain.Contracts;
 
 
 
 namespace ExchangeApi.Application.Contracts;
 
-public interface IExchangeRateService
+public interface IExchangeRateService : IGenericRepository<ExchangeRate>
 {
-    Task<List<ExchangeRate>> GetAllExchangeRates();
-    Task<ExchangeRate> GetExchangeRateById(int rateId);
-    Task<bool> CreateExchangeRate(ExchangeRate rate);
-    Task<bool> UpdateExchangeRate(ExchangeRate rate);
-    Task<bool> DeleteExchangeRate(int rateId);
-    Task<List<ExchangeRate>> GetExchangeRatesByCurrencyPair(int fromCurrencyId, int toCurrencyId);
-    Task<ExchangeRate> GetLatestExchangeRate(int fromCurrencyId, int toCurrencyId);
-    Task<bool> Activate(int exchangeRateId);
+    
+    //Task<Response<ExchangeRate>> GetExchangeRateById(int rateId);
+    // Task<Response<List<ExchangeRate>>> GetExchangeRatesByCurrencyPair(int fromCurrencyId, int toCurrencyId);
+   // Task<Response<ExchangeRate>> GetLatestExchangeRate(int fromCurrencyId, int toCurrencyId);
 }

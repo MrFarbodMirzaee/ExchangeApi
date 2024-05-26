@@ -1,14 +1,12 @@
-﻿using ExchangeApi.Domain.Entitiess;
+﻿using ExchangeApi.Domain.Wrappers;
+using ExchangeApi.Domain.Entitiess;
+using ExchangeApi.Domain.Contracts;
 namespace ExchangeApi.Application.Contracts;
 
-public interface IExchangeTransactionServices
+public interface IExchangeTransactionServices : IGenericRepository<ExchangeTransaction>
 {
-    Task<List<ExchangeTransaction>> GetAllExchangeTransactions();
-    Task<ExchangeTransaction> GetExchangeTransactionById(int transactionId);
-    Task<bool> CreateExchangeTransaction(ExchangeTransaction transaction);
-    Task<bool> UpdateExchangeTransaction(ExchangeTransaction transaction);
-    Task<bool> DeleteExchangeTransaction(int transactionId);
-    Task<List<ExchangeTransaction>> GetTransactionsByUserId(int userId);
-    Task<List<ExchangeTransaction>> GetTransactionsByCurrencyPair(int fromCurrencyId, int toCurrencyId);
-    Task<bool> Activate(int exchangeTransactionId);
+  //  Task<Response<List<ExchangeTransaction>>> GetExchangeTransactionById(int transactionId);
+  //  Task<Response<List<ExchangeTransaction>>> GetTransactionsByUserId(int userId);
+  //  Task<Response<List<ExchangeTransaction>>> GetTransactionsByCurrencyPair(int fromCurrencyId, int toCurrencyId);
+
 }

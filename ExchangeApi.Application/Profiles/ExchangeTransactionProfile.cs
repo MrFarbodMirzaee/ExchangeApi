@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using ExchangeApi.Domain.Entitiess;
 using ExchangeApi.Application.Dtos;
+using ExchangeApi.Domain.Wrappers;
+
 
 
 
@@ -10,6 +12,8 @@ public class ExchangeTransactionProfile : Profile
 {
     public ExchangeTransactionProfile() 
     {
+        CreateMap<Response<List<ExchangeTransaction>>, List<ExchangeTransactionDto>>();
+        CreateMap<Response<ExchangeTransaction>, ExchangeTransactionDto>();
         CreateMap<ExchangeTransaction, ExchangeTransactionDto>();
         CreateMap<ExchangeTransactionDto, ExchangeTransaction>();
         CreateMap<AddExchangeTransactionDto, ExchangeTransaction>();

@@ -1,15 +1,12 @@
-﻿using ExChangeApi.Domain.Entities;
+﻿using ExchangeApi.Domain.Contracts;
+using ExchangeApi.Domain.Wrappers;
+using ExChangeApi.Domain.Entities;
 
 namespace ExchangeApi.Application.Contracts;
 
-public interface IUserService
+public interface IUserService : IGenericRepository<User>
 {
-    Task<User> GetUserById(int userId);
-    Task<bool> CreateUser(User user);
-    Task<bool> UpdateUser(User user);
-    Task<bool> DeleteUser(int userId);
-    Task<User> GetUserByEmail(string email);
-    Task<List<User>> GetAllUsers();
-    Task<List<User>> GetActiveUsers();
-    Task<bool> Activate(int userId);
+  //  Task<Response<User>> GetUserById(int userId);
+  //  Task<Response<User>> GetUserByEmail(string email);
+  //  Task<Response<List<User>>> GetActiveUsers();
 }

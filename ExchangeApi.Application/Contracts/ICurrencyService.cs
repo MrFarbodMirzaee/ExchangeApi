@@ -1,15 +1,10 @@
-﻿using ExChangeApi.Domain.Entities;
+﻿using ExchangeApi.Domain.Contracts;
+using ExchangeApi.Domain.Wrappers;
+using ExChangeApi.Domain.Entities;
 
 namespace ExchangeApi.Application.Contracts;
 
-public interface ICurrencyService
+public interface ICurrencyService : IGenericRepository<Currency>
 {
-    Task<List<Currency>> GetAllActiveCurrencies();
-    Task<Currency> GetCurrencyById(int currencyId);
-    Task<bool> CreateCurrency(Currency currency);
-    Task<bool> UpdateCurrency(Currency currency);
-    Task<bool> DeleteCurrency(int currencyId);
-    Task<List<Currency>> SearchCurrencies(string keyword);
-    Task<List<Currency>> GetPopularCurrencies();
-    Task<bool> Activate(int currencyId);
+
 }

@@ -1,12 +1,14 @@
 ﻿using AutoMapper;
 using ExchangeApi.Application.Contracts;
 using ExchangeApi.Application.Dtos;
+using ExchangeApi.Domain.Wrappers;
 using ExchangeApi.Domain.Entities;
 using ExchangeApi.Domain.Entitiess;
 using ExchangeApi.Shered;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Net.Mime;
+using ExchangeApi.Infrustructure.Services;
 
 namespace ExchangeApi.Controllers.V1;
 
@@ -34,18 +36,15 @@ public class ExchangeRateController : BaseController
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
-        bool IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
-        if (!IsValidAddress)
-        {
-            return BadRequest();
-        }
-        var data = await _exchangeRateService.GetExchangeRateById(id);
+        Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
+        
+        Response<List<ExchangeRate>> data = await _exchangeRateService.FindByCondition(x => x.Id == id);
         if (data is null) 
         {
             return NotFound();
         }
         var exchangeRateDto = _mapper.Map<ExchangeRateDto>(data);
-        return Ok(exchangeRateDto);
+        return Ok(new Response<ExchangeRateDto>(exchangeRateDto));
     }
     [HttpGet]
     [Consumes(MediaTypeNames.Application.Json)]
@@ -55,15 +54,12 @@ public class ExchangeRateController : BaseController
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
-        bool IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
-        if (!IsValidAddress)
-        {
-            return BadRequest();
-        }
+        Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
+       
 
-        var data = await _exchangeRateService.GetAllExchangeRates();
+        Response<List<ExchangeRate>> data = await _exchangeRateService.GetAllAsync();
         var exchangeRateDto = _mapper.Map<List<ExchangeRateDto>>(data);
-        return Ok(exchangeRateDto);
+        return Ok(new Response<List<ExchangeRateDto>>(exchangeRateDto));
     }
     [HttpPost]
     [Consumes(MediaTypeNames.Application.Json)]
@@ -73,15 +69,12 @@ public class ExchangeRateController : BaseController
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
-        bool IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
-        if (!IsValidAddress)
-        {
-            return BadRequest();
-        }
+        Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
 
-        var exchangeRate = _mapper.Map<ExchangeRate>(addExchangeRate);
-       await _exchangeRateService.CreateExchangeRate(exchangeRate);
-        return Created();
+
+        var exchangeRateToCreate = _mapper.Map<ExchangeRate>(addExchangeRate);
+        await _exchangeRateService.AddAsync(exchangeRateToCreate);
+        return CreatedAtAction(nameof(GetExchangeRateById), new { id = exchangeRateToCreate.Id }, new Response<ExchangeRate>(exchangeRateToCreate));
     }
     [HttpGet]
     [Consumes(MediaTypeNames.Application.Json)]
@@ -91,19 +84,15 @@ public class ExchangeRateController : BaseController
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
-        bool IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
-        if (!IsValidAddress)
-        {
-            return BadRequest();
-        }
-
-        var data = await _exchangeRateService.GetExchangeRatesByCurrencyPair(from_currencies,to_currencies);
+        Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
+    
+        Response<List<ExchangeRate>> data = await _exchangeRateService.FindByCondition(e => e.FromCurrency == from_currencies && e.ToCurrency == to_currencies);
         if (data is null) 
         {
             return NotFound();
         }
         var exchangeRatesDto = _mapper.Map<List<ExchangeRateDto>>(data);
-        return Ok(exchangeRatesDto);
+        return Ok(new Response<List<ExchangeRateDto>>(exchangeRatesDto));
     }
     [HttpGet]
     [Consumes(MediaTypeNames.Application.Json)]
@@ -113,19 +102,16 @@ public class ExchangeRateController : BaseController
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
-        bool IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
-        if (!IsValidAddress)
-        {
-            return BadRequest();
-        }
-
-        var data = await _exchangeRateService.GetLatestExchangeRate(from_currencies,to_currencies);
-        if (data is null)
+        Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
+        
+        Response<List<ExchangeRate>> data = await _exchangeRateService.FindByCondition(e => e.FromCurrency == from_currencies && e.ToCurrency == to_currencies);
+         var orderByDesc =  data.Data.OrderByDescending(e => e.Updated);
+        if (orderByDesc is null)
         {
             return NotFound();
         }
-        var exchangeRatesDto = _mapper.Map<ExchangeRateDto>(data);
-        return Ok(exchangeRatesDto);
+        var exchangeRatesDto = _mapper.Map<ExchangeRateDto>(orderByDesc);
+        return Ok(new Response<ExchangeRateDto>(exchangeRatesDto));
     }
     [HttpDelete]
     [Consumes(MediaTypeNames.Application.Json)]
@@ -135,15 +121,25 @@ public class ExchangeRateController : BaseController
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
-        bool IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
-        if (!IsValidAddress)
+        Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
+
+        var exchangeRateResponse = await _exchangeRateService.FindByCondition(x => x.Id == id);
+        if (!exchangeRateResponse.Succeeded)
         {
-            return BadRequest();
+            // Handle the case where the currency was not found
+            return NotFound();
         }
 
-        var data = await _exchangeRateService.DeleteExchangeRate(id);
+        var exchangeRate = exchangeRateResponse.Data.FirstOrDefault();
+
+        var data = await _exchangeRateService.DeleteAsync(exchangeRate);
+        if (!data.Succeeded)
+        {
+            // Handle the case where the delete operation failed
+            return StatusCode(500, data.Message);
+        }
         var exchangeRatesDto = _mapper.Map<bool>(data);
-        return Ok(exchangeRatesDto);
+        return Ok(new Response<bool>(data.Data));
     }
     [HttpPut]
     [Consumes(MediaTypeNames.Application.Json)]
@@ -153,16 +149,12 @@ public class ExchangeRateController : BaseController
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
-        bool IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
-        if (!IsValidAddress)
-        {
-            return BadRequest();
-        }
+        Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
+        
+         exchangeRate.Id = id;
 
-        exchangeRate.Id = id;
-
-        var data = await _exchangeRateService.UpdateExchangeRate(exchangeRate);
+        Response<bool> data = await _exchangeRateService.UpdateAsync(exchangeRate);
         var exchangeRatesDto = _mapper.Map<ExchangeRate>(data);
-        return Ok(exchangeRatesDto);
+        return Ok(new Response<ExchangeRate>(exchangeRatesDto));
     }
 }

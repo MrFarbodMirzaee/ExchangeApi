@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option csharp_namespace = "Exchange.gRPCServer.Protos";
+
+service CurrencyRepository {
+  // Sends a greeting
+  rpc GetCurrency (GetCurrencyRequestDto) returns (CurrencyResponseDto);
+}
+
+// The request message containing the user's name.
+message GetCurrencyRequestDto {
+  int64 id = 1;
+}
+
+// The response message containing the greetings.
+message CurrencyResponseDto {
+string CurrencyCode = 2;
+string Price = 3;  
+}

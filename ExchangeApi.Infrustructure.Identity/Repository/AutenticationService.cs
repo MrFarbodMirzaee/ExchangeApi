@@ -9,6 +9,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using ExchangeApi.Application.Enums;
+using ExchangeApi.Domain.Wrappers;
 
 
 namespace ExchangeApi.Infrustructure.Identity.Repository;
@@ -30,7 +31,7 @@ public class AutenticationService : IAutenticationService
         _roleManager = roleManager;
         _signInManager = signInManager;
     }
-    public async Task<AuthenticationResponseDto> Login(LoginDto dto)
+    public async Task<Response<AuthenticationResponseDto>> Login(LoginDto dto)
     {
         var user = await _userManager.FindByEmailAsync(dto.UserName);
         if (user == null)
@@ -52,10 +53,10 @@ public class AutenticationService : IAutenticationService
         var rolesList = await _userManager.GetRolesAsync(user).ConfigureAwait(false);
         response.Roles = rolesList.ToList();
         response.IsVerified = user.EmailConfirmed;
-        return response;
+        return new Response<AuthenticationResponseDto>( response);
     }
 
-    public async Task<AuthenticationResponseDto> Register(RegisterDto dto)
+    public async Task<Response<AuthenticationResponseDto>> Register(RegisterDto dto)
     {
         var userWithSameUserName = await _userManager.FindByNameAsync(dto.UserName);
         if (userWithSameUserName != null)

@@ -12,6 +12,8 @@ public class CurrencyAttribute : IBaseEntity<int>
     public DateTime Created { get; set; }
     public DateTime Updated { get; set; }
     public bool IsActive { get; set; }
+    public void Activate() => IsActive = true;
+    public void Deactivate() => IsActive = false;
     public string Description { get; set; }
     public string MetaDescription { get; set; }
 }
