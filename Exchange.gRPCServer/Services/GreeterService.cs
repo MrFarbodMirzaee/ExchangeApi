@@ -1,4 +1,5 @@
 using Exchange.gRPCServer;
+using Exchange.gRPCServer.Protos;
 using Grpc.Core;
 
 namespace Exchange.gRPCServer.Services

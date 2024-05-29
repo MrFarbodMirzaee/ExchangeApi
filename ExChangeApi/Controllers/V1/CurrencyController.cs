@@ -8,6 +8,7 @@ using ExChangeApi.Domain.Entities;
 using ExchangeApi.Application.Contracts;
 using ExchangeApi.Application.Dtos;
 using ExchangeApi.Domain.Wrappers;
+using Microsoft.AspNetCore.Http;
 
 namespace ExchangeApi.Controllers.V1;
 
@@ -28,27 +29,27 @@ public class CurrencyController : BaseController
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetPopularCurrencies()
+    public async Task<IActionResult> GetPopularCurrencies(CancellationToken ct)
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
         Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
 
 
-        Response<List<Currency>> data = await _currencyService.GetAllAsync();
+        Response<List<Currency>> data = await _currencyService.GetAllAsync(ct);
         var currencyDto = _mapper.Map<List<CurrencyDto>>(data.Data);
         return Ok(new Response<List<CurrencyDto>>(currencyDto));
     }
     [HttpGet]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetActiveCurrencies() 
+    public async Task<IActionResult> GetActiveCurrencies(CancellationToken ct) 
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
         Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
 
-        Response<List<Currency>> data = await _currencyService.FindByCondition(x => x.IsActive == true);
+        Response<List<Currency>> data = await _currencyService.FindByCondition(x => x.IsActive == true,ct);
         if (data is null)
         {
             return NotFound();
@@ -60,14 +61,14 @@ public class CurrencyController : BaseController
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetCurrencyById(int id) 
+    public async Task<IActionResult> GetCurrencyById(int id, CancellationToken ct) 
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
         Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
 
 
-        Response<List<Currency>> data = await _currencyService.FindByCondition(x => x.Id == id);
+        Response<List<Currency>> data = await _currencyService.FindByCondition(x => x.Id == id, ct);
         if (data is null)
         {
             return NotFound();
@@ -79,7 +80,7 @@ public class CurrencyController : BaseController
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> AddCurrencies([FromBody] AddCurencyDto addCurency)
+    public async Task<IActionResult> AddCurrencies([FromBody] AddCurencyDto addCurency, CancellationToken ct)
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
@@ -87,14 +88,14 @@ public class CurrencyController : BaseController
         
 
          var currency = _mapper.Map<Currency>(addCurency);
-         await _currencyService.AddAsync(currency);
+         await _currencyService.AddAsync(currency, ct);
          return Created();
     }
     [HttpGet]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> SearchCurrency(string word)
+    public async Task<IActionResult> SearchCurrency(string word, CancellationToken ct)
     {
         var clientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(clientIpAddress);
@@ -102,7 +103,7 @@ public class CurrencyController : BaseController
         // Assuming that ValidatorIpAddress returns a boolean indicating the validity of the IP address
         Response<bool> isValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
 
-        Response<List<Currency>> data = await _currencyService.FindByCondition(x => x.CurrencyCode ==  word);
+        Response<List<Currency>> data = await _currencyService.FindByCondition(x => x.CurrencyCode ==  word, ct);
         if (data is null) 
         {
             return NotFound();
@@ -114,14 +115,14 @@ public class CurrencyController : BaseController
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> DeleteCurrency(int id)
+    public async Task<IActionResult> DeleteCurrency(int id, CancellationToken ct)
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
         Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
 
         // Find the currency by ID
-        var currencyResponse = await _currencyService.FindByCondition(x => x.Id == id);
+        var currencyResponse = await _currencyService.FindByCondition(x => x.Id == id,ct);
         if (!currencyResponse.Succeeded)
         {
             // Handle the case where the currency was not found
@@ -132,7 +133,7 @@ public class CurrencyController : BaseController
         var currency = currencyResponse.Data.FirstOrDefault();
 
         // Delete the currency
-        var deleteResponse = await _currencyService.DeleteAsync(currency);
+        var deleteResponse = await _currencyService.DeleteAsync(currency,ct);
         if (!deleteResponse.Succeeded)
         {
             // Handle the case where the delete operation failed
@@ -147,7 +148,7 @@ public class CurrencyController : BaseController
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> UpdateCurrency(int id, Currency currency)
+    public async Task<IActionResult> UpdateCurrency(int id, Currency currency,CancellationToken ct)
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
@@ -156,10 +157,29 @@ public class CurrencyController : BaseController
         // Set the id for the currency based on the route parameter
         currency.Id = id;
 
-        var updatedCurrency = await _currencyService.UpdateAsync(currency);
+        var updatedCurrency = await _currencyService.UpdateAsync(currency, ct);
    
         var updatedCurrencyDto = _mapper.Map<Currency>(updatedCurrency); // Assuming CurrencyDto is the DTO for Currency
 
         return Ok(updatedCurrencyDto);
+    }
+    [HttpPost]
+    [Consumes(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> UploadPicture(IFormFile file, CancellationToken ct)
+    {
+        var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
+        var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
+        Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
+
+        if (file == null || file.Length == 0)
+            return BadRequest("No file detected");
+
+        using (var memoryStream = new MemoryStream())
+        {
+            await file.CopyToAsync(memoryStream);
+        }
+            return Ok();
     }
 }

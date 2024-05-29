@@ -30,12 +30,12 @@ public class ExchangeTransactionController : BaseController
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetExchangeTransactionById([FromRoute] int id)
+    public async Task<IActionResult> GetExchangeTransactionById([FromRoute] int id, CancellationToken ct)
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
         Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
-        Response<List<ExchangeTransaction>> data = await _exchangeTranzacstionService.FindByCondition(x => x.Id == id);
+        Response<List<ExchangeTransaction>> data = await _exchangeTranzacstionService.FindByCondition(x => x.Id == id, ct);
         if (data is null) 
         {
             return NotFound();
@@ -47,14 +47,14 @@ public class ExchangeTransactionController : BaseController
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetAllExchangeTransactions()
+    public async Task<IActionResult> GetAllExchangeTransactions( CancellationToken ct)
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
         Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
         
 
-        Response<List<ExchangeTransaction>> data = await _exchangeTranzacstionService.GetAllAsync();
+        Response<List<ExchangeTransaction>> data = await _exchangeTranzacstionService.GetAllAsync(ct);
         var ExchangeTranzactionDto = _mapper.Map<List<ExchangeTransactionDto>>(data);
         return Ok(new Response<List<ExchangeTransactionDto>>(ExchangeTranzactionDto));
     }
@@ -62,7 +62,7 @@ public class ExchangeTransactionController : BaseController
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> AddExchangeTransaction(AddExchangeTransactionDto addExchangeTransaction)
+    public async Task<IActionResult> AddExchangeTransaction(AddExchangeTransactionDto addExchangeTransaction,CancellationToken ct)
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
@@ -70,21 +70,21 @@ public class ExchangeTransactionController : BaseController
         
 
         var exchangetransaction = _mapper.Map<ExchangeTransaction>(addExchangeTransaction);
-        await _exchangeTranzacstionService.AddAsync(exchangetransaction);
+        await _exchangeTranzacstionService.AddAsync(exchangetransaction, ct);
         return Created();
     }
     [HttpGet]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetTransactionsByCurrencyPair(int from_currencies,int to_currencies) 
+    public async Task<IActionResult> GetTransactionsByCurrencyPair(int from_currencies,int to_currencies,CancellationToken ct) 
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
         Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
         
 
-        Response<List<ExchangeTransaction>> data = await _exchangeTranzacstionService.FindByCondition(f => f.FromCurrencyId == from_currencies && f.ToCurrencyId == to_currencies);
+        Response<List<ExchangeTransaction>> data = await _exchangeTranzacstionService.FindByCondition(f => f.FromCurrencyId == from_currencies && f.ToCurrencyId == to_currencies,ct);
         if (data is null) 
         {
             return NotFound(); 
@@ -96,14 +96,14 @@ public class ExchangeTransactionController : BaseController
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetTransactionsById(int userid) 
+    public async Task<IActionResult> GetTransactionsById(int userid, CancellationToken ct) 
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
         Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
         
 
-        Response<List<ExchangeTransaction>> data = await _exchangeTranzacstionService.FindByCondition(x => x.Id == userid);
+        Response<List<ExchangeTransaction>> data = await _exchangeTranzacstionService.FindByCondition(x => x.Id == userid, ct);
         if (data is null) 
         {
             return NotFound();
@@ -115,13 +115,13 @@ public class ExchangeTransactionController : BaseController
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> DeleteTransactions(int userid)
+    public async Task<IActionResult> DeleteTransactions(int userid, CancellationToken ct)
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
         Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
 
-        var exchangeTransactionsResponse = await _exchangeTranzacstionService.FindByCondition(x => x.Id == userid);
+        var exchangeTransactionsResponse = await _exchangeTranzacstionService.FindByCondition(x => x.Id == userid,ct);
         if (!exchangeTransactionsResponse.Succeeded)
         {
             // Handle the case where the currency was not found
@@ -130,7 +130,7 @@ public class ExchangeTransactionController : BaseController
 
         var exchangeTransactions = exchangeTransactionsResponse.Data.FirstOrDefault();
 
-        var data = await _exchangeTranzacstionService.DeleteAsync(exchangeTransactions);
+        var data = await _exchangeTranzacstionService.DeleteAsync(exchangeTransactions,ct);
         if (!data.Succeeded)
         {
             // Handle the case where the delete operation failed
@@ -143,7 +143,7 @@ public class ExchangeTransactionController : BaseController
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> UpdateTransactions(int id ,ExchangeTransaction exchangeTransaction)
+    public async Task<IActionResult> UpdateTransactions(int id ,ExchangeTransaction exchangeTransaction,CancellationToken ct)
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
@@ -151,7 +151,7 @@ public class ExchangeTransactionController : BaseController
         
         exchangeTransaction.Id = id;
 
-        Response<bool> data = await _exchangeTranzacstionService.UpdateAsync(exchangeTransaction);
+        Response<bool> data = await _exchangeTranzacstionService.UpdateAsync(exchangeTransaction,ct);
         var exchangeTranzacstionDto = _mapper.Map<ExchangeTransaction>(data);
         return Ok(new Response<ExchangeTransaction>(exchangeTranzacstionDto));
     }

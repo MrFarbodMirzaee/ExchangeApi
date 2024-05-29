@@ -1,27 +1,31 @@
-﻿using Exchange.gRPCServer.Models;
+﻿using Exchange.gRPCServer.Context;
 using Exchange.gRPCServer.Protos;
 using Grpc.Core;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace Exchange.gRPCServer.Services;
 
-public class gRPCCurrencyService : CurrencyRepository.CurrencyRepositoryBase
+public class gRPCCurrencyService
 {
     public gRPCCurrencyService() { }
-    public override Task<CurrencyResponseDto> GetCurrency(GetCurrencyRequestDto request, ServerCallContext context)
+    private readonly AppDbContext _appDbContext;
+    public gRPCCurrencyService(AppDbContext appDbContext) 
     {
-        List<Currency> currencies = new List<Currency>()
-        {
-            new Currency(){ Id = 1 , CurrencyCode = "USD",Price ="1.54548874" },
-            new Currency(){ Id = 2 , CurrencyCode = "ERU",Price ="0.21458"},
-            new Currency(){ Id = 3 , CurrencyCode = "PUD",Price ="0.418548"},
-        };
-        var data = currencies.Where(x => x.Id == x.Id).FirstOrDefault();
-        return Task.FromResult(new CurrencyResponseDto()
-        {
+        _appDbContext = appDbContext;
+    }
+    public async Task GetCurrency(GetCurrencyRequestDto request, IServerStreamWriter<CurrencyResponseDto> responseStream, ServerCallContext context)
+    {
 
-            CurrencyCode = data.CurrencyCode,
-            Price = data.Price
-        });
+        var data = await _appDbContext.currencies.Where(x => x.Id == x.Id).ToListAsync();
+        foreach (var currency in data)
+        {
+             await responseStream.WriteAsync(new CurrencyResponseDto
+            {
+                CurrencyCode = currency.CurrencyCode,
+                Price = currency.Price
+            });
+        }
     }
 }
 

@@ -2,7 +2,7 @@
 
 namespace ExchangeApi.Application.Dtos;
 
-public class ExchangeRateDto 
+public record ExchangeRateDto 
 {
     public int Id { get; set; }
     public int FromCurrency { get; set; }

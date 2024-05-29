@@ -10,6 +10,6 @@ namespace ExchangeApi.Application.Contracts;
 
 public interface IAutenticationService
 {
-    Task<Response<AuthenticationResponseDto>> Login(LoginDto dto);
-    Task<Response<AuthenticationResponseDto>> Register(RegisterDto dto);
+    Task<Response<AuthenticationResponseDto>> Login(LoginDto dto, CancellationToken ct);
+    Task<Response<AuthenticationResponseDto>> Register(RegisterDto dto, CancellationToken ct);
 }

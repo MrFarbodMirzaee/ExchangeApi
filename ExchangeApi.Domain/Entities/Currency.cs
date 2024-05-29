@@ -20,6 +20,7 @@ public class Currency : IBaseEntity<int>
     public string Name { get; set; }
     public DateTime Created { get; set; }
     public bool IsActive { get; private set; }
+    public string ImagePath { get; set; }
     public void Activate() => IsActive = true; 
     public void Deactivate() => IsActive = false;
     public DateTime Updated { get; set; }

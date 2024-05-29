@@ -1,7 +1,7 @@
 ﻿
 namespace ExchangeApi.Application.Dtos;
 
-public class ExchangeTransactionDto 
+public record ExchangeTransactionDto 
 {
     public int Id { get; set; }
     public int FromCurrencyId { get; set; }

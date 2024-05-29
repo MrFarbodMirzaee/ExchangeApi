@@ -12,6 +12,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExchangeApi.Application", "ExchangeApi.Application\ExchangeApi.Application.csproj", "{5BF87913-443D-4582-99E7-E443345A7D4A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{CE16ADC6-BC02-457A-B718-B75165E63F61}"
+	ProjectSection(SolutionItems) = preProject
+		ExchangeApi.Domain\Entities\User.cs = ExchangeApi.Domain\Entities\User.cs
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrustructure", "Infrustructure", "{04741595-F5F8-4739-82EF-67145EC2D225}"
 EndProject
@@ -33,9 +36,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExchangeApi.Getway", "Excha
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GrpcServices", "GrpcServices", "{1BA785B7-970E-422E-BCE2-AC0B29767094}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exchange.gRPCServer", "Exchange.gRPCServer\Exchange.gRPCServer.csproj", "{BCD6B9F4-D20C-4D77-8F14-0B13332B1B5A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Exchange.gRPCServer", "Exchange.gRPCServer\Exchange.gRPCServer.csproj", "{BCD6B9F4-D20C-4D77-8F14-0B13332B1B5A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exchange.gRPCClient", "Exchange.gRPCClient\Exchange.gRPCClient.csproj", "{12E3F1F8-D34B-4287-BCE4-1924F2D29B4C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Exchange.gRPCClient", "Exchange.gRPCClient\Exchange.gRPCClient.csproj", "{12E3F1F8-D34B-4287-BCE4-1924F2D29B4C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

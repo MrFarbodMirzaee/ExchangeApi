@@ -1,7 +1,7 @@
 ﻿
 namespace ExchangeApi.Application.Dtos;
 
-public class UserDto 
+public record UserDto 
 {
     public int Id { get; set; }
     public string Name { get; set; }

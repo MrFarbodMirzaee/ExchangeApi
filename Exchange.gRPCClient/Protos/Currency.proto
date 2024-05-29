@@ -1,6 +1,7 @@
 syntax = "proto3";
 
-option csharp_namespace = "Exchange.gRPCServer.Protos";
+option csharp_namespace = "Exchange.gRPCClient";
+import "google/protobuf/empty.proto";
 
 service CurrencyRepository {
   // Sends a greeting
@@ -9,7 +10,7 @@ service CurrencyRepository {
 
 // The request message containing the user's name.
 message GetCurrencyRequestDto {
-  int64 id = 1;
+  	google.protobuf.Empty input = 1;
 }
 
 // The response message containing the greetings.
