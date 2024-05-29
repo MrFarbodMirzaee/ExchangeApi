@@ -30,12 +30,12 @@ public class UserController : BaseController
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetUserById([FromRoute] int id)
+    public async Task<IActionResult> GetUserById([FromRoute] int id, CancellationToken ct)
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
         Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
-        Response<List<User>> data = await _userService.FindByCondition(x => x.Id == id);
+        Response<List<User>> data = await _userService.FindByCondition(x => x.Id == id, ct);
         if (data == null)
             return NotFound();
         var user = _mapper.Map<UserDto>(data);
@@ -46,13 +46,13 @@ public class UserController : BaseController
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
 
-    public async Task<IActionResult> GetActiveUsers()
+    public async Task<IActionResult> GetActiveUsers(CancellationToken ct)
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
         Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
         
-        Response<List<User>> data = await _userService.FindByCondition(A => A.IsActive == true);
+        Response<List<User>> data = await _userService.FindByCondition(A => A.IsActive == true ,ct);
         var UserDtos = _mapper.Map<List<UserDto>>(data);
         return Ok(new Response<List<UserDto>>(UserDtos));
     }
@@ -60,28 +60,28 @@ public class UserController : BaseController
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> AddUser([FromBody] AddUserDto addUser)
+    public async Task<IActionResult> AddUser([FromBody] AddUserDto addUser,CancellationToken ct)
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
         Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
         
         var UserData = _mapper.Map<User>(addUser);
-        await _userService.AddAsync(UserData);
+        await _userService.AddAsync(UserData, ct);
         return Created();
     }
     [HttpGet]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> GetAllUser() 
+    public async Task<IActionResult> GetAllUser(CancellationToken ct) 
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
         Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
         
 
-        Response<List<User>> data = await _userService.GetAllAsync();
+        Response<List<User>> data = await _userService.GetAllAsync(ct);
         var UserDto = _mapper.Map<List<UserDto>>(data);
         return Ok(new Response<List<UserDto>>(UserDto));
     }
@@ -89,14 +89,14 @@ public class UserController : BaseController
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetUserByEmail(string email) 
+    public async Task<IActionResult> GetUserByEmail(string email,CancellationToken ct) 
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
         Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
         
 
-        Response<List<User>> data = await _userService.FindByCondition(e => e.EmailAddress == email);
+        Response<List<User>> data = await _userService.FindByCondition(e => e.EmailAddress == email, ct);
         var UserDto = _mapper.Map<UserDto>(data);
         return Ok(new Response<UserDto>(UserDto));
     }
@@ -104,14 +104,14 @@ public class UserController : BaseController
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> DeleteUser(int id)
+    public async Task<IActionResult> DeleteUser(int id, CancellationToken ct)
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
         Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
 
 
-        var UserResponse = await _userService.FindByCondition(x => x.Id == id);
+        var UserResponse = await _userService.FindByCondition(x => x.Id == id,ct);
         if (!UserResponse.Succeeded)
         {
             // Handle the case where the currency was not found
@@ -120,7 +120,7 @@ public class UserController : BaseController
 
         var user = UserResponse.Data.FirstOrDefault();
 
-        var data = await _userService.DeleteAsync(user);
+        var data = await _userService.DeleteAsync(user,ct);
         if (!data.Succeeded)
         {
             // Handle the case where the delete operation failed
@@ -133,7 +133,7 @@ public class UserController : BaseController
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> UpdateUser(int id, User user)
+    public async Task<IActionResult> UpdateUser(int id, User user,CancellationToken ct)
     {
         var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
         var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
@@ -142,7 +142,7 @@ public class UserController : BaseController
 
         user.Id = id;
 
-        Response<bool> data = await _userService.UpdateAsync(user);
+        Response<bool> data = await _userService.UpdateAsync(user, ct);
         var UserDto = _mapper.Map<User>(data);
         return Ok(new Response<User>(UserDto));
     }

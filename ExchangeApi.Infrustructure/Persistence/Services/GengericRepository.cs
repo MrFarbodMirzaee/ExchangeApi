@@ -14,36 +14,36 @@ public class GengericRepository<TEntity> : IGenericRepository<TEntity> where TEn
     {
         _dbContext = context;
     }
-    public async Task<Response<bool>> AddAsync(TEntity entity)
+    public async Task<Response<bool>> AddAsync(TEntity entity, CancellationToken ct)
     {
         await _dbContext.Set<TEntity>().AddAsync(entity);
-        await _dbContext.SaveChangesAsync();
+        await _dbContext.SaveChangesAsync(ct);
         return new Response<bool>(true);
     }
 
-    public async Task<Response<bool>> DeleteAsync(TEntity entity)
+    public async Task<Response<bool>> DeleteAsync(TEntity entity, CancellationToken ct)
     {
          _dbContext.Set<TEntity>().Remove(entity);
-        await _dbContext.SaveChangesAsync();
+        await _dbContext.SaveChangesAsync(ct);
         return new Response<bool>(true);
     }
 
-    public async Task<Response<List<TEntity>>> FindByCondition(Expression<Func<TEntity, bool>> expression)
+    public async Task<Response<List<TEntity>>> FindByCondition(Expression<Func<TEntity, bool>> expression, CancellationToken ct)
     {
-          var entities = await _dbContext.Set<TEntity>().Where(expression).AsNoTracking().ToListAsync();
+          var entities = await _dbContext.Set<TEntity>().Where(expression).AsNoTracking().ToListAsync(ct);
         return new Response<List<TEntity>>(entities);
     }
 
-    public async Task<Response<List<TEntity>>> GetAllAsync()
+    public async Task<Response<List<TEntity>>> GetAllAsync(CancellationToken ct)
     {
-        var entities = await _dbContext.Set<TEntity>().AsNoTracking().ToListAsync();
+        var entities = await _dbContext.Set<TEntity>().AsNoTracking().ToListAsync(ct);
         return new Response<List<TEntity>>(entities);
     }
 
-    public async Task<Response<bool>> UpdateAsync(TEntity entity)
+    public async Task<Response<bool>> UpdateAsync(TEntity entity, CancellationToken ct)
     {
          _dbContext.Set<TEntity>().Update(entity);
-        await _dbContext.SaveChangesAsync();
+        await _dbContext.SaveChangesAsync(ct);
         return new Response<bool>(true);
     }
 }

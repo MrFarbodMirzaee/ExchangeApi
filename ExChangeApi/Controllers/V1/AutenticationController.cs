@@ -22,7 +22,7 @@ public class AutenticationController : BaseController
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Login([FromBody] LoginDto dto,CancellationToken ct)
     {
-        var result = await _autenticationService.Login(dto);
+        var result = await _autenticationService.Login(dto,ct);
         return Ok(result);
     }
     [HttpPost]
@@ -31,7 +31,7 @@ public class AutenticationController : BaseController
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Register([FromBody] RegisterDto dto, CancellationToken ct)
     {
-        var result = await _autenticationService.Register(dto);
+        var result = await _autenticationService.Register(dto, ct);
         return Created();
     }
 }

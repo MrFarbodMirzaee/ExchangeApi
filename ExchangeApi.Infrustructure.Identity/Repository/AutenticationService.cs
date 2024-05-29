@@ -31,7 +31,7 @@ public class AutenticationService : IAutenticationService
         _roleManager = roleManager;
         _signInManager = signInManager;
     }
-    public async Task<Response<AuthenticationResponseDto>> Login(LoginDto dto)
+    public async Task<Response<AuthenticationResponseDto>> Login(LoginDto dto, CancellationToken ct)
     {
         var user = await _userManager.FindByEmailAsync(dto.UserName);
         if (user == null)
@@ -56,7 +56,7 @@ public class AutenticationService : IAutenticationService
         return new Response<AuthenticationResponseDto>( response);
     }
 
-    public async Task<Response<AuthenticationResponseDto>> Register(RegisterDto dto)
+    public async Task<Response<AuthenticationResponseDto>> Register(RegisterDto dto, CancellationToken ct)
     {
         var userWithSameUserName = await _userManager.FindByNameAsync(dto.UserName);
         if (userWithSameUserName != null)

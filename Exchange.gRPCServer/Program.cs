@@ -1,12 +1,20 @@
+using Exchange.gRPCServer.Context;
 using Exchange.gRPCServer.Services;
+using Microsoft.EntityFrameworkCore;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddGrpc();
+builder.Services.AddDbContext<AppDbContext>(option => option.UseInMemoryDatabase("ConnectionString"));
 
+//Add Grpc Reflection
+builder.Services.AddGrpcReflection();
 var app = builder.Build();
 
+//to use into postman  
+app.MapGrpcReflectionService();
 // Configure the HTTP request pipeline.
 app.MapGrpcService<GreeterService>();
 app.MapGrpcService<gRPCCurrencyService>();
