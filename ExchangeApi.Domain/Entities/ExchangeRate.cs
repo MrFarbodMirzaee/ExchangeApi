@@ -1,8 +1,9 @@
-﻿using ExchangeApi.Domain.Contracts;
+﻿#nullable disable
+using ExchangeApi.Domain.Contracts;
 
 namespace ExchangeApi.Domain.Entities;
 
-public class ExchangeRate : IBaseEntity<int>
+public class ExchangeRate : IBaseEntity<int>, IDeletable, IAuditable
 {
     /// <summary>
     /// Represents the unique identifier of the exchange rate.
@@ -29,6 +30,9 @@ public class ExchangeRate : IBaseEntity<int>
     public DateTime Updated { get; set; }
     public string Description { get; set; }
     public string MetaDescription { get; set; }
+    public int UpdatedByUserId { get; set; }
+    public int DeletedByUserId { get; set; }
+
     public void Activate() => IsActive = true;
     public void Deactivate() => IsActive = false;
 }

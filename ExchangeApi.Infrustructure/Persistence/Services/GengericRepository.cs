@@ -1,4 +1,6 @@
-﻿using ExchangeApi.Domain.Contracts;
+﻿using ExchangeApi.Application.Filters;
+using ExchangeApi.Domain.Contracts;
+using ExchangeApi.Domain.ValueObjects;
 using ExchangeApi.Domain.Wrappers;
 using ExchangeApi.Infrustructure.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
@@ -32,6 +34,11 @@ public class GengericRepository<TEntity> : IGenericRepository<TEntity> where TEn
     {
           var entities = await _dbContext.Set<TEntity>().Where(expression).AsNoTracking().ToListAsync(ct);
         return new Response<List<TEntity>>(entities);
+    }
+
+    public async Task<IEnumerable<TEntity>> FindByQueryCriterial(QueryCriterial queryCriteria,CancellationToken cancellationToken)
+    {
+        return await _dbContext.Set<TEntity>().ApplyFilter(queryCriteria);
     }
 
     public async Task<Response<List<TEntity>>> GetAllAsync(CancellationToken ct)

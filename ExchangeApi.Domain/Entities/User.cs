@@ -1,9 +1,10 @@
-﻿using ExchangeApi.Domain.Contracts;
+﻿#nullable disable
+using ExchangeApi.Domain.Contracts;
 using ExchangeApi.Domain.Entitiess;
 
 namespace ExChangeApi.Domain.Entities;
 
-public class User : IBaseEntity<int>
+public class User : IBaseEntity<int>, IDeletable, IAuditable
 {
     public int Id { get; set;  }
     public string Name { get; set; }
@@ -16,6 +17,9 @@ public class User : IBaseEntity<int>
     public DateTime Updated { get; set; }
     public string Description { get; set; }
     public string MetaDescription { get; set; }
+    public int DeletedByUserId { get; set; }
+    public int UpdatedByUserId { get; set; }
+    
     public void Activate() => IsActive = true;
     public void Deactivate() => IsActive = false;
 }

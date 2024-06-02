@@ -3,12 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using ExchangeApi.Shered;
 using System.Net.Mime;
-using ExchangeApi.Domain.Entitiess;
-using ExChangeApi.Domain.Entities;
 using ExchangeApi.Application.Contracts;
-using ExchangeApi.Application.Dtos;
-using ExchangeApi.Domain.Wrappers;
-using Microsoft.AspNetCore.Http;
+using ExchangeApi.Application.UseCases.Currency.Commands;
+using ExchangeApi.Application.UseCases.Currency.Queries.GetActiveCurrency;
+using ExchangeApi.Application.UseCases.Currency.Queries;
+using ExchangeApi.Application.UseCases.Currency.Queries.GetAllCurrency;
 
 namespace ExchangeApi.Controllers.V1;
 
@@ -29,157 +28,40 @@ public class CurrencyController : BaseController
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetPopularCurrencies(CancellationToken ct)
-    {
-        var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
-        var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
-        Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
-
-
-        Response<List<Currency>> data = await _currencyService.GetAllAsync(ct);
-        var currencyDto = _mapper.Map<List<CurrencyDto>>(data.Data);
-        return Ok(new Response<List<CurrencyDto>>(currencyDto));
-    }
+    public async Task<IActionResult> GetAllCurrency(GetAllCurrencyQuery request,CancellationToken ct) => await SendAsync(request, ct);
     [HttpGet]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetActiveCurrencies(CancellationToken ct) 
-    {
-        var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
-        var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
-        Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
-
-        Response<List<Currency>> data = await _currencyService.FindByCondition(x => x.IsActive == true,ct);
-        if (data is null)
-        {
-            return NotFound();
-        }
-        var currencies = _mapper.Map<List<CurrencyDto>>(data);
-        return Ok(new Response<List<CurrencyDto>>(currencies));
-    }
+    public async Task<IActionResult> GetActiveCurrencies(GetCurrencyActiveQuery request,CancellationToken ct) => await SendAsync(request, ct);
     [HttpGet]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetCurrencyById(int id, CancellationToken ct) 
-    {
-        var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
-        var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
-        Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
-
-
-        Response<List<Currency>> data = await _currencyService.FindByCondition(x => x.Id == id, ct);
-        if (data is null)
-        {
-            return NotFound();
-        }
-        var currencyDto = _mapper.Map<CurrencyDto>(data);
-        return Ok(new Response<CurrencyDto>(currencyDto));
-    }
+    public async Task<IActionResult> GetCurrencyById(GetCurrencyByIdQuery request, CancellationToken ct) => await SendAsync(request, ct);
     [HttpPost]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> AddCurrencies([FromBody] AddCurencyDto addCurency, CancellationToken ct)
-    {
-        var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
-        var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
-        Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
-        
-
-         var currency = _mapper.Map<Currency>(addCurency);
-         await _currencyService.AddAsync(currency, ct);
-         return Created();
-    }
+    public async Task<IActionResult> AddCurrencies([FromBody] AddCurrencyCommand command, CancellationToken ct) => await SendAsync(command, ct);
     [HttpGet]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> SearchCurrency(string word, CancellationToken ct)
-    {
-        var clientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
-        var ipAddress = _mapper.Map<IpAddress>(clientIpAddress);
-
-        // Assuming that ValidatorIpAddress returns a boolean indicating the validity of the IP address
-        Response<bool> isValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
-
-        Response<List<Currency>> data = await _currencyService.FindByCondition(x => x.CurrencyCode ==  word, ct);
-        if (data is null) 
-        {
-            return NotFound();
-        }
-        var currencies = _mapper.Map<List<Currency>>(data);
-        return Ok(new Response<List<Currency>>(currencies)); // Returning the value of currencyDto
-    }
+    public async Task<IActionResult> SearchCurrency(SearchCurrencyQuery request, CancellationToken ct) => await SendAsync(request, ct);
     [HttpDelete]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> DeleteCurrency(int id, CancellationToken ct)
-    {
-        var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
-        var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
-        Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
-
-        // Find the currency by ID
-        var currencyResponse = await _currencyService.FindByCondition(x => x.Id == id,ct);
-        if (!currencyResponse.Succeeded)
-        {
-            // Handle the case where the currency was not found
-            return NotFound();
-        }
-
-        // Get the currency object from the response
-        var currency = currencyResponse.Data.FirstOrDefault();
-
-        // Delete the currency
-        var deleteResponse = await _currencyService.DeleteAsync(currency,ct);
-        if (!deleteResponse.Succeeded)
-        {
-            // Handle the case where the delete operation failed
-            return StatusCode(500, deleteResponse.Message);
-        }
-
-        // Map the delete response to a boolean DTO
-        var CurrenciesDto = _mapper.Map<bool>(deleteResponse.Data);
-        return Ok(CurrenciesDto);
-    }
+    public async Task<IActionResult> DeleteCurrency(DeleteCurrencyCommand request, CancellationToken ct) => await SendAsync(request, ct);
     [HttpPut]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> UpdateCurrency(int id, Currency currency,CancellationToken ct)
-    {
-        var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
-        var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
-        Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
-        
-        // Set the id for the currency based on the route parameter
-        currency.Id = id;
-
-        var updatedCurrency = await _currencyService.UpdateAsync(currency, ct);
-   
-        var updatedCurrencyDto = _mapper.Map<Currency>(updatedCurrency); // Assuming CurrencyDto is the DTO for Currency
-
-        return Ok(updatedCurrencyDto);
-    }
+    public async Task<IActionResult> UpdateCurrency(UpdateCurrencyCommand request, CancellationToken ct) => await SendAsync(request,ct);
     [HttpPost]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> UploadPicture(IFormFile file, CancellationToken ct)
-    {
-        var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
-        var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
-        Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
-
-        if (file == null || file.Length == 0)
-            return BadRequest("No file detected");
-
-        using (var memoryStream = new MemoryStream())
-        {
-            await file.CopyToAsync(memoryStream);
-        }
-            return Ok();
-    }
+    public async Task<IActionResult> UploadPicture(UploadPictureCommand request, CancellationToken ct) => await SendAsync(request, ct);
+    
 }

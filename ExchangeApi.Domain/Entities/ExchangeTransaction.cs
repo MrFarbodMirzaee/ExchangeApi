@@ -1,8 +1,9 @@
-﻿using ExchangeApi.Domain.Contracts;
+﻿#nullable disable
+using ExchangeApi.Domain.Contracts;
 
 namespace ExchangeApi.Domain.Entitiess;
 
-public class ExchangeTransaction : IBaseEntity<int>
+public class ExchangeTransaction : IBaseEntity<int>, IDeletable, IAuditable
 {
     /// <summary>
     ///  Represents the unique identifier of the exchange transaction.
@@ -39,4 +40,7 @@ public class ExchangeTransaction : IBaseEntity<int>
     public void Activate() => IsActive = true;
     public void Deactivate() => IsActive = false;
     public string MetaDescription { get; set; }
+    public int UserId { get; set; }
+    public int UpdatedByUserId { get; set; }
+    public int DeletedByUserId { get; set; }
 }

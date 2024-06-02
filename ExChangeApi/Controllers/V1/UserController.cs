@@ -9,6 +9,10 @@ using ExchangeApi.Application.Contracts;
 using ExchangeApi.Application.Dtos;
 using ExchangeApi.Domain.Wrappers;
 using User = ExChangeApi.Domain.Entities.User;
+using ExchangeApi.Application.UseCases.User.Commands;
+using Azure.Core;
+using ExchangeApi.Application.UseCases.User.Queries;
+using ExchangeApi.Application.UseCases.User.Commands.DeleteUser;
 
 namespace ExchangeApi.Controllers.V1;
 
@@ -30,120 +34,35 @@ public class UserController : BaseController
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetUserById([FromRoute] int id, CancellationToken ct)
-    {
-        var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
-        var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
-        Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
-        Response<List<User>> data = await _userService.FindByCondition(x => x.Id == id, ct);
-        if (data == null)
-            return NotFound();
-        var user = _mapper.Map<UserDto>(data);
-        return Ok(new Response<UserDto>(user));
-    }
+    public async Task<IActionResult> GetUserById([FromRoute] GetUserByIdQuery request, CancellationToken ct) => await SendAsync(request, ct);
     [HttpGet]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-
-    public async Task<IActionResult> GetActiveUsers(CancellationToken ct)
-    {
-        var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
-        var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
-        Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
-        
-        Response<List<User>> data = await _userService.FindByCondition(A => A.IsActive == true ,ct);
-        var UserDtos = _mapper.Map<List<UserDto>>(data);
-        return Ok(new Response<List<UserDto>>(UserDtos));
-    }
+    public async Task<IActionResult> GetActiveUsers(GetActiveUserQuery request,CancellationToken ct) => await SendAsync(request, ct);
     [HttpPost]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> AddUser([FromBody] AddUserDto addUser,CancellationToken ct)
-    {
-        var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
-        var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
-        Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
-        
-        var UserData = _mapper.Map<User>(addUser);
-        await _userService.AddAsync(UserData, ct);
-        return Created();
-    }
+    public async Task<IActionResult> AddUser([FromBody] AddUserCommand command, CancellationToken ct) => await SendAsync(command, ct);
     [HttpGet]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> GetAllUser(CancellationToken ct) 
-    {
-        var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
-        var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
-        Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
-        
-
-        Response<List<User>> data = await _userService.GetAllAsync(ct);
-        var UserDto = _mapper.Map<List<UserDto>>(data);
-        return Ok(new Response<List<UserDto>>(UserDto));
-    }
+    public async Task<IActionResult> GetAllUser(GetAllUserQuery request,CancellationToken ct) => await SendAsync(request, ct);
     [HttpGet]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetUserByEmail(string email,CancellationToken ct) 
-    {
-        var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
-        var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
-        Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
-        
-
-        Response<List<User>> data = await _userService.FindByCondition(e => e.EmailAddress == email, ct);
-        var UserDto = _mapper.Map<UserDto>(data);
-        return Ok(new Response<UserDto>(UserDto));
-    }
+    public async Task<IActionResult> GetUserByEmail(GetUserByEmailQuery request,CancellationToken ct) => await SendAsync(request, ct);
     [HttpDelete]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> DeleteUser(int id, CancellationToken ct)
-    {
-        var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
-        var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
-        Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
-
-
-        var UserResponse = await _userService.FindByCondition(x => x.Id == id,ct);
-        if (!UserResponse.Succeeded)
-        {
-            // Handle the case where the currency was not found
-            return NotFound();
-        }
-
-        var user = UserResponse.Data.FirstOrDefault();
-
-        var data = await _userService.DeleteAsync(user,ct);
-        if (!data.Succeeded)
-        {
-            // Handle the case where the delete operation failed
-            return StatusCode(500, data.Message);
-        }
-        var UserDto = _mapper.Map<bool>(data);
-        return Ok(UserDto);
-    }
+    public async Task<IActionResult> DeleteUser(DeleteUserCommand request, CancellationToken ct) => await SendAsync(request, ct);
     [HttpPut]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> UpdateUser(int id, User user,CancellationToken ct)
-    {
-        var ClientIpAddress = HttpContext.Connection.RemoteIpAddress.ToString();
-        var ipAddress = _mapper.Map<IpAddress>(ClientIpAddress);
-        Response<bool> IsValidAddress = _ipAddresssValdatorClass.ValidatorIpAddress(ipAddress);
-        
-
-        user.Id = id;
-
-        Response<bool> data = await _userService.UpdateAsync(user, ct);
-        var UserDto = _mapper.Map<User>(data);
-        return Ok(new Response<User>(UserDto));
-    }
+    public async Task<IActionResult> UpdateUser(UpdateUserCommand request, User user,CancellationToken ct) => await SendAsync(request, ct);
 }

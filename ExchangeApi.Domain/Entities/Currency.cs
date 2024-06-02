@@ -1,10 +1,11 @@
-﻿using ExchangeApi.Domain.Contracts;
+﻿#nullable disable
+using ExchangeApi.Domain.Contracts;
 using ExchangeApi.Domain.Entities;
 
 
 namespace ExChangeApi.Domain.Entities;
 
-public class Currency : IBaseEntity<int>
+public class Currency : IBaseEntity<int>,IDeletable,IAuditable
 {
     /// <summary>
     /// Represents the unique identifier of the currency.
@@ -32,4 +33,6 @@ public class Currency : IBaseEntity<int>
     /// </summary>
     ICollection<ExchangeRate> ExchangeRates { get; set; }
     ICollection<CurrencyAttribute> CurrencyAttributes { get; set; }
+    public int DeletedByUserId { get; set; }
+    public int UpdatedByUserId { get; set; }
 }
