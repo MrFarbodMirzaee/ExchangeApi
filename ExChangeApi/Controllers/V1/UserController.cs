@@ -4,13 +4,9 @@ using System.Net.Mime;
 using AutoMapper;
 using ExchangeApi.Shered;
 using Microsoft.Extensions.Options;
-using ExchangeApi.Domain.Entitiess;
 using ExchangeApi.Application.Contracts;
-using ExchangeApi.Application.Dtos;
-using ExchangeApi.Domain.Wrappers;
 using User = ExChangeApi.Domain.Entities.User;
 using ExchangeApi.Application.UseCases.User.Commands;
-using Azure.Core;
 using ExchangeApi.Application.UseCases.User.Queries;
 using ExchangeApi.Application.UseCases.User.Commands.DeleteUser;
 

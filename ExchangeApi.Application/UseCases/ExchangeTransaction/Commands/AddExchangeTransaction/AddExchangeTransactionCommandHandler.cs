@@ -18,7 +18,7 @@ public class AddExchangeTransactionCommandHandler : IRequestHandler<AddExchangeT
     }
     public async Task<Response<int>> Handle(AddExchangeTransactionCommand request, CancellationToken ct)
     {
-        var exchangetransaction = _mapper.Map<ExchangeApi.Domain.Entitiess.ExchangeTransaction>(request);
+        var exchangetransaction = _mapper.Map<ExchangeApi.Domain.Entities.ExchangeTransaction>(request);
         await _exchangeTranzacstionService.AddAsync(exchangetransaction, ct);
         return new Response<int>();
     }

@@ -1,5 +1,6 @@
-﻿using ExchangeApi.Domain.Wrappers;
-using ExchangeApi.Domain.Entitiess;
+﻿using ExchangeApi.Domain.Entities;
+using ExchangeApi.Domain.Wrappers;
+
 
 namespace ExchangeApi.Application.Contracts;
 

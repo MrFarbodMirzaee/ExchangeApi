@@ -1,5 +1,4 @@
 ﻿using ExchangeApi.Domain.Entities;
-using ExchangeApi.Domain.Entitiess;
 using ExChangeApi.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;

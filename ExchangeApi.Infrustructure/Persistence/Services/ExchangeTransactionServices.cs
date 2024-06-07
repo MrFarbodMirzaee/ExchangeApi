@@ -1,7 +1,6 @@
 ﻿using ExchangeApi.Application.Contracts;
 using ExchangeApi.Domain.Wrappers;
 using ExchangeApi.Domain.Entities;
-using ExchangeApi.Domain.Entitiess;
 using ExchangeApi.Infrustructure.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using ExchangeApi.Infrustructure.Persistence.Services;

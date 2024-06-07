@@ -1,7 +1,7 @@
 ﻿#nullable disable
 using ExchangeApi.Domain.Contracts;
 
-namespace ExchangeApi.Domain.Entitiess;
+namespace ExchangeApi.Domain.Entities;
 
 public class ExchangeTransaction : IBaseEntity<int>, IDeletable, IAuditable
 {

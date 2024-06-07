@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using ExchangeApi.Domain.Entitiess;
+using ExchangeApi.Domain.Entities;
 using ExchangeApi.Application.Dtos;
 using ExchangeApi.Domain.Wrappers;
 

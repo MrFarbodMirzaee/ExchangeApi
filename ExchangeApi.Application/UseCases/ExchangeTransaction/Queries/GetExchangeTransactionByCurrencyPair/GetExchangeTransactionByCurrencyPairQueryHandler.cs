@@ -18,7 +18,7 @@ public class GetExchangeTransactionByCurrencyPairQueryHandler : IRequestHandler<
     }
     public async Task<Response<ExchangeTransactionDto>> Handle(GetExchangeTransactionByCurrencyPairQuery request, CancellationToken ct)
     {
-        Response<List<ExchangeApi.Domain.Entitiess.ExchangeTransaction>> data = await _exchangeTranzacstionService.FindByCondition(f => f.FromCurrencyId == request.FromCurrency && f.ToCurrencyId == request.ToCurrency, ct);
+        Response<List<ExchangeApi.Domain.Entities.ExchangeTransaction>> data = await _exchangeTranzacstionService.FindByCondition(f => f.FromCurrencyId == request.FromCurrency && f.ToCurrencyId == request.ToCurrency, ct);
         if (data is null)
         {
             return new Response<ExchangeTransactionDto>( new ExchangeTransactionDto());
