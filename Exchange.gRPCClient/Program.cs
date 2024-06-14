@@ -9,8 +9,7 @@ namespace Exchange.gRPCClient;
 internal class Program
 {
     static async Task Main(string[] args)
-    {
-        
+    {   
         var sp = new Stopwatch();
         string address = "https://localhost:7219";
         var channel = GrpcChannel.ForAddress(address);

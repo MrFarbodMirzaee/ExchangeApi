@@ -10,7 +10,6 @@
   <ItemGroup>
     <None Remove="Protos\Currency.proto" />
     <None Remove="Protos\CurrencyImageFileStreaming.proto" />
-    <None Remove="Protos\sales.proto" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,7 +17,6 @@
       <GrpcServices>Client</GrpcServices>
     </Protobuf>
     <Protobuf Include="Protos\CurrencyImageFileStreaming.proto" GrpcServices="Client" />
-    <Protobuf Include="Protos\sales.proto" GrpcServices="Client" />
   </ItemGroup>
 
   <ItemGroup>
