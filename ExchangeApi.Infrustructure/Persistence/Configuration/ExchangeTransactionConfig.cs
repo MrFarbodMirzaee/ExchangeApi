@@ -1,5 +1,4 @@
 ﻿using ExchangeApi.Domain.Entities;
-using ExchangeApi.Domain.Entitiess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

@@ -1,6 +1,5 @@
 ﻿using ExchangeApi.Domain.Contracts;
 using ExchangeApi.Domain.Entities;
-using ExchangeApi.Domain.Entitiess;
 using ExchangeApi.Infrustructure.Extentions;
 using ExChangeApi.Domain.Entities;
 using Microsoft.EntityFrameworkCore;

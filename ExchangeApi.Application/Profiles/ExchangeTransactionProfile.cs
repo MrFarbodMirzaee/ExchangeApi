@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using ExchangeApi.Domain.Entitiess;
 using ExchangeApi.Application.Dtos;
+using ExchangeApi.Domain.Entities;
 using ExchangeApi.Domain.Wrappers;
 
 

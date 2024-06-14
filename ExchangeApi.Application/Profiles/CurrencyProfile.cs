@@ -2,7 +2,6 @@
 using ExchangeApi.Application.Dtos;
 using ExchangeApi.Domain.Wrappers;
 using ExchangeApi.Domain.Entities;
-using ExchangeApi.Domain.Entitiess;
 using ExChangeApi.Domain.Entities;
 
 namespace ExchangeApi.Application.Profiles;

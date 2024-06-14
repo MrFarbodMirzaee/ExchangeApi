@@ -1,5 +1,5 @@
 ﻿using ExchangeApi.Domain.Contracts;
-using ExchangeApi.Domain.Entitiess;
+using ExchangeApi.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

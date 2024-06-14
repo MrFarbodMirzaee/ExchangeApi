@@ -4,7 +4,6 @@ using ExchangeApi.Shered;
 using ExchangeApi.Domain.Wrappers;
 using ExChangeApi.Domain.Entities;
 using ExchangeApi.Domain.Entities;
-using ExchangeApi.Domain.Entitiess;
 using ExchangeApi.Infrustructure.Services;
 
 namespace ExchangeApi;

@@ -19,7 +19,7 @@ public class GetExchangeTransactionByIdQueryHandler : IRequestHandler<GetExchang
     }
     public async Task<Response<ExchangeTransactionDto>> Handle(GetExchangeTransactionByIdQuery request, CancellationToken ct)
     {
-        Response<List<ExchangeApi.Domain.Entitiess.ExchangeTransaction>> data = await _exchangeTranzacstionService.FindByCondition(x => x.Id == request.ExTId, ct);
+        Response<List<ExchangeApi.Domain.Entities.ExchangeTransaction>> data = await _exchangeTranzacstionService.FindByCondition(x => x.Id == request.ExTId, ct);
         if (data is null)
         {
             return new Response<ExchangeTransactionDto>(new ExchangeTransactionDto());
