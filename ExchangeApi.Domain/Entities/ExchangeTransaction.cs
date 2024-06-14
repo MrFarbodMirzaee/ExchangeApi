@@ -2,7 +2,7 @@
 using ExchangeApi.Domain.Contracts;
 
 namespace ExchangeApi.Domain.Entitiess;
-
+[Entity]
 public class ExchangeTransaction : IBaseEntity<int>, IDeletable, IAuditable
 {
     /// <summary>

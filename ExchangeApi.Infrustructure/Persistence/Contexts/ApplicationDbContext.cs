@@ -1,5 +1,7 @@
-﻿using ExchangeApi.Domain.Entities;
+﻿using ExchangeApi.Domain.Contracts;
+using ExchangeApi.Domain.Entities;
 using ExchangeApi.Domain.Entitiess;
+using ExchangeApi.Infrustructure.Extentions;
 using ExChangeApi.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
@@ -18,6 +20,7 @@ public class ApplicationDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.HasDefaultSchema("BASE");
+        builder.RegisterAllSeeders(typeof(IBaseSeeder<>).Assembly);
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         base.OnModelCreating(builder);
     }

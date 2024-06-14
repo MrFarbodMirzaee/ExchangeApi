@@ -15,13 +15,11 @@ public class ExchangeRateController : BaseController
     private readonly IExchangeRateService _exchangeRateService;
     private readonly IMapper _mapper;
     private readonly MySettings _settings;
-    private readonly IIpAddresssValdatorServices _ipAddresssValdatorClass;
-    public ExchangeRateController(IExchangeRateService exchangeRateService,IMapper mapper,IOptionsMonitor<MySettings> settings, IIpAddresssValdatorServices ipAddresssValdatorClass)
+    public ExchangeRateController(IExchangeRateService exchangeRateService,IMapper mapper,IOptionsMonitor<MySettings> settings)
     {
         _settings = settings.CurrentValue;
         _exchangeRateService = exchangeRateService;
         _mapper = mapper;
-        _ipAddresssValdatorClass = ipAddresssValdatorClass;
     }
 
 

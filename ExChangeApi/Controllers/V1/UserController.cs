@@ -21,13 +21,11 @@ public class UserController : BaseController
     private readonly IUserService _userService;
     private readonly IMapper _mapper;
     private readonly MySettings _mySettings;
-    private readonly IIpAddresssValdatorServices _ipAddresssValdatorClass;
-    public UserController(IUserService userService, IMapper mapper ,IOptionsMonitor<MySettings> settings,IIpAddresssValdatorServices ipAddresssValdatorClass)
+    public UserController(IUserService userService, IMapper mapper ,IOptionsMonitor<MySettings> settings)
     {
         _mySettings = settings.CurrentValue;
         _userService = userService;
         _mapper = mapper;
-        _ipAddresssValdatorClass = ipAddresssValdatorClass;
     }
 
     [Route("{id}")]
@@ -64,5 +62,5 @@ public class UserController : BaseController
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> UpdateUser(UpdateUserCommand request, User user,CancellationToken ct) => await SendAsync(request, ct);
+    public async Task<IActionResult> UpdateUser(UpdateUserCommand request,CancellationToken ct) => await SendAsync(request, ct);
 }

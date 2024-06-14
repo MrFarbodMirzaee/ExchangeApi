@@ -26,7 +26,6 @@ public static class ConfigureService
         Services.AddAutoMapper(typeof(Response<ExchangeRate>));
         Services.AddAutoMapper(typeof(Response<ExchangeTransaction>));
         Services.AddAutoMapper(typeof(Response<User>));
-        Services.AddAutoMapper(typeof(Response<IpAddreesServices>));
 
         return Services;
     }

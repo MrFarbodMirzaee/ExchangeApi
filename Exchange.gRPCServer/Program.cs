@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddGrpc();
-builder.Services.AddDbContext<AppDbContext>(option => option.UseInMemoryDatabase("ConnectionString"));
+builder.Services.AddDbContext<AppDbContext>(option => option.UseInMemoryDatabase("ExchangeAPi.gRPC"));
 
 //Add Grpc Reflection
 builder.Services.AddGrpcReflection();

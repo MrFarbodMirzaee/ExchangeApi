@@ -2,7 +2,7 @@
 using ExchangeApi.Domain.Contracts;
 
 namespace ExchangeApi.Domain.Entities;
-
+[Entity]
 public class ExchangeRate : IBaseEntity<int>, IDeletable, IAuditable
 {
     /// <summary>

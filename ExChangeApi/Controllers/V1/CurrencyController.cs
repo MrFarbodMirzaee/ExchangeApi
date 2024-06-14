@@ -16,13 +16,11 @@ public class CurrencyController : BaseController
     private readonly ICurrencyService _currencyService;
     private readonly IMapper _mapper;
     private readonly MySettings _settings;
-    private readonly IIpAddresssValdatorServices _ipAddresssValdatorClass;
-    public CurrencyController(ICurrencyService currencyService, IMapper mapper,IOptionsMonitor<MySettings> settings, IIpAddresssValdatorServices ipAddresssValdatorClass)
+    public CurrencyController(ICurrencyService currencyService, IMapper mapper,IOptionsMonitor<MySettings> settings)
     {
         _settings = settings.CurrentValue;
         _currencyService = currencyService;
         _mapper = mapper;
-        _ipAddresssValdatorClass = ipAddresssValdatorClass;
     }
     [HttpGet]
     [Consumes(MediaTypeNames.Application.Json)]

@@ -3,7 +3,7 @@ using ExchangeApi.Domain.Contracts;
 using ExchangeApi.Domain.Entitiess;
 
 namespace ExChangeApi.Domain.Entities;
-
+[Entity]
 public class User : IBaseEntity<int>, IDeletable, IAuditable
 {
     public int Id { get; set;  }

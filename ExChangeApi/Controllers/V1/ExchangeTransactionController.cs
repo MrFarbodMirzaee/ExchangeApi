@@ -15,13 +15,12 @@ public class ExchangeTransactionController : BaseController
     private readonly IExchangeTransactionServices _exchangeTranzacstionService;
     private readonly IMapper _mapper;
     private readonly MySettings _settings;
-    private readonly IIpAddresssValdatorServices _ipAddresssValdatorClass;
-    public ExchangeTransactionController(IExchangeTransactionServices exchangeTranzacstionService,IMapper mapper,IOptionsMonitor<MySettings> settings, IIpAddresssValdatorServices ipAddresssValdatorClass)
+  
+    public ExchangeTransactionController(IExchangeTransactionServices exchangeTranzacstionService,IMapper mapper,IOptionsMonitor<MySettings> settings)
     {
         _settings = settings.CurrentValue;
         _exchangeTranzacstionService = exchangeTranzacstionService;
         _mapper = mapper;
-        _ipAddresssValdatorClass = ipAddresssValdatorClass;
     }
 
     [Route("{id}")]

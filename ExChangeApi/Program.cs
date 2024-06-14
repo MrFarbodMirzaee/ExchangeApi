@@ -23,7 +23,7 @@ var configure = configurationBuilder.Build();
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 builder.Services
     .RegisterApplicationServices()
-    .RegisterPresentationServices(builder.Configuration,connectionstring)
+    .RegisterPresentationServices(builder.Configuration, connectionstring)
     .RegisterIdentityServices(builder.Configuration, Identityconnectionstring)
     .RegisterInfrustructureServices(connectionstring);
 builder.Services.AddControllers();

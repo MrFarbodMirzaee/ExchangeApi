@@ -16,7 +16,6 @@ public static class ConfigureService
         Services.AddScoped<IExchangeRateService, ExchangeRateServices>();
         Services.AddScoped<IExchangeTransactionServices, ExchangeTransactionServices>();
         Services.AddScoped<IUserService, UserServices>();
-        Services.AddScoped<IIpAddresssValdatorServices, IpAddreesServices>();
         return Services;
     }
 }
