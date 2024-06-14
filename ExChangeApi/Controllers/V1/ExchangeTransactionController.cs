@@ -28,30 +28,30 @@ public class ExchangeTransactionController : BaseController
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetExchangeTransactionById([FromRoute] GetExchangeTransactionByIdQuery request, CancellationToken ct) => await SendAsync(request, ct);
+    public async Task<IActionResult> GetById([FromRoute] GetExchangeTransactionByIdQuery request, CancellationToken ct) => await SendAsync(request, ct);
     [HttpGet]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetAllExchangeTransactions( GetAllExchangeTransactionQuery request, CancellationToken ct) => await SendAsync(request, ct);
+    public async Task<IActionResult> GetAll( GetAllExchangeTransactionQuery request, CancellationToken ct) => await SendAsync(request, ct);
     [HttpPost]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> AddExchangeTransaction(AddExchangeTransactionCommand command, CancellationToken ct) => await SendAsync(command, ct);
+    public async Task<IActionResult> Add(AddExchangeTransactionCommand command, CancellationToken ct) => await SendAsync(command, ct);
     [HttpGet]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetTransactionsByCurrencyPair(GetExchangeTransactionByCurrencyPairQuery request,CancellationToken ct) => await SendAsync(request, ct);
+    public async Task<IActionResult> GetByCurrencyPair(GetExchangeTransactionByCurrencyPairQuery request,CancellationToken ct) => await SendAsync(request, ct);
     [HttpDelete]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> DeleteTransactions(DeleteExchangeTransactionCommand request, CancellationToken ct) => await SendAsync(request, ct);
+    public async Task<IActionResult> Transactions(DeleteExchangeTransactionCommand request, CancellationToken ct) => await SendAsync(request, ct);
     [HttpPut]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> UpdateTransactions(UpdateExchangeTransactionCommand request,CancellationToken ct) => await SendAsync(request, ct);
+    public async Task<IActionResult> Update(UpdateExchangeTransactionCommand request,CancellationToken ct) => await SendAsync(request, ct);
 }
