@@ -1,6 +1,8 @@
 ﻿#nullable disable
 using ExchangeApi.Domain.Contracts;
 using ExchangeApi.Domain.Entities;
+using ExchangeApi.Domain.Entities;
+
 
 namespace ExChangeApi.Domain.Entities;
 [Entity]

@@ -3,6 +3,8 @@ using ExchangeApi.Domain.Contracts;
 
 namespace ExchangeApi.Domain.Entities;
 [Entity]
+namespace ExchangeApi.Domain.Entities;
+
 public class ExchangeTransaction : IBaseEntity<int>, IDeletable, IAuditable
 {
     /// <summary>

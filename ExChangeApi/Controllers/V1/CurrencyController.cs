@@ -26,36 +26,36 @@ public class CurrencyController : BaseController
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetAllCurrency(GetAllCurrencyQuery request,CancellationToken ct) => await SendAsync(request, ct);
+    public async Task<IActionResult> GetAll(GetAllCurrencyQuery request,CancellationToken ct) => await SendAsync(request, ct);
     [HttpGet]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetActiveCurrencies(GetCurrencyActiveQuery request,CancellationToken ct) => await SendAsync(request, ct);
+    public async Task<IActionResult> GetActive(GetCurrencyActiveQuery request,CancellationToken ct) => await SendAsync(request, ct);
     [HttpGet]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetCurrencyById(GetCurrencyByIdQuery request, CancellationToken ct) => await SendAsync(request, ct);
+    public async Task<IActionResult> GetById(GetCurrencyByIdQuery request, CancellationToken ct) => await SendAsync(request, ct);
     [HttpPost]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> AddCurrencies([FromBody] AddCurrencyCommand command, CancellationToken ct) => await SendAsync(command, ct);
+    public async Task<IActionResult> Add([FromBody] AddCurrencyCommand command, CancellationToken ct) => await SendAsync(command, ct);
     [HttpGet]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> SearchCurrency(SearchCurrencyQuery request, CancellationToken ct) => await SendAsync(request, ct);
+    public async Task<IActionResult> Search(SearchCurrencyQuery request, CancellationToken ct) => await SendAsync(request, ct);
     [HttpDelete]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> DeleteCurrency(DeleteCurrencyCommand request, CancellationToken ct) => await SendAsync(request, ct);
+    public async Task<IActionResult> Delete(DeleteCurrencyCommand request, CancellationToken ct) => await SendAsync(request, ct);
     [HttpPut]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> UpdateCurrency(UpdateCurrencyCommand request, CancellationToken ct) => await SendAsync(request,ct);
+    public async Task<IActionResult> Update(UpdateCurrencyCommand request, CancellationToken ct) => await SendAsync(request,ct);
     [HttpPost]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]

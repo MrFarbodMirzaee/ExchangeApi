@@ -28,37 +28,37 @@ public class ExchangeRateController : BaseController
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetExchangeRateById([FromRoute] GetExchangeRateByIdQuery request, CancellationToken ct) => await SendAsync(request, ct);
+    public async Task<IActionResult> GetById([FromRoute] GetExchangeRateByIdQuery request, CancellationToken ct) => await SendAsync(request, ct);
     [HttpGet]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetAllExchangeRates(GetAllExchangeRateQuery request,CancellationToken ct) => await SendAsync(request, ct);
+    public async Task<IActionResult> GetAll(GetAllExchangeRateQuery request,CancellationToken ct) => await SendAsync(request, ct);
     [HttpPost]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status201Created)]
-    public async Task<IActionResult> AddExchangeRate([FromBody] AddExchagneRateCommand command, CancellationToken ct) => await SendAsync(command, ct);
+    public async Task<IActionResult> Add([FromBody] AddExchagneRateCommand command, CancellationToken ct) => await SendAsync(command, ct);
     [HttpGet]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetExchangeRatesByCurrencyPair(GetExchangeRateByCurrencyPairQuery request, CancellationToken ct) => await SendAsync(request, ct);
+    public async Task<IActionResult> GetByCurrencyPair(GetExchangeRateByCurrencyPairQuery request, CancellationToken ct) => await SendAsync(request, ct);
 
     [HttpGet]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetLatestExchangeRate(GetLatestExchangeRateQuery request, CancellationToken ct) => await SendAsync(request, ct);
+    public async Task<IActionResult> GetLatest(GetLatestExchangeRateQuery request, CancellationToken ct) => await SendAsync(request, ct);
     [HttpDelete]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> DeleteExchangeRate(DeleteExchangeRateCommand request, CancellationToken ct) => await SendAsync(request, ct);
+    public async Task<IActionResult> Delete(DeleteExchangeRateCommand request, CancellationToken ct) => await SendAsync(request, ct);
     [HttpPut]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> UpdateExchangeRate(UpdateExchangeRateCommand request, CancellationToken ct) => await SendAsync(request, ct);
+    public async Task<IActionResult> Update(UpdateExchangeRateCommand request, CancellationToken ct) => await SendAsync(request, ct);
     
 }
