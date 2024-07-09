@@ -1,6 +1,19 @@
 # ExchangeApi
 It's an api with .net 8 about Exchange
 
+## REST Swagger Image
+Here's an example of the REST Swagger image for the API:
+This image provides a visual representation of the API's endpoints, request/response models, and other relevant information. You can include this image in your README to give users a quick overview of the API's functionality.
+![Swagger UI_Page_1](https://github.com/MrFarbodMirzaee/ExchangeApi/assets/134764233/3f4417e4-0aba-4797-8904-b342e24e25eb)
+![Swagger UI_Page_2](https://github.com/MrFarbodMirzaee/ExchangeApi/assets/134764233/e0e9a262-cfaf-4643-bc1d-6ab0b3d1db8d)
+![Swagger UI_Page_3](https://github.com/MrFarbodMirzaee/ExchangeApi/assets/134764233/cd000655-341b-4879-aea4-23a4baef6867)
+## gRPC client Image
+Here's an example of the gRPC client image on Console app :
+![Screenshot 2024-07-09 214203](https://github.com/MrFarbodMirzaee/ExchangeApi/assets/134764233/33dffafb-07c9-41f9-80b8-6350f6b9d1b9)
+## GraphQl Image:
+Here's an example of the GraphQl:
+![Screenshot 2024-07-09 180656](https://github.com/MrFarbodMirzaee/ExchangeApi/assets/134764233/2716057b-fb00-4688-b614-87ca3263d5ea)
+
 ## Table of Contents
 - [Installation](#installation)
 - [Usage](#usage)
@@ -58,6 +71,28 @@ If you want to connect to the database, you can use the following connection str
 ```json
 {
   "ConnectionStrings": {
-    "YourDatabaseConnection": "Server=your-server-address;Database=your-database-name;User Id=your-username;Password=your-password;"
+    "ExchangeApi": "Server=your-server-address;Database=your-database-name;User Id=your-username;Password=your-password;"
   }
 }
+```
+```json
+{
+  "ConnectionStrings": {
+    "ExchangeApiIdentity": "Server=your-server-address;Database=your-database-name;User Id=your-username;Password=your-password;"
+  }
+}
+```
+```json
+{
+  "ConnectionStrings": {
+    "ExchangeApiGrpc": "Server=your-server-address;Database=your-database-name;User Id=your-username;Password=your-password;"
+  }
+}
+```
+```json
+{
+  "ConnectionStrings": {
+    "ExchangeApiGraphQl": "Server=your-server-address;Database=your-database-name;User Id=your-username;Password=your-password;"
+  }
+}
+```
