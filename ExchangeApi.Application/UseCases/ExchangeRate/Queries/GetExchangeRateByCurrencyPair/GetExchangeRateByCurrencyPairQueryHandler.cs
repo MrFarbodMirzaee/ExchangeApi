@@ -1,6 +1,4 @@
-﻿
-
-using AutoMapper;
+﻿using AutoMapper;
 using ExchangeApi.Application.Contracts;
 using ExchangeApi.Application.Dtos;
 using ExchangeApi.Domain.Wrappers;
@@ -24,7 +22,7 @@ public class GetExchangeRateByCurrencyPairQueryHandler : IRequestHandler<GetExch
         {
             return new Response<List<ExchangeRateDto>>(new List<ExchangeRateDto>());
         }
-        var exchangeRatesDto = _mapper.Map<List<ExchangeRateDto>>(data);
+        var exchangeRatesDto = _mapper.Map<List<ExchangeRateDto>>(data.Data);
         return new Response<List<ExchangeRateDto>>(exchangeRatesDto);
     }
 }

@@ -6,7 +6,7 @@ using MediatR;
 
 namespace ExchangeApi.Application.UseCases.Currency.Commands;
 
-public class AddCurrencyCommandHandler : IRequestHandler<AddCurrencyCommand, Response<int>>
+public class AddCurrencyCommandHandler : IRequestHandler<AddCurrencyCommand, Response<bool>>
 {
     private readonly ICurrencyService _currencyService;
     private readonly IMapper _mapper;
@@ -16,11 +16,11 @@ public class AddCurrencyCommandHandler : IRequestHandler<AddCurrencyCommand, Res
         _currencyService = currencyService;
         _mapper = mapper;  
     }
-    public async Task<Response<int>> Handle(AddCurrencyCommand request, CancellationToken ct)
+    public async Task<Response<bool>> Handle(AddCurrencyCommand request, CancellationToken ct)
     {
 
         var currency = _mapper.Map<ExChangeApi.Domain.Entities.Currency>(request);
         await _currencyService.AddAsync(currency, ct);
-        return new Response<int>();
+        return new Response<bool>(true);
     }
 }

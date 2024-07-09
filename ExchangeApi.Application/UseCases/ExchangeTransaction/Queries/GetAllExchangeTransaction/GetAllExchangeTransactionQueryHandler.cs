@@ -1,6 +1,4 @@
-﻿
-
-using AutoMapper;
+﻿using AutoMapper;
 using ExchangeApi.Application.Contracts;
 using ExchangeApi.Application.Dtos;
 using ExchangeApi.Domain.Wrappers;
@@ -20,7 +18,7 @@ public class GetAllExchangeTransactionQueryHandler : IRequestHandler<GetAllExcha
     public async Task<Response<List<ExchangeTransactionDto>>> Handle(GetAllExchangeTransactionQuery request, CancellationToken ct)
     {
         Response<List<ExchangeApi.Domain.Entities.ExchangeTransaction>> data = await _exchangeTranzacstionService.GetAllAsync(ct);
-        var ExchangeTranzactionDto = _mapper.Map<List<ExchangeTransactionDto>>(data);
+        var ExchangeTranzactionDto = _mapper.Map<List<ExchangeTransactionDto>>(data.Data);
         return new Response<List<ExchangeTransactionDto>>(ExchangeTranzactionDto);
     }
 }

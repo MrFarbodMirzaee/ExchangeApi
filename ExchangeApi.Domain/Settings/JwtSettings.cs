@@ -1,5 +1,4 @@
-﻿
-#nullable disable
+﻿#nullable disable
 namespace ExchangeApi.Domain.Settings;
 
 public class JwtSettings

@@ -10,20 +10,31 @@
   <ItemGroup>
     <None Remove="Protos\Currency.proto" />
     <None Remove="Protos\CurrencyImageFileStreaming.proto" />
-    <None Remove="Protos\greet.proto" />
+    <None Remove="Protos\StreamCurrency.proto" />
   </ItemGroup>
 
   <ItemGroup>
     <Protobuf Include="Protos\Currency.proto" GrpcServices="Server" />
     <Protobuf Include="Protos\CurrencyImageFileStreaming.proto" GrpcServices="Server" />
-    <Protobuf Include="Protos\greet.proto" />
+    <Protobuf Include="Protos\StreamCurrency.proto" GrpcServices="Server" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Google.Protobuf" Version="3.27.2" />
     <PackageReference Include="Grpc.AspNetCore" Version="2.57.0" />
+    <PackageReference Include="Grpc.AspNetCore.Server.ClientFactory" Version="2.63.0" />
     <PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.63.0" />
+    <PackageReference Include="Grpc.Tools" Version="2.64.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.5" />
   </ItemGroup>
 
 </Project>

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ExchangeApi.Domain.Wrappers;
+﻿namespace ExchangeApi.Domain.Wrappers;
 
 //Response Pattern return succeeded ,Message Data ,List<Errors>
 public class Response<T>

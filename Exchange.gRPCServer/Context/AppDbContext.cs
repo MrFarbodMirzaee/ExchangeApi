@@ -9,5 +9,6 @@ public class AppDbContext : DbContext
     {
 
     }
-    public DbSet<Currency> currencies { get; set; }
+
+    public DbSet<Currency> Currency { get; set; }
 }

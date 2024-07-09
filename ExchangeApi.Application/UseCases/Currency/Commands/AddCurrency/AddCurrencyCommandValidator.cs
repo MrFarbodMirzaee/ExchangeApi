@@ -1,7 +1,4 @@
-﻿
-
-using ExchangeApi.Application.Dtos;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace ExchangeApi.Application.UseCases.Currency.Commands;
 

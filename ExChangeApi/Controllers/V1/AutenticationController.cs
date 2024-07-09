@@ -1,8 +1,5 @@
-﻿using AutoMapper;
-using ExchangeApi.Application.Contracts;
+﻿using ExchangeApi.Application.Contracts;
 using ExchangeApi.Application.Dtos;
-using ExchangeApi.Domain.Wrappers;
-using ExchangeApi.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Mime;
 

@@ -1,5 +1,4 @@
-﻿
-using ExchangeApi.Application.Dtos;
+﻿using ExchangeApi.Application.Dtos;
 using ExchangeApi.Domain.Wrappers;
 using MediatR;
 

@@ -5,7 +5,7 @@ using MediatR;
 
 namespace ExchangeApi.Application.UseCases.ExchangeTransaction.Queries;
 
-public record GetExchangeTransactionByIdQuery : IRequest<Response<ExchangeTransactionDto>>
+public record GetExchangeTransactionByIdQuery : IRequest<Response<List<ExchangeTransactionDto>>>
 {
     public int ExTId { get; set; }
 }

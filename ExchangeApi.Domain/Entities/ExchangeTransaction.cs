@@ -34,7 +34,7 @@ public class ExchangeTransaction : IBaseEntity<int>, IDeletable, IAuditable
     /// </summary>
     public DateTime? TransactionDate { get; set; }
     public DateTime Created { get; set; }
-    public bool IsActive { get; set; }
+    public bool IsActive { get; private set; }
     public DateTime Updated { get; set; }
     public string Description { get; set; }
     public void Activate() => IsActive = true;

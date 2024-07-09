@@ -4,7 +4,7 @@ using MediatR;
 
 namespace ExchangeApi.Application.UseCases.User.Commands;
 
-public record AddUserCommand : IRequest<Response<int>>
+public record AddUserCommand : IRequest<Response<bool>>
 {
     public string Name { get; set; }
     public string UserName { get; set; }

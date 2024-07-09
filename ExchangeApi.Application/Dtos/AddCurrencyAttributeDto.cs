@@ -1,6 +1,4 @@
-﻿
-using ExchangeApi.Domain.Entities;
-using FluentValidation;
+﻿using FluentValidation;
 
 namespace ExchangeApi.Application.Dtos;
 

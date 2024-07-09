@@ -23,7 +23,7 @@ public class SearchCurrencyQueryHandler : IRequestHandler<SearchCurrencyQuery, R
         {
             return  new Response<List<CurrencyDto>>(new List<CurrencyDto>());
         }
-        var currencies = _mapper.Map<List<CurrencyDto>>(data);
+        var currencies = _mapper.Map<List<CurrencyDto>>(data.Data);
         return new Response<List<CurrencyDto>>(currencies); // Returning the value of currencyDto
     }
    

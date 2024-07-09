@@ -1,6 +1,4 @@
-﻿
-
-using AutoMapper;
+﻿using AutoMapper;
 using ExchangeApi.Application.Contracts;
 using ExchangeApi.Domain.Wrappers;
 using MediatR;
@@ -23,7 +21,7 @@ public class UpdateCurrencyCommandHandler : IRequestHandler<UpdateCurrencyComman
 
         var updatedCurrency = await _currencyService.UpdateAsync(request.Currency, ct);
 
-        var updatedCurrencyDto = _mapper.Map<ExChangeApi.Domain.Entities.Currency>(updatedCurrency); // Assuming CurrencyDto is the DTO for Currency
+        var updatedCurrencyDto = _mapper.Map<ExChangeApi.Domain.Entities.Currency>(updatedCurrency.Data); // Assuming CurrencyDto is the DTO for Currency
 
         return new Response<int>(1);
     }

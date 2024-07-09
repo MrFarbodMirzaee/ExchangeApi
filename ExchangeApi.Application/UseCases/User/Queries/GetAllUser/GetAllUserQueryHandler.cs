@@ -19,7 +19,7 @@ public class GetAllUserQueryHandler : IRequestHandler<GetAllUserQuery, Response<
     {
 
         Response<List<ExChangeApi.Domain.Entities.User>> data = await _userService.GetAllAsync(ct);
-        var UserDto = _mapper.Map<List<UserDto>>(data);
+        var UserDto = _mapper.Map<List<UserDto>>(data.Data);
         return new Response<List<UserDto>>(UserDto);
     }
 }

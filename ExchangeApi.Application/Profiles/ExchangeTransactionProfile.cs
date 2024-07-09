@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using ExchangeApi.Domain.Entities;
 using ExchangeApi.Application.Dtos;
-using ExchangeApi.Domain.Entities;
 using ExchangeApi.Domain.Wrappers;
+using ExchangeApi.Application.UseCases.ExchangeTransaction.Commands.AddExchangeTransaction;
 
 
 
@@ -19,6 +19,8 @@ public class ExchangeTransactionProfile : Profile
         CreateMap<ExchangeTransactionDto, ExchangeTransaction>();
         CreateMap<AddExchangeTransactionDto, ExchangeTransaction>();
         CreateMap<ExchangeTransaction, AddExchangeTransactionDto>();
+        CreateMap<AddExchangeTransactionCommand, ExchangeTransaction>();
+        CreateMap<AddExchangeTransactionCommand, ExchangeTransactionDto>();
 
         CreateMap<bool, ExchangeTransaction>()
           .ConvertUsing(src => src ? new ExchangeTransaction() : null);

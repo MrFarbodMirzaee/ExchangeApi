@@ -1,9 +1,6 @@
-﻿
-
-using AutoMapper;
+﻿using AutoMapper;
 using ExchangeApi.Application.Contracts;
 using ExchangeApi.Domain.Wrappers;
-using ExChangeApi.Domain.Entities;
 using MediatR;
 
 namespace ExchangeApi.Application.UseCases.ExchangeTransaction.Commands;
@@ -19,7 +16,7 @@ public class DeleteExchangeTransactionCommandHandler : IRequestHandler<DeleteExc
     }
     public async Task<Response<int>> Handle(DeleteExchangeTransactionCommand request, CancellationToken ct)
     {
-        var exchangeTransactionsResponse = await _exchangeTranzacstionService.FindByCondition(x => x.Id == request.ExTId, ct);
+        var exchangeTransactionsResponse = await _exchangeTranzacstionService.FindByCondition(x => x.Id == request.Id, ct);
         if (!exchangeTransactionsResponse.Succeeded)
         {
             // Handle the case where the currency was not found
@@ -34,7 +31,7 @@ public class DeleteExchangeTransactionCommandHandler : IRequestHandler<DeleteExc
             // Handle the case where the delete operation failed
             return new Response<int>(0, "Exchange transaction not found");
         }
-        var exchangeTranzacstionDto = _mapper.Map<bool>(data);
+        var exchangeTranzacstionDto = _mapper.Map<bool>(data.Data);
         return new Response<int>(1);
     }
 }

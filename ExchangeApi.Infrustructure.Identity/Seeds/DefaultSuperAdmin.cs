@@ -1,5 +1,4 @@
-﻿
-using ExchangeApi.Application.Enums;
+﻿using ExchangeApi.Application.Enums;
 using ExchangeApi.Infrustructure.Identity.Entities;
 using Microsoft.AspNetCore.Identity;
 

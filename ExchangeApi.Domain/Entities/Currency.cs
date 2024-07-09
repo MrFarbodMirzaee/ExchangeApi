@@ -2,7 +2,6 @@
 using ExchangeApi.Domain.Contracts;
 using ExchangeApi.Domain.Entities;
 
-
 namespace ExChangeApi.Domain.Entities;
 [Entity]
 public class Currency : IBaseEntity<int>,IDeletable,IAuditable

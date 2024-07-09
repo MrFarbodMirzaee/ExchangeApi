@@ -4,7 +4,7 @@ using MediatR;
 
 namespace ExchangeApi.Application.UseCases.ExchangeRate.Commands;
 
-public record AddExchagneRateCommand : IRequest<Response<int>>
+public record AddExchagneRateCommand : IRequest<Response<bool>>
 {
     public int FromCurrency { get; set; }
     public int ToCurrency { get; set; }

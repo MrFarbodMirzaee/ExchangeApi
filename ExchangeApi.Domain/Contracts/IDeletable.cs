@@ -1,5 +1,4 @@
-﻿
-namespace ExchangeApi.Domain.Contracts;
+﻿namespace ExchangeApi.Domain.Contracts;
 
 public interface IDeletable
 {

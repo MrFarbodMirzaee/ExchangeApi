@@ -27,12 +27,12 @@ public class ExchangeTransactionController : BaseController
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetById([FromRoute] GetExchangeTransactionByIdQuery request, CancellationToken ct) => await SendAsync(request, ct);
+    public async Task<IActionResult> GetById([FromQuery] GetExchangeTransactionByIdQuery request, CancellationToken ct) => await SendAsync(request, ct);
     [HttpGet]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetAll( GetAllExchangeTransactionQuery request, CancellationToken ct) => await SendAsync(request, ct);
+    public async Task<IActionResult> GetAll([FromQuery] GetAllExchangeTransactionQuery request, CancellationToken ct) => await SendAsync(request, ct);
     [HttpPost]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status201Created)]
@@ -42,12 +42,12 @@ public class ExchangeTransactionController : BaseController
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetByCurrencyPair(GetExchangeTransactionByCurrencyPairQuery request,CancellationToken ct) => await SendAsync(request, ct);
+    public async Task<IActionResult> GetByCurrencyPair([FromQuery]GetExchangeTransactionByCurrencyPairQuery request,CancellationToken ct) => await SendAsync(request, ct);
     [HttpDelete]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> Transactions(DeleteExchangeTransactionCommand request, CancellationToken ct) => await SendAsync(request, ct);
+    public async Task<IActionResult> Delete(DeleteExchangeTransactionCommand request, CancellationToken ct) => await SendAsync(request, ct);
     [HttpPut]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]

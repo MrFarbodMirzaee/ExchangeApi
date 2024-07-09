@@ -1,5 +1,4 @@
 using ExchangeApi.GraphQl.Data;
-using ExchangeApi.GraphQl.GraphQl;
 using Microsoft.EntityFrameworkCore;
 
 namespace ExchangeApi.GraphQl;
@@ -11,19 +10,12 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
 
         // Add services to the container.
-
+        
         builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+        string con = builder.Configuration.GetConnectionString("ExchangeApiGraphQl");
         builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
-        builder.Services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("ExchangeApiGraphQl")));
-
-        builder.Services.AddGraphQLServer()
-                        .AddQueryType<Query>()
-                        .AddMutationType<Mutation>()
-                        .AddProjections()
-                        .AddFiltering()
-                        .AddSorting();
+        builder.Services.RegisterGraphQlServices(con);
 
         var app = builder.Build();
 
@@ -37,19 +29,16 @@ public class Program
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
-                app.UseSwagger();
-                app.UseSwaggerUI();
-            }
+             app.UseGraphQLVoyager("/graphql-voyager");
+        }
 
         app.MapGraphQL();
+        
         app.UseHttpsRedirection();
 
         app.UseAuthorization();
 
-
         app.MapControllers();
-
-        app.UseGraphQLVoyager("/graphql-voyager");
 
         app.Run();
     }

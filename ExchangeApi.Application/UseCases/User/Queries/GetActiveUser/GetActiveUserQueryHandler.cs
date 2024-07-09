@@ -1,6 +1,4 @@
-﻿
-
-using AutoMapper;
+﻿using AutoMapper;
 using ExchangeApi.Application.Contracts;
 using ExchangeApi.Application.Dtos;
 using ExchangeApi.Domain.Wrappers;
@@ -21,7 +19,7 @@ public class GetActiveUserQueryHandler : IRequestHandler<GetActiveUserQuery, Res
     {
 
         Response<List<ExChangeApi.Domain.Entities.User>> data = await _userService.FindByCondition(A => A.IsActive == true, ct);
-        var UserDtos = _mapper.Map<List<UserDto>>(data);
+        var UserDtos = _mapper.Map<List<UserDto>>(data.Data);
         return new Response<List<UserDto>>(UserDtos);
     }
 }

@@ -26,16 +26,16 @@ public class CurrencyController : BaseController
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetAll(GetAllCurrencyQuery request,CancellationToken ct) => await SendAsync(request, ct);
+    public async Task<IActionResult> GetAll([FromQuery] GetAllCurrencyQuery request,CancellationToken ct) => await SendAsync(request, ct);
     [HttpGet]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetActive(GetCurrencyActiveQuery request,CancellationToken ct) => await SendAsync(request, ct);
+    public async Task<IActionResult> GetActive([FromQuery] GetCurrencyActiveQuery request,CancellationToken ct) => await SendAsync(request, ct);
     [HttpGet]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetById(GetCurrencyByIdQuery request, CancellationToken ct) => await SendAsync(request, ct);
+    public async Task<IActionResult> GetById([FromQuery] GetCurrencyByIdQuery request, CancellationToken ct) => await SendAsync(request, ct);
     [HttpPost]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status201Created)]
@@ -45,7 +45,7 @@ public class CurrencyController : BaseController
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> Search(SearchCurrencyQuery request, CancellationToken ct) => await SendAsync(request, ct);
+    public async Task<IActionResult> Search([FromQuery] SearchCurrencyQuery request, CancellationToken ct) => await SendAsync(request, ct);
     [HttpDelete]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

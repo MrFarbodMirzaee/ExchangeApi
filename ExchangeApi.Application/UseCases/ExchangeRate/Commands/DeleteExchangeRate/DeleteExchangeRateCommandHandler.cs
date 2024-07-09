@@ -1,10 +1,7 @@
-﻿
-using AutoMapper;
+﻿using AutoMapper;
 using ExchangeApi.Application.Contracts;
 using ExchangeApi.Domain.Wrappers;
 using MediatR;
-using Microsoft.Extensions.Options;
-using System.Runtime;
 
 namespace ExchangeApi.Application.UseCases.ExchangeRate.Commands;
 
@@ -34,7 +31,7 @@ public class DeleteExchangeRateCommandHandler : IRequestHandler<DeleteExchangeRa
             // Handle the case where the delete operation failed
             return new Response<int>(0, data.Message);
         }
-        var exchangeRatesDto = _mapper.Map<bool>(data);
+        var exchangeRatesDto = _mapper.Map<bool>(data.Data);
         return new Response<int>(1);
     }
 }
