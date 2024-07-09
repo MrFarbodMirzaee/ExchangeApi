@@ -1,6 +1,0 @@
-@ExchangeApi.Gateway2_HostAddress = http://localhost:7178
-
-GET {{ExchangeApi.Gateway2_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
