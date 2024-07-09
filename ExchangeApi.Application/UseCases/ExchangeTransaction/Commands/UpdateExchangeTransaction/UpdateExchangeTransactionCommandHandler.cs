@@ -1,7 +1,5 @@
-﻿
-using AutoMapper;
+﻿using AutoMapper;
 using ExchangeApi.Application.Contracts;
-using ExchangeApi.Domain.Entities;
 using ExchangeApi.Domain.Wrappers;
 using MediatR;
 
@@ -20,7 +18,7 @@ public class UpdateExchangeTransactionCommandHandler : IRequestHandler<UpdateExc
     {
         request.ExchangeTransaction.Id = request.Id;
         Response<bool> data = await _exchangeTranzacstionService.UpdateAsync(request.ExchangeTransaction, ct);
-        var exchangeTranzacstionDto = _mapper.Map<ExchangeApi.Domain.Entities.ExchangeTransaction>(data);
+        var exchangeTranzacstionDto = _mapper.Map<ExchangeApi.Domain.Entities.ExchangeTransaction>(data.Data);
         return new Response<int>(1);
     }
 }

@@ -5,6 +5,7 @@ using ExchangeApi.MiddelWare;
 using Microsoft.EntityFrameworkCore;
 using Asp.Versioning;
 using ExchangeApi.Infrustructure.Identity;
+using Ocelot.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +30,7 @@ builder.Services
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 var apiVersioning = builder.Services.AddApiVersioning(o =>
 {
     o.AssumeDefaultVersionWhenUnspecified = true;
@@ -41,7 +43,7 @@ var apiVersioning = builder.Services.AddApiVersioning(o =>
 });
 
 var app = builder.Build();
-app.MapHealthChecks("/healthz");
+app.MapHealthChecks("/health");
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -50,11 +52,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-
+app.UseOcelot();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
-//My Custome MidleWares
 
 app.UseLogUrl();
 

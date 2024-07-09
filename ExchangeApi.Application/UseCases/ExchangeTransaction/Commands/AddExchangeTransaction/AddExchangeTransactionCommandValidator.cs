@@ -1,7 +1,4 @@
-﻿
-
-
-using ExchangeApi.Application.UseCases.ExchangeTransaction.Commands.AddExchangeTransaction;
+﻿using ExchangeApi.Application.UseCases.ExchangeTransaction.Commands.AddExchangeTransaction;
 using FluentValidation;
 
 namespace ExchangeApi.Application.UseCases.ExchangeTransaction.Commands;

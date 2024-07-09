@@ -34,15 +34,20 @@ namespace ExchangeApi.Infrustructure.Migrations
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 4, 26, 11, 11, 6, 426, DateTimeKind.Local).AddTicks(645));
+                        .HasDefaultValue(new DateTime(2024, 6, 20, 15, 26, 42, 306, DateTimeKind.Local).AddTicks(9191));
 
                     b.Property<string>("CurrencyCode")
                         .IsRequired()
                         .HasMaxLength(3)
                         .HasColumnType("nvarchar(3)");
 
+                    b.Property<int>("DeletedByUserId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
-                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImagePath")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
@@ -51,7 +56,6 @@ namespace ExchangeApi.Infrustructure.Migrations
                         .HasDefaultValue(false);
 
                     b.Property<string>("MetaDescription")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -60,6 +64,9 @@ namespace ExchangeApi.Infrustructure.Migrations
 
                     b.Property<DateTime>("Updated")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("UpdatedByUserId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id")
                         .HasName("PK_Base_Currency");
@@ -80,10 +87,12 @@ namespace ExchangeApi.Infrustructure.Migrations
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 4, 26, 11, 11, 6, 426, DateTimeKind.Local).AddTicks(8711));
+                        .HasDefaultValue(new DateTime(2024, 6, 20, 15, 26, 42, 307, DateTimeKind.Local).AddTicks(5272));
+
+                    b.Property<int>("DeletedByUserId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EmailAddress")
@@ -97,7 +106,6 @@ namespace ExchangeApi.Infrustructure.Migrations
                         .HasDefaultValue(false);
 
                     b.Property<string>("MetaDescription")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
@@ -112,6 +120,9 @@ namespace ExchangeApi.Infrustructure.Migrations
 
                     b.Property<DateTime>("Updated")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("UpdatedByUserId")
+                        .HasColumnType("int");
 
                     b.Property<string>("UserName")
                         .IsRequired()
@@ -137,10 +148,12 @@ namespace ExchangeApi.Infrustructure.Migrations
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 4, 26, 11, 11, 6, 426, DateTimeKind.Local).AddTicks(2728));
+                        .HasDefaultValue(new DateTime(2024, 6, 20, 15, 26, 42, 307, DateTimeKind.Local).AddTicks(860));
+
+                    b.Property<int>("DeletedByUserId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("FromCurrency")
@@ -152,7 +165,6 @@ namespace ExchangeApi.Infrustructure.Migrations
                         .HasDefaultValue(false);
 
                     b.Property<string>("MetaDescription")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Rate")
@@ -164,6 +176,9 @@ namespace ExchangeApi.Infrustructure.Migrations
                     b.Property<DateTime>("Updated")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("UpdatedByUserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id")
                         .HasName("Pk_Base_ExchangeRate");
 
@@ -172,7 +187,7 @@ namespace ExchangeApi.Infrustructure.Migrations
                     b.ToTable("ExchangeRate", "BASE");
                 });
 
-            modelBuilder.Entity("ExchangeApi.Domain.Entitiess.ExchangeTransaction", b =>
+            modelBuilder.Entity("ExchangeApi.Domain.Entities.ExchangeTransaction", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -186,10 +201,12 @@ namespace ExchangeApi.Infrustructure.Migrations
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 4, 26, 11, 11, 6, 426, DateTimeKind.Local).AddTicks(5250));
+                        .HasDefaultValue(new DateTime(2024, 6, 20, 15, 26, 42, 307, DateTimeKind.Local).AddTicks(2842));
+
+                    b.Property<int>("DeletedByUserId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ExChangeRateId")
@@ -202,7 +219,6 @@ namespace ExchangeApi.Infrustructure.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("MetaDescription")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("ResultAmount")
@@ -215,12 +231,15 @@ namespace ExchangeApi.Infrustructure.Migrations
                         .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 4, 26, 11, 11, 6, 426, DateTimeKind.Local).AddTicks(5917));
+                        .HasDefaultValue(new DateTime(2024, 6, 20, 15, 26, 42, 307, DateTimeKind.Local).AddTicks(3286));
 
                     b.Property<DateTime>("Updated")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UpdatedByUserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id")
@@ -233,11 +252,13 @@ namespace ExchangeApi.Infrustructure.Migrations
                     b.ToTable("ExchangeTransaction", "BASE");
                 });
 
-            modelBuilder.Entity("ExchangeApi.Domain.Entitiess.ExchangeTransaction", b =>
+            modelBuilder.Entity("ExchangeApi.Domain.Entities.ExchangeTransaction", b =>
                 {
                     b.HasOne("ExChangeApi.Domain.Entities.User", null)
                         .WithMany("ExchangeTransactions")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ExChangeApi.Domain.Entities.User", b =>

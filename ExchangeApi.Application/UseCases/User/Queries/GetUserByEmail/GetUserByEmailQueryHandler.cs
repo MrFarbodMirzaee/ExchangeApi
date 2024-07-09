@@ -1,6 +1,4 @@
-﻿
-
-using AutoMapper;
+﻿using AutoMapper;
 using ExchangeApi.Application.Contracts;
 using ExchangeApi.Application.Dtos;
 using ExchangeApi.Domain.Wrappers;
@@ -8,7 +6,7 @@ using MediatR;
 
 namespace ExchangeApi.Application.UseCases.User.Queries;
 
-public class GetUserByEmailQueryHandler : IRequestHandler<GetUserByEmailQuery, Response<UserDto>>
+public class GetUserByEmailQueryHandler : IRequestHandler<GetUserByEmailQuery, Response<List<UserDto>>>
 {
     private readonly IUserService _userService;
     private readonly IMapper _mapper;
@@ -17,13 +15,13 @@ public class GetUserByEmailQueryHandler : IRequestHandler<GetUserByEmailQuery, R
         _userService = userService;
         _mapper = mapper;
     }
-    public async Task<Response<UserDto>> Handle(GetUserByEmailQuery request, CancellationToken ct)
+    public async Task<Response<List<UserDto>>> Handle(GetUserByEmailQuery request, CancellationToken ct)
     {
 
         Response<List<ExChangeApi.Domain.Entities.User>> data = await _userService.FindByCondition(e => e.EmailAddress == request.Email, ct);
 
-        var UserDto = _mapper.Map<UserDto>(data);
-        return new Response<UserDto>(UserDto);
+        var UserDto = _mapper.Map<List<UserDto>>(data.Data);
+        return new Response<List<UserDto>>(UserDto);
     }
 }
 

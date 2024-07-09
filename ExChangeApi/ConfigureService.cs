@@ -4,7 +4,7 @@ using ExchangeApi.Shered;
 using ExchangeApi.Domain.Wrappers;
 using ExChangeApi.Domain.Entities;
 using ExchangeApi.Domain.Entities;
-using ExchangeApi.Infrustructure.Services;
+
 
 namespace ExchangeApi;
 
@@ -25,7 +25,7 @@ public static class ConfigureService
         Services.AddAutoMapper(typeof(Response<ExchangeRate>));
         Services.AddAutoMapper(typeof(Response<ExchangeTransaction>));
         Services.AddAutoMapper(typeof(Response<User>));
-
+        
         return Services;
     }
 }

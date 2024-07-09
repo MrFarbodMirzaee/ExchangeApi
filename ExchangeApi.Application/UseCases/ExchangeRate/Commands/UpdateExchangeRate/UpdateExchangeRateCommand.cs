@@ -1,6 +1,4 @@
 ﻿#nullable disable
-
-using ExchangeApi.Domain.Entities;
 using ExchangeApi.Domain.Wrappers;
 using MediatR;
 

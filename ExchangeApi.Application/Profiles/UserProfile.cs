@@ -2,6 +2,7 @@
 using ExChangeApi.Domain.Entities;
 using ExchangeApi.Application.Dtos;
 using ExchangeApi.Domain.Wrappers;
+using ExchangeApi.Application.UseCases.User.Commands;
 
 
 
@@ -17,6 +18,7 @@ public class UserProfile : Profile
         CreateMap<UserDto, User>();
         CreateMap<User, AddUserDto>();
         CreateMap<AddUserDto, User>();
+        CreateMap<AddUserCommand, User>();
 
         CreateMap<bool, User>()
         .ConvertUsing(src => src ? new User() : null);

@@ -3,7 +3,8 @@ syntax = "proto3";
 option csharp_namespace = "Exchange.gRPCServer.Protos";
 import "google/protobuf/empty.proto";
 
-service CurrencyFileStreaming {
+service CurrencyFileStreaming 
+{
   // Sends a greeting
   rpc UploadFile(stream ByteContent) returns (google.protobuf.Empty);
 }
@@ -19,5 +20,5 @@ message ByteContent {
   int64 file_size = 1;
   bytes buffer = 2;
   int32 readed_byte = 3; // What percent I send file 
-  ImageRequest ImageRequest = 4 ;
+  ImageRequest ImageRequest = 4;
 }

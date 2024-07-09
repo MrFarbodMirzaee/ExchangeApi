@@ -1,5 +1,4 @@
-﻿
-using AutoMapper;
+﻿using AutoMapper;
 using ExchangeApi.Application.Contracts;
 using ExchangeApi.Application.Dtos;
 using ExchangeApi.Domain.Wrappers;
@@ -19,7 +18,7 @@ public class GetLatestExchangeRateQueryHandler : IRequestHandler<GetLatestExchan
     public async Task<Response<List<ExchangeRateDto>>> Handle(GetLatestExchangeRateQuery request, CancellationToken ct)
     {
         Response<List<ExchangeApi.Domain.Entities.ExchangeRate>> data = await _exchangeRateService.FindByCondition(e => e.FromCurrency == request.FromCurrency && e.ToCurrency == request.ToCurrency, ct);
-        var orderByDesc = data.Data.OrderByDescending(e => e.Updated);
+        var orderByDesc = data.Data.OrderByDescending(e => e.Created);
         if (orderByDesc is null)
         {
             return new Response<List<ExchangeRateDto>>(new List<ExchangeRateDto>());

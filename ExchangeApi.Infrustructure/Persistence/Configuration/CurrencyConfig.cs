@@ -1,5 +1,4 @@
-﻿
-using ExChangeApi.Domain.Entities;
+﻿using ExChangeApi.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

@@ -1,22 +1,53 @@
 ﻿syntax = "proto3";
 
 option csharp_namespace = "Exchange.gRPCServer.Protos";
-
+import "google/protobuf/empty.proto";
 
 service CurrencyRepository {
-  // Sends a greeting
-  rpc GetCurrency (GetCurrencyRequestDto) returns (CurrencyResponseDto);
+  rpc GetCurrencyById (GetCurrencyByIdRequestDto) returns (CurrencyResponseDto);
+  rpc DeleteCurrency (DeleteCurrencyRequestDto) returns (DeleteCurrencyResponseDto);
+  rpc UpdateCurrency (UpdateCurrencyRequestDto) returns (UpdateCurrencyResponseDto);
+  rpc AddCurrency (AddCurrencyRequestDto) returns (AddCurrencyResponseDto);
 }
 
-// The request message containing the user's name.
-// Send Data
-message GetCurrencyRequestDto {
+message GetCurrencyByIdRequestDto {
   int32 id = 1;
 }
 
-// The response message containing the greetings.
-//ِ Dto
+message DeleteCurrencyRequestDto {
+  int32 id = 1;
+}
+
+message UpdateCurrencyRequestDto {
+  int32 id = 1;
+  string currency_code = 2;
+  double price = 3;
+}
+
+message AddCurrencyRequestDto {
+  string currency_code = 1;
+  double price = 2;
+}
+
 message CurrencyResponseDto {
-string CurrencyCode = 2;
-string Price = 3;  
+  int32 id = 1;
+  string currency_code = 2;
+  double price = 3;
+  string error_message = 4;
+}
+
+message DeleteCurrencyResponseDto {
+  string deleted_message = 1;
+  string error_message = 2;
+}
+
+message UpdateCurrencyResponseDto {
+  string updated_message = 1;
+  string error_message = 2;
+}
+
+message AddCurrencyResponseDto {
+  int32 id = 1;
+  string added_message = 2;
+  string error_message = 3;
 }

@@ -10,13 +10,15 @@
   <ItemGroup>
     <None Remove="Protos\Currency.proto" />
     <None Remove="Protos\CurrencyImageFileStreaming.proto" />
+    <None Remove="Protos\StreamCurrency.proto" />
   </ItemGroup>
 
   <ItemGroup>
-    <Protobuf Include="Protos\Currency.proto">
+    <Protobuf Include="Protos\Currency.proto" GrpcServices="Client" />
+    <Protobuf Include="Protos\CurrencyImageFileStreaming.proto">
       <GrpcServices>Client</GrpcServices>
     </Protobuf>
-    <Protobuf Include="Protos\CurrencyImageFileStreaming.proto" GrpcServices="Client" />
+    <Protobuf Include="Protos\StreamCurrency.proto" GrpcServices="Client" />
   </ItemGroup>
 
   <ItemGroup>

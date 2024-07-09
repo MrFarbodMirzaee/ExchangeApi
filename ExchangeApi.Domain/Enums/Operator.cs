@@ -1,6 +1,4 @@
-﻿
-
-namespace ExchangeApi.Domain.Enums;
+﻿namespace ExchangeApi.Domain.Enums;
 
 public enum Operator
 {

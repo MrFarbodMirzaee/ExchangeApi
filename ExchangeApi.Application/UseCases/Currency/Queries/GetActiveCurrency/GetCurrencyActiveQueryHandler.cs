@@ -23,7 +23,7 @@ public class GetCurrencyActiveQueryHandler : IRequestHandler<GetCurrencyActiveQu
         {
             return new Response<List<CurrencyDto>>(new List<CurrencyDto>());
         }
-        var currencies = _mapper.Map<List<CurrencyDto>>(data);
+        var currencies = _mapper.Map<List<CurrencyDto>>(data.Data);
         return new Response<List<CurrencyDto>>(currencies);
     }
 }

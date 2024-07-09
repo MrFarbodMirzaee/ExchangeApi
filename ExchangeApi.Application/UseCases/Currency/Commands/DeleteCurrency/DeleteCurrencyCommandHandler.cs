@@ -1,6 +1,4 @@
-﻿
-
-using AutoMapper;
+﻿using AutoMapper;
 using ExchangeApi.Application.Contracts;
 using ExchangeApi.Domain.Wrappers;
 using MediatR;

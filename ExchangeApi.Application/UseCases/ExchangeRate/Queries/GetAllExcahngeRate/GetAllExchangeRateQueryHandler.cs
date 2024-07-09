@@ -1,6 +1,4 @@
-﻿
-
-using AutoMapper;
+﻿using AutoMapper;
 using ExchangeApi.Application.Contracts;
 using ExchangeApi.Application.Dtos;
 using ExchangeApi.Domain.Wrappers;
@@ -21,7 +19,7 @@ public class GetAllExchangeRateQueryHandler : IRequestHandler<GetAllExchangeRate
     {
 
         Response<List<ExchangeApi.Domain.Entities.ExchangeRate>> data = await _exchangeRateService.GetAllAsync(ct);
-        var exchangeRateDto = _mapper.Map<List<ExchangeRateDto>>(data);
+        var exchangeRateDto = _mapper.Map<List<ExchangeRateDto>>(data.Data);
         return new Response<List<ExchangeRateDto>>(exchangeRateDto);
     }
 }

@@ -1,12 +1,7 @@
-﻿
-
-using AutoMapper;
+﻿using AutoMapper;
 using ExchangeApi.Application.Contracts;
-using ExchangeApi.Domain.Entities;
 using ExchangeApi.Domain.Wrappers;
 using MediatR;
-using Microsoft.Extensions.Options;
-using System.Runtime;
 
 namespace ExchangeApi.Application.UseCases.ExchangeRate.Commands;
 
@@ -24,7 +19,7 @@ public class UpdateExchangeRateCommandHandler : IRequestHandler<UpdateExchangeRa
         request.ExchangeRate.Id = request.Id;
 
         Response<bool> data = await _exchangeRateService.UpdateAsync(request.ExchangeRate, ct);
-        var exchangeRatesDto = _mapper.Map<ExchangeApi.Domain.Entities.ExchangeRate>(data);
+        var exchangeRatesDto = _mapper.Map<ExchangeApi.Domain.Entities.ExchangeRate>(data.Data);
         return new Response<int>(1);
     }
 }

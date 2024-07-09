@@ -33,7 +33,7 @@ public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand, Respo
             // Handle the case where the delete operation failed
             return new Response<int>(0,"Something unexpected happened");
         }
-        var UserDto = _mapper.Map<bool>(data);
+        var UserDto = _mapper.Map<bool>(data.Data);
         return new Response<int>(1);
     }
 }

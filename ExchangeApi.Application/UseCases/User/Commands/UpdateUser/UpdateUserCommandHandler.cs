@@ -22,7 +22,7 @@ public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, Respo
         request.User.Id = request.Id;
 
         Response<bool> data = await _userService.UpdateAsync(request.User, ct);
-        var UserDto = _mapper.Map<ExChangeApi.Domain.Entities.User>(data);
+        var UserDto = _mapper.Map<ExChangeApi.Domain.Entities.User>(data.Data);
         return new Response<int>(1);
     }
 }

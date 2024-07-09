@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option csharp_namespace = "Exchange.gRPCServer.Protos";
+option csharp_namespace = "Exchange.gRPCClient.Protos";
 import "google/protobuf/empty.proto";
 
 service CurrencyFileStreaming {

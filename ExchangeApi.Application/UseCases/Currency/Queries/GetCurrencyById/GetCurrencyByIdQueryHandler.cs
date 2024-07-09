@@ -1,6 +1,4 @@
-﻿
-
-using AutoMapper;
+﻿using AutoMapper;
 using ExchangeApi.Application.Contracts;
 using ExchangeApi.Application.Dtos;
 using ExchangeApi.Domain.Wrappers;
@@ -24,7 +22,7 @@ public class GetCurrencyByIdQueryHandler : IRequestHandler<GetCurrencyByIdQuery,
         {
             return new Response<List<CurrencyDto>>(new List<CurrencyDto>());
         }
-        var currencyDto = _mapper.Map<CurrencyDto>(data);
-        return new Response<List<CurrencyDto>>(new List<CurrencyDto> { currencyDto });
+        var currencyDto = _mapper.Map<List<CurrencyDto>>(data.Data);
+        return new Response<List<CurrencyDto>>(new List<CurrencyDto>(currencyDto));
     }
 }
