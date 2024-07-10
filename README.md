@@ -12,7 +12,7 @@ Here's an example of the gRPC client image on Console app :
 ![Screenshot 2024-07-09 214203](https://github.com/MrFarbodMirzaee/ExchangeApi/assets/134764233/33dffafb-07c9-41f9-80b8-6350f6b9d1b9)
 ## GraphQl Image:
 Here's an example of the GraphQl:
-![Screenshot 2024-07-09 180656](https://github.com/MrFarbodMirzaee/ExchangeApi/assets/134764233/2716057b-fb00-4688-b614-87ca3263d5ea)
+![347079224-2716057b-fb00-4688-b614-87ca3263d5ea](https://github.com/MrFarbodMirzaee/ExchangeApi/assets/134764233/db67e4f6-d519-4d3c-b196-5db04cfff689)
 
 ## Table of Contents
 - [Installation](#installation)
