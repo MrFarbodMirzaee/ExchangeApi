@@ -3,7 +3,7 @@ It's an api with .net 8 about Exchange
 
 ## REST Swagger Image
 Here's an example of the REST Swagger image for the API:
-This image provides a visual representation of the API's endpoints, request/response models, and other relevant information. You can include this image in your README to give users a quick overview of the API's functionality.
+This image provides a visual representation of the API's endpoints, request/response models, and other relevant information. 
 ![Swagger UI_Page_1](https://github.com/MrFarbodMirzaee/ExchangeApi/assets/134764233/3f4417e4-0aba-4797-8904-b342e24e25eb)
 ![Swagger UI_Page_2](https://github.com/MrFarbodMirzaee/ExchangeApi/assets/134764233/e0e9a262-cfaf-4643-bc1d-6ab0b3d1db8d)
 ![Swagger UI_Page_3](https://github.com/MrFarbodMirzaee/ExchangeApi/assets/134764233/cd000655-341b-4879-aea4-23a4baef6867)
