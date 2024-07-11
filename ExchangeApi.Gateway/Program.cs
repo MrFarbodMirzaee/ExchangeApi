@@ -13,7 +13,7 @@ public class Program
         // Add services to the container.
 
         builder.Services.AddEndpointsApiExplorer();
-        builder.Configuration.AddJsonFile("Oselot.json", optional: false, reloadOnChange: true);
+        builder.Configuration.AddJsonFile("Ocelot.json", optional: false, reloadOnChange: true);
         builder.Services.AddOcelot(builder.Configuration);
         builder.Services.AddSwaggerGen();
 
