@@ -8,26 +8,25 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Protos\Currency.proto" />
-    <None Remove="Protos\CurrencyImageFileStreaming.proto" />
-    <None Remove="Protos\StreamCurrency.proto" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Protobuf Include="Protos\Currency.proto" GrpcServices="Client" />
-    <Protobuf Include="Protos\CurrencyImageFileStreaming.proto">
-      <GrpcServices>Client</GrpcServices>
-    </Protobuf>
-    <Protobuf Include="Protos\StreamCurrency.proto" GrpcServices="Client" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Google.Protobuf" Version="3.27.0" />
     <PackageReference Include="Grpc.Net.Client" Version="2.63.0" />
+    <PackageReference Include="Grpc.Net.ClientFactory" Version="2.49.0" />
     <PackageReference Include="Grpc.Tools" Version="2.64.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="..\Exchange.gRPCServer\Protos\Currency.proto" GrpcServices="Client">
+      <Link>Protos\Currency.proto</Link>
+    </Protobuf>
+    <Protobuf Include="..\Exchange.gRPCServer\Protos\CurrencyImageFileStreaming.proto" GrpcServices="Client">
+      <Link>Protos\CurrencyImageFileStreaming.proto</Link>
+    </Protobuf>
+    <Protobuf Include="..\Exchange.gRPCServer\Protos\StreamCurrency.proto" GrpcServices="Client">
+      <Link>Protos\StreamCurrency.proto</Link>
+    </Protobuf>
   </ItemGroup>
 
 </Project>

@@ -77,10 +77,6 @@ public class AutenticationService : IAutenticationService
             if (result.Succeeded)
             {
                 await _userManager.AddToRoleAsync(user, Roles.User.ToString());
-                //var verificationUri = await SendVerificationEmail(user, origin);
-                //TODO: Attach Email Service here and configure it via appsettings
-                //await _emailService.SendAsync(new Application.DTOs.Email.EmailRequest() { From = "mail@codewithmukesh.com", To = user.Email, Body = $"Please confirm your account by visiting this URL {verificationUri}", Subject = "Confirm Registration" });
-                //return new Response<string>(user.Id, message: $"User Registered. Please confirm your account by visiting this URL {verificationUri}");
                 return null;
             }
             else

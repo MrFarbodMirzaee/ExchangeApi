@@ -1,12 +1,13 @@
-﻿using Exchange.gRPCClient.Protos;
+﻿using Exchange.gRPCServer.Protos;
 using Google.Protobuf;
 using Grpc.Core;
 using Grpc.Net.Client;
 using System.Diagnostics;
 using System.Reflection;
-using static Exchange.gRPCClient.Protos.CurrencyFileStreaming;
-using static Exchange.gRPCClient.Protos.CurrencyRepository;
-using static Exchange.gRPCClient.Protos.CurrencyStreamRepository;
+using static Exchange.gRPCServer.Protos.CurrencyFileStreaming;
+using static Exchange.gRPCServer.Protos.CurrencyRepository;
+using static Exchange.gRPCServer.Protos.CurrencyStreamRepository;
+
 
 
 namespace Exchange.gRPCClient;
@@ -100,7 +101,6 @@ internal class Program
                 Console.WriteLine($"{Math.Round(chunkSize * 100 / fileStream.Length)} %");
                 await Task.Delay(100);
             }
-
             await call.RequestStream.CompleteAsync();
             Console.ReadKey();
         }
@@ -108,8 +108,6 @@ internal class Program
         {
             Console.WriteLine($"{ex.Message}");
         }
-
-
     }
     public static async Task GetCurrencyBYIdData(CurrencyRepositoryClient client)
 
