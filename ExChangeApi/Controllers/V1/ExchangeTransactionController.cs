@@ -7,6 +7,7 @@ using ExchangeApi.Application.Contracts;
 using ExchangeApi.Application.UseCases.ExchangeTransaction.Commands.AddExchangeTransaction;
 using ExchangeApi.Application.UseCases.ExchangeTransaction.Queries;
 using ExchangeApi.Application.UseCases.ExchangeTransaction.Commands;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ExchangeApi.Controllers.V1;
 
@@ -33,6 +34,7 @@ public class ExchangeTransactionController : BaseController
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll([FromQuery] GetAllExchangeTransactionQuery request, CancellationToken ct) => await SendAsync(request, ct);
+    [Authorize]
     [HttpPost]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status201Created)]
@@ -43,11 +45,13 @@ public class ExchangeTransactionController : BaseController
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetByCurrencyPair([FromQuery]GetExchangeTransactionByCurrencyPairQuery request,CancellationToken ct) => await SendAsync(request, ct);
+    [Authorize]
     [HttpDelete]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Delete(DeleteExchangeTransactionCommand request, CancellationToken ct) => await SendAsync(request, ct);
+    [Authorize]
     [HttpPut]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
