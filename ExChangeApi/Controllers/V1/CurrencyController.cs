@@ -36,11 +36,11 @@ public class CurrencyController : BaseController
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetById([FromQuery] GetCurrencyByIdQuery request, CancellationToken ct) => await SendAsync(request, ct);
-    [HttpPost]
+    [HttpGet]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> Add([FromBody] AddCurrencyCommand command, CancellationToken ct) => await SendAsync(command, ct);
+    public async Task<IActionResult> Add([FromQuery] AddCurrencyCommand command, CancellationToken ct) => await SendAsync(command, ct);
     [HttpGet]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
