@@ -2,6 +2,7 @@
 using ExchangeApi.Application.Contracts;
 using ExchangeApi.Application.Dtos;
 using ExchangeApi.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Mime;
 
@@ -16,6 +17,7 @@ public class CurrencyAttributeController : BaseController
         _mapper = mapper;
         _currencyService = currencyService;
     }
+    [Authorize]
     [Route("")]
     [HttpPost]
     [Consumes(MediaTypeNames.Application.Json)]
