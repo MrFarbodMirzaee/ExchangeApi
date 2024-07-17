@@ -17,7 +17,6 @@ public class CurrencyAttributeController : BaseController
         _mapper = mapper;
         _currencyService = currencyService;
     }
-    [Authorize]
     [Route("")]
     [HttpPost]
     [Consumes(MediaTypeNames.Application.Json)]
