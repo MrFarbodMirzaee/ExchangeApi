@@ -15,3 +15,4 @@ public static class DefaultRoles
         await roleManager.CreateAsync(new IdentityRole(Roles.User.ToString()));
     }
 }
+    

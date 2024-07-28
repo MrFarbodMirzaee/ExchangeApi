@@ -3,7 +3,6 @@ using ExchangeApi.Application.Contracts;
 using ExchangeApi.Domain.Wrappers;
 using MediatR;
 
-
 namespace ExchangeApi.Application.UseCases.ExchangeRate.Commands;
 
 public class AddExchangeRateCommandHandler : IRequestHandler<AddExchagneRateCommand, Response<bool>>

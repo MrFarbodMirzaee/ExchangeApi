@@ -19,13 +19,7 @@ public class ApplicationDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.HasDefaultSchema("BASE");
-        builder.RegisterAllSeeders(typeof(IBaseSeeder<>).Assembly);
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         base.OnModelCreating(builder);
-    }
-    public override int SaveChanges()
-    {
-        Console.WriteLine("Hello before change save");
-        return base.SaveChanges();
     }
 }

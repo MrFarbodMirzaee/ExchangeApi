@@ -18,7 +18,7 @@ public class CurrencyService : GengericRepository<Currency>,ICurrencyService
     public async Task<Response<bool>> Activate(int currencyId)
     {
         var currency =  _context.Currency.Where(x => x.Id == currencyId).FirstOrDefault();
-        currency.Activate();
+        currency.IsActive = true;
         await _context.SaveChangesAsync();
         return new Response<bool>(true);
     }   

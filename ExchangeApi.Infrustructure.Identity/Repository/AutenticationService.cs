@@ -23,17 +23,17 @@ public class AutenticationService : IAutenticationService
 
     public AutenticationService(UserManager<ApplicationUser> userManager,
         RoleManager<IdentityRole> roleManager,
-        IOptions<JwtSettings> jwtSettings,
+        IOptionsMonitor<JwtSettings> jwtSettings,
         SignInManager<ApplicationUser> signInManager)
     {
-        _jwtSettings = jwtSettings.Value;
+        _jwtSettings = jwtSettings.CurrentValue;
         _userManager = userManager;
         _roleManager = roleManager;
         _signInManager = signInManager;
     }
     public async Task<Response<AuthenticationResponseDto>> Login(LoginDto dto, CancellationToken ct)
     {
-        var user = await _userManager.FindByEmailAsync(dto.UserName);
+        var user = await _userManager.FindByNameAsync(dto.UserName);
         if (user == null)
         {
             return null;

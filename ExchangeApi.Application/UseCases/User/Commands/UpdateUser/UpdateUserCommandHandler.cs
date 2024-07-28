@@ -1,9 +1,6 @@
-﻿
-
-using AutoMapper;
+﻿using AutoMapper;
 using ExchangeApi.Application.Contracts;
 using ExchangeApi.Domain.Wrappers;
-using ExChangeApi.Domain.Entities;
 using MediatR;
 
 namespace ExchangeApi.Application.UseCases.User.Commands;
@@ -20,7 +17,7 @@ public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, Respo
     public async Task<Response<int>> Handle(UpdateUserCommand request, CancellationToken ct)
     {
         request.User.Id = request.Id;
-
+        request.User.Updated = DateTime.Now;
         Response<bool> data = await _userService.UpdateAsync(request.User, ct);
         var UserDto = _mapper.Map<ExChangeApi.Domain.Entities.User>(data.Data);
         return new Response<int>(1);

@@ -1,59 +1,61 @@
-﻿using ExchangeApi.Domain.Contracts;
+﻿using ExchangeApi.Infrustructure.Persistence.Contexts;
+using ExChangeApi.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 
 namespace ExchangeApi.Infrustructure.Persistence.Seeders;
 
-public class CurrencySeeder : IBaseSeeder<ExChangeApi.Domain.Entities.Currency>
+public class CurrencySeeder
 {
-    public IEnumerable<ExChangeApi.Domain.Entities.Currency> GetSeedData()
+    public static void Intialize(IServiceProvider service)
     {
-        var currencies = new List<ExChangeApi.Domain.Entities.Currency>
+        using (var context = new ApplicationDbContext(service.GetRequiredService<DbContextOptions<ApplicationDbContext>>()))
         {
-            new ExChangeApi.Domain.Entities.Currency()
+            if (!context.Currency.Any())
             {
-                Id = 1,
-                CurrencyCode = "USD",
-                Name = "United States Dollar",
-                Created = DateTime.Now,
-                DeletedByUserId = 0,
-                UpdatedByUserId = 1,
-                ImagePath = "/images/usd.png",
-                Updated = DateTime.Now,
-                Description = "The official currency of the United States of America.",
-                MetaDescription = "USD is the most widely traded currency in the world.",
-            },
-            new ExChangeApi.Domain.Entities.Currency()
-            {
-                Id = 2,
-                CurrencyCode = "EUR",
-                Name = "Euro",
-                Created = DateTime.Now,
-                DeletedByUserId = 0,
-                UpdatedByUserId = 1,
-                ImagePath = "/images/eur.png",
-                Updated = DateTime.Now,
-                Description = "The official currency of the European Union.",
-                MetaDescription = "EUR is the second most widely traded currency in the world."
-            },
-            new ExChangeApi.Domain.Entities.Currency()
-            {
-                Id = 3,
-                CurrencyCode = "GBP",
-                Name = "British Pound Sterling",
-                Created = DateTime.Now,
-                DeletedByUserId = 0,
-                UpdatedByUserId = 1,
-                ImagePath = "/images/gbp.png",
-                Updated = DateTime.Now,
-                Description = "The official currency of the United Kingdom.",
-                MetaDescription = "GBP is the third most widely traded currency in the world."
+                context.Currency.AddRange(
+                new Currency
+                {
+                    CurrencyCode = "USD",
+                    Name = "United States Dollar",
+                    Created = DateTime.Now,
+                    IsActive = true,
+                    ImagePath = "/images/currencies/usd.png",
+                    Updated = DateTime.Now,
+                    Description = "The official currency of the United States.",
+                    MetaDescription = "USD - United States Dollar, the most widely used currency in the world.",
+                    DeletedByUserId = 0,
+                    UpdatedByUserId = 1
+                },
+                new Currency
+                {
+                    CurrencyCode = "EUR",
+                    Name = "Euro",
+                    Created = DateTime.Now,
+                    IsActive = false,
+                    ImagePath = "/images/currencies/eur.png",
+                    Updated = DateTime.Now,
+                    Description = "The official currency of the Eurozone.",
+                    MetaDescription = "EUR - Euro, used by 19 of the 27 European Union countries.",
+                    DeletedByUserId = 0,
+                    UpdatedByUserId = 1
+                },
+                new Currency
+                {
+                    CurrencyCode = "JPY",
+                    Name = "Japanese Yen",
+                    Created = DateTime.Now,
+                    ImagePath = "/images/currencies/jpy.png",
+                    Updated = DateTime.Now,
+                    IsActive = true,
+                    Description = "The official currency of Japan.",
+                    MetaDescription = "JPY - Japanese Yen, the currency of Japan.",
+                    DeletedByUserId = 0,
+                    UpdatedByUserId = 1
+                });
+                context.SaveChanges();
             }
-        };
-        foreach (var currency in currencies)
-        {
-            currency.Activate();
         }
-
-        return currencies;
     }
 }

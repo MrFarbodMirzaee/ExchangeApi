@@ -17,6 +17,7 @@ public class UpdateExchangeTransactionCommandHandler : IRequestHandler<UpdateExc
     public async Task<Response<int>> Handle(UpdateExchangeTransactionCommand request, CancellationToken ct)
     {
         request.ExchangeTransaction.Id = request.Id;
+        request.ExchangeTransaction.Updated = DateTime.Now;
         Response<bool> data = await _exchangeTranzacstionService.UpdateAsync(request.ExchangeTransaction, ct);
         var exchangeTranzacstionDto = _mapper.Map<ExchangeApi.Domain.Entities.ExchangeTransaction>(data.Data);
         return new Response<int>(1);

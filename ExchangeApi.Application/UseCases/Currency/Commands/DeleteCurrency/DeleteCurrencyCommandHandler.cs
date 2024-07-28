@@ -17,7 +17,7 @@ public class DeleteCurrencyCommandHandler : IRequestHandler<DeleteCurrencyComman
     }
     public async Task<Response<int>> Handle(DeleteCurrencyCommand request, CancellationToken ct)
     {
-        var currencyResponse = await _currencyService.FindByCondition(x => x.Id == request.CurrenvyId, ct);
+        var currencyResponse = await _currencyService.FindByCondition(x => x.Id == request.CurrencyId, ct);
         if (!currencyResponse.Succeeded || currencyResponse.Data is null || currencyResponse.Data.Count == 0)
         {
             return new Response<int>(0, "Currency not found");

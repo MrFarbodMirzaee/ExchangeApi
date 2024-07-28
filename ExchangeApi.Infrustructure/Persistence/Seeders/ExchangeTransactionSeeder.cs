@@ -1,77 +1,63 @@
-﻿using ExchangeApi.Domain.Contracts;
-using ExchangeApi.Domain.Entities;
+﻿using ExchangeApi.Domain.Entities;
+using ExchangeApi.Infrustructure.Persistence.Contexts;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ExchangeApi.Infrustructure.Persistence.Seeders;
 
-public class ExchangeTransactionSeeder : IBaseSeeder<ExchangeTransaction>
+public class ExchangeTransactionSeeder
 {
-
-    public IEnumerable<ExchangeTransaction> GetSeedData()
+    public static void Intialize(IServiceProvider service)
     {
-        var exchangeTransactions = new List<ExchangeTransaction>
-    {
-        new ExchangeTransaction
+        using (var context = new ApplicationDbContext(service.GetRequiredService<DbContextOptions<ApplicationDbContext>>()))
         {
-            Id = 1,
-            FromCurrencyId = 1, // USD
-            ToCurrencyId = 2, // EUR
-            Amount = 1000.0m,
-            ResultAmount = 850.0m,
-            ExChangeRateId = 1,
-            TransactionDate = DateTime.Now,
-            Created = DateTime.Now,
-            Updated = DateTime.Now,
-            Description = "Exchange transaction from USD to EUR.",
-            MetaDescription = "Exchanged 1000 USD for 850 EUR.",
-            UserId = 1,
-            UpdatedByUserId = 1,
-            DeletedByUserId = 0
-        },
-        new ExchangeTransaction
-        {
-            Id = 2,
-            FromCurrencyId = 1, // USD
-            ToCurrencyId = 3, // GBP
-            Amount = 500.0m,
-            ResultAmount = 395.0m,
-            ExChangeRateId = 2,
-            TransactionDate = DateTime.Now.AddDays(-1),
-            Created = DateTime.Now.AddDays(-1),
-            Updated = DateTime.Now.AddDays(-1),
-            Description = "Exchange transaction from USD to GBP.",
-            MetaDescription = "Exchanged 500 USD for 395 GBP.",
-            UserId = 2,
-            UpdatedByUserId = 1,
-            DeletedByUserId = 0
-        },
-        new ExchangeTransaction
-        {
-            Id = 3,
-            FromCurrencyId = 2, // EUR
-            ToCurrencyId = 3, // GBP
-            Amount = 750.0m,
-            ResultAmount = 697.5m,
-            ExChangeRateId = 3,
-            TransactionDate = DateTime.Now.AddDays(-2),
-            Created = DateTime.Now.AddDays(-2),
-            Updated = DateTime.Now.AddDays(-2),
-            Description = "Exchange transaction from EUR to GBP.",
-            MetaDescription = "Exchanged 750 EUR for 697.5 GBP.",
-            UserId = 1,
-            UpdatedByUserId = 1,
-            DeletedByUserId = 0
+            if (!context.ExchangeTransaction.Any())
+            {
+                context.ExchangeTransaction.AddRange(
+                new ExchangeTransaction
+                {
+                    FromCurrencyId = 1,
+                    ToCurrencyId = 2,
+                    Amount = 100.00m,
+                    ResultAmount = 85.00m,
+                    ExChangeRateId = 1,
+                    TransactionDate = DateTime.Now,
+                    Created = DateTime.Now,
+                    Updated = DateTime.Now,
+                    Description = "Transaction from USD to EUR.",
+                    MetaDescription = "Exchange of 100 USD to EUR.",
+                    UserId = 1
+                },
+                new ExchangeTransaction
+                {
+                    FromCurrencyId = 2,
+                    ToCurrencyId = 3,
+                    Amount = 50.00m,
+                    ResultAmount = 6500.00m,
+                    ExChangeRateId = 2,
+                    TransactionDate = DateTime.Now,
+                    Created = DateTime.Now,
+                    Updated = DateTime.Now,
+                    Description = "Transaction from EUR to JPY.",
+                    MetaDescription = "Exchange of 50 EUR to JPY.",
+                    UserId = 1
+                },
+                new ExchangeTransaction
+                {
+                    FromCurrencyId = 3,
+                    ToCurrencyId = 1,
+                    Amount = 1000.00m,
+                    ResultAmount = 9.10m,
+                    ExChangeRateId = 3,
+                    TransactionDate = DateTime.Now,
+                    Created = DateTime.Now,
+                    Updated = DateTime.Now,
+                    Description = "Transaction from JPY to USD.",
+                    MetaDescription = "Exchange of 1000 JPY to USD.",
+                    UserId = 1
+                });
+            };
+                context.SaveChanges();
+            }
         }
-    };
-
-        // Activate all exchange transactions
-        foreach (var exchangeTransaction in exchangeTransactions)
-        {
-            exchangeTransaction.Activate();
-        }
-
-        // Deactivate the exchange transaction with Id = 2
-        exchangeTransactions.Single(et => et.Id == 2).Deactivate();
-
-        return exchangeTransactions;
     }
-}

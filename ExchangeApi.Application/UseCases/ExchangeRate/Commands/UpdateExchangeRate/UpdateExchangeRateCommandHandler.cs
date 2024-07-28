@@ -17,7 +17,7 @@ public class UpdateExchangeRateCommandHandler : IRequestHandler<UpdateExchangeRa
     public async Task<Response<int>> Handle(UpdateExchangeRateCommand request, CancellationToken ct)
     {
         request.ExchangeRate.Id = request.Id;
-
+        request.ExchangeRate.Updated = DateTime.Now;
         Response<bool> data = await _exchangeRateService.UpdateAsync(request.ExchangeRate, ct);
         var exchangeRatesDto = _mapper.Map<ExchangeApi.Domain.Entities.ExchangeRate>(data.Data);
         return new Response<int>(1);

@@ -6,5 +6,5 @@ namespace ExchangeApi.Application.UseCases.Currency.Commands;
 
 public record DeleteCurrencyCommand : IRequest<Response<int>>
 {
-    public int CurrenvyId { get; set; }
+    public int CurrencyId { get; set; }
 }

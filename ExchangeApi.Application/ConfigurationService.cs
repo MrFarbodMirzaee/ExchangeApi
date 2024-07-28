@@ -9,7 +9,6 @@ public static class ConfigurationService
     {
         var assembly = typeof(ConfigurationService).Assembly;
         Services.AddMediatR(confog => confog.RegisterServicesFromAssemblies(assembly));
-       
         return Services;
     }
 }

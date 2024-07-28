@@ -18,7 +18,7 @@ public class UpdateCurrencyCommandHandler : IRequestHandler<UpdateCurrencyComman
     public async Task<Response<int>> Handle(UpdateCurrencyCommand request, CancellationToken ct)
     {
         request.Currency.Id = request.CurrencyId;
-
+        request.Currency.Updated = DateTime.Now;
         var updatedCurrency = await _currencyService.UpdateAsync(request.Currency, ct);
 
         var updatedCurrencyDto = _mapper.Map<ExChangeApi.Domain.Entities.Currency>(updatedCurrency.Data); // Assuming CurrencyDto is the DTO for Currency

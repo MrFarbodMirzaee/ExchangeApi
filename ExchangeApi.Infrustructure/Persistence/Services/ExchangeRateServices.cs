@@ -1,5 +1,4 @@
 ﻿using ExchangeApi.Infrustructure.Persistence.Contexts;
-
 using ExchangeApi.Application.Contracts;
 using ExchangeApi.Domain.Entities;
 using ExchangeApi.Infrustructure.Persistence.Services;

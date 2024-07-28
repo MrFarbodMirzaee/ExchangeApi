@@ -16,7 +16,9 @@ public static class DefaultBasicUser
             FirstName = "John",
             LastName = "Doe",
             EmailConfirmed = true,
-            PhoneNumberConfirmed = true
+            PhoneNumberConfirmed = true,
+            PhoneNumber = "09101111111",
+            
         };
         if (userManager.Users.All(u => u.Id != defaultUser.Id))
         {
@@ -24,7 +26,7 @@ public static class DefaultBasicUser
             if (user == null)
             {
                 await userManager.CreateAsync(defaultUser, "123Pa$$word!");
-                await userManager.AddToRoleAsync(defaultUser, Roles.User.ToString());
+                await userManager.AddToRoleAsync(defaultUser, Roles.Admin.ToString());
             }
 
         }

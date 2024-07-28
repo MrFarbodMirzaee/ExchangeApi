@@ -19,10 +19,8 @@ public class Currency : IBaseEntity<int>,IDeletable,IAuditable
     /// </summary>
     public string Name { get; set; }
     public DateTime Created { get; set; }
-    public bool IsActive { get; private set; }
+    public bool IsActive { get; set; }
     public string ImagePath { get; set; }
-    public void Activate() => IsActive = true; 
-    public void Deactivate() => IsActive = false;
     public DateTime Updated { get; set; }
     public string Description { get; set; }
     public string MetaDescription { get; set; }

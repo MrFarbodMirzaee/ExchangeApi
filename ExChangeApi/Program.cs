@@ -6,6 +6,11 @@ using Microsoft.EntityFrameworkCore;
 using Asp.Versioning;
 using ExchangeApi.Infrustructure.Identity;
 using Ocelot.Middleware;
+using ExchangeApi.Infrustructure.Persistence.Contexts;
+using Infrastructure.Identity.Seeds;
+using ExchangeApi.Infrustructure.Identity.Entities;
+using Microsoft.AspNetCore.Identity;
+using ExchangeApi.Infrustructure.Persistence.Seeders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +35,7 @@ builder.Services
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddAuthorization();
 
 var apiVersioning = builder.Services.AddApiVersioning(o =>
 {
@@ -43,7 +49,21 @@ var apiVersioning = builder.Services.AddApiVersioning(o =>
 });
 
 var app = builder.Build();
-app.MapHealthChecks("/health");
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<ApplicationDbContext>();
+    CurrencySeeder.Intialize(services);
+    ExchangeRateSeeder.Intialize(services);
+    UserSeeder.Intialize(services);
+    ExchangeTransactionSeeder.Intialize(services);
+
+    var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+
+    await DefaultRoles.SeedAsync(userManager, roleManager);
+    await DefaultBasicUser.SeedAsync(userManager, roleManager);
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -52,8 +72,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.MapHealthChecks("/health");
+
 app.UseOcelot();
+
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

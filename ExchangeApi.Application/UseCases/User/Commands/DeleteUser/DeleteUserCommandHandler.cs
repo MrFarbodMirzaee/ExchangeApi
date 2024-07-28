@@ -1,5 +1,4 @@
-﻿
-using AutoMapper;
+﻿using AutoMapper;
 using ExchangeApi.Application.Contracts;
 using ExchangeApi.Application.UseCases.User.Commands.DeleteUser;
 using ExchangeApi.Domain.Wrappers;

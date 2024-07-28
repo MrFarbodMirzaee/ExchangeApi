@@ -24,6 +24,4 @@ public class BaseController : Controller
     protected async Task<ObjectResult> SendAsync(IRequest<Response<Guid>> request, CancellationToken ct = default) => await SendAsync<Guid>(request, ct);
     protected async Task<ObjectResult> SendAsync(IRequest<Response<int>> request, CancellationToken ct = default) => await SendAsync<int>(request, ct);
     protected async Task<ObjectResult> SendAsync(IRequest<Response<long>> request, CancellationToken ct = default) => await SendAsync<long>(request, ct);
-   
-
 }

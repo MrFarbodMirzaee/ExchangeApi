@@ -28,7 +28,7 @@ public static class ConfigureService
         services.AddTransient<IAutenticationService, AutenticationService>();
 
 
-        services.Configure<JwtSettings>(configuration.GetSection("JWTSettings"));
+        services.Configure<JwtSettings>(configuration.GetSection("JWTSetting"));
 
         //Add Authentication
         services.AddAuthentication(options =>
@@ -49,7 +49,7 @@ public static class ConfigureService
                     ClockSkew = TimeSpan.Zero,
                     ValidIssuer = configuration["JWTSettings:Issuer"],
                     ValidAudience = configuration["JWTSettings:Audience"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWTSettings:Key"]))
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWTSetting:Key"]))
                 };
                 o.Events = new JwtBearerEvents()
                 {

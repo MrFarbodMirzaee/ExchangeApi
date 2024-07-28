@@ -23,7 +23,7 @@ public class ExchangeRate : IBaseEntity<int>, IDeletable, IAuditable
     public decimal Rate { get; set; }
  
     public DateTime Created { get; set; }
-    public bool IsActive { get; private set; }
+    public bool IsActive { get; set; }
     /// <summary>
     ///  Represents the date and time when the exchange rate was last updated.
     /// </summary>
@@ -32,7 +32,4 @@ public class ExchangeRate : IBaseEntity<int>, IDeletable, IAuditable
     public string MetaDescription { get; set; }
     public int UpdatedByUserId { get; set; }
     public int DeletedByUserId { get; set; }
-
-    public void Activate() => IsActive = true;
-    public void Deactivate() => IsActive = false;
 }

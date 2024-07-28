@@ -1,63 +1,62 @@
-﻿using ExchangeApi.Domain.Contracts;
-using ExchangeApi.Domain.Entities;
+﻿using ExchangeApi.Domain.Entities;
+using ExchangeApi.Infrustructure.Persistence.Contexts;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ExchangeApi.Infrustructure.Persistence.Seeders;
 
-public class ExchangeRateSeeder : IBaseSeeder<ExchangeRate>
+public class ExchangeRateSeeder
 {
-    public IEnumerable<ExchangeRate> GetSeedData()
+    public static void Intialize(IServiceProvider service)
     {
-        var exchangeRates = new List<ExchangeRate>
-    {
-        new ExchangeRate
+        using (var context = new ApplicationDbContext(service.GetRequiredService<DbContextOptions<ApplicationDbContext>>()))
         {
-            Id = 1,
-            FromCurrency = 1, // USD
-            ToCurrency = 2, // EUR
-            Rate = 0.85m,
-            Created = DateTime.Now,
-            Updated = DateTime.Now,
-            Description = "Exchange rate between USD and EUR.",
-            MetaDescription = "Current exchange rate for converting USD to EUR.",
-            UpdatedByUserId = 1,
-            DeletedByUserId = 0
-        },
-        new ExchangeRate
-        {
-            Id = 2,
-            FromCurrency = 1, // USD
-            ToCurrency = 3, // GBP
-            Rate = 0.79m,
-            Created = DateTime.Now,
-            Updated = DateTime.Now,
-            Description = "Exchange rate between USD and GBP.",
-            MetaDescription = "Current exchange rate for converting USD to GBP.",
-            UpdatedByUserId = 1,
-            DeletedByUserId = 0
-        },
-        new ExchangeRate
-        {
-            Id = 3,
-            FromCurrency = 2, // EUR
-            ToCurrency = 3, // GBP
-            Rate = 0.93m,
-            Created = DateTime.Now,
-            Updated = DateTime.Now,
-            Description = "Exchange rate between EUR and GBP.",
-            MetaDescription = "Current exchange rate for converting EUR to GBP.",
-            UpdatedByUserId = 1,
-            DeletedByUserId = 0
+            if (!context.ExchangeRate.Any())
+            {
+                context.ExchangeRate.AddRange(
+                    new ExchangeRate
+                    {
+                        FromCurrency = 1,
+                        IsActive = true,
+                        ToCurrency = 2,
+                        Rate = 0.85m,
+                        Created = DateTime.Now,
+                        Updated = DateTime.Now,
+                        Description = "Exchange rate from USD to EUR.",
+                        MetaDescription = "Current exchange rate for USD to EUR.",
+                        UpdatedByUserId = 1,
+                        DeletedByUserId = 0
+                    },
+                    new ExchangeRate
+                    {
+                        FromCurrency = 2,
+                        ToCurrency = 3,
+                        IsActive = true,
+                        Rate = 130.0m,
+                        Created = DateTime.Now,
+                        Updated = DateTime.Now,
+                        Description = "Exchange rate from EUR to JPY.",
+                        MetaDescription = "Current exchange rate for EUR to JPY.",
+                        UpdatedByUserId = 1,
+                        DeletedByUserId = 0
+                    },
+                    new ExchangeRate
+                    {
+                        FromCurrency = 3,
+                        ToCurrency = 1,
+                        IsActive = false,
+                        Rate = 0.0091m,
+                        Created = DateTime.Now,
+                        Updated = DateTime.Now,
+                        Description = "Exchange rate from JPY to USD.",
+                        MetaDescription = "Current exchange rate for JPY to USD.",
+                        UpdatedByUserId = 1,
+                        DeletedByUserId = 0
+                    });
+                };
+
+                context.SaveChanges();
+            }
         }
-    };
-
-        foreach (var exchangeRate in exchangeRates)
-        {
-            exchangeRate.Activate();
-        }
-
-        exchangeRates.Single(er => er.Id == 2).Deactivate();
-
-        return exchangeRates;
     }
-}
-
+   

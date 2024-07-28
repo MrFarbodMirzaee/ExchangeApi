@@ -5,9 +5,7 @@ using ExchangeApi.Shered;
 using System.Net.Mime;
 using ExchangeApi.Application.Contracts;
 using ExchangeApi.Application.UseCases.Currency.Commands;
-using ExchangeApi.Application.UseCases.Currency.Queries.GetActiveCurrency;
 using ExchangeApi.Application.UseCases.Currency.Queries;
-using ExchangeApi.Application.UseCases.Currency.Queries.GetAllCurrency;
 using Microsoft.AspNetCore.Authorization;
 
 namespace ExchangeApi.Controllers.V1;
@@ -37,30 +35,33 @@ public class CurrencyController : BaseController
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetById([FromQuery] GetCurrencyByIdQuery request, CancellationToken ct) => await SendAsync(request, ct);
+    [Authorize]
     [HttpGet]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Add([FromQuery] AddCurrencyCommand command, CancellationToken ct) => await SendAsync(command, ct);
-    [HttpGet]
+    [HttpPost]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> Search([FromQuery] SearchCurrencyQuery request, CancellationToken ct) => await SendAsync(request, ct);
+    [Authorize]
     [HttpDelete]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> Delete(DeleteCurrencyCommand request, CancellationToken ct) => await SendAsync(request, ct);
+    [Authorize]
     [HttpPut]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Update(UpdateCurrencyCommand request, CancellationToken ct) => await SendAsync(request,ct);
+    [Authorize]
     [HttpPost]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> UploadPicture(UploadPictureCommand request, CancellationToken ct) => await SendAsync(request, ct);
-    
 }
