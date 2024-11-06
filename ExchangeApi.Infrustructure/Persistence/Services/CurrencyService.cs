@@ -5,7 +5,7 @@ using ExChangeApi.Domain.Entities;
 using ExchangeApi.Infrustructure.Persistence.Services;
 
 namespace ExchangeApi.Infrustructure.Services;
-public class CurrencyService : GengericRepository<Currency>,ICurrencyService
+public class CurrencyService : GenericRepository<Currency>,ICurrencyService
 {
     private readonly AppDbContext _applicationDbContext;
     public CurrencyService(AppDbContext applicationDbContext) : base(applicationDbContext) => _applicationDbContext = applicationDbContext;

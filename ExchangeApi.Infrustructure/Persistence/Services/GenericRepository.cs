@@ -7,10 +7,10 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
 namespace ExchangeApi.Infrustructure.Persistence.Services;
-public class GengericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
+public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
 {
     protected readonly AppDbContext _applicationDbContext;
-    public GengericRepository(AppDbContext applicationDbContext) => _applicationDbContext = applicationDbContext;
+    public GenericRepository(AppDbContext applicationDbContext) => _applicationDbContext = applicationDbContext;
     public async Task<Response<List<TEntity>>> GetAllAsync(CancellationToken ct)
     {
         var entities = await _applicationDbContext.Set<TEntity>().AsNoTracking().ToListAsync(ct);

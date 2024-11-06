@@ -4,6 +4,7 @@ using ExchangeApi.Infrustructure.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ExchangeApi.Infrustructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241106080910_add-file-entity")]
+    partial class addfileentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,7 +37,7 @@ namespace ExchangeApi.Infrustructure.Migrations
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 11, 6, 11, 51, 20, 824, DateTimeKind.Local).AddTicks(9006));
+                        .HasDefaultValue(new DateTime(2024, 11, 6, 11, 39, 10, 22, DateTimeKind.Local).AddTicks(4014));
 
                     b.Property<string>("CurrencyCode")
                         .IsRequired()
@@ -87,7 +90,7 @@ namespace ExchangeApi.Infrustructure.Migrations
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 11, 6, 11, 51, 20, 825, DateTimeKind.Local).AddTicks(5201));
+                        .HasDefaultValue(new DateTime(2024, 11, 6, 11, 39, 10, 23, DateTimeKind.Local).AddTicks(907));
 
                     b.Property<int>("DeletedByUserId")
                         .HasColumnType("int");
@@ -148,7 +151,7 @@ namespace ExchangeApi.Infrustructure.Migrations
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 11, 6, 11, 51, 20, 825, DateTimeKind.Local).AddTicks(598));
+                        .HasDefaultValue(new DateTime(2024, 11, 6, 11, 39, 10, 22, DateTimeKind.Local).AddTicks(6187));
 
                     b.Property<int>("DeletedByUserId")
                         .HasColumnType("int");
@@ -201,7 +204,7 @@ namespace ExchangeApi.Infrustructure.Migrations
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 11, 6, 11, 51, 20, 825, DateTimeKind.Local).AddTicks(2537));
+                        .HasDefaultValue(new DateTime(2024, 11, 6, 11, 39, 10, 22, DateTimeKind.Local).AddTicks(8321));
 
                     b.Property<int>("DeletedByUserId")
                         .HasColumnType("int");
@@ -231,7 +234,7 @@ namespace ExchangeApi.Infrustructure.Migrations
                         .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 11, 6, 11, 51, 20, 825, DateTimeKind.Local).AddTicks(2959));
+                        .HasDefaultValue(new DateTime(2024, 11, 6, 11, 39, 10, 22, DateTimeKind.Local).AddTicks(8813));
 
                     b.Property<DateTime>("Updated")
                         .HasColumnType("datetime2");
@@ -279,7 +282,7 @@ namespace ExchangeApi.Infrustructure.Migrations
 
                     SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"));
 
-                    b.ToTable("File", "BASE");
+                    b.ToTable("Files", "BASE");
                 });
 
             modelBuilder.Entity("ExchangeApi.Domain.Entities.ExchangeTransaction", b =>
