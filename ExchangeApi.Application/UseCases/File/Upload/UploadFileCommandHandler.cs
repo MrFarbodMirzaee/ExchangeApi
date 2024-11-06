@@ -3,7 +3,7 @@ using ExchangeApi.Application.Contracts;
 using ExchangeApi.Domain.Wrappers;
 using MediatR;
 
-namespace ExchangeApi.Application.UseCases.File.Upload;
+namespace ExchangeApi.Application.UseCases.File;
 public class UploadFileCommandHandler : IRequestHandler<UploadFileCommand, Response<bool>>
 {
     private readonly IMapper _mapper;

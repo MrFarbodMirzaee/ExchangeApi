@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using ExchangeApi.Application.UseCases.File.Upload;
+using ExchangeApi.Application.Dtos;
+using ExchangeApi.Application.UseCases.File;
 
 namespace ExchangeApi.Application.Profiles;
 public class FileProfile : Profile
@@ -16,5 +17,10 @@ public class FileProfile : Profile
                  await src.File.CopyToAsync(memoryStream);
                  dest.FileData = memoryStream.ToArray();
              });
+
+        CreateMap<ExchangeApi.Domain.Entities.File, DownloadFileDto>()
+            .ForCtorParam("FileName", opt => opt.MapFrom(src => src.FileName))
+            .ForCtorParam("ContentType", opt => opt.MapFrom(src => src.ContentType))
+            .ForCtorParam("FileData", opt => opt.MapFrom(src => src.FileData));
     }
 }

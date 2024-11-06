@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ExchangeApi.Application.Contracts;
+using ExchangeApi.Application.Dtos;
 using ExchangeApi.Domain.Wrappers;
 using ExchangeApi.Infrustructure.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,24 @@ public class FileService : GenericRepository<ExchangeApi.Domain.Entities.File>, 
         _applicationDbContext = applicationDbContext;
         _mapper = mapper;
     }
+
+    public async Task<DownloadFileDto> DownloadFileAsync(int fileId, CancellationToken ct)
+    {
+        var fileEntity = await _applicationDbContext.File
+        .Where(f => f.Id == fileId) // It's better to use LINQ's .Where for clarity
+        .FirstOrDefaultAsync(ct);    // This will return null if not found
+
+        if (fileEntity == null)
+        {
+            throw new FileNotFoundException($"File not found with ID: {fileId}");
+        }
+
+        // Map the file entity to a DownloadFileDto
+        var fileDto = _mapper.Map<DownloadFileDto>(fileEntity);
+
+        return fileDto;
+    }
+
     public async Task<Response<bool>> UploadFileAsync(ExchangeApi.Domain.Entities.File file, CancellationToken ct)
     {
         try
