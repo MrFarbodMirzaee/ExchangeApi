@@ -10,20 +10,16 @@ using ExchangeApi.Application.UseCases.User.Commands.DeleteUser;
 using Microsoft.AspNetCore.Authorization;
 
 namespace ExchangeApi.Controllers.V1;
-
 public class UserController : BaseController
 {
-    private readonly IUserService _userService;
-    private readonly IMapper _mapper;
     private readonly MySettings _mySettings;
-    public UserController(IUserService userService, IMapper mapper ,IOptionsMonitor<MySettings> settings)
-    {
-        _mySettings = settings.CurrentValue;
-        _userService = userService;
-        _mapper = mapper;
-    }
+    public UserController(IUserService userService, IMapper mapper, IOptionsMonitor<MySettings> settings) => _mySettings = settings.CurrentValue;
 
-    [Route("{id}")]
+    [HttpGet]
+    [Consumes(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+    public async Task<IActionResult> GetAll([FromQuery] GetAllUserQuery request, CancellationToken ct) => await SendAsync(request, ct);
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -32,23 +28,18 @@ public class UserController : BaseController
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> GetActive([FromQuery]GetActiveUserQuery request,CancellationToken ct) => await SendAsync(request, ct);
+    public async Task<IActionResult> GetActive([FromQuery] GetActiveUserQuery request, CancellationToken ct) => await SendAsync(request, ct);
+    [HttpGet]
+    [Consumes(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetByEmail([FromQuery] GetUserByEmailQuery request, CancellationToken ct) => await SendAsync(request, ct);
     [Authorize]
     [HttpPost]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Add([FromBody] AddUserCommand command, CancellationToken ct) => await SendAsync(command, ct);
-    [HttpGet]
-    [Consumes(MediaTypeNames.Application.Json)]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> GetAll([FromQuery]GetAllUserQuery request,CancellationToken ct) => await SendAsync(request, ct);
-    [HttpGet]
-    [Consumes(MediaTypeNames.Application.Json)]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetByEmail([FromQuery] GetUserByEmailQuery request,CancellationToken ct) => await SendAsync(request, ct);
     [Authorize]
     [HttpDelete]
     [Consumes(MediaTypeNames.Application.Json)]
@@ -60,5 +51,5 @@ public class UserController : BaseController
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> Update(UpdateUserCommand request,CancellationToken ct) => await SendAsync(request, ct);
+    public async Task<IActionResult> Update(UpdateUserCommand request, CancellationToken ct) => await SendAsync(request, ct);
 }

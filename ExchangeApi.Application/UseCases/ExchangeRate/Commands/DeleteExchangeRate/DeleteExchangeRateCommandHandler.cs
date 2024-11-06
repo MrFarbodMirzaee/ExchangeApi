@@ -4,8 +4,7 @@ using ExchangeApi.Domain.Wrappers;
 using MediatR;
 
 namespace ExchangeApi.Application.UseCases.ExchangeRate.Commands;
-
-public class DeleteExchangeRateCommandHandler : IRequestHandler<DeleteExchangeRateCommand,Response<int>>
+public class DeleteExchangeRateCommandHandler : IRequestHandler<DeleteExchangeRateCommand,Response<bool>>
 {
     private readonly IExchangeRateService _exchangeRateService;
     private readonly IMapper _mapper;
@@ -14,24 +13,21 @@ public class DeleteExchangeRateCommandHandler : IRequestHandler<DeleteExchangeRa
         _exchangeRateService = exchangeRateService;
         _mapper = mapper;
     }
-    public async Task<Response<int>> Handle(DeleteExchangeRateCommand request, CancellationToken ct)
+    public async Task<Response<bool>> Handle(DeleteExchangeRateCommand request, CancellationToken ct)
     {
-        var exchangeRateResponse = await _exchangeRateService.FindByCondition(x => x.Id == request.Id, ct);
-        if (!exchangeRateResponse.Succeeded)
-        {
-            // Handle the case where the currency was not found
-            return new Response<int>(0, "Exchange rate not found");
-        }
+        var exchangeRateFind = await _exchangeRateService.FindByCondition(x => x.Id == request.Id, ct);
+        if (!exchangeRateFind.Succeeded)
+            return new Response<bool>(exchangeRateFind.Message);
 
-        var exchangeRate = exchangeRateResponse.Data.FirstOrDefault();
+        var exchangeRate = exchangeRateFind.Data.FirstOrDefault();
 
-        var data = await _exchangeRateService.DeleteAsync(exchangeRate, ct);
-        if (!data.Succeeded)
-        {
-            // Handle the case where the delete operation failed
-            return new Response<int>(0, data.Message);
-        }
-        var exchangeRatesDto = _mapper.Map<bool>(data.Data);
-        return new Response<int>(1);
+        if (exchangeRate is null)
+        return new Response<bool>(false);
+
+        var deleted = await _exchangeRateService.DeleteAsync(exchangeRate, ct);
+        
+        var exchangeRatesDto = _mapper.Map<bool>(deleted.Data);
+
+        return deleted.Succeeded ? new Response<bool>(exchangeRatesDto) : new Response<bool>(deleted.Message);
     }
 }

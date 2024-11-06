@@ -4,18 +4,16 @@ using ExChangeApi.Domain.Entities;
 using ExchangeApi.Domain.Wrappers;
 using ExchangeApi.Infrustructure.Persistence.Services;
 
-
 namespace ExchangeApi.Infrustructure.Services;
 public class UserServices : GengericRepository<User>, IUserService
 {
-    private readonly ApplicationDbContext _context;
-    public UserServices(ApplicationDbContext context) : base(context) { _context = context; }
-
+    private readonly AppDbContext _applicationDbContext;
+    public UserServices(AppDbContext applicationDbContext) : base(applicationDbContext) => _applicationDbContext = applicationDbContext; 
     public async Task<Response<bool>> Activate(int userId)
     {
-        var user = _context.User.Where(x => x.Id == userId).FirstOrDefault();
+        var user = _applicationDbContext.User.Where(x => x.Id == userId).FirstOrDefault();
         user.Activate();
-        await _context.SaveChangesAsync();
+        await _applicationDbContext.SaveChangesAsync();
         return new Response<bool>(true);
     }
 }

@@ -8,10 +8,7 @@ using static Exchange.gRPCServer.Protos.CurrencyFileStreaming;
 using static Exchange.gRPCServer.Protos.CurrencyRepository;
 using static Exchange.gRPCServer.Protos.CurrencyStreamRepository;
 
-
-
 namespace Exchange.gRPCClient;
-
 internal class Program
 {
     static async Task Main(string[] args)

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ExchangeApi.Infrustructure.Identity.Migrations
 {
-    [DbContext(typeof(ApplicationIdentityContext))]
+    [DbContext(typeof(IdentityAppDbContext))]
     [Migration("20240727161009_Remove_Address")]
     partial class Remove_Address
     {

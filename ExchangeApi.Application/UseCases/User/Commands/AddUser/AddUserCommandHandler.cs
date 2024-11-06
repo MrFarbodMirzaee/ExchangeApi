@@ -3,9 +3,7 @@ using ExchangeApi.Application.Contracts;
 using ExchangeApi.Domain.Wrappers;
 using MediatR;
 
-
 namespace ExchangeApi.Application.UseCases.User.Commands;
-
 public class AddUserCommandHandler : IRequestHandler<AddUserCommand, Response<bool>>
 {
     private readonly IUserService _userService;
@@ -17,8 +15,10 @@ public class AddUserCommandHandler : IRequestHandler<AddUserCommand, Response<bo
     }
     public async Task<Response<bool>> Handle(AddUserCommand request, CancellationToken ct)
     {
-        var UserData = _mapper.Map<ExChangeApi.Domain.Entities.User>(request);
-        await _userService.AddAsync(UserData, ct);
-        return new Response<bool>(true);
+        var userMapped = _mapper.Map<ExChangeApi.Domain.Entities.User>(request);
+
+        var userStatus = await _userService.AddAsync(userMapped, ct);
+
+        return userStatus.Succeeded ? new Response<bool>(userStatus.Data) : new Response<bool>(userStatus.Message);
     }
 }

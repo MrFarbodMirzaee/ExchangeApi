@@ -2,7 +2,6 @@
 using ExchangeApi.GraphQl.Entities;
 
 namespace ExchangeApi.GraphQl.GraphQl.TradingPairs;
-
 public class TradingPairType : ObjectType<TradingPair>
 {
     private readonly AppDbContext context;

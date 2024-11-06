@@ -2,14 +2,13 @@
 using Microsoft.EntityFrameworkCore;
 
 namespace ExchangeApi.GraphQl.Data;
-
 public class SeedData
 {
-    public static void Intialize(IServiceProvider service) 
+    public static void Intialize(IServiceProvider service)
     {
-        using (var context = new AppDbContext(service.GetRequiredService<DbContextOptions<AppDbContext>>())) 
+        using (var context = new AppDbContext(service.GetRequiredService<DbContextOptions<AppDbContext>>()))
         {
-            if (!context.Currencies.Any()) 
+            if (!context.Currencies.Any())
             {
                 context.Currencies.AddRange(
                    new Entities.Currency
@@ -31,7 +30,7 @@ public class SeedData
                     );
                 context.SaveChanges();
             }
-            if (!context.TradingPairs.Any()) 
+            if (!context.TradingPairs.Any())
             {
                 context.TradingPairs.AddRange(
                     new Entities.TradingPair
@@ -67,7 +66,7 @@ public class SeedData
                                 UpdatedAt = new DateTime(2023, 06, 14),
                                 Currency = new Entities.Currency
                                 {
-                                    
+
                                     Name = "Bitcoin",
                                     Description = "The first and most well-known cryptocurrency",
                                     Volume24h = 45000000.00m,

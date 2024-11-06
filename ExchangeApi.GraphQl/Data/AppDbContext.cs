@@ -2,13 +2,10 @@
 using Microsoft.EntityFrameworkCore;
 
 namespace ExchangeApi.GraphQl.Data;
-
 public class AppDbContext : DbContext
 {
-    public AppDbContext(DbContextOptions options) : base(options)
-    {
+    public AppDbContext(DbContextOptions options) : base(options) { }
 
-    }
     #region Dbset
     public DbSet<Currency> Currencies { get; set; }
     public DbSet<TradingPair> TradingPairs { get; set; }

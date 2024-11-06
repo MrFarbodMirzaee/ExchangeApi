@@ -17,10 +17,9 @@ namespace ExchangeApi.Application.UseCases.Currency.Queries.GetAllCurrency
         }
         public async Task<Response<List<CurrencyDto>>> Handle(GetAllCurrencyQuery request, CancellationToken ct)
         {
-
-            Response<List<ExChangeApi.Domain.Entities.Currency>> data = await _currencyService.GetAllAsync(ct);
-            var currencyDto = _mapper.Map<List<CurrencyDto>>(data.Data);
-            return new Response<List<CurrencyDto>>(currencyDto);
+            Response<List<ExChangeApi.Domain.Entities.Currency>> currency = await _currencyService.GetAllAsync(ct);
+            var currencyMapped = _mapper.Map<List<CurrencyDto>>(currency.Data);
+            return currency.Succeeded ? new Response<List<CurrencyDto>>(currencyMapped) : new Response<List<CurrencyDto>>(currency.Message);
         }
     }
 }

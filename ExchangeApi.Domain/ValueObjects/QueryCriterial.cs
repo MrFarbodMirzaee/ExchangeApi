@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ExchangeApi.Domain.ValueObjects;
-
 [NotMapped]
 public class QueryCriterial
 {

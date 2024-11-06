@@ -3,10 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
 namespace ExchangeApi.Infrustructure.Extentions;
-
 public static class ModelBuilderExtentions
 {
-  
     public static ModelBuilder RegisterAllEntities(this ModelBuilder modelBuilder, params Assembly[] assemblies)
     {
         IEnumerable<Type> types = assemblies.SelectMany(a => a.GetExportedTypes())

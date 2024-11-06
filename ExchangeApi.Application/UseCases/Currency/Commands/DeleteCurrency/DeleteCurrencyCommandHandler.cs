@@ -1,36 +1,27 @@
-﻿using AutoMapper;
-using ExchangeApi.Application.Contracts;
+﻿using ExchangeApi.Application.Contracts;
 using ExchangeApi.Domain.Wrappers;
 using MediatR;
 
 namespace ExchangeApi.Application.UseCases.Currency.Commands;
-
-public class DeleteCurrencyCommandHandler : IRequestHandler<DeleteCurrencyCommand, Response<int>>
+public class DeleteCurrencyCommandHandler : IRequestHandler<DeleteCurrencyCommand, Response<bool>>
 {
     private readonly ICurrencyService _currencyService;
-    private readonly IMapper _mapper;
-
-    public DeleteCurrencyCommandHandler(ICurrencyService currencyService, IMapper mapper)
+    public DeleteCurrencyCommandHandler(ICurrencyService currencyService) => _currencyService = currencyService;
+    
+    public async Task<Response<bool>> Handle(DeleteCurrencyCommand request, CancellationToken ct)
     {
-        _currencyService = currencyService;
-        _mapper = mapper;
-    }
-    public async Task<Response<int>> Handle(DeleteCurrencyCommand request, CancellationToken ct)
-    {
-        var currencyResponse = await _currencyService.FindByCondition(x => x.Id == request.CurrencyId, ct);
-        if (!currencyResponse.Succeeded || currencyResponse.Data is null || currencyResponse.Data.Count == 0)
-        {
-            return new Response<int>(0, "Currency not found");
-        }
+        var currencyFind = await _currencyService.FindByCondition(x => x.Id == request.CurrencyId, ct);
 
-        var currency = currencyResponse.Data.FirstOrDefault();
-        var deleteResponse = await _currencyService.DeleteAsync(currency, ct);
-        if (!deleteResponse.Succeeded)
-        {
-            return new Response<int>(0, deleteResponse.Message);
-        }
+        if (currencyFind.Data is null)
+            return new Response<bool>(currencyFind.Message);
 
-        return new Response<int>(1);
+        var currency = currencyFind.Data.FirstOrDefault();
+        if (currency is null)
+            return new Response<bool>(false);
+
+        var deleted = await _currencyService.DeleteAsync(currency, ct);
+
+        return deleted.Succeeded ? new Response<bool>(deleted.Data) : new Response<bool>(deleted.Message);
     }
 
 }

@@ -5,5 +5,4 @@ namespace ExchangeApi.Application.Contracts;
 
 public interface ICurrencyService : IGenericRepository<Currency>
 {
-
 }

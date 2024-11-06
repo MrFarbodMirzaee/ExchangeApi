@@ -2,13 +2,7 @@
 
 namespace ExchangeApi.Application.Dtos;
 
-public class AddExchangeRateDto
-{
-    public int FromCurrency { get; set; }
-    public int ToCurrency { get; set; }
-    public decimal Rate { get; set; }
-    public bool IsActive { get; set; }
-}
+public record AddExchangeRateDto(int FromCurrency, int ToCurrency, decimal Rate, bool IsActive);
 public class AddExchangeRateDtoValidator : AbstractValidator<AddExchangeRateDto>
 {
     public AddExchangeRateDtoValidator()
@@ -30,5 +24,10 @@ public class AddExchangeRateDtoValidator : AbstractValidator<AddExchangeRateDto>
             .NotNull()
             .GreaterThan(0)
             .WithMessage("Rate must be greater than 0");
+
+        RuleFor(x => x.IsActive)
+            .NotEmpty()
+            .NotNull()
+            .WithMessage("Is active has to have value");
     }
 }

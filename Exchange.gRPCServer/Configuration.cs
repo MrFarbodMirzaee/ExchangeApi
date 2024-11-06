@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 
 namespace Exchange.gRPCServer;
-
 public static class Configuration
 {
     public static IServiceCollection RegisterGrpcServices(this IServiceCollection services, string con) 

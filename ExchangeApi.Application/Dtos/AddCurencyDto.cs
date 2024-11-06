@@ -2,14 +2,8 @@
 
 namespace ExchangeApi.Application.Dtos;
 
-public class AddCurencyDto
-{
-    public string CurrencyCode { get; set; }
-    public string Name { get; set; }
-    public bool IsActive { get; set; }
-}
-
-public class AddCurrecyDtoValidator : AbstractValidator<AddCurencyDto> 
+public record AddCurencyDto(string CurrencyCode, string Name, bool IsActive);
+public class AddCurrecyDtoValidator : AbstractValidator<AddCurencyDto>
 {
     public AddCurrecyDtoValidator()
     {
@@ -24,5 +18,10 @@ public class AddCurrecyDtoValidator : AbstractValidator<AddCurencyDto>
             .NotNull()
             .MinimumLength(2)
             .WithMessage("Name must not be empty and should have a minimum length of 2 characters");
+
+        RuleFor(x => x.IsActive)
+            .NotEmpty()
+            .NotNull()
+            .WithMessage("Is active has to have value");
     }
 }

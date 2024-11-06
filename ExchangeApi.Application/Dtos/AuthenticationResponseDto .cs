@@ -1,8 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-
 namespace ExchangeApi.Application.Dtos;
-
 public record AuthenticationResponseDto
 {
     public string Id { get; set; }

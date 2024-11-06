@@ -4,12 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ExchangeApi.Infrustructure.Persistence.Seeders;
-
 public class ExchangeRateSeeder
 {
     public static void Intialize(IServiceProvider service)
     {
-        using (var context = new ApplicationDbContext(service.GetRequiredService<DbContextOptions<ApplicationDbContext>>()))
+        using (var context = new AppDbContext(service.GetRequiredService<DbContextOptions<AppDbContext>>()))
         {
             if (!context.ExchangeRate.Any())
             {
@@ -53,10 +52,10 @@ public class ExchangeRateSeeder
                         UpdatedByUserId = 1,
                         DeletedByUserId = 0
                     });
-                };
+            };
 
-                context.SaveChanges();
-            }
+            context.SaveChanges();
         }
     }
-   
+}
+

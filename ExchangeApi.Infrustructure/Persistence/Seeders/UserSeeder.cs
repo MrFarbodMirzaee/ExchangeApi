@@ -4,12 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ExchangeApi.Infrustructure.Persistence.Seeders;
-
-public class UserSeeder 
+public class UserSeeder
 {
     public static void Intialize(IServiceProvider service)
     {
-        using (var context = new ApplicationDbContext(service.GetRequiredService<DbContextOptions<ApplicationDbContext>>()))
+        using (var context = new AppDbContext(service.GetRequiredService<DbContextOptions<AppDbContext>>()))
         {
             if (!context.User.Any())
             {
@@ -48,9 +47,9 @@ public class UserSeeder
                  MetaDescription = "User profile for Alice Johnson, a regular in currency exchanges."
              });
             };
-                context.SaveChanges();
-            }
+            context.SaveChanges();
         }
     }
+}
 
-    
+

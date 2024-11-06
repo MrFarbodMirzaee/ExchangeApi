@@ -3,7 +3,6 @@ using ExchangeApi.Domain.Wrappers;
 using MediatR;
 
 namespace ExchangeApi.Application.UseCases.User.Commands;
-
 public record AddUserCommand : IRequest<Response<bool>>
 {
     public string Name { get; set; }

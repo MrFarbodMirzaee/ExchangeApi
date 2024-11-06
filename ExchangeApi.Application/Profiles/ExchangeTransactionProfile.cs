@@ -4,11 +4,7 @@ using ExchangeApi.Application.Dtos;
 using ExchangeApi.Domain.Wrappers;
 using ExchangeApi.Application.UseCases.ExchangeTransaction.Commands.AddExchangeTransaction;
 
-
-
-
 namespace ExchangeApi.Application.Profiles;
-
 public class ExchangeTransactionProfile : Profile
 {
     public ExchangeTransactionProfile() 

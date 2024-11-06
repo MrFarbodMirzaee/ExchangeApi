@@ -3,7 +3,6 @@ using ExchangeApi.Domain.Contracts;
 using ExChangeApi.Domain.Entities;
 
 namespace ExchangeApi.Domain.Entities;
-
 public class CurrencyCategory : IBaseEntity<int> //Bridge class
 {
     public int Id { get; set; }

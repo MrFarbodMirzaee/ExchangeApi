@@ -3,7 +3,6 @@ using ExchangeApi.Infrustructure.Identity.Entities;
 using Microsoft.AspNetCore.Identity;
 
 namespace Infrastructure.Identity.Seeds;
-
 public static class DefaultBasicUser
 {
     public static async Task SeedAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
@@ -18,7 +17,7 @@ public static class DefaultBasicUser
             EmailConfirmed = true,
             PhoneNumberConfirmed = true,
             PhoneNumber = "09101111111",
-            
+
         };
         if (userManager.Users.All(u => u.Id != defaultUser.Id))
         {

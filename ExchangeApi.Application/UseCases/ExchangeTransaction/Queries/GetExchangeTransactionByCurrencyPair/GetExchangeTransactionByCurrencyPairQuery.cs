@@ -4,7 +4,6 @@ using ExchangeApi.Domain.Wrappers;
 using MediatR;
 
 namespace ExchangeApi.Application.UseCases.ExchangeTransaction.Queries;
-
 public record GetExchangeTransactionByCurrencyPairQuery : IRequest<Response<List<ExchangeTransactionDto>>>
 {
     public int FromCurrency { get; set; }

@@ -8,7 +8,7 @@ public class Query
     [UseProjection]
     [UseFiltering]
     [UseSorting]
-    public IQueryable<Currency> Currencies([Service] AppDbContext _Context) 
+    public IQueryable<Currency> Currencies([Service] AppDbContext _Context)
     => _Context.Currencies;
 
 

@@ -2,7 +2,6 @@
 using ExchangeApi.GraphQl.Enum;
 
 namespace ExchangeApi.GraphQl.Entities;
-
 public class TradingPair
 {
     public int Id { get; set; }

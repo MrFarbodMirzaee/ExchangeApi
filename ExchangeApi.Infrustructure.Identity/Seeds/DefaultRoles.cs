@@ -3,7 +3,6 @@ using ExchangeApi.Infrustructure.Identity.Entities;
 using ExchangeApi.Application.Enums;
 
 namespace Infrastructure.Identity.Seeds;
-
 public static class DefaultRoles
 {
     public static async Task SeedAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
@@ -15,4 +14,3 @@ public static class DefaultRoles
         await roleManager.CreateAsync(new IdentityRole(Roles.User.ToString()));
     }
 }
-    

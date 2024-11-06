@@ -1,34 +1,18 @@
-﻿using ExchangeApi.Application.Contracts;
-using ExchangeApi.Application.Dtos;
+﻿using ExchangeApi.Application.UseCases.Autentication;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Mime;
 
 namespace ExchangeApi.Controllers.V1;
-
 public class AutenticationController : BaseController
 {
-    private readonly IAutenticationService _autenticationService;
-    public AutenticationController(IAutenticationService autenticationService) 
-    {
-        _autenticationService = autenticationService;
-
-    }
     [HttpPost]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> Login([FromBody] LoginDto dto,CancellationToken ct)
-    {
-        var result = await _autenticationService.Login(dto,ct);
-        return Ok(result);
-    }
+    public async Task<IActionResult> Login([FromBody] LogInCommand logInCommand, CancellationToken ct) => await SendAsync(logInCommand, ct);
     [HttpPost]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> Register([FromBody] RegisterDto dto, CancellationToken ct)
-    {
-        var result = await _autenticationService.Register(dto, ct);
-        return Created();
-    }
+    public async Task<IActionResult> Register([FromBody] RegisterCommand registerCommand, CancellationToken ct) => await SendAsync(registerCommand, ct);
 }

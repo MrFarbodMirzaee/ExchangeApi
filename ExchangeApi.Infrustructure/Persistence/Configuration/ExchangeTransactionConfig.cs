@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ExchangeApi.DataBaseConfiguration;
-
 public class ExchangeTransactionConfig : IEntityTypeConfiguration<ExchangeTransaction>
 {
     public void Configure(EntityTypeBuilder<ExchangeTransaction> builder)

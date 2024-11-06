@@ -4,8 +4,7 @@ using ExchangeApi.Domain.Wrappers;
 using MediatR;
 
 namespace ExchangeApi.Application.UseCases.ExchangeRate.Commands;
-
-public class UpdateExchangeRateCommandHandler : IRequestHandler<UpdateExchangeRateCommand, Response<int>>
+public class UpdateExchangeRateCommandHandler : IRequestHandler<UpdateExchangeRateCommand, Response<bool>>
 {
     private readonly IExchangeRateService _exchangeRateService;
     private readonly IMapper _mapper;
@@ -14,12 +13,13 @@ public class UpdateExchangeRateCommandHandler : IRequestHandler<UpdateExchangeRa
         _exchangeRateService = exchangeRateService;
         _mapper = mapper;
     }
-    public async Task<Response<int>> Handle(UpdateExchangeRateCommand request, CancellationToken ct)
+    public async Task<Response<bool>> Handle(UpdateExchangeRateCommand request, CancellationToken ct)
     {
         request.ExchangeRate.Id = request.Id;
         request.ExchangeRate.Updated = DateTime.Now;
-        Response<bool> data = await _exchangeRateService.UpdateAsync(request.ExchangeRate, ct);
-        var exchangeRatesDto = _mapper.Map<ExchangeApi.Domain.Entities.ExchangeRate>(data.Data);
-        return new Response<int>(1);
+
+        Response<bool> currencyStatus = await _exchangeRateService.UpdateAsync(request.ExchangeRate, ct);
+
+        return currencyStatus.Succeeded ? new Response<bool>(currencyStatus.Data) : new Response<bool>(currencyStatus.Message);
     }
 }

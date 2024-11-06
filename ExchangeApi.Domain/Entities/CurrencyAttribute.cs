@@ -1,9 +1,7 @@
 ﻿using ExchangeApi.Domain.Contracts;
 using ExChangeApi.Domain.Entities;
 
-
 namespace ExchangeApi.Domain.Entities;
-
 public class CurrencyAttribute : IBaseEntity<int>,IDeletable,IAuditable
 {
     public int Id { get; set; }

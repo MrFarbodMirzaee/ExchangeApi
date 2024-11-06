@@ -2,7 +2,6 @@
 using System.Net;
 
 namespace ExchangeApi.MiddelWares;
-
 public class GlobalExceptionMiddleware
 {
     private readonly ILogger<GlobalExceptionMiddleware> _logger;
@@ -45,7 +44,6 @@ public class GlobalExceptionMiddleware
         return context.Response.WriteAsync(JsonConvert.SerializeObject(response));
     }
 }
-
 public static class GlobalException
 {
     public static IApplicationBuilder UseGlobalException(this IApplicationBuilder app)

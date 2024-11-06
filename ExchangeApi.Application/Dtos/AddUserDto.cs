@@ -1,15 +1,9 @@
 ﻿using FluentValidation;
+using System.Net.Mail;
 
 namespace ExchangeApi.Application.Dtos;
 
-public class AddUserDto
-{
-    public string Name { get; set; }
-    public string UserName { get; set; }
-    public string EmailAddress { get; set; }
-    public string Password { get; set;}
-    public bool IsActive { get; set; }
-}
+public record AddUserDto(string Name, string UserName,string EmailAddress , string Password, bool IsActive);
 public class AddUserDtoValidator : AbstractValidator<AddUserDto>
 {
     public AddUserDtoValidator()
@@ -32,10 +26,16 @@ public class AddUserDtoValidator : AbstractValidator<AddUserDto>
             .NotNull()
             .EmailAddress()
             .WithMessage("Please Enter Valid Email Address");
+
         RuleFor(x => x.Password)
             .NotEmpty()
             .NotNull()
             .MinimumLength(8)
             .WithMessage("Please Enter Valid Password");
+
+        RuleFor(x => x.IsActive)
+            .NotEmpty()
+            .NotNull()
+            .WithMessage("Is active has to have value");
     }
 }

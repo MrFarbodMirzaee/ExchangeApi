@@ -4,11 +4,9 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace ExchangeApi.Infrustructure.Identity.Context;
-
-public class ApplicationIdentityContext : IdentityDbContext<ApplicationUser>
-
+public class IdentityAppDbContext : IdentityDbContext<ApplicationUser>
 {
-    public ApplicationIdentityContext(DbContextOptions<ApplicationIdentityContext> options) : base(options)
+    public IdentityAppDbContext(DbContextOptions<IdentityAppDbContext> options) : base(options)
     {
 
     }
@@ -49,5 +47,5 @@ public class ApplicationIdentityContext : IdentityDbContext<ApplicationUser>
         {
             entity.ToTable("UserTokens");
         });
-      }
     }
+}
