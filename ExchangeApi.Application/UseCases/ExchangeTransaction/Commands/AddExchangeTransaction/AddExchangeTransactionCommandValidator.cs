@@ -2,7 +2,6 @@
 using FluentValidation;
 
 namespace ExchangeApi.Application.UseCases.ExchangeTransaction.Commands;
-
 public class AddExchangeTransactionCommandValidator : AbstractValidator<AddExchangeTransactionCommand>
 {
     public AddExchangeTransactionCommandValidator()

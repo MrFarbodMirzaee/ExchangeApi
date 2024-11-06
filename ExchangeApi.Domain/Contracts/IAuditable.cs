@@ -1,5 +1,4 @@
 ﻿namespace ExchangeApi.Domain.Contracts;
-
 public interface IAuditable
 {
     public int UpdatedByUserId { get; set; }

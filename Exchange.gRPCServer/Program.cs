@@ -2,7 +2,6 @@ using Exchange.gRPCServer;
 using Exchange.gRPCServer.Services;
 using Microsoft.EntityFrameworkCore;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -18,7 +17,6 @@ builder.Services.RegisterGrpcServices(con);
 builder.Services.AddGrpcReflection();
 
 var app = builder.Build();
-
 //to use into postman  
 app.MapGrpcReflectionService();
 // Configure the HTTP request pipeline.

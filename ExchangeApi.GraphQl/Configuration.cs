@@ -3,7 +3,6 @@ using ExchangeApi.GraphQl.GraphQl;
 using Microsoft.EntityFrameworkCore;
 
 namespace ExchangeApi.GraphQl;
-
 public static class Configuration 
 {
     public static IServiceCollection RegisterGraphQlServices(this IServiceCollection services ,string con)

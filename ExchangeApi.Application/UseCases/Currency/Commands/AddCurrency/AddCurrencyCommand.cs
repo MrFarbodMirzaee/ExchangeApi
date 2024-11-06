@@ -3,7 +3,6 @@ using ExchangeApi.Domain.Wrappers;
 using MediatR;
 
 namespace ExchangeApi.Application.UseCases.Currency.Commands;
-
 public record AddCurrencyCommand : IRequest<Response<bool>>
 {
     public string CurrencyCode { get; set; }

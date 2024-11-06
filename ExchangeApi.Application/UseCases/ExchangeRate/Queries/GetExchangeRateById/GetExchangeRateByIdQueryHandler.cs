@@ -5,7 +5,6 @@ using ExchangeApi.Domain.Wrappers;
 using MediatR;
 
 namespace ExchangeApi.Application.UseCases.ExchangeRate.Queries;
-
 public class GetExchangeRateByIdQueryHandler : IRequestHandler<GetExchangeRateByIdQuery, Response<List<ExchangeRateDto>>>
 {
     private readonly IExchangeRateService _exchangeRateService;
@@ -17,12 +16,10 @@ public class GetExchangeRateByIdQueryHandler : IRequestHandler<GetExchangeRateBy
     }
     public async Task<Response<List<ExchangeRateDto>>> Handle(GetExchangeRateByIdQuery request, CancellationToken ct)
     {
-        Response<List<ExchangeApi.Domain.Entities.ExchangeRate>> data = await _exchangeRateService.FindByCondition(x => x.Id == request.Id, ct);
-        if (data is null)
-        {
-            return new Response<List<ExchangeRateDto>>(new List<ExchangeRateDto>());
-        }
-        var exchangeRateDtos = _mapper.Map<List<ExchangeRateDto>>(data.Data);
-        return new Response<List<ExchangeRateDto>>(exchangeRateDtos);
+        Response<List<ExchangeApi.Domain.Entities.ExchangeRate>> exchangeRate = await _exchangeRateService.FindByCondition(x => x.Id == request.Id, ct);
+       
+        var exchangeRateMapped = _mapper.Map<List<ExchangeRateDto>>(exchangeRate.Data);
+
+        return exchangeRate.Succeeded ? new Response<List<ExchangeRateDto>>(exchangeRateMapped) : new Response<List<ExchangeRateDto>>(exchangeRate.Message);
     }
 }

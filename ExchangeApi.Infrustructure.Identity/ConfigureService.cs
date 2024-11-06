@@ -1,4 +1,6 @@
 ﻿using ExchangeApi.Application.Contracts;
+using ExchangeApi.Application.UseCases.Autentication.Register;
+using ExchangeApi.Application.UseCases.CurrencyAttribute;
 using ExchangeApi.Domain.Settings;
 using ExchangeApi.Infrustructure.Identity.Context;
 using ExchangeApi.Infrustructure.Identity.Entities;
@@ -14,19 +16,19 @@ using Newtonsoft.Json;
 using System.Text;
 
 namespace ExchangeApi.Infrustructure.Identity;
-
 public static class ConfigureService
 {
-    public static IServiceCollection RegisterIdentityServices(this IServiceCollection services,IConfiguration configuration, string connectionstring)
+    public static IServiceCollection RegisterIdentityServices(this IServiceCollection services, IConfiguration configuration, string connectionstring)
     {
 
-        services.AddDbContext<ApplicationIdentityContext>(options =>
+        services.AddDbContext<IdentityAppDbContext>(options =>
                options.UseSqlServer(
                      connectionstring,
-                   b => b.MigrationsAssembly(typeof(ApplicationIdentityContext).Assembly.FullName)));
-        services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationIdentityContext>().AddDefaultTokenProviders();
+                   b => b.MigrationsAssembly(typeof(IdentityAppDbContext).Assembly.FullName)));
+        services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<IdentityAppDbContext>().AddDefaultTokenProviders();
         services.AddTransient<IAutenticationService, AutenticationService>();
-
+        services.AddScoped<AddAttributeCommandHandler>();
+        services.AddScoped<RegisterCommandHandler>();
 
         services.Configure<JwtSettings>(configuration.GetSection("JWTSetting"));
 

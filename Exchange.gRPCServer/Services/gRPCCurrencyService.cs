@@ -5,17 +5,15 @@ using Grpc.Core;
 using Microsoft.EntityFrameworkCore;
 
 namespace Exchange.gRPCServer.Services;
-
 public class GrpcCurrencyService : CurrencyRepository.CurrencyRepositoryBase
 {
     private readonly AppDbContext _appDbContext;
     public GrpcCurrencyService(AppDbContext appDbContext) => _appDbContext = appDbContext;
-
     public async override Task<AddCurrencyResponseDto> AddCurrency(AddCurrencyRequestDto request, ServerCallContext context)
     {
         try
         {
-            if ((request.CurrencyCode.Length < 3 || string.IsNullOrEmpty(request.CurrencyCode)) && (request.Price == null || request.Price == 0)) 
+            if ((request.CurrencyCode.Length < 3 || string.IsNullOrEmpty(request.CurrencyCode)) && (request.Price == null || request.Price == 0))
             {
                 return new AddCurrencyResponseDto()
                 {

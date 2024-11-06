@@ -5,7 +5,6 @@ using ExchangeApi.Domain.Wrappers;
 using MediatR;
 
 namespace ExchangeApi.Application.UseCases.ExchangeRate.Queries;
-
 public class GetLatestExchangeRateQueryHandler : IRequestHandler<GetLatestExchangeRateQuery, Response<List<ExchangeRateDto>>>
 {
     private readonly IExchangeRateService _exchangeRateService;
@@ -17,13 +16,13 @@ public class GetLatestExchangeRateQueryHandler : IRequestHandler<GetLatestExchan
     }
     public async Task<Response<List<ExchangeRateDto>>> Handle(GetLatestExchangeRateQuery request, CancellationToken ct)
     {
-        Response<List<ExchangeApi.Domain.Entities.ExchangeRate>> data = await _exchangeRateService.FindByCondition(e => e.FromCurrency == request.FromCurrency && e.ToCurrency == request.ToCurrency, ct);
-        var orderByDesc = data.Data.OrderByDescending(e => e.Created);
-        if (orderByDesc is null)
-        {
-            return new Response<List<ExchangeRateDto>>(new List<ExchangeRateDto>());
-        }
-        var exchangeRatesDto = _mapper.Map<List<ExchangeRateDto>>(orderByDesc);
-        return new Response<List<ExchangeRateDto>>(exchangeRatesDto);
+        Response<List<ExchangeApi.Domain.Entities.ExchangeRate>> exchangeRate = await _exchangeRateService.FindByCondition(e => e.FromCurrency == request.FromCurrency && e.ToCurrency == request.ToCurrency, ct);
+        if (exchangeRate.Data is null)
+            return new Response<List<ExchangeRateDto>>(exchangeRate.Message);
+
+        var orderByDesc = exchangeRate.Data.OrderByDescending(e => e.Created);
+        
+        var exchangeRateMapped = _mapper.Map<List<ExchangeRateDto>>(orderByDesc);
+        return exchangeRate.Succeeded ? new Response<List<ExchangeRateDto>>(exchangeRateMapped) : new Response<List<ExchangeRateDto>>(exchangeRate.Message);
     }
 }

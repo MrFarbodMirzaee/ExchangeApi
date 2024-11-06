@@ -4,12 +4,8 @@ using ExchangeApi.Domain.Entities;
 using ExchangeApi.Infrustructure.Persistence.Services;
 
 namespace ExchangeApi.Infrustructure.Services;
-
 public class ExchangeRateServices : GengericRepository<ExchangeRate>, IExchangeRateService
 {
-    private readonly ApplicationDbContext _context;
-    public ExchangeRateServices(ApplicationDbContext context) : base(context) 
-    {
-        _context = context;
-    }
+    private readonly AppDbContext _applicationDbContext;
+    public ExchangeRateServices(AppDbContext applicationDbContext) : base(applicationDbContext) => _applicationDbContext = applicationDbContext;
 }

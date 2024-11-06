@@ -1,8 +1,2 @@
 ﻿namespace ExchangeApi.Application.Dtos;
-
-public record class CurrencyDto 
-{
-    public int Id { get; set; }
-    public string CurrencyCode { get; set; }
-    public string Name { get; set; }
-}
+public record class CurrencyDto(int Id, string CurrencyCode, string Name);

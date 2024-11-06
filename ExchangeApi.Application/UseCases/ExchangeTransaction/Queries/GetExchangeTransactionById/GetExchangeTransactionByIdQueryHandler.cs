@@ -17,12 +17,10 @@ public class GetExchangeTransactionByIdQueryHandler : IRequestHandler<GetExchang
     }
     public async Task<Response<List<ExchangeTransactionDto>>> Handle(GetExchangeTransactionByIdQuery request, CancellationToken ct)
     {
-        Response<List<ExchangeApi.Domain.Entities.ExchangeTransaction>> data = await _exchangeTranzacstionService.FindByCondition(x => x.Id == request.ExTId, ct);
-        if (data is null)
-        {
-            return new Response<List<ExchangeTransactionDto>>(new List<ExchangeTransactionDto>());
-        }
-        var exchangeTransaction = _mapper.Map<List<ExchangeTransactionDto>>(data.Data);
-        return new Response<List<ExchangeTransactionDto>>(new List<ExchangeTransactionDto>(exchangeTransaction));
+        Response<List<ExchangeApi.Domain.Entities.ExchangeTransaction>> exchangeTransactions = await _exchangeTranzacstionService.FindByCondition(x => x.Id == request.ExchangeTransactionId, ct);
+
+        var exchangeTransactionMapped = _mapper.Map<List<ExchangeTransactionDto>>(exchangeTransactions.Data);
+
+        return exchangeTransactions.Succeeded ? new Response<List<ExchangeTransactionDto>>(exchangeTransactionMapped) : new Response<List<ExchangeTransactionDto>>(exchangeTransactions.Message);
     }
 }

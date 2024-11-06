@@ -5,7 +5,6 @@ using ExchangeApi.Domain.Wrappers;
 using MediatR;
 
 namespace ExchangeApi.Application.UseCases.User.Queries;
-
 public class GetUserByEmailQueryHandler : IRequestHandler<GetUserByEmailQuery, Response<List<UserDto>>>
 {
     private readonly IUserService _userService;
@@ -17,11 +16,11 @@ public class GetUserByEmailQueryHandler : IRequestHandler<GetUserByEmailQuery, R
     }
     public async Task<Response<List<UserDto>>> Handle(GetUserByEmailQuery request, CancellationToken ct)
     {
+        Response<List<ExChangeApi.Domain.Entities.User>> users = await _userService.FindByCondition(e => e.EmailAddress == request.Email, ct);
 
-        Response<List<ExChangeApi.Domain.Entities.User>> data = await _userService.FindByCondition(e => e.EmailAddress == request.Email, ct);
+        var userMapped = _mapper.Map<List<UserDto>>(users.Data);
 
-        var UserDto = _mapper.Map<List<UserDto>>(data.Data);
-        return new Response<List<UserDto>>(UserDto);
+        return users.Succeeded ? new Response<List<UserDto>>(userMapped) : new Response<List<UserDto>>(users.Message);
     }
 }
 

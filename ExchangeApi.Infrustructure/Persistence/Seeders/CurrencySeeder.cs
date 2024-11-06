@@ -3,14 +3,12 @@ using ExChangeApi.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-
 namespace ExchangeApi.Infrustructure.Persistence.Seeders;
-
 public class CurrencySeeder
 {
     public static void Intialize(IServiceProvider service)
     {
-        using (var context = new ApplicationDbContext(service.GetRequiredService<DbContextOptions<ApplicationDbContext>>()))
+        using (var context = new AppDbContext(service.GetRequiredService<DbContextOptions<AppDbContext>>()))
         {
             if (!context.Currency.Any())
             {

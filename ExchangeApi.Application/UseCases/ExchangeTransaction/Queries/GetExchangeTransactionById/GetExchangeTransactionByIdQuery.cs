@@ -4,8 +4,7 @@ using ExchangeApi.Domain.Wrappers;
 using MediatR;
 
 namespace ExchangeApi.Application.UseCases.ExchangeTransaction.Queries;
-
 public record GetExchangeTransactionByIdQuery : IRequest<Response<List<ExchangeTransactionDto>>>
 {
-    public int ExTId { get; set; }
+    public int ExchangeTransactionId { get; set; }
 }

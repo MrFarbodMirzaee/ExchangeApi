@@ -2,7 +2,6 @@
 using ExchangeApi.Domain.Contracts;
 using ExchangeApi.Domain.Entities;
 
-
 namespace ExChangeApi.Domain.Entities;
 [Entity]
 public class User : IBaseEntity<int>, IDeletable, IAuditable

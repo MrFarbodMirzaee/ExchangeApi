@@ -1,10 +1,9 @@
 ﻿namespace ExchangeApi.Domain.Contracts;
-
 public interface IBaseEntity<T>
 {
-    T Id { get; set; }
-    string MetaDescription { get; set; }
-    string Description { get; set; }
-    DateTime Created { get; set; }
-    DateTime Updated { get; set; }
+    public T Id { get; set; }
+    public string MetaDescription { get; set; }
+    public string Description { get; set; }
+    public DateTime Created { get; set; }
+    public DateTime Updated { get; set; }
 }

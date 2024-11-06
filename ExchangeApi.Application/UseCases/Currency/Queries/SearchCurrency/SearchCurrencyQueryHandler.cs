@@ -5,7 +5,6 @@ using ExchangeApi.Domain.Wrappers;
 using MediatR;
 
 namespace ExchangeApi.Application.UseCases.Currency.Queries;
-
 public class SearchCurrencyQueryHandler : IRequestHandler<SearchCurrencyQuery, Response<List<CurrencyDto>>>
 {
     private readonly ICurrencyService _currencyService;
@@ -17,16 +16,10 @@ public class SearchCurrencyQueryHandler : IRequestHandler<SearchCurrencyQuery, R
     }
     public async Task<Response<List<CurrencyDto>>> Handle(SearchCurrencyQuery request, CancellationToken ct)
     {
-
-        Response<List<ExChangeApi.Domain.Entities.Currency>> data = await _currencyService.FindByCondition(x => x.CurrencyCode == request.Word, ct);
-        if (data is null)
-        {
-            return  new Response<List<CurrencyDto>>(new List<CurrencyDto>());
-        }
-        var currencies = _mapper.Map<List<CurrencyDto>>(data.Data);
-        return new Response<List<CurrencyDto>>(currencies); // Returning the value of currencyDto
+        Response<List<ExChangeApi.Domain.Entities.Currency>> currency = await _currencyService.FindByCondition(x => x.CurrencyCode == request.Word, ct);
+        var currencies = _mapper.Map<List<CurrencyDto>>(currency.Data);
+        return currency.Succeeded ? new Response<List<CurrencyDto>>(currencies) : new Response<List<CurrencyDto>>(currency.Message);
     }
-   
 }
 
 

@@ -1,9 +1,7 @@
-﻿using ExchangeApi.Domain.Entities;
-using ExchangeApi.Domain.Wrappers;
+﻿using ExchangeApi.Domain.Contracts;
+using ExchangeApi.Domain.Entities;
 
 namespace ExchangeApi.Application.Contracts;
-
-public interface ICurrencyAttributeService
+public interface ICurrencyAttributeService : IGenericRepository<CurrencyAttribute>
 {
-    Task<Response<bool>> CreateCurrencyAttribute(CurrencyAttribute currencyAttribute);
 }

@@ -4,8 +4,7 @@ using ExchangeApi.Domain.Wrappers;
 using MediatR;
 
 namespace ExchangeApi.Application.UseCases.ExchangeTransaction.Commands;
-
-public class DeleteExchangeTransactionCommandHandler : IRequestHandler<DeleteExchangeTransactionCommand, Response<int>>
+public class DeleteExchangeTransactionCommandHandler : IRequestHandler<DeleteExchangeTransactionCommand, Response<bool>>
 {
     private readonly IExchangeTransactionServices _exchangeTranzacstionService;
     private readonly IMapper _mapper;
@@ -14,24 +13,19 @@ public class DeleteExchangeTransactionCommandHandler : IRequestHandler<DeleteExc
         _exchangeTranzacstionService = exchangeTranzacstionService;
         _mapper = mapper;
     }
-    public async Task<Response<int>> Handle(DeleteExchangeTransactionCommand request, CancellationToken ct)
+    public async Task<Response<bool>> Handle(DeleteExchangeTransactionCommand request, CancellationToken ct)
     {
-        var exchangeTransactionsResponse = await _exchangeTranzacstionService.FindByCondition(x => x.Id == request.Id, ct);
-        if (!exchangeTransactionsResponse.Succeeded)
-        {
-            // Handle the case where the currency was not found
-            return new Response<int>(0, "Exchange transaction not found");
-        }
+        var exchangeTransactionsFind = await _exchangeTranzacstionService.FindByCondition(x => x.Id == request.Id, ct);
 
-        var exchangeTransactions = exchangeTransactionsResponse.Data.FirstOrDefault();
+        if (!exchangeTransactionsFind.Succeeded)
+            return new Response<bool>(exchangeTransactionsFind.Message);
 
-        var data = await _exchangeTranzacstionService.DeleteAsync(exchangeTransactions, ct);
-        if (!data.Succeeded)
-        {
-            // Handle the case where the delete operation failed
-            return new Response<int>(0, "Exchange transaction not found");
-        }
-        var exchangeTranzacstionDto = _mapper.Map<bool>(data.Data);
-        return new Response<int>(1);
+        var exchangeTransactions = exchangeTransactionsFind.Data.FirstOrDefault();
+
+        var exchangeTransactionsStatus = await _exchangeTranzacstionService.DeleteAsync(exchangeTransactions, ct);
+   
+        var exchangeTranzacstionDto = _mapper.Map<bool>(exchangeTransactionsStatus.Data);
+
+        return exchangeTransactionsStatus.Succeeded ? new Response<bool>(exchangeTranzacstionDto) : new Response<bool>(exchangeTransactionsStatus.Message);
     }
 }

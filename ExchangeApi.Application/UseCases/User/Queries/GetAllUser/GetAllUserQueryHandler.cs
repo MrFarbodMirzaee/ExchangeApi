@@ -5,7 +5,6 @@ using ExchangeApi.Domain.Wrappers;
 using MediatR;
 
 namespace ExchangeApi.Application.UseCases.User.Queries;
-
 public class GetAllUserQueryHandler : IRequestHandler<GetAllUserQuery, Response<List<UserDto>>>
 {
     private readonly IUserService _userService;
@@ -18,8 +17,10 @@ public class GetAllUserQueryHandler : IRequestHandler<GetAllUserQuery, Response<
     public async Task<Response<List<UserDto>>> Handle(GetAllUserQuery request, CancellationToken ct)
     {
 
-        Response<List<ExChangeApi.Domain.Entities.User>> data = await _userService.GetAllAsync(ct);
-        var UserDto = _mapper.Map<List<UserDto>>(data.Data);
-        return new Response<List<UserDto>>(UserDto);
+        Response<List<ExChangeApi.Domain.Entities.User>> users = await _userService.GetAllAsync(ct);
+
+        var userMapped = _mapper.Map<List<UserDto>>(users.Data);
+
+        return users.Succeeded ? new Response<List<UserDto>>(userMapped) : new Response<List<UserDto>>(users.Message);
     }
 }

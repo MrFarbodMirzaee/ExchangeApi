@@ -2,7 +2,6 @@
 using ExchangeApi.Domain.Contracts;
 
 namespace ExchangeApi.Domain.Entities;
-
 public class Category : IBaseEntity<int>,IDeletable,IAuditable
 {
     public int Id { get ; set ; }

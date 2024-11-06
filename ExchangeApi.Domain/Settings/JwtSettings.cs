@@ -1,6 +1,5 @@
 ﻿#nullable disable
 namespace ExchangeApi.Domain.Settings;
-
 public class JwtSettings
 {
     public string Key { get; set; }

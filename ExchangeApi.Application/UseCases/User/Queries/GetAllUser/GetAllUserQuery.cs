@@ -5,7 +5,5 @@ using MediatR;
 
 namespace ExchangeApi.Application.UseCases.User.Queries;
 
-public class GetAllUserQuery : IRequest<Response<List<UserDto>>>
-{
-    
-}
+public class GetAllUserQuery : IRequest<Response<List<UserDto>>> { }
+

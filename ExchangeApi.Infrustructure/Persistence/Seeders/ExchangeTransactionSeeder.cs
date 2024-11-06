@@ -4,12 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ExchangeApi.Infrustructure.Persistence.Seeders;
-
 public class ExchangeTransactionSeeder
 {
     public static void Intialize(IServiceProvider service)
     {
-        using (var context = new ApplicationDbContext(service.GetRequiredService<DbContextOptions<ApplicationDbContext>>()))
+        using (var context = new AppDbContext(service.GetRequiredService<DbContextOptions<AppDbContext>>()))
         {
             if (!context.ExchangeTransaction.Any())
             {
@@ -57,7 +56,7 @@ public class ExchangeTransactionSeeder
                     UserId = 1
                 });
             };
-                context.SaveChanges();
-            }
+            context.SaveChanges();
         }
     }
+}

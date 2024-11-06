@@ -4,8 +4,7 @@ using ExchangeApi.Domain.Wrappers;
 using MediatR;
 
 namespace ExchangeApi.Application.UseCases.ExchangeTransaction.Commands;
-
-public class UpdateExchangeTransactionCommandHandler : IRequestHandler<UpdateExchangeTransactionCommand, Response<int>>
+public class UpdateExchangeTransactionCommandHandler : IRequestHandler<UpdateExchangeTransactionCommand, Response<bool>>
 {
     private readonly IExchangeTransactionServices _exchangeTranzacstionService;
     private readonly IMapper _mapper;
@@ -14,12 +13,13 @@ public class UpdateExchangeTransactionCommandHandler : IRequestHandler<UpdateExc
         _exchangeTranzacstionService = exchangeTranzacstionService;
         _mapper = mapper;
     }
-    public async Task<Response<int>> Handle(UpdateExchangeTransactionCommand request, CancellationToken ct)
+    public async Task<Response<bool>> Handle(UpdateExchangeTransactionCommand request, CancellationToken ct)
     {
         request.ExchangeTransaction.Id = request.Id;
         request.ExchangeTransaction.Updated = DateTime.Now;
-        Response<bool> data = await _exchangeTranzacstionService.UpdateAsync(request.ExchangeTransaction, ct);
-        var exchangeTranzacstionDto = _mapper.Map<ExchangeApi.Domain.Entities.ExchangeTransaction>(data.Data);
-        return new Response<int>(1);
+
+        Response<bool> exchangeTransactionStatus = await _exchangeTranzacstionService.UpdateAsync(request.ExchangeTransaction, ct);
+        
+        return exchangeTransactionStatus.Succeeded ? new Response<bool>(exchangeTransactionStatus.Data) : new Response<bool>(exchangeTransactionStatus.Message);
     }
 }

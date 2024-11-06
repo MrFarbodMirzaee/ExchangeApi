@@ -1,8 +1,7 @@
 ﻿using ExchangeApi.GraphQl.Data;
 using ExchangeApi.GraphQl.Entities;
 
-namespace ExchangeApi.GraphQl.GraphQl.Curremcies;
-
+namespace ExchangeApi.GraphQl.GraphQl.Currencies;
 public class CurrencyType : ObjectType<Currency>
 {
     protected override void Configure(IObjectTypeDescriptor<Currency> descriptor)
@@ -23,7 +22,7 @@ public class CurrencyType : ObjectType<Currency>
         {
             this.context = context;
         }
-        public IQueryable<TradingPair> GetTradingPairs(Currency currency) 
+        public IQueryable<TradingPair> GetTradingPairs(Currency currency)
         {
             return context.TradingPairs.Where(w => w.Id == currency.Id);
         }

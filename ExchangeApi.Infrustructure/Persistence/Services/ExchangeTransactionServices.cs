@@ -4,22 +4,17 @@ using ExchangeApi.Domain.Entities;
 using ExchangeApi.Infrustructure.Persistence.Contexts;
 using ExchangeApi.Infrustructure.Persistence.Services;
 
-
 namespace ExchangeApi.Infrustructure.Services;
-
 public class ExchangeTransactionServices : GengericRepository<ExchangeTransaction>, IExchangeTransactionServices
 {
-    private readonly ApplicationDbContext _context;
-    public ExchangeTransactionServices(ApplicationDbContext context) : base(context) 
-    {
-        _context = context;
-    }
-
+    private readonly AppDbContext _applicationDbContext;
+    public ExchangeTransactionServices(AppDbContext applicationDbContext) : base(applicationDbContext) =>_applicationDbContext = applicationDbContext;
+    
     public async Task<Response<bool>> Activate(int exchangeTransactionId)
     {
-        var exchangeTransaction = _context.ExchangeTransaction.Where(x => x.Id == exchangeTransactionId).FirstOrDefault();
+        var exchangeTransaction = _applicationDbContext.ExchangeTransaction.Where(x => x.Id == exchangeTransactionId).FirstOrDefault();
         exchangeTransaction.Activate();
-        await _context.SaveChangesAsync();
+        await _applicationDbContext.SaveChangesAsync();
         return new Response<bool>(true);
     }
 }

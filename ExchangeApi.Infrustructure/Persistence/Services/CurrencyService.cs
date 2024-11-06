@@ -4,22 +4,16 @@ using ExchangeApi.Infrustructure.Persistence.Contexts;
 using ExChangeApi.Domain.Entities;
 using ExchangeApi.Infrustructure.Persistence.Services;
 
-
 namespace ExchangeApi.Infrustructure.Services;
-
 public class CurrencyService : GengericRepository<Currency>,ICurrencyService
 {
-    private readonly ApplicationDbContext _context;
-    public CurrencyService(ApplicationDbContext context) : base(context) 
-    {
-        _context = context;
-    }
-
+    private readonly AppDbContext _applicationDbContext;
+    public CurrencyService(AppDbContext applicationDbContext) : base(applicationDbContext) => _applicationDbContext = applicationDbContext;
     public async Task<Response<bool>> Activate(int currencyId)
     {
-        var currency =  _context.Currency.Where(x => x.Id == currencyId).FirstOrDefault();
+        var currency = _applicationDbContext.Currency.Where(x => x.Id == currencyId).FirstOrDefault();
         currency.IsActive = true;
-        await _context.SaveChangesAsync();
+        await _applicationDbContext.SaveChangesAsync();
         return new Response<bool>(true);
     }   
 }

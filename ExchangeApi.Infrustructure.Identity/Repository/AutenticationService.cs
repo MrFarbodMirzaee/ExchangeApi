@@ -10,10 +10,9 @@ using System.Security.Claims;
 using System.Text;
 using ExchangeApi.Application.Enums;
 using ExchangeApi.Domain.Wrappers;
-
+using ExchangeApi.Application.UseCases.Autentication;
 
 namespace ExchangeApi.Infrustructure.Identity.Repository;
-
 public class AutenticationService : IAutenticationService
 {
     private readonly UserManager<ApplicationUser> _userManager;
@@ -31,17 +30,17 @@ public class AutenticationService : IAutenticationService
         _roleManager = roleManager;
         _signInManager = signInManager;
     }
-    public async Task<Response<AuthenticationResponseDto>> Login(LoginDto dto, CancellationToken ct)
+    public async Task<Response<AuthenticationResponseDto>> Login(LogInCommand dto, CancellationToken ct)
     {
         var user = await _userManager.FindByNameAsync(dto.UserName);
         if (user == null)
         {
-            return null;
+            return new Response<AuthenticationResponseDto>("User not found");
         }
         var result = await _signInManager.PasswordSignInAsync(user.UserName, dto.Password, false, lockoutOnFailure: false);
         if (!result.Succeeded)
         {
-            return null;
+            return new Response<AuthenticationResponseDto>("User name or password is wrong");
         }
 
         JwtSecurityToken jwtSecurityToken = await GenerateJWToken(user);
@@ -53,15 +52,15 @@ public class AutenticationService : IAutenticationService
         var rolesList = await _userManager.GetRolesAsync(user).ConfigureAwait(false);
         response.Roles = rolesList.ToList();
         response.IsVerified = user.EmailConfirmed;
-        return new Response<AuthenticationResponseDto>( response);
+        return new Response<AuthenticationResponseDto>(response);
     }
 
-    public async Task<Response<AuthenticationResponseDto>> Register(RegisterDto dto, CancellationToken ct)
+    public async Task<Response<AuthenticationResponseDto>> Register(RegisterCommand dto, CancellationToken ct)
     {
         var userWithSameUserName = await _userManager.FindByNameAsync(dto.UserName);
         if (userWithSameUserName != null)
         {
-            return null;
+            return new Response<AuthenticationResponseDto>("Username is already taken.");
         }
         var user = new ApplicationUser
         {
@@ -70,23 +69,32 @@ public class AutenticationService : IAutenticationService
             LastName = dto.LastName,
             UserName = dto.UserName
         };
-        var userWithSameEmail = await _userManager.FindByEmailAsync(dto.UserName);
-        if (userWithSameEmail == null)
+        var userWithSameName = await _userManager.FindByNameAsync(dto.UserName);
+        if (userWithSameName == null)
         {
             var result = await _userManager.CreateAsync(user, dto.Password);
             if (result.Succeeded)
             {
                 await _userManager.AddToRoleAsync(user, Roles.User.ToString());
-                return null;
+                // Create AuthenticationResponseDto with user details
+                var responseDto = new AuthenticationResponseDto
+                {
+                    Email = user.Email,
+                    UserName = user.UserName,
+                    Roles = new List<string> { Roles.User.ToString() },
+                    IsVerified = user.EmailConfirmed
+                };
+
+                return new Response<AuthenticationResponseDto>(responseDto);
             }
             else
             {
-                return null;
+                return new Response<AuthenticationResponseDto>("User didn't create");
             }
         }
         else
         {
-            return null;
+            return new Response<AuthenticationResponseDto>("User already register");
         }
     }
     private async Task<JwtSecurityToken> GenerateJWToken(ApplicationUser user)

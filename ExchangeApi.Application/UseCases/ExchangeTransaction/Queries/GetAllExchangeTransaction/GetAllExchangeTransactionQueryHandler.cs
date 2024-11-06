@@ -5,7 +5,6 @@ using ExchangeApi.Domain.Wrappers;
 using MediatR;
 
 namespace ExchangeApi.Application.UseCases.ExchangeTransaction.Queries;
-
 public class GetAllExchangeTransactionQueryHandler : IRequestHandler<GetAllExchangeTransactionQuery, Response<List<ExchangeTransactionDto>>>
 {
     private readonly IExchangeTransactionServices _exchangeTranzacstionService;
@@ -17,8 +16,10 @@ public class GetAllExchangeTransactionQueryHandler : IRequestHandler<GetAllExcha
     }
     public async Task<Response<List<ExchangeTransactionDto>>> Handle(GetAllExchangeTransactionQuery request, CancellationToken ct)
     {
-        Response<List<ExchangeApi.Domain.Entities.ExchangeTransaction>> data = await _exchangeTranzacstionService.GetAllAsync(ct);
-        var ExchangeTranzactionDto = _mapper.Map<List<ExchangeTransactionDto>>(data.Data);
-        return new Response<List<ExchangeTransactionDto>>(ExchangeTranzactionDto);
+        Response<List<ExchangeApi.Domain.Entities.ExchangeTransaction>> exchangeTransactions = await _exchangeTranzacstionService.GetAllAsync(ct);
+
+        var ExchangeTranzactionMapped = _mapper.Map<List<ExchangeTransactionDto>>(exchangeTransactions.Data);
+
+        return exchangeTransactions.Succeeded ? new Response<List<ExchangeTransactionDto>>(ExchangeTranzactionMapped) : new Response<List<ExchangeTransactionDto>>(exchangeTransactions.Message);
     }
 }

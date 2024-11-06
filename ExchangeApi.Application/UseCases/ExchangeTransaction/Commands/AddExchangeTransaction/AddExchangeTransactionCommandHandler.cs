@@ -4,9 +4,7 @@ using ExchangeApi.Application.UseCases.ExchangeTransaction.Commands.AddExchangeT
 using ExchangeApi.Domain.Wrappers;
 using MediatR;
 
-
 namespace ExchangeApi.Application.UseCases.ExchangeTransaction.Commands;
-
 public class AddExchangeTransactionCommandHandler : IRequestHandler<AddExchangeTransactionCommand, Response<bool>>
 {
     private readonly IExchangeTransactionServices _exchangeTranzacstionService;
@@ -19,7 +17,7 @@ public class AddExchangeTransactionCommandHandler : IRequestHandler<AddExchangeT
     public async Task<Response<bool>> Handle(AddExchangeTransactionCommand request, CancellationToken ct)
     {
         var exchangetransaction = _mapper.Map<ExchangeApi.Domain.Entities.ExchangeTransaction>(request);
-        await _exchangeTranzacstionService.AddAsync(exchangetransaction, ct);
-        return new Response<bool>(true);
+        var exchangeTransactionStatus = await _exchangeTranzacstionService.AddAsync(exchangetransaction, ct);
+        return exchangeTransactionStatus.Succeeded ? new Response<bool>(exchangeTransactionStatus.Data) : new Response<bool>(exchangeTransactionStatus.Message);
     }
 }

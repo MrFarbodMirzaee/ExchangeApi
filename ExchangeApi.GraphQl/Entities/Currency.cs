@@ -1,6 +1,5 @@
 ﻿#nullable disable
 namespace ExchangeApi.GraphQl.Entities;
-
 public class Currency
 {
     public int Id { get; set; }

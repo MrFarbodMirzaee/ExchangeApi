@@ -1,6 +1,5 @@
 ﻿#nullable disable
 namespace Exchange.gRPCServer.Models;
-
 public class Currency
 {
     public int Id { get; set; }

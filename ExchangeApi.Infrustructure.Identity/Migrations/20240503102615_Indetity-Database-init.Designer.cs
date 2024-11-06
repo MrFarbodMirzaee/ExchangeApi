@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ExchangeApi.Infrustructure.Identity.Migrations
 {
-    [DbContext(typeof(ApplicationIdentityContext))]
+    [DbContext(typeof(IdentityAppDbContext))]
     [Migration("20240503102615_Indetity-Database-init")]
     partial class IndetityDatabaseinit
     {

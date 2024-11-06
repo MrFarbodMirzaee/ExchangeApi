@@ -46,7 +46,6 @@ public static class CustomFilter
         }
         return Expression.Lambda<Func<T, bool>>(filterExpression, parameter);
     }
-
     private static Expression<Func<T, object>> GetSortExpression<T>(Sort sort)
 
     {

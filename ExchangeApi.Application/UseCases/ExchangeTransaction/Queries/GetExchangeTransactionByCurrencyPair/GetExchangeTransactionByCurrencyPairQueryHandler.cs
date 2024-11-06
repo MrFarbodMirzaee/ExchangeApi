@@ -5,7 +5,6 @@ using ExchangeApi.Domain.Wrappers;
 using MediatR;
 
 namespace ExchangeApi.Application.UseCases.ExchangeTransaction.Queries;
-
 public class GetExchangeTransactionByCurrencyPairQueryHandler : IRequestHandler<GetExchangeTransactionByCurrencyPairQuery, Response<List<ExchangeTransactionDto>>>
 {
     private readonly IExchangeTransactionServices _exchangeTranzacstionService;
@@ -17,12 +16,13 @@ public class GetExchangeTransactionByCurrencyPairQueryHandler : IRequestHandler<
     }
     public async Task<Response<List<ExchangeTransactionDto>>> Handle(GetExchangeTransactionByCurrencyPairQuery request, CancellationToken ct)
     {
-        Response<List<ExchangeApi.Domain.Entities.ExchangeTransaction>> data = await _exchangeTranzacstionService.FindByCondition(f => f.FromCurrencyId == request.FromCurrency && f.ToCurrencyId == request.ToCurrency, ct);
-        if (data is null)
-        {
-            return new Response<List<ExchangeTransactionDto>>( new List<ExchangeTransactionDto>());
-        }
-        var exchangeTranzacstionDto = _mapper.Map<List<ExchangeTransactionDto>>(data.Data);
-        return new Response<List<ExchangeTransactionDto>>(new List<ExchangeTransactionDto>(exchangeTranzacstionDto));
+        Response<List<ExchangeApi.Domain.Entities.ExchangeTransaction>> exchangeTransactionFind = await _exchangeTranzacstionService.FindByCondition(f => f.FromCurrencyId == request.FromCurrency && f.ToCurrencyId == request.ToCurrency, ct);
+
+        if (exchangeTransactionFind.Data is null)
+            return new Response<List<ExchangeTransactionDto>>(exchangeTransactionFind.Message);
+
+        var exchangeTranzacstionDto = _mapper.Map<List<ExchangeTransactionDto>>(exchangeTransactionFind.Data);
+
+        return exchangeTransactionFind.Succeeded ? new Response<List<ExchangeTransactionDto>>(exchangeTranzacstionDto) : new Response<List<ExchangeTransactionDto>>(exchangeTransactionFind.Message);
     }
 }

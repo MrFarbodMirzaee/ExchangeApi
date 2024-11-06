@@ -3,7 +3,6 @@ using ExchangeApi.Domain.Wrappers;
 using System.Linq.Expressions;
 
 namespace ExchangeApi.Domain.Contracts;
-
 public interface IGenericRepository<TEntity> where TEntity : class
 {
     Task<Response<List<TEntity>>> GetAllAsync(CancellationToken ct);

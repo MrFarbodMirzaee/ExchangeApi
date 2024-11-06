@@ -5,27 +5,25 @@ using ExchangeApi.Domain.Wrappers;
 using ExChangeApi.Domain.Entities;
 using ExchangeApi.Domain.Entities;
 
-
 namespace ExchangeApi;
-
 public static class ConfigureService
 {
-
-    public static IServiceCollection RegisterPresentationServices(this IServiceCollection Services,IConfiguration configuration,string connectionString)
+    public static IServiceCollection RegisterPresentationServices(this IServiceCollection services, IConfiguration configuration, string connectionString)
     {
-        Services.AddHealthChecks().AddSqlServer(connectionString);
-        Services.Configure<MySettings>(configuration.GetSection("MySettings"));
-        Services.AddFluentValidation();
-        Services.AddHealthChecks();
-        Services.AddAutoMapper(typeof(CurrencyProfile));
-        Services.AddAutoMapper(typeof(ExchangeRateProfile));
-        Services.AddAutoMapper(typeof(ExchangeTransactionProfile));
-        Services.AddAutoMapper(typeof(UserProfile));
-        Services.AddAutoMapper(typeof(Response<Currency>));
-        Services.AddAutoMapper(typeof(Response<ExchangeRate>));
-        Services.AddAutoMapper(typeof(Response<ExchangeTransaction>));
-        Services.AddAutoMapper(typeof(Response<User>));
-        
-        return Services;
+        services.AddHealthChecks().AddSqlServer(connectionString);
+        services.Configure<MySettings>(configuration.GetSection("MySettings"));
+        services.AddFluentValidation();
+        services.AddHealthChecks();
+
+        services.AddAutoMapper(typeof(CurrencyProfile));
+        services.AddAutoMapper(typeof(ExchangeRateProfile));
+        services.AddAutoMapper(typeof(ExchangeTransactionProfile));
+        services.AddAutoMapper(typeof(UserProfile));
+        services.AddAutoMapper(typeof(Response<Currency>));
+        services.AddAutoMapper(typeof(Response<ExchangeRate>));
+        services.AddAutoMapper(typeof(Response<ExchangeTransaction>));
+        services.AddAutoMapper(typeof(Response<User>));
+
+        return services;
     }
 }
