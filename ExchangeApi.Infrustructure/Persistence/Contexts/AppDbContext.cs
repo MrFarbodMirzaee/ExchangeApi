@@ -13,6 +13,7 @@ public class AppDbContext : DbContext
     public DbSet<ExchangeRate> ExchangeRate { get; set; }
     public DbSet<ExchangeTransaction> ExchangeTransaction { get; set; }
     public DbSet<User> User { get; set; }
+    public DbSet<ExchangeApi.Domain.Entities.File> File { get; set; }
     #endregion
 
     protected override void OnModelCreating(ModelBuilder builder)

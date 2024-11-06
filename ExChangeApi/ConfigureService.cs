@@ -23,6 +23,7 @@ public static class ConfigureService
         services.AddAutoMapper(typeof(Response<ExchangeRate>));
         services.AddAutoMapper(typeof(Response<ExchangeTransaction>));
         services.AddAutoMapper(typeof(Response<User>));
+        services.AddAutoMapper(typeof(FileProfile));
 
         return services;
     }

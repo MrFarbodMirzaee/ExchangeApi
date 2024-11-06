@@ -5,7 +5,7 @@ using ExchangeApi.Domain.Wrappers;
 using ExchangeApi.Infrustructure.Persistence.Services;
 
 namespace ExchangeApi.Infrustructure.Services;
-public class UserServices : GengericRepository<User>, IUserService
+public class UserServices : GenericRepository<User>, IUserService
 {
     private readonly AppDbContext _applicationDbContext;
     public UserServices(AppDbContext applicationDbContext) : base(applicationDbContext) => _applicationDbContext = applicationDbContext; 

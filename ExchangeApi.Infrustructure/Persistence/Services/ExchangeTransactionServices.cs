@@ -5,7 +5,7 @@ using ExchangeApi.Infrustructure.Persistence.Contexts;
 using ExchangeApi.Infrustructure.Persistence.Services;
 
 namespace ExchangeApi.Infrustructure.Services;
-public class ExchangeTransactionServices : GengericRepository<ExchangeTransaction>, IExchangeTransactionServices
+public class ExchangeTransactionServices : GenericRepository<ExchangeTransaction>, IExchangeTransactionServices
 {
     private readonly AppDbContext _applicationDbContext;
     public ExchangeTransactionServices(AppDbContext applicationDbContext) : base(applicationDbContext) =>_applicationDbContext = applicationDbContext;
