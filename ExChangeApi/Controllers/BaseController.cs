@@ -25,7 +25,6 @@ public class BaseController : Controller
     protected async Task<ObjectResult> SendAsync(IRequest<Response<Guid>> request, CancellationToken ct = default) => await SendAsync<Guid>(request, ct);
     protected async Task<ObjectResult> SendAsync(IRequest<Response<int>> request, CancellationToken ct = default) => await SendAsync<int>(request, ct);
     protected async Task<ObjectResult> SendAsync(IRequest<Response<long>> request, CancellationToken ct = default) => await SendAsync<long>(request, ct);
-    // Overload for DownloadFileDto responses
     protected async Task<ObjectResult> SendAsync(IRequest<Response<DownloadFileDto>> request, CancellationToken ct = default)
     {
         var result = await Mediator.Send(request, ct);

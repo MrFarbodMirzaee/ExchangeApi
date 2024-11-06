@@ -13,6 +13,6 @@ public class DownloadFileCommandHandler : IRequestHandler<DownloadFileCommand, R
     {
         var downloaded = await _fileService.DownloadFileAsync(request.FileId, cancellationToken);
 
-        return downloaded.FileData.Count() > 0 ? new Response<DownloadFileDto>(downloaded) : downloaded.;
+        return new Response<DownloadFileDto>(downloaded);
     }
 }
