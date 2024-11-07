@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option csharp_namespace = "Exchange.gRPCServer.Protos";
+
+service DownloadFileStreaming {
+    rpc DownloadFileById (FileRequestById) returns (stream FileContent);
+}
+
+message FileRequestById {
+    int32 id = 1;  
+}
+
+message FileContent {
+    string fileName = 1;
+    bytes content = 2;
+    int32 chunkSize = 3;
+}
