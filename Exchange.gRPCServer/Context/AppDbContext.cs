@@ -1,4 +1,4 @@
-﻿using Exchange.gRPCServer.Models;
+﻿using Exchange.gRPCServer.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Exchange.gRPCServer.Context;
@@ -9,4 +9,6 @@ public class AppDbContext : DbContext
 
     }
     public DbSet<Currency> Currency { get; set; }
+    public DbSet<Exchange.gRPCServer.Entities.File> File { get; set; }
+
 }
