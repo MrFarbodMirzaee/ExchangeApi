@@ -33,6 +33,9 @@
     <Protobuf Include="..\Exchange.gRPCServer\Protos\DownloadCurrencyFile.proto" GrpcServices="Client">
       <Link>Protos\DownloadCurrencyFile.proto</Link>
     </Protobuf>
+    <Protobuf Include="..\Exchange.gRPCServer\Protos\GetAllFiles.proto" GrpcServices="Client">
+      <Link>Protos\GetAllFiles.proto</Link>
+    </Protobuf>
     <Protobuf Include="..\Exchange.gRPCServer\Protos\StreamCurrency.proto" GrpcServices="Client">
       <Link>Protos\StreamCurrency.proto</Link>
     </Protobuf>
