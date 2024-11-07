@@ -3,7 +3,6 @@ using Google.Protobuf;
 using Grpc.Core;
 using Grpc.Net.Client;
 using System.Diagnostics;
-using System.Reflection;
 using static Exchange.gRPCServer.Protos.CurrencyFileStreaming;
 using static Exchange.gRPCServer.Protos.CurrencyRepository;
 using static Exchange.gRPCServer.Protos.CurrencyStreamRepository;
@@ -22,7 +21,7 @@ internal class Program
             {
                 Console.WriteLine("You want get currency by id or add currency or delete currency or update currency" +
                     " or currency image or currency Stream. if you want 'get currency by id' or 'add currency'" +
-                    " or 'delete currency' or 'update currency' or type 'currency image' or 'download file' or 'list files' or 'currency stream'");
+                    " or 'delete currency' or 'update currency' or type 'upload image' or 'download file' or 'list files' or 'currency stream'");
                 string selectedUser = Console.ReadLine();
                 if (selectedUser == "get currency by id")
                 {
@@ -44,7 +43,13 @@ internal class Program
                     var client = new CurrencyRepositoryClient(channel);
                     UpdateCurrencyBYIdData(client);
                 }
-                else if (selectedUser == "currency image")
+                else if (selectedUser == "list files")
+                {
+                    var client = new FileService.FileServiceClient(channel);
+                    Console.WriteLine("All files:");
+                    await GetAllFiles(client);
+                }
+                else if (selectedUser == "upload image")
                 {
                     var client = new CurrencyFileStreamingClient(channel);
                     Console.WriteLine("Enter the full path to the file you want to upload:");
@@ -75,60 +80,71 @@ internal class Program
         }
     }
 
+    private static async Task GetAllFiles(FileService.FileServiceClient client)
+    {
+        var request = new Empty();
+
+        try
+        {
+            using var call = client.GetAllFiles(request);
+
+            await foreach (var fileMetadata in call.ResponseStream.ReadAllAsync())
+            {
+                Console.WriteLine($"File Name: {fileMetadata.FileName} Kind :{fileMetadata.FileExtension} FileSize: {fileMetadata.FileSize}");
+                Console.WriteLine("_______________");
+            }
+        }
+        catch (RpcException ex)
+        {
+            Console.WriteLine($"gRPC Error: {ex.Status.Detail}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error: {ex.Message}");
+        }
+    }
+
     private static async Task DownloadFile(DownloadFileStreaming.DownloadFileStreamingClient client, int fileId)
     {
-        // Get the user's Downloads folder path.
         string downloadsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Downloads");
 
-        // Ensure the directory exists.
         if (!Directory.Exists(downloadsFolder))
         {
             Directory.CreateDirectory(downloadsFolder);
         }
 
-        // Start the download request using the fileId.
         using var call = client.DownloadFileById(new FileRequestById { Id = fileId });
 
         try
         {
-            // Assuming the server sends the file name with the correct extension.
-            string fileName = "file_" + fileId;  // You can modify this if the server returns a file name.
-            string fileExtension = ".bin";  // Default extension, in case the server doesn't return it.
+            string fileName = "file_" + fileId;  
+            string fileExtension = ".bin"; 
 
-            // Read the first chunk to get the file name and extension (if the server provides it).
             if (await call.ResponseStream.MoveNext(CancellationToken.None))
             {
                 var chunk = call.ResponseStream.Current;
 
-                // Assuming the server sends the file name with extension in the metadata (adjust if needed)
                 if (!string.IsNullOrEmpty(chunk.FileName))
                 {
-                    fileName = Path.GetFileNameWithoutExtension(chunk.FileName); // Extract the base file name
-                    fileExtension = Path.GetExtension(chunk.FileName); // Extract the file extension
+                    fileName = Path.GetFileNameWithoutExtension(chunk.FileName);
+                    fileExtension = Path.GetExtension(chunk.FileName); 
                 }
 
-                // Create the file path using the original file name and extension.
                 string outputPath = Path.Combine(downloadsFolder, fileName + fileExtension);
 
-                // Create a FileStream to save the received chunks.
                 await using var fileStream = new FileStream(outputPath, FileMode.Create, FileAccess.Write);
 
-                // Write the first chunk (already fetched) to the file.
                 await fileStream.WriteAsync(chunk.Content.ToByteArray());
 
-                // Process the remaining chunks as they come in from the server.
                 while (await call.ResponseStream.MoveNext(CancellationToken.None))
                 {
                     var nextChunk = call.ResponseStream.Current;
 
-                    // Write the next chunk to the file.
                     await fileStream.WriteAsync(nextChunk.Content.ToByteArray());
 
-                    // Optionally, log the progress.
                     Console.WriteLine($"Downloaded {nextChunk.ChunkSize} bytes...");
                 }
 
-                // When all chunks have been received and written to the file, display a success message.
                 Console.WriteLine($"File downloaded successfully to {outputPath}");
             }
         }
@@ -152,7 +168,7 @@ internal class Program
 
         var allowedExtensions = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
     {
-        ".jpg", ".jpeg", ".png", ".bmp", ".txt"  // Add more extensions as needed
+        ".jpg", ".jpeg", ".png", ".bmp", ".txt"  
     };
 
         var fileName = Path.GetFileName(filePath);
@@ -165,7 +181,7 @@ internal class Program
         }
 
         var fileBytes = await File.ReadAllBytesAsync(filePath);
-        var chunkSize = 1024 * 64; // 64KB
+        var chunkSize = 1024 * 64; 
 
         using var call = client.UploadFile();
 

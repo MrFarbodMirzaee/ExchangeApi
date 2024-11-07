@@ -11,6 +11,7 @@
     <None Remove="Protos\Currency.proto" />
     <None Remove="Protos\CurrencyImageFileStreaming.proto" />
     <None Remove="Protos\DownloadCurrencyFile.proto" />
+    <None Remove="Protos\GetAllFiles.proto" />
     <None Remove="Protos\StreamCurrency.proto" />
   </ItemGroup>
 
@@ -18,6 +19,7 @@
     <Protobuf Include="Protos\Currency.proto" GrpcServices="Server" />
     <Protobuf Include="Protos\CurrencyImageFileStreaming.proto" GrpcServices="Server" />
     <Protobuf Include="Protos\DownloadCurrencyFile.proto" GrpcServices="Server" />
+    <Protobuf Include="Protos\GetAllFiles.proto" GrpcServices="Server" />
     <Protobuf Include="Protos\StreamCurrency.proto" GrpcServices="Server" />
   </ItemGroup>
 
