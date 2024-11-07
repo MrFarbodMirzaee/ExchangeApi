@@ -8,6 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Protos\**" />
+    <EmbeddedResource Remove="Protos\**" />
+    <None Remove="Protos\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Google.Protobuf" Version="3.27.0" />
     <PackageReference Include="Grpc.Net.Client" Version="2.63.0" />
     <PackageReference Include="Grpc.Net.ClientFactory" Version="2.49.0" />
@@ -23,6 +29,9 @@
     </Protobuf>
     <Protobuf Include="..\Exchange.gRPCServer\Protos\CurrencyImageFileStreaming.proto" GrpcServices="Client">
       <Link>Protos\CurrencyImageFileStreaming.proto</Link>
+    </Protobuf>
+    <Protobuf Include="..\Exchange.gRPCServer\Protos\DownloadCurrencyFile.proto" GrpcServices="Client">
+      <Link>Protos\DownloadCurrencyFile.proto</Link>
     </Protobuf>
     <Protobuf Include="..\Exchange.gRPCServer\Protos\StreamCurrency.proto" GrpcServices="Client">
       <Link>Protos\StreamCurrency.proto</Link>

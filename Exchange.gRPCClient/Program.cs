@@ -22,7 +22,7 @@ internal class Program
             {
                 Console.WriteLine("You want get currency by id or add currency or delete currency or update currency" +
                     " or currency image or currency Stream. if you want 'get currency by id' or 'add currency'" +
-                    " or 'delete currency' or 'update currency' or type 'currency image' or 'currency stream'");
+                    " or 'delete currency' or 'update currency' or type 'currency image' or 'download file' or 'list files' or 'currency stream'");
                 string selectedUser = Console.ReadLine();
                 if (selectedUser == "get currency by id")
                 {
@@ -51,6 +51,13 @@ internal class Program
                     var filePath = Console.ReadLine();
                     await UploadFileAsync(client, filePath);
                 }
+                else if (selectedUser == "download file")
+                {
+                    var client = new DownloadFileStreaming.DownloadFileStreamingClient(channel);
+                    Console.WriteLine("Enter the fileId");
+                    var fileId = Convert.ToInt32(Console.ReadLine());
+                    await DownloadFile(client, fileId);
+                }
                 else if (selectedUser == "currency stream")
                 {
                     var client = new CurrencyStreamRepositoryClient(channel);
@@ -67,6 +74,74 @@ internal class Program
             }
         }
     }
+
+    private static async Task DownloadFile(DownloadFileStreaming.DownloadFileStreamingClient client, int fileId)
+    {
+        // Get the user's Downloads folder path.
+        string downloadsFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Downloads");
+
+        // Ensure the directory exists.
+        if (!Directory.Exists(downloadsFolder))
+        {
+            Directory.CreateDirectory(downloadsFolder);
+        }
+
+        // Start the download request using the fileId.
+        using var call = client.DownloadFileById(new FileRequestById { Id = fileId });
+
+        try
+        {
+            // Assuming the server sends the file name with the correct extension.
+            string fileName = "file_" + fileId;  // You can modify this if the server returns a file name.
+            string fileExtension = ".bin";  // Default extension, in case the server doesn't return it.
+
+            // Read the first chunk to get the file name and extension (if the server provides it).
+            if (await call.ResponseStream.MoveNext(CancellationToken.None))
+            {
+                var chunk = call.ResponseStream.Current;
+
+                // Assuming the server sends the file name with extension in the metadata (adjust if needed)
+                if (!string.IsNullOrEmpty(chunk.FileName))
+                {
+                    fileName = Path.GetFileNameWithoutExtension(chunk.FileName); // Extract the base file name
+                    fileExtension = Path.GetExtension(chunk.FileName); // Extract the file extension
+                }
+
+                // Create the file path using the original file name and extension.
+                string outputPath = Path.Combine(downloadsFolder, fileName + fileExtension);
+
+                // Create a FileStream to save the received chunks.
+                await using var fileStream = new FileStream(outputPath, FileMode.Create, FileAccess.Write);
+
+                // Write the first chunk (already fetched) to the file.
+                await fileStream.WriteAsync(chunk.Content.ToByteArray());
+
+                // Process the remaining chunks as they come in from the server.
+                while (await call.ResponseStream.MoveNext(CancellationToken.None))
+                {
+                    var nextChunk = call.ResponseStream.Current;
+
+                    // Write the next chunk to the file.
+                    await fileStream.WriteAsync(nextChunk.Content.ToByteArray());
+
+                    // Optionally, log the progress.
+                    Console.WriteLine($"Downloaded {nextChunk.ChunkSize} bytes...");
+                }
+
+                // When all chunks have been received and written to the file, display a success message.
+                Console.WriteLine($"File downloaded successfully to {outputPath}");
+            }
+        }
+        catch (RpcException ex)
+        {
+            Console.WriteLine($"gRPC Error: {ex.Status.Detail}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred: {ex.Message}");
+        }
+    }
+
     public static async Task UploadFileAsync(CurrencyFileStreamingClient client, string filePath)
     {
         if (string.IsNullOrWhiteSpace(filePath) || !File.Exists(filePath))
