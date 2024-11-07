@@ -23,36 +23,35 @@ internal class Program
                 Console.WriteLine("You want get currency by id or add currency or delete currency or update currency" +
                     " or currency image or currency Stream. if you want 'get currency by id' or 'add currency'" +
                     " or 'delete currency' or 'update currency' or type 'currency image' or 'currency stream'");
-                string selecteduser = Console.ReadLine();
-                if (selecteduser == "get currency by id")
+                string selectedUser = Console.ReadLine();
+                if (selectedUser == "get currency by id")
                 {
                     var client = new CurrencyRepositoryClient(channel);
                     GetCurrencyBYIdData(client);
                 }
-                else if (selecteduser == "add currency")
+                else if (selectedUser == "add currency")
                 {
                     var client = new CurrencyRepositoryClient(channel);
                     AddCurrencyData(client);
                 }
-                else if (selecteduser == "delete currency")
+                else if (selectedUser == "delete currency")
                 {
                     var client = new CurrencyRepositoryClient(channel);
                     DeleteCurrencyBYIdData(client);
                 }
-                else if (selecteduser == "update currency")
+                else if (selectedUser == "update currency")
                 {
                     var client = new CurrencyRepositoryClient(channel);
                     UpdateCurrencyBYIdData(client);
                 }
-                else if (selecteduser == "currency image")
+                else if (selectedUser == "currency image")
                 {
                     var client = new CurrencyFileStreamingClient(channel);
-                    var contentRootPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-                    //put your image address
-                    string file = Path.Combine(contentRootPath, "Files", "Address");
-                    UploadFileAsync(client, file);
+                    Console.WriteLine("Enter the full path to the file you want to upload:");
+                    var filePath = Console.ReadLine();
+                    await UploadFileAsync(client, filePath);
                 }
-                else if (selecteduser == "currency stream")
+                else if (selectedUser == "currency stream")
                 {
                     var client = new CurrencyStreamRepositoryClient(channel);
                     GetAllCurrrencyStreamAsync(client);
@@ -70,42 +69,63 @@ internal class Program
     }
     public static async Task UploadFileAsync(CurrencyFileStreamingClient client, string filePath)
     {
+        if (string.IsNullOrWhiteSpace(filePath) || !File.Exists(filePath))
+        {
+            Console.WriteLine("Invalid file path. Please provide a valid file.");
+            return;
+        }
+
+        var allowedExtensions = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+    {
+        ".jpg", ".jpeg", ".png", ".bmp", ".txt"  // Add more extensions as needed
+    };
+
+        var fileName = Path.GetFileName(filePath);
+        var fileExtension = Path.GetExtension(filePath);
+
+        if (!allowedExtensions.Contains(fileExtension))
+        {
+            Console.WriteLine($"Invalid file extension '{fileExtension}'. Allowed extensions are: {string.Join(", ", allowedExtensions)}.");
+            return;
+        }
+
+        var fileBytes = await File.ReadAllBytesAsync(filePath);
+        var chunkSize = 1024 * 64; // 64KB
+
+        using var call = client.UploadFile();
+
         try
         {
-            var fileInfo = new FileInfo(filePath);
+            Console.WriteLine($"Starting upload for {fileName} ({fileBytes.Length} bytes)...");
 
-            decimal chunkSize = 0;
-            var buffer = new byte[1024 * 2];
-            using var call = client.UploadFile();
-            using var fileStream = new FileStream(filePath, FileMode.Open);
-
-            var content = new ByteContent
+            for (int i = 0; i < fileBytes.Length; i += chunkSize)
             {
-                FileSize = fileStream.Length,
-                ReadedByte = 0,
-                ImageRequest = new ImageRequest
+                var chunk = fileBytes.Skip(i).Take(chunkSize).ToArray();
+                await call.RequestStream.WriteAsync(new FileChunk
                 {
-                    FileName = Path.GetFileNameWithoutExtension(fileInfo.Name),
-                    FileExtention = Path.GetExtension(fileInfo.Name).TrimStart('.')
-                }
-            };
+                    Content = ByteString.CopyFrom(chunk),
+                    FileName = fileName,
+                    FileSize = fileBytes.Length
+                });
 
-            while ((content.ReadedByte = fileStream.Read(buffer, 0, buffer.Length)) > 0)
-            {
-                content.Buffer = ByteString.CopyFrom(buffer);
-                await call.RequestStream.WriteAsync(content);
-                chunkSize += buffer.Length;
-                Console.WriteLine($"{Math.Round(chunkSize * 100 / fileStream.Length)} %");
-                await Task.Delay(100);
+                Console.WriteLine($"Uploaded {Math.Min(i + chunkSize, fileBytes.Length)} of {fileBytes.Length} bytes...");
             }
+
             await call.RequestStream.CompleteAsync();
-            Console.ReadKey();
+
+            var response = await call.ResponseAsync;
+            Console.WriteLine($"Upload status: {response.Message}");
+        }
+        catch (RpcException ex)
+        {
+            Console.WriteLine($"gRPC Error: {ex.Status.Detail}");
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"{ex.Message}");
+            Console.WriteLine($"An error occurred: {ex.Message}");
         }
     }
+
     public static async Task GetCurrencyBYIdData(CurrencyRepositoryClient client)
 
     {

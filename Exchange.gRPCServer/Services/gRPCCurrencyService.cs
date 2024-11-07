@@ -1,5 +1,5 @@
 ﻿using Exchange.gRPCServer.Context;
-using Exchange.gRPCServer.Models;
+using Exchange.gRPCServer.Entities;
 using Exchange.gRPCServer.Protos;
 using Grpc.Core;
 using Microsoft.EntityFrameworkCore;

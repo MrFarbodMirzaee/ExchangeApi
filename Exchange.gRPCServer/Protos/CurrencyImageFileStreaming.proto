@@ -1,24 +1,19 @@
 syntax = "proto3";
 
 option csharp_namespace = "Exchange.gRPCServer.Protos";
-import "google/protobuf/empty.proto";
 
 service CurrencyFileStreaming 
 {
-  // Sends a greeting
-  rpc UploadFile(stream ByteContent) returns (google.protobuf.Empty);
+  rpc UploadFile (stream FileChunk) returns (UploadStatus);
 }
 
-// The request message containing the user's name.
-message ImageRequest {
-  string File_Name = 1;
-  string File_Extention = 2;
+message FileChunk {
+   bytes content = 1;
+   string fileName = 2;
+   int64 fileSize = 3;
 }
 
-// The response message containing the greetings.
-message ByteContent {
-  int64 file_size = 1;
-  bytes buffer = 2;
-  int32 readed_byte = 3; // What percent I send file 
-  ImageRequest ImageRequest = 4;
+message UploadStatus  {
+  bool success = 1;
+  string message = 2;
 }

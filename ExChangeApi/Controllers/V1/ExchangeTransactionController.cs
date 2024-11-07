@@ -12,7 +12,6 @@ public class ExchangeTransactionController : BaseController
 {
     private readonly MySettings _settings;
     public ExchangeTransactionController(IOptionsMonitor<MySettings> settings) => _settings = settings.CurrentValue;
-
     [HttpGet]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
