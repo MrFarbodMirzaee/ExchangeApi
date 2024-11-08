@@ -37,16 +37,16 @@ public class CurrencyController : BaseController
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> Search([FromBody] SearchCurrencyQuery request, CancellationToken ct) => await SendAsync(request, ct);
     [Authorize]
-    [HttpDelete]
-    [Consumes(MediaTypeNames.Application.Json)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> Delete([FromBody]DeleteCurrencyCommand request, CancellationToken ct) => await SendAsync(request, ct);
-    [Authorize]
     [HttpPut]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Update([FromBody]UpdateCurrencyCommand request, CancellationToken ct) => await SendAsync(request, ct);
+    [Authorize]
+    [HttpDelete]
+    [Consumes(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> Delete([FromBody]DeleteCurrencyCommand request, CancellationToken ct) => await SendAsync(request, ct);
  
 }

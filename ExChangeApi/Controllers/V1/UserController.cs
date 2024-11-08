@@ -41,15 +41,15 @@ public class UserController : BaseController
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Add([FromBody] AddUserCommand command, CancellationToken ct) => await SendAsync(command, ct);
     [Authorize]
-    [HttpDelete]
-    [Consumes(MediaTypeNames.Application.Json)]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> Delete(DeleteUserCommand request, CancellationToken ct) => await SendAsync(request, ct);
-    [Authorize]
     [HttpPut]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Update(UpdateUserCommand request, CancellationToken ct) => await SendAsync(request, ct);
+    [Authorize]
+    [HttpDelete]
+    [Consumes(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Delete(DeleteUserCommand request, CancellationToken ct) => await SendAsync(request, ct);
 }
