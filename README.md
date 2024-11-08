@@ -4,9 +4,9 @@ It's an api with .net 8 about Exchange
 ## REST Swagger Image
 Here's an example of the REST Swagger image for the API:
 This image provides a visual representation of the API's endpoints, request/response models, and other relevant information. 
-![Swagger UI_Page_1](https://github.com/user-attachments/assets/0209c62e-52d2-4859-906f-0e428e9b4c39)
-![Swagger UI_Page_2](https://github.com/user-attachments/assets/cebbd740-cd20-4aee-8c4e-bd9c1cd10e1e)
-![Swagger UI_Page_3](https://github.com/user-attachments/assets/4365cf60-a9d9-4bed-938a-85b2cc1e025b)
+![Swagger UI_Page_1](https://github.com/user-attachments/assets/cceea753-552c-4e71-8e25-68052cf5d093)
+![Swagger UI_Page_2](https://github.com/user-attachments/assets/632f96ce-d8b2-4cb8-91ac-f54edd719ae3)
+![Swagger UI_Page_3](https://github.com/user-attachments/assets/41a89a24-1437-452a-8cf5-3599f1feb81a)
 
 
 ## gRPC client Image
