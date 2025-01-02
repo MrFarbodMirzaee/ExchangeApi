@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ExchangeApi.Infrustructure.Persistence.Seeders;
+
 public class ExchangeRateSeeder
 {
     public static void Intialize(IServiceProvider service)
@@ -12,50 +13,31 @@ public class ExchangeRateSeeder
         {
             if (!context.ExchangeRate.Any())
             {
-                context.ExchangeRate.AddRange(
-                    new ExchangeRate
-                    {
-                        FromCurrency = 1,
-                        IsActive = true,
-                        ToCurrency = 2,
-                        Rate = 0.85m,
-                        Created = DateTime.Now,
-                        Updated = DateTime.Now,
-                        Description = "Exchange rate from USD to EUR.",
-                        MetaDescription = "Current exchange rate for USD to EUR.",
-                        UpdatedByUserId = 1,
-                        DeletedByUserId = 0
-                    },
-                    new ExchangeRate
-                    {
-                        FromCurrency = 2,
-                        ToCurrency = 3,
-                        IsActive = true,
-                        Rate = 130.0m,
-                        Created = DateTime.Now,
-                        Updated = DateTime.Now,
-                        Description = "Exchange rate from EUR to JPY.",
-                        MetaDescription = "Current exchange rate for EUR to JPY.",
-                        UpdatedByUserId = 1,
-                        DeletedByUserId = 0
-                    },
-                    new ExchangeRate
-                    {
-                        FromCurrency = 3,
-                        ToCurrency = 1,
-                        IsActive = false,
-                        Rate = 0.0091m,
-                        Created = DateTime.Now,
-                        Updated = DateTime.Now,
-                        Description = "Exchange rate from JPY to USD.",
-                        MetaDescription = "Current exchange rate for JPY to USD.",
-                        UpdatedByUserId = 1,
-                        DeletedByUserId = 0
-                    });
-            };
+                // List to hold exchange rates
+                var exchangeRates = new List<ExchangeRate>();
 
-            context.SaveChanges();
+                // Add dynamic ExchangeRate data (e.g., for 10 different currencies)
+                for (int i = 1; i <= 100; i++) // Assuming 10 currencies, adjust the range as needed
+                {
+                    exchangeRates.Add(new ExchangeRate
+                    {
+                        FromCurrency = i, // From currency ID
+                        ToCurrency = (i % 10) + 1, // To currency ID, wraps around after 10
+                        IsActive = i % 2 == 0, // Alternate between active and inactive
+                        Rate = (decimal)(1 + (i * 0.1)), // Dynamic rate, adjust as needed
+                        Created = DateTime.Now,
+                        Updated = DateTime.Now,
+                        Description = $"Exchange rate from Currency {i} to Currency {(i % 10) + 1}.",
+                        MetaDescription = $"Current exchange rate for Currency {i} to Currency {(i % 10) + 1}.",
+                        UpdatedByUserId = 1, // Assuming User ID 1 is the updater
+                        DeletedByUserId = 0 // Assuming no user deleted
+                    });
+                }
+
+                // Save all exchange rates
+                context.ExchangeRate.AddRange(exchangeRates);
+                context.SaveChanges();
+            }
         }
     }
 }
-

@@ -11,13 +11,19 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
 {
     protected readonly AppDbContext _applicationDbContext;
     public GenericRepository(AppDbContext applicationDbContext) => _applicationDbContext = applicationDbContext;
-    public async Task<Response<List<TEntity>>> GetAllAsync(CancellationToken ct)
+    public async Task<Response<List<TEntity>>> GetAllAsync(CancellationToken ct,int page, int pageSize)
     {
-        var entities = await _applicationDbContext.Set<TEntity>().AsNoTracking().ToListAsync(ct);
-        if (!entities.Any())
+        var totalEntityCount = _applicationDbContext.Set<TEntity>().AsNoTracking().Count();
+
+        var entityPerPage = await _applicationDbContext.Set<TEntity>()
+                                                       .Skip((page -1) * pageSize)
+                                                       .Take(pageSize)
+                                                       .ToListAsync();
+        
+        if (!entityPerPage.Any())
             return new Response<List<TEntity>>("Something went wrong");
 
-        return new Response<List<TEntity>>(entities);
+        return new Response<List<TEntity>>(entityPerPage);
     }
     public async Task<IEnumerable<TEntity>> FindByQueryCriterial(QueryCriterial queryCriteria, CancellationToken cancellationToken)
     {

@@ -16,7 +16,9 @@ public class GetAllExchangeTransactionQueryHandler : IRequestHandler<GetAllExcha
     }
     public async Task<Response<List<ExchangeTransactionDto>>> Handle(GetAllExchangeTransactionQuery request, CancellationToken ct)
     {
-        Response<List<ExchangeApi.Domain.Entities.ExchangeTransaction>> exchangeTransactions = await _exchangeTranzacstionService.GetAllAsync(ct);
+        var pageSize = request.PageSize;
+        var page = request.Page;
+        Response<List<ExchangeApi.Domain.Entities.ExchangeTransaction>> exchangeTransactions = await _exchangeTranzacstionService.GetAllAsync(ct,page,pageSize);
 
         var ExchangeTranzactionMapped = _mapper.Map<List<ExchangeTransactionDto>>(exchangeTransactions.Data);
 

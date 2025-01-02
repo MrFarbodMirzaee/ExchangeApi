@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ExchangeApi.Infrustructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    partial class AppDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -34,7 +34,7 @@ namespace ExchangeApi.Infrustructure.Migrations
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 11, 6, 11, 51, 20, 824, DateTimeKind.Local).AddTicks(9006));
+                        .HasDefaultValue(new DateTime(2025, 1, 2, 19, 53, 14, 486, DateTimeKind.Local).AddTicks(6355));
 
                     b.Property<string>("CurrencyCode")
                         .IsRequired()
@@ -87,7 +87,7 @@ namespace ExchangeApi.Infrustructure.Migrations
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 11, 6, 11, 51, 20, 825, DateTimeKind.Local).AddTicks(5201));
+                        .HasDefaultValue(new DateTime(2025, 1, 2, 19, 53, 14, 487, DateTimeKind.Local).AddTicks(3197));
 
                     b.Property<int>("DeletedByUserId")
                         .HasColumnType("int");
@@ -148,7 +148,7 @@ namespace ExchangeApi.Infrustructure.Migrations
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 11, 6, 11, 51, 20, 825, DateTimeKind.Local).AddTicks(598));
+                        .HasDefaultValue(new DateTime(2025, 1, 2, 19, 53, 14, 486, DateTimeKind.Local).AddTicks(8305));
 
                     b.Property<int>("DeletedByUserId")
                         .HasColumnType("int");
@@ -201,7 +201,7 @@ namespace ExchangeApi.Infrustructure.Migrations
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 11, 6, 11, 51, 20, 825, DateTimeKind.Local).AddTicks(2537));
+                        .HasDefaultValue(new DateTime(2025, 1, 2, 19, 53, 14, 487, DateTimeKind.Local).AddTicks(422));
 
                     b.Property<int>("DeletedByUserId")
                         .HasColumnType("int");
@@ -231,7 +231,7 @@ namespace ExchangeApi.Infrustructure.Migrations
                         .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 11, 6, 11, 51, 20, 825, DateTimeKind.Local).AddTicks(2959));
+                        .HasDefaultValue(new DateTime(2025, 1, 2, 19, 53, 14, 487, DateTimeKind.Local).AddTicks(905));
 
                     b.Property<DateTime>("Updated")
                         .HasColumnType("datetime2");

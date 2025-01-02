@@ -16,8 +16,9 @@ public class GetAllUserQueryHandler : IRequestHandler<GetAllUserQuery, Response<
     }
     public async Task<Response<List<UserDto>>> Handle(GetAllUserQuery request, CancellationToken ct)
     {
-
-        Response<List<ExChangeApi.Domain.Entities.User>> users = await _userService.GetAllAsync(ct);
+        var pageSize = request.PageSize;
+        var page = request.Page;
+        Response<List<ExChangeApi.Domain.Entities.User>> users = await _userService.GetAllAsync(ct, page, pageSize);
 
         var userMapped = _mapper.Map<List<UserDto>>(users.Data);
 

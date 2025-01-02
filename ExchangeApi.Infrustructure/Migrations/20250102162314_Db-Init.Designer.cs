@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ExchangeApi.Infrustructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240620115642_Db-Init")]
+    [Migration("20250102162314_Db-Init")]
     partial class DbInit
     {
         /// <inheritdoc />
@@ -37,7 +37,7 @@ namespace ExchangeApi.Infrustructure.Migrations
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 6, 20, 15, 26, 42, 306, DateTimeKind.Local).AddTicks(9191));
+                        .HasDefaultValue(new DateTime(2025, 1, 2, 19, 53, 14, 486, DateTimeKind.Local).AddTicks(6355));
 
                     b.Property<string>("CurrencyCode")
                         .IsRequired()
@@ -90,7 +90,7 @@ namespace ExchangeApi.Infrustructure.Migrations
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 6, 20, 15, 26, 42, 307, DateTimeKind.Local).AddTicks(5272));
+                        .HasDefaultValue(new DateTime(2025, 1, 2, 19, 53, 14, 487, DateTimeKind.Local).AddTicks(3197));
 
                     b.Property<int>("DeletedByUserId")
                         .HasColumnType("int");
@@ -151,7 +151,7 @@ namespace ExchangeApi.Infrustructure.Migrations
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 6, 20, 15, 26, 42, 307, DateTimeKind.Local).AddTicks(860));
+                        .HasDefaultValue(new DateTime(2025, 1, 2, 19, 53, 14, 486, DateTimeKind.Local).AddTicks(8305));
 
                     b.Property<int>("DeletedByUserId")
                         .HasColumnType("int");
@@ -204,7 +204,7 @@ namespace ExchangeApi.Infrustructure.Migrations
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 6, 20, 15, 26, 42, 307, DateTimeKind.Local).AddTicks(2842));
+                        .HasDefaultValue(new DateTime(2025, 1, 2, 19, 53, 14, 487, DateTimeKind.Local).AddTicks(422));
 
                     b.Property<int>("DeletedByUserId")
                         .HasColumnType("int");
@@ -234,7 +234,7 @@ namespace ExchangeApi.Infrustructure.Migrations
                         .IsRequired()
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 6, 20, 15, 26, 42, 307, DateTimeKind.Local).AddTicks(3286));
+                        .HasDefaultValue(new DateTime(2025, 1, 2, 19, 53, 14, 487, DateTimeKind.Local).AddTicks(905));
 
                     b.Property<DateTime>("Updated")
                         .HasColumnType("datetime2");
@@ -253,6 +253,36 @@ namespace ExchangeApi.Infrustructure.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("ExchangeTransaction", "BASE");
+                });
+
+            modelBuilder.Entity("ExchangeApi.Domain.Entities.File", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ContentType")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<byte[]>("FileData")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.HasKey("Id")
+                        .HasName("PK_File");
+
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"));
+
+                    b.ToTable("File", "BASE");
                 });
 
             modelBuilder.Entity("ExchangeApi.Domain.Entities.ExchangeTransaction", b =>

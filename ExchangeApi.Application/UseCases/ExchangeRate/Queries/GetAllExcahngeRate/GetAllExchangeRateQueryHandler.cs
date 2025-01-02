@@ -16,7 +16,9 @@ public class GetAllExchangeRateQueryHandler : IRequestHandler<GetAllExchangeRate
     }
     public async Task<Response<List<ExchangeRateDto>>> Handle(GetAllExchangeRateQuery request, CancellationToken ct)
     {
-        Response<List<ExchangeApi.Domain.Entities.ExchangeRate>> exchangeRate = await _exchangeRateService.GetAllAsync(ct);
+        int pageSize = request.PageSize;
+        int page = request.Page;
+        Response<List<ExchangeApi.Domain.Entities.ExchangeRate>> exchangeRate = await _exchangeRateService.GetAllAsync(ct, page, pageSize);
         var exchangeRateMapped = _mapper.Map<List<ExchangeRateDto>>(exchangeRate.Data);
         return exchangeRate.Succeeded ? new Response<List<ExchangeRateDto>>(exchangeRateMapped) : new Response<List<ExchangeRateDto>>(exchangeRate.Message);
     }
