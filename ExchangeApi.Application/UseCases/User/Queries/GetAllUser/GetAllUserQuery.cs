@@ -5,5 +5,9 @@ using MediatR;
 
 namespace ExchangeApi.Application.UseCases.User.Queries;
 
-public class GetAllUserQuery : IRequest<Response<List<UserDto>>> { }
+public class GetAllUserQuery : IRequest<Response<List<UserDto>>> 
+{
+    public int Page { get; set; }
+    public int PageSize { get; set; }
+ }
 

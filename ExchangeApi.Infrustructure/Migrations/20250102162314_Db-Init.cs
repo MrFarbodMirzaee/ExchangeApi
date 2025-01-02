@@ -23,7 +23,7 @@ namespace ExchangeApi.Infrustructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CurrencyCode = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Created = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 6, 20, 15, 26, 42, 306, DateTimeKind.Local).AddTicks(9191)),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2025, 1, 2, 19, 53, 14, 486, DateTimeKind.Local).AddTicks(6355)),
                     IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
                     ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Updated = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -48,7 +48,7 @@ namespace ExchangeApi.Infrustructure.Migrations
                     FromCurrency = table.Column<int>(type: "int", nullable: false),
                     ToCurrency = table.Column<int>(type: "int", nullable: false),
                     Rate = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Created = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 6, 20, 15, 26, 42, 307, DateTimeKind.Local).AddTicks(860)),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2025, 1, 2, 19, 53, 14, 486, DateTimeKind.Local).AddTicks(8305)),
                     IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
                     Updated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -63,6 +63,23 @@ namespace ExchangeApi.Infrustructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "File",
+                schema: "BASE",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FileName = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    ContentType = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    FileData = table.Column<byte[]>(type: "varbinary(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_File", x => x.Id)
+                        .Annotation("SqlServer:Clustered", true);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "User",
                 schema: "BASE",
                 columns: table => new
@@ -73,7 +90,7 @@ namespace ExchangeApi.Infrustructure.Migrations
                     UserName = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     EmailAddress = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
                     Password = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false),
-                    Created = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 6, 20, 15, 26, 42, 307, DateTimeKind.Local).AddTicks(5272)),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2025, 1, 2, 19, 53, 14, 487, DateTimeKind.Local).AddTicks(3197)),
                     IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
                     Updated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -99,8 +116,8 @@ namespace ExchangeApi.Infrustructure.Migrations
                     Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     ResultAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     ExChangeRateId = table.Column<int>(type: "int", nullable: false),
-                    TransactionDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 6, 20, 15, 26, 42, 307, DateTimeKind.Local).AddTicks(3286)),
-                    Created = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 6, 20, 15, 26, 42, 307, DateTimeKind.Local).AddTicks(2842)),
+                    TransactionDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2025, 1, 2, 19, 53, 14, 487, DateTimeKind.Local).AddTicks(905)),
+                    Created = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2025, 1, 2, 19, 53, 14, 487, DateTimeKind.Local).AddTicks(422)),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     Updated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -142,6 +159,10 @@ namespace ExchangeApi.Infrustructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "ExchangeTransaction",
+                schema: "BASE");
+
+            migrationBuilder.DropTable(
+                name: "File",
                 schema: "BASE");
 
             migrationBuilder.DropTable(

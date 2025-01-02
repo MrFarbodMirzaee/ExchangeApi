@@ -4,54 +4,37 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ExchangeApi.Infrustructure.Persistence.Seeders;
+
 public class CurrencySeeder
 {
-    public static void Intialize(IServiceProvider service)
+    public static async void Intialize(IServiceProvider service)
     {
         using (var context = new AppDbContext(service.GetRequiredService<DbContextOptions<AppDbContext>>()))
         {
             if (!context.Currency.Any())
             {
-                context.Currency.AddRange(
-                new Currency
+                // List to hold currencies
+                var currencies = new List<Currency>();
+                // Add 100 currencies dynamically (starting from 0)
+                for(int i = 0; i<=100 ; i++)
                 {
-                    CurrencyCode = "USD",
-                    Name = "United States Dollar",
-                    Created = DateTime.Now,
-                    IsActive = true,
-                    ImagePath = "/images/currencies/usd.png",
-                    Updated = DateTime.Now,
-                    Description = "The official currency of the United States.",
-                    MetaDescription = "USD - United States Dollar, the most widely used currency in the world.",
-                    DeletedByUserId = 0,
-                    UpdatedByUserId = 1
-                },
-                new Currency
-                {
-                    CurrencyCode = "EUR",
-                    Name = "Euro",
-                    Created = DateTime.Now,
-                    IsActive = false,
-                    ImagePath = "/images/currencies/eur.png",
-                    Updated = DateTime.Now,
-                    Description = "The official currency of the Eurozone.",
-                    MetaDescription = "EUR - Euro, used by 19 of the 27 European Union countries.",
-                    DeletedByUserId = 0,
-                    UpdatedByUserId = 1
-                },
-                new Currency
-                {
-                    CurrencyCode = "JPY",
-                    Name = "Japanese Yen",
-                    Created = DateTime.Now,
-                    ImagePath = "/images/currencies/jpy.png",
-                    Updated = DateTime.Now,
-                    IsActive = true,
-                    Description = "The official currency of Japan.",
-                    MetaDescription = "JPY - Japanese Yen, the currency of Japan.",
-                    DeletedByUserId = 0,
-                    UpdatedByUserId = 1
-                });
+                    currencies.Add(new Currency
+                    {
+                        CurrencyCode = "CUR", // Ensure CurrencyCode is 3 characters
+                        Name = $"Currency {i}",
+                        Created = DateTime.Now,
+                        IsActive = i % 2 == 0,
+                        ImagePath = $"/images/currencies/cur{i:D3}.png",
+                        Updated = DateTime.Now,
+                        Description = $"This is currency number {i}.",
+                        MetaDescription = $"CUR{i:D3} - Description for Currency {i}.",
+                        DeletedByUserId = 0,
+                        UpdatedByUserId = 1
+                    });
+
+                }
+                // Save all currencies
+                context.Currency.AddRange(currencies);
                 context.SaveChanges();
             }
         }
