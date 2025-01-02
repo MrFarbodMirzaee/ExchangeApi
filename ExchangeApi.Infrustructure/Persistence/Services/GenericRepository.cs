@@ -15,14 +15,11 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
     {
         var totalEntityCount = _applicationDbContext.Set<TEntity>().AsNoTracking().Count();
 
-        var totalPages = (int)Math.Ceiling((decimal)totalEntityCount / pageSize);
-
         var entityPerPage = await _applicationDbContext.Set<TEntity>()
                                                        .Skip((page -1) * pageSize)
                                                        .Take(pageSize)
                                                        .ToListAsync();
-
-        // var entities = await _applicationDbContext.Set<TEntity>().AsNoTracking().ToListAsync(ct);
+        
         if (!entityPerPage.Any())
             return new Response<List<TEntity>>("Something went wrong");
 
