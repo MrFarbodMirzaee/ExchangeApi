@@ -33,7 +33,7 @@ public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEnt
     {
         var entities = await _applicationDbContext.Set<TEntity>().Where(expression).AsNoTracking().ToListAsync(ct);
         if (!entities.Any())
-            return new Response<List<TEntity>>("Entity not fount");
+            return new Response<List<TEntity>>("Entity not found");
 
         return new Response<List<TEntity>>(entities);
     }
