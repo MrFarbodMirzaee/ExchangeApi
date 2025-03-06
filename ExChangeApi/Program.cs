@@ -1,37 +1,38 @@
 using ExchangeApi;
 using ExchangeApi.Application;
-using ExchangeApi.Infrustructure;
-using ExchangeApi.MiddelWare;
-using Microsoft.EntityFrameworkCore;
+using ExchangeApi.Infrastructure;
 using Asp.Versioning;
-using ExchangeApi.Infrustructure.Identity;
+using ExchangeApi.Infrastructure.Identity;
+using ExchangeApi.Infrastructure.Identity.Entities;
+using ExchangeApi.Infrastructure.Identity.Seeds;
+using ExchangeApi.Infrastructure.Persistence.Contexts;
+using ExchangeApi.Infrastructure.Persistence.Seeders;
 using Ocelot.Middleware;
-using ExchangeApi.Infrustructure.Persistence.Contexts;
-using Infrastructure.Identity.Seeds;
-using ExchangeApi.Infrustructure.Identity.Entities;
 using Microsoft.AspNetCore.Identity;
-using ExchangeApi.Infrustructure.Persistence.Seeders;
+using ExchangeApi.Middleware;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("ExchangeApi");
-var IdentityConnectionString = builder.Configuration.GetConnectionString("ExchangeApiIdentity");
+var identityConnectionString = builder.Configuration.GetConnectionString("ExchangeApi_Identity");
 
 var configurationBuilder = new ConfigurationBuilder()
     .SetBasePath(Directory.GetCurrentDirectory())
-    .AddJsonFile($"appsetting.Develeopment.json", optional: true, reloadOnChange: true)
+    .AddJsonFile($"appsettings.Development.json", optional: true, reloadOnChange: true)
     .AddJsonFile("secrets.json", optional: true, reloadOnChange: true)
     .AddJsonFile($"appsettings.json", optional: true, reloadOnChange: true);
 
 var configure = configurationBuilder.Build();
 
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
-builder.Services
-    .RegisterApplicationServices()
-    .RegisterPresentationServices(builder.Configuration, connectionString)
-    .RegisterIdentityServices(builder.Configuration, IdentityConnectionString)
-    .RegisterInfrustructureServices(connectionString);
+if (connectionString != null)
+    if (identityConnectionString != null)
+        builder.Services
+            .RegisterApplicationServices()
+            .RegisterPresentationServices(builder.Configuration, connectionString)
+            .RegisterIdentityServices(builder.Configuration, identityConnectionString)
+            .RegisterInfrastructureServices(connectionString);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -59,7 +60,7 @@ builder.Services.AddSwaggerGen(s =>
                     Id = "Bearer"
                 }
             },
-            new string[]{ }
+            new string[] { }
         }
     });
 });
@@ -80,10 +81,10 @@ using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<AppDbContext>();
-    CurrencySeeder.Intialize(services);
-    ExchangeRateSeeder.Intialize(services);
-    UserSeeder.Intialize(services);
-    ExchangeTransactionSeeder.Intialize(services);
+    await CurrencySeeder.Initialize(services);
+    await ExchangeRateSeeder.Initialize(services);
+    await UserSeeder.Initialize(services);
+    await ExchangeTransactionSeeder.Initialize(services);
 
     var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
@@ -96,7 +97,7 @@ using (var scope = app.Services.CreateScope())
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "dotnetCliamAuthoriziation"));
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "dotnetClaimAuthorization"));
 }
 
 

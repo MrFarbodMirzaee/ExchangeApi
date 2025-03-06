@@ -9,12 +9,12 @@ public class Query
     [UseFiltering]
     [UseSorting]
     public IQueryable<Currency> Currencies([Service] AppDbContext _Context)
-    => _Context.Currencies;
+        => _Context.Currencies;
 
 
     [UseProjection]
     [UseFiltering]
     [UseSorting]
-    public IQueryable<TradingPair> TraidingPairs([Service] AppDbContext _Context)
-    => _Context.TradingPairs;
+    public IQueryable<TradingPair> TradingPairs([Service] AppDbContext _Context)
+        => _Context.TradingPairs;
 }

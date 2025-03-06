@@ -1,10 +1,12 @@
 ﻿#nullable disable
+using ExchangeApi.Application.Dtos;
 using ExchangeApi.Domain.Wrappers;
 using MediatR;
 
-namespace ExchangeApi.Application.UseCases.ExchangeRate.Commands;
+namespace ExchangeApi.Application.UseCases.ExchangeRate.Commands.UpdateExchangeRate;
+
 public record UpdateExchangeRateCommand : IRequest<Response<bool>>
 {
-    public int Id { get; set; }
-    public ExchangeApi.Domain.Entities.ExchangeRate ExchangeRate { get; set; }
+    public Guid Id { get; set; }
+    public UpdateExchangeRateDto UpdateExchangeRateDto { get; set; }
 }

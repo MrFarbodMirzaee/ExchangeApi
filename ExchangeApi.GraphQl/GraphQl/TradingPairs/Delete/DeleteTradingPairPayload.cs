@@ -1,2 +1,3 @@
 ﻿namespace ExchangeApi.GraphQl.GraphQl.TradingPairs.Delete;
-public record DeleteTradingPairPayload(string message);
+
+public record DeleteTradingPairPayload(string Message);

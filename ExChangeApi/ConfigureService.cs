@@ -1,14 +1,20 @@
 ﻿using FluentValidation.AspNetCore;
 using ExchangeApi.Application.Profiles;
-using ExchangeApi.Shered;
+using ExchangeApi.Application.Profiles.Currency;
+using ExchangeApi.Application.Profiles.ExchangeRate;
+using ExchangeApi.Application.Profiles.ExchangeTransaction;
+using ExchangeApi.Application.Profiles.File;
+using ExchangeApi.Application.Profiles.User;
+using ExchangeApi.Shared;
 using ExchangeApi.Domain.Wrappers;
-using ExChangeApi.Domain.Entities;
 using ExchangeApi.Domain.Entities;
 
 namespace ExchangeApi;
+
 public static class ConfigureService
 {
-    public static IServiceCollection RegisterPresentationServices(this IServiceCollection services, IConfiguration configuration, string connectionString)
+    public static IServiceCollection RegisterPresentationServices(this IServiceCollection services,
+        IConfiguration configuration, string connectionString)
     {
         services.AddHealthChecks().AddSqlServer(connectionString);
         services.Configure<MySettings>(configuration.GetSection("MySettings"));

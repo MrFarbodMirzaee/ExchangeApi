@@ -1,7 +1,8 @@
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 
-namespace Exchangeapi.Gateway;
+namespace ExchangeApi.Gateway;
+
 public class Program
 {
     public static void Main(string[] args)

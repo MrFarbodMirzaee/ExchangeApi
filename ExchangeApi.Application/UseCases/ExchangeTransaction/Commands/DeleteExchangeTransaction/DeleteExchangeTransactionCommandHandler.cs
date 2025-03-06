@@ -3,29 +3,28 @@ using ExchangeApi.Application.Contracts;
 using ExchangeApi.Domain.Wrappers;
 using MediatR;
 
-namespace ExchangeApi.Application.UseCases.ExchangeTransaction.Commands;
-public class DeleteExchangeTransactionCommandHandler : IRequestHandler<DeleteExchangeTransactionCommand, Response<bool>>
+namespace ExchangeApi.Application.UseCases.ExchangeTransaction.Commands.DeleteExchangeTransaction;
+
+public class DeleteExchangeTransactionCommandHandler(
+    IExchangeTransactionServices exchangeTransactionServices,
+    IMapper mapper)
+    : IRequestHandler<DeleteExchangeTransactionCommand, Response<bool>>
 {
-    private readonly IExchangeTransactionServices _exchangeTranzacstionService;
-    private readonly IMapper _mapper;
-    public DeleteExchangeTransactionCommandHandler(IExchangeTransactionServices exchangeTranzacstionService, IMapper mapper)
-    {
-        _exchangeTranzacstionService = exchangeTranzacstionService;
-        _mapper = mapper;
-    }
     public async Task<Response<bool>> Handle(DeleteExchangeTransactionCommand request, CancellationToken ct)
     {
-        var exchangeTransactionsFind = await _exchangeTranzacstionService.FindByCondition(x => x.Id == request.Id, ct);
+        var exchangeTransactionsFind = await exchangeTransactionServices.FindByCondition(x => x.Id == request.Id, ct);
 
         if (!exchangeTransactionsFind.Succeeded)
             return new Response<bool>(exchangeTransactionsFind.Message);
 
-        var exchangeTransactions = exchangeTransactionsFind.Data.FirstOrDefault();
+        var exchangeTransaction = exchangeTransactionsFind.Data.FirstOrDefault();
 
-        var exchangeTransactionsStatus = await _exchangeTranzacstionService.DeleteAsync(exchangeTransactions, ct);
-   
-        var exchangeTranzacstionDto = _mapper.Map<bool>(exchangeTransactionsStatus.Data);
+        var exchangeTransactionsStatus = await exchangeTransactionServices.DeleteAsync(exchangeTransaction!, ct);
 
-        return exchangeTransactionsStatus.Succeeded ? new Response<bool>(exchangeTranzacstionDto) : new Response<bool>(exchangeTransactionsStatus.Message);
+        var exchangeTransactionDto = mapper.Map<bool>(exchangeTransactionsStatus.Data);
+
+        return exchangeTransactionsStatus.Succeeded
+            ? new Response<bool>(exchangeTransactionDto)
+            : new Response<bool>(exchangeTransactionsStatus.Message);
     }
 }

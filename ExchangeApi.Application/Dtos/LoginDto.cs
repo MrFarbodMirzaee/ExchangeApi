@@ -1,4 +1,6 @@
 ﻿namespace ExchangeApi.Application.Dtos;
 
-public record LoginDto(string UserName,string Password);
-
+public record LoginDto(
+    string UserName,
+    string Password
+);

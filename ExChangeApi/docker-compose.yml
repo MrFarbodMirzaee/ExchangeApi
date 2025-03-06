@@ -1,0 +1,40 @@
+﻿version: '3.8'
+
+services:
+  app:
+    image: your-dotnet-core-api-image  # Replace with your API Docker image name
+    container_name: app
+    build:
+      context: .  # If you need to build your API locally
+      dockerfile: Dockerfile  # Adjust if the Dockerfile has a different name
+    ports:
+      - "5000:80"  # Map port 5000 on host to 80 on container (adjust if necessary)
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development  # Set the environment
+      - ConnectionStrings__ExchangeApi=Server=sqldb;Database=ExchangeApi;User Id=sa;Password=YourStrong123@Password
+      - ConnectionStrings__ExchangeApiIdentity=Server=sqldb;Database=ExchangeApiIdentity;User Id=sa;YourStrong123@Password
+    networks:
+      - app-network
+    depends_on:
+      - sqldb
+
+  sqldb:
+    image: mcr.microsoft.com/mssql/server:2022-latest  # Microsoft SQL Server image
+    container_name: sqldb
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=yourStrong(!)Password  # Set the SA password
+    ports:
+      - "5555:1433"  # Expose port 1433 for SQL Server
+    volumes:
+      - sqldb-data:/var/opt/mssql  # Volume to persist data
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge  # Default network driver
+
+volumes:
+  sqldb-data:
+    driver: local  # Using local volume to persist database data

@@ -4,13 +4,14 @@ using Grpc.Core;
 using Microsoft.EntityFrameworkCore;
 
 namespace Exchange.gRPCServer.Services;
-public class GrpcStreamingCurrencyService : CurrencyStreamRepository.CurrencyStreamRepositoryBase
+
+public class GrpcStreamingCurrencyService(AppDbContext appDbContext)
+    : CurrencyStreamRepository.CurrencyStreamRepositoryBase
 {
-    private readonly AppDbContext _appDbContext;
-    public GrpcStreamingCurrencyService(AppDbContext appDbContext) => _appDbContext = appDbContext;
-    public async override Task GetAllCurrrency(GetCurrencyStraminRequestDto request, IServerStreamWriter<CurrencyStreamResponse> responseStream, ServerCallContext context)
+    public async Task GetAllCurrency(GetCurrencyStraminRequestDto request,
+        IServerStreamWriter<CurrencyStreamResponse> responseStream, ServerCallContext context)
     {
-        var data = await _appDbContext.Currency.ToListAsync();
+        var data = await appDbContext.Currency.ToListAsync();
         foreach (var item in data)
         {
             await responseStream.WriteAsync(new CurrencyStreamResponse

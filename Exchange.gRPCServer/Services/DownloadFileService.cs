@@ -5,13 +5,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Exchange.gRPCServer.Services;
 
-public class DownloadFileService : DownloadFileStreaming.DownloadFileStreamingBase
+public class DownloadFileService(AppDbContext appDbContext) : DownloadFileStreaming.DownloadFileStreamingBase
 {
-    private readonly AppDbContext _appDbContext;
-    public DownloadFileService(AppDbContext appDbContext) => _appDbContext = appDbContext;
-    public async override Task DownloadFileById(FileRequestById request, IServerStreamWriter<FileContent> responseStream, ServerCallContext context)
+    public override async Task DownloadFileById(FileRequestById request,
+        IServerStreamWriter<FileContent> responseStream, ServerCallContext context)
     {
-        var fileRecord = await _appDbContext.File.FirstOrDefaultAsync(f => f.Id == request.Id);
+        var fileRecord = await appDbContext.File.FirstOrDefaultAsync(f => f.Id == request.Id);
 
         if (fileRecord == null)
         {
@@ -19,12 +18,12 @@ public class DownloadFileService : DownloadFileStreaming.DownloadFileStreamingBa
         }
 
         var fileBytes = fileRecord.Content;
-        var chunkSize = 1024 * 64; 
-        var fileName = fileRecord.FileName; 
+        var chunkSize = 1024 * 64;
+        var fileName = fileRecord.FileName;
 
         await responseStream.WriteAsync(new FileContent
         {
-            Content = Google.Protobuf.ByteString.Empty, 
+            Content = Google.Protobuf.ByteString.Empty,
             FileName = fileName,
             ChunkSize = fileBytes.Length
         });

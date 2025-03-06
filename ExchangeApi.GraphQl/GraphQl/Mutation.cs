@@ -10,9 +10,11 @@ using Microsoft.EntityFrameworkCore;
 
 
 namespace ExchangeApi.GraphQl.GraphQl;
+
 public class Mutation
 {
     #region Currency
+
     public async Task<AddCurrencyPayload> AddCurrencyAsync(AddCurrencyDto dto, [Service] AppDbContext _context)
     {
         var currency = new Currency
@@ -24,7 +26,7 @@ public class Mutation
             Name = dto.Name
         };
 
-        await _context.Currencies.AddAsync(currency);
+        _context.Currencies.Add(currency);
         await _context.SaveChangesAsync();
 
         return new AddCurrencyPayload(currency);
@@ -37,6 +39,7 @@ public class Mutation
         {
             return null;
         }
+
         data.Name = dto.Name;
         data.Description = dto.Description;
         data.Volume24h = dto.Volume24h;
@@ -45,6 +48,7 @@ public class Mutation
 
         return new UpdateCurrencyPayload(data);
     }
+
     public async Task<DeleteCurrencyPayload> DeleteCurrencyAsync(DeleteCurrencyDto dto, [Service] AppDbContext _context)
     {
         var data = await _context.Currencies.FirstOrDefaultAsync(d => d.Id == dto.Id);
@@ -52,34 +56,42 @@ public class Mutation
         {
             return null;
         }
+
         _context.Currencies.Remove(data);
         await _context.SaveChangesAsync();
 
         return new DeleteCurrencyPayload("Deleted");
     }
+
     #endregion
+
     #region TradingPairs
-    public async Task<AddTradingPairPayload> AddTradingPairsAsync(AddTradingPairDto input, [Service] AppDbContext _context)
+
+    public async Task<AddTradingPairPayload> AddTradingPairsAsync(AddTradingPairDto input,
+        [Service] AppDbContext _context)
     {
         var tradingPair = new TradingPair
         {
             Id = input.Id,
             BaseAssetSymbol = input.BaseAssetSymbol,
-            QuoteAssetSymbol = input.QuteAssetSymbol
+            QuoteAssetSymbol = input.QuoteAssetSymbol
         };
 
-        await _context.TradingPairs.AddAsync(tradingPair);
+        _context.TradingPairs.Add(tradingPair);
         await _context.SaveChangesAsync();
 
         return new AddTradingPairPayload(tradingPair);
     }
-    public async Task<UpdateTradingPairPayload> UpdateTradingPairAsync(UpdateTradingPairDto dto, [Service] AppDbContext _context)
+
+    public async Task<UpdateTradingPairPayload> UpdateTradingPairAsync(UpdateTradingPairDto dto,
+        [Service] AppDbContext _context)
     {
         var data = await _context.TradingPairs.FirstOrDefaultAsync(d => d.Id == dto.Id);
         if (data is null)
         {
             return null;
         }
+
         data.BaseAssetSymbol = dto.BaseAssetSymbol;
         data.QuoteAssetSymbol = dto.QuoteAssetSymbol;
         data.AmountDecimals = dto.AmountDecimals;
@@ -91,17 +103,21 @@ public class Mutation
 
         return new UpdateTradingPairPayload(data);
     }
-    public async Task<DeleteTradingPairPayload> DeleteTradingPairAsync(DeleteTradingPairDto dto, [Service] AppDbContext _context)
+
+    public async Task<DeleteTradingPairPayload> DeleteTradingPairAsync(DeleteTradingPairDto dto,
+        [Service] AppDbContext _context)
     {
         var data = await _context.TradingPairs.FirstOrDefaultAsync(d => d.Id == dto.Id);
         if (data is null)
         {
             return null;
         }
+
         _context.TradingPairs.Remove(data);
         await _context.SaveChangesAsync();
 
         return new DeleteTradingPairPayload("Deleted");
     }
+
     #endregion
 }

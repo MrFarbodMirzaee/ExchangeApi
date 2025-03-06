@@ -1,9 +1,15 @@
 ﻿using FluentValidation;
-using System.Net.Mail;
 
 namespace ExchangeApi.Application.Dtos;
 
-public record AddUserDto(string Name, string UserName,string EmailAddress , string Password, bool IsActive);
+public record AddUserDto(
+    string Name,
+    string UserName,
+    string EmailAddress,
+    string Password,
+    bool IsActive
+);
+
 public class AddUserDtoValidator : AbstractValidator<AddUserDto>
 {
     public AddUserDtoValidator()

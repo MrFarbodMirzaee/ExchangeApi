@@ -10,7 +10,12 @@
         "/api/V1/ExchangeTransaction/{everything}",
         "/api/V1/User/{everything}"
       ],
-      "UpstreamHttpMethod": [ "Get", "Post", "Put", "Delete" ],
+      "UpstreamHttpMethod": [
+        "Get",
+        "Post",
+        "Put",
+        "Delete"
+      ],
       "DownstreamPathTemplate": [
         "/Currency/api/{everything}",
         "/ExchangeRate/api/{everything}",

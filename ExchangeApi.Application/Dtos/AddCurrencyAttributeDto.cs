@@ -2,7 +2,12 @@
 
 namespace ExchangeApi.Application.Dtos;
 
-public record AddCurrencyAttributeDto(int CurrencyId, string Key, string Value);
+public record AddCurrencyAttributeDto(
+    Guid CurrencyId,
+    string Key,
+    string Value
+);
+
 public class AddCurrencyAttributeValidator : AbstractValidator<AddCurrencyAttributeDto>
 {
     public AddCurrencyAttributeValidator()
@@ -25,4 +30,3 @@ public class AddCurrencyAttributeValidator : AbstractValidator<AddCurrencyAttrib
             .WithMessage("Please Enter valid Id");
     }
 }
-

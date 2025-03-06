@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace ExchangeApi.Application.UseCases.Currency.Commands;
+namespace ExchangeApi.Application.UseCases.Currency.Commands.AddCurrency;
 
 public class AddCurrencyCommandValidator : AbstractValidator<AddCurrencyCommand>
 {

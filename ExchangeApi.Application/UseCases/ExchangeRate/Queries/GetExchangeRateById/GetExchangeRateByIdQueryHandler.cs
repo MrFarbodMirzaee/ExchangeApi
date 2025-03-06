@@ -4,22 +4,20 @@ using ExchangeApi.Application.Dtos;
 using ExchangeApi.Domain.Wrappers;
 using MediatR;
 
-namespace ExchangeApi.Application.UseCases.ExchangeRate.Queries;
-public class GetExchangeRateByIdQueryHandler : IRequestHandler<GetExchangeRateByIdQuery, Response<List<ExchangeRateDto>>>
+namespace ExchangeApi.Application.UseCases.ExchangeRate.Queries.GetExchangeRateById;
+
+public class GetExchangeRateByIdQueryHandler(IExchangeRateService exchangeRateService, IMapper mapper)
+    : IRequestHandler<GetExchangeRateByIdQuery, Response<List<ExchangeRateDto>>>
 {
-    private readonly IExchangeRateService _exchangeRateService;
-    private readonly IMapper _mapper;
-    public GetExchangeRateByIdQueryHandler(IExchangeRateService exchangeRateService, IMapper mapper)
-    {
-        _exchangeRateService = exchangeRateService;
-        _mapper = mapper;
-    }
     public async Task<Response<List<ExchangeRateDto>>> Handle(GetExchangeRateByIdQuery request, CancellationToken ct)
     {
-        Response<List<ExchangeApi.Domain.Entities.ExchangeRate>> exchangeRate = await _exchangeRateService.FindByCondition(x => x.Id == request.Id, ct);
-       
-        var exchangeRateMapped = _mapper.Map<List<ExchangeRateDto>>(exchangeRate.Data);
+        Response<List<ExchangeApi.Domain.Entities.ExchangeRate>> exchangeRate =
+            await exchangeRateService.FindByCondition(x => x.Id == request.Id, ct);
 
-        return exchangeRate.Succeeded ? new Response<List<ExchangeRateDto>>(exchangeRateMapped) : new Response<List<ExchangeRateDto>>(exchangeRate.Message);
+        var exchangeRateMapped = mapper.Map<List<ExchangeRateDto>>(exchangeRate.Data);
+
+        return exchangeRate.Succeeded
+            ? new Response<List<ExchangeRateDto>>(exchangeRateMapped)
+            : new Response<List<ExchangeRateDto>>(exchangeRate.Message);
     }
 }

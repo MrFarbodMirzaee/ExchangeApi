@@ -5,28 +5,30 @@ using Grpc.Core;
 using Microsoft.EntityFrameworkCore;
 
 namespace Exchange.gRPCServer.Services;
-public class GrpcCurrencyService : CurrencyRepository.CurrencyRepositoryBase
+
+public class GrpcCurrencyService(AppDbContext appDbContext) : CurrencyRepository.CurrencyRepositoryBase
 {
-    private readonly AppDbContext _appDbContext;
-    public GrpcCurrencyService(AppDbContext appDbContext) => _appDbContext = appDbContext;
-    public async override Task<AddCurrencyResponseDto> AddCurrency(AddCurrencyRequestDto request, ServerCallContext context)
+    public override async Task<AddCurrencyResponseDto> AddCurrency(AddCurrencyRequestDto request,
+        ServerCallContext context)
     {
         try
         {
-            if ((request.CurrencyCode.Length < 3 || string.IsNullOrEmpty(request.CurrencyCode)) && (request.Price == null || request.Price == 0))
+            if ((request.CurrencyCode.Length < 3 || string.IsNullOrEmpty(request.CurrencyCode)) &&
+                (request.Price == null || request.Price == 0))
             {
                 return new AddCurrencyResponseDto()
                 {
                     ErrorMessage = "Please Enter Correct Format"
                 };
             }
+
             var data = new Currency()
             {
                 CurrencyCode = request.CurrencyCode,
                 Price = request.Price,
             };
-            await _appDbContext.Currency.AddAsync(data);
-            await _appDbContext.SaveChangesAsync();
+            await appDbContext.Currency.AddAsync(data);
+            await appDbContext.SaveChangesAsync();
             return new AddCurrencyResponseDto()
             {
                 AddedMessage = "Currency Added"
@@ -41,11 +43,12 @@ public class GrpcCurrencyService : CurrencyRepository.CurrencyRepositoryBase
         }
     }
 
-    public override async Task<DeleteCurrencyResponseDto> DeleteCurrency(DeleteCurrencyRequestDto request, ServerCallContext context)
+    public override async Task<DeleteCurrencyResponseDto> DeleteCurrency(DeleteCurrencyRequestDto request,
+        ServerCallContext context)
     {
         try
         {
-            var currency = await _appDbContext.Currency.FirstOrDefaultAsync(c => c.Id == request.Id);
+            var currency = await appDbContext.Currency.FirstOrDefaultAsync(c => c.Id == request.Id);
             if (currency == null)
             {
                 return new DeleteCurrencyResponseDto
@@ -55,8 +58,8 @@ public class GrpcCurrencyService : CurrencyRepository.CurrencyRepositoryBase
                 };
             }
 
-            _appDbContext.Currency.Remove(currency);
-            await _appDbContext.SaveChangesAsync();
+            appDbContext.Currency.Remove(currency);
+            await appDbContext.SaveChangesAsync();
 
             return new DeleteCurrencyResponseDto
             {
@@ -72,9 +75,10 @@ public class GrpcCurrencyService : CurrencyRepository.CurrencyRepositoryBase
         }
     }
 
-    public async override Task<CurrencyResponseDto> GetCurrencyById(GetCurrencyByIdRequestDto request, ServerCallContext context)
+    public override async Task<CurrencyResponseDto> GetCurrencyById(GetCurrencyByIdRequestDto request,
+        ServerCallContext context)
     {
-        var data = await _appDbContext.Currency.Where(x => x.Id == request.Id).FirstOrDefaultAsync();
+        var data = await appDbContext.Currency.Where(x => x.Id == request.Id).FirstOrDefaultAsync();
         if (data is null)
         {
             return new CurrencyResponseDto
@@ -82,17 +86,18 @@ public class GrpcCurrencyService : CurrencyRepository.CurrencyRepositoryBase
                 ErrorMessage = "Currency not found"
             };
         }
+
         return new CurrencyResponseDto()
         {
             CurrencyCode = data.CurrencyCode,
             Price = data.Price,
         };
-
     }
 
-    public override async Task<UpdateCurrencyResponseDto> UpdateCurrency(UpdateCurrencyRequestDto request, ServerCallContext context)
+    public override async Task<UpdateCurrencyResponseDto> UpdateCurrency(UpdateCurrencyRequestDto request,
+        ServerCallContext context)
     {
-        var currencyData = await _appDbContext.Currency.FirstOrDefaultAsync(c => c.Id == request.Id);
+        var currencyData = await appDbContext.Currency.FirstOrDefaultAsync(c => c.Id == request.Id);
         if (currencyData is null)
         {
             return new UpdateCurrencyResponseDto
@@ -104,7 +109,7 @@ public class GrpcCurrencyService : CurrencyRepository.CurrencyRepositoryBase
         {
             currencyData.CurrencyCode = request.CurrencyCode;
             currencyData.Price = request.Price;
-            await _appDbContext.SaveChangesAsync();
+            await appDbContext.SaveChangesAsync();
 
             return new UpdateCurrencyResponseDto
             {
@@ -112,7 +117,4 @@ public class GrpcCurrencyService : CurrencyRepository.CurrencyRepositoryBase
             };
         }
     }
-
-
 }
-

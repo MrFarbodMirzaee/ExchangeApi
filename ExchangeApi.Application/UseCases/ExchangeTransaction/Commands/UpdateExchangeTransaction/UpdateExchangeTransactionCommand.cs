@@ -1,10 +1,12 @@
 ﻿#nullable disable
+using ExchangeApi.Application.Dtos;
 using ExchangeApi.Domain.Wrappers;
 using MediatR;
 
-namespace ExchangeApi.Application.UseCases.ExchangeTransaction.Commands;
+namespace ExchangeApi.Application.UseCases.ExchangeTransaction.Commands.UpdateExchangeTransaction;
+
 public record UpdateExchangeTransactionCommand : IRequest<Response<bool>>
 {
-    public int Id { get; set; }
-    public ExchangeApi.Domain.Entities.ExchangeTransaction ExchangeTransaction { get; set; }
+    public Guid Id { get; set; }
+    public UpdateExchangeTransactionDto UpdateExchangeTransactionDto { get; set; }
 }

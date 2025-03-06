@@ -2,6 +2,7 @@
 using ExchangeApi.GraphQl.Entities;
 
 namespace ExchangeApi.GraphQl.GraphQl.Currencies;
+
 public class CurrencyType : ObjectType<Currency>
 {
     protected override void Configure(IObjectTypeDescriptor<Currency> descriptor)
@@ -14,14 +15,9 @@ public class CurrencyType : ObjectType<Currency>
         descriptor.Field(u => u.CreatedAt).Description("The date and time when the currency was created.");
         descriptor.Field(u => u.UpdatedAt).Description("The date and time when the currency was last updated.");
     }
-    private class Resolvers
-    {
-        private readonly AppDbContext context;
 
-        public Resolvers(AppDbContext context)
-        {
-            this.context = context;
-        }
+    private class Resolvers(AppDbContext context)
+    {
         public IQueryable<TradingPair> GetTradingPairs(Currency currency)
         {
             return context.TradingPairs.Where(w => w.Id == currency.Id);

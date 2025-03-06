@@ -3,13 +3,12 @@ using Exchange.gRPCServer.Protos;
 using Grpc.Core;
 
 namespace Exchange.gRPCServer.Services;
-public class GrpcCurrencyImageFileStreamingService : CurrencyFileStreaming.CurrencyFileStreamingBase
+
+public class GrpcCurrencyImageFileStreamingService(AppDbContext appDbContext)
+    : CurrencyFileStreaming.CurrencyFileStreamingBase
 {
-    private readonly AppDbContext _appDbContext;
-
-    public GrpcCurrencyImageFileStreamingService(AppDbContext appDbContext) => _appDbContext = appDbContext;
-
-    public override async Task<UploadStatus> UploadFile(IAsyncStreamReader<FileChunk> requestStream, ServerCallContext context)
+    public override async Task<UploadStatus> UploadFile(IAsyncStreamReader<FileChunk> requestStream,
+        ServerCallContext context)
     {
         try
         {
@@ -35,8 +34,8 @@ public class GrpcCurrencyImageFileStreamingService : CurrencyFileStreaming.Curre
                 Size = fileSize
             };
 
-            await _appDbContext.File.AddAsync(fileRecord);
-            await _appDbContext.SaveChangesAsync();
+            await appDbContext.File.AddAsync(fileRecord);
+            await appDbContext.SaveChangesAsync();
 
             return new UploadStatus { Success = true, Message = "File uploaded successfully." };
         }

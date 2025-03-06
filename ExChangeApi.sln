@@ -13,13 +13,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExchangeApi.Application", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{CE16ADC6-BC02-457A-B718-B75165E63F61}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrustructure", "Infrustructure", "{04741595-F5F8-4739-82EF-67145EC2D225}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{04741595-F5F8-4739-82EF-67145EC2D225}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExchangeApi.Infrustructure", "ExchangeApi.Infrustructure\ExchangeApi.Infrustructure.csproj", "{C0612E27-5131-418B-951E-A5858C4189B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExchangeApi.Infrastructure", "ExchangeApi.Infrastructure\ExchangeApi.Infrastructure.csproj", "{C0612E27-5131-418B-951E-A5858C4189B8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExchangeApi.Infrustructure.Identity", "ExchangeApi.Infrustructure.Identity\ExchangeApi.Infrustructure.Identity.csproj", "{3E5336C3-67D0-4BCB-9A06-7F0D95B1B06B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExchangeApi.Infrastructure.Identity", "ExchangeApi.Infrastructure.Identity\ExchangeApi.Infrastructure.Identity.csproj", "{3E5336C3-67D0-4BCB-9A06-7F0D95B1B06B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExchangeApi.Infrustructure.Shered", "ExchangeApi.Infrustructure.Shered\ExchangeApi.Infrustructure.Shered.csproj", "{4D4041F9-BA93-445D-9E5B-11B5DD59D33C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExchangeApi.Infrastructure.Shered", "ExchangeApi.Infrastructure.Shered\ExchangeApi.Infrastructure.Shered.csproj", "{4D4041F9-BA93-445D-9E5B-11B5DD59D33C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{767C8E3A-75F6-4BE8-8605-F9639D9394F9}"
 EndProject

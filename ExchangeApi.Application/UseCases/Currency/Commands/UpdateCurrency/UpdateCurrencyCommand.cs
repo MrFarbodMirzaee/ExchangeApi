@@ -1,10 +1,12 @@
 ﻿#nullable disable
+using ExchangeApi.Application.Dtos;
 using ExchangeApi.Domain.Wrappers;
 using MediatR;
 
-namespace ExchangeApi.Application.UseCases.Currency.Commands;
+namespace ExchangeApi.Application.UseCases.Currency.Commands.UpdateCurrency;
+
 public record UpdateCurrencyCommand : IRequest<Response<bool>>
 {
-    public int CurrencyId { get; set; }
-    public ExChangeApi.Domain.Entities.Currency Currency { get; set; }
+    public Guid CurrencyId { get; set; }
+    public UpdateCurrencyDto UpdateCurrencyDto { get; set; }
 }
