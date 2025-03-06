@@ -1,4 +1,5 @@
 ﻿namespace ExchangeApi.Application.Enums;
+
 public enum Roles : byte
 {
     None,

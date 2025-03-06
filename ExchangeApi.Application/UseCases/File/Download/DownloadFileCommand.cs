@@ -4,12 +4,7 @@ using MediatR;
 
 namespace ExchangeApi.Application.UseCases.File.Download;
 
-public class DownloadFileCommand : IRequest<Response<DownloadFileDto>>
+public class DownloadFileCommand(Guid fileId) : IRequest<Response<DownloadFileDto>>
 {
-    public int FileId { get; set; }
-
-    public DownloadFileCommand(int fileId)
-    {
-        FileId = fileId;
-    }
+    public Guid FileId { get; set; } = fileId;
 }

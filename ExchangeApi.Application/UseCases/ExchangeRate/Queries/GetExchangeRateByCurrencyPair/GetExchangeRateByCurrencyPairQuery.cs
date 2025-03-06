@@ -3,9 +3,10 @@ using ExchangeApi.Application.Dtos;
 using ExchangeApi.Domain.Wrappers;
 using MediatR;
 
-namespace ExchangeApi.Application.UseCases.ExchangeRate.Queries;
+namespace ExchangeApi.Application.UseCases.ExchangeRate.Queries.GetExchangeRateByCurrencyPair;
+
 public record GetExchangeRateByCurrencyPairQuery : IRequest<Response<List<ExchangeRateDto>>>
 {
-    public int FromCurrency { get; set; }
-    public int ToCurrency { get; set; }
+    public Guid FromCurrency { get; set; }
+    public Guid ToCurrency { get; set; }
 }

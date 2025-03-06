@@ -2,16 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 
 namespace ExchangeApi.GraphQl.Data;
-public class AppDbContext : DbContext
-{
-    public AppDbContext(DbContextOptions options) : base(options) { }
 
+public class AppDbContext(DbContextOptions options) : DbContext(options)
+{
     #region Dbset
+
     public DbSet<Currency> Currencies { get; set; }
     public DbSet<TradingPair> TradingPairs { get; set; }
+
     #endregion
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder) 
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Currency>(entity =>
         {

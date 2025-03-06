@@ -1,12 +1,13 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
 namespace ExchangeApi.Application;
+
 public static class ConfigurationService
 {
-    public static IServiceCollection RegisterApplicationServices(this IServiceCollection Services)
+    public static IServiceCollection RegisterApplicationServices(this IServiceCollection services)
     {
         var assembly = typeof(ConfigurationService).Assembly;
-        Services.AddMediatR(confog => confog.RegisterServicesFromAssemblies(assembly));
-        return Services;
+        services.AddMediatR(config => config.RegisterServicesFromAssemblies(assembly));
+        return services;
     }
 }

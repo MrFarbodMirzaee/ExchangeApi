@@ -3,8 +3,9 @@ using ExchangeApi.Application.Dtos;
 using ExchangeApi.Domain.Wrappers;
 using MediatR;
 
-namespace ExchangeApi.Application.UseCases.ExchangeTransaction.Queries;
+namespace ExchangeApi.Application.UseCases.ExchangeTransaction.Queries.GetExchangeTransactionById;
+
 public record GetExchangeTransactionByIdQuery : IRequest<Response<List<ExchangeTransactionDto>>>
 {
-    public int ExchangeTransactionId { get; set; }
+    public Guid ExchangeTransactionId { get; set; }
 }

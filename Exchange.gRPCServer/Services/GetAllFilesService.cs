@@ -4,19 +4,19 @@ using Grpc.Core;
 using Microsoft.EntityFrameworkCore;
 
 namespace Exchange.gRPCServer.Services;
-public class GetAllFilesService : FileService.FileServiceBase
-{
-    private readonly AppDbContext _dbContext;
 
-    public GetAllFilesService(AppDbContext dbContext) => _dbContext = dbContext;
-    public async override Task GetAllFiles(Empty request, IServerStreamWriter<FileMetadata> responseStream, ServerCallContext context)
+public class GetAllFilesService(AppDbContext dbContext) : FileService.FileServiceBase
+{
+    public override async Task GetAllFiles(Empty request, IServerStreamWriter<FileMetadata> responseStream,
+        ServerCallContext context)
     {
-        var files = await _dbContext.File.ToListAsync();
+        var files = await dbContext.File.ToListAsync();
 
         if (files.Count == 0)
         {
             throw new RpcException(new Status(StatusCode.NotFound, "No files found in the database."));
         }
+
         foreach (var file in files)
         {
             var fileMetadata = new FileMetadata
@@ -32,4 +32,3 @@ public class GetAllFilesService : FileService.FileServiceBase
         }
     }
 }
-

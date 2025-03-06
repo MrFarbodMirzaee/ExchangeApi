@@ -1,6 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 
 namespace ExchangeApi.Application.Dtos;
+
 public record AuthenticationResponseDto
 {
     public string Id { get; set; }
@@ -9,6 +10,5 @@ public record AuthenticationResponseDto
     public List<string> Roles { get; set; }
     public bool IsVerified { get; set; }
     public string JWToken { get; set; }
-    [JsonIgnore]
-    public string RefreshToken { get; set; }
+    [JsonIgnore] public string RefreshToken { get; set; }
 }

@@ -14,7 +14,9 @@ public static class CustomFilter
         var targetType = propName.Type;
         if (targetType.IsGenericType && targetType.GetGenericTypeDefinition() == typeof(Nullable<>))
             targetType = Nullable.GetUnderlyingType(targetType);
-        var constExpression = Expression.Constant(Convert.ChangeType(filter.Value, targetType), propName.Type);
+        var constExpression =
+            Expression.Constant(Convert.ChangeType(filter.Value, targetType ?? throw new InvalidOperationException()),
+                propName.Type);
         Expression filterExpression;
 
         switch (filter.Operation)
@@ -22,7 +24,7 @@ public static class CustomFilter
             case Operator.Eq:
                 filterExpression = Expression.Equal(propName, constExpression);
                 break;
-            case Operator.LtOrEQ:
+            case Operator.LtOrEq:
                 filterExpression = Expression.LessThanOrEqual(propName, constExpression);
                 break;
             case Operator.Lt:
@@ -31,58 +33,60 @@ public static class CustomFilter
             case Operator.Gt:
                 filterExpression = Expression.GreaterThan(propName, constExpression);
                 break;
-            case Operator.GtOrEQ:
+            case Operator.GtOrEq:
                 filterExpression = Expression.GreaterThanOrEqual(propName, constExpression);
                 break;
             case Operator.NotEq:
                 filterExpression = Expression.NotEqual(propName, constExpression);
                 break;
             case Operator.Contains:
-                var ContainsMethodInfo = typeof(string).GetMethod(nameof(string.Contains), new Type[] { typeof(string) });
-                filterExpression = Expression.Call(propName, ContainsMethodInfo, constExpression);
+                var containsMethodInfo =
+                    typeof(string).GetMethod(nameof(string.Contains), new Type[] { typeof(string) });
+                filterExpression = Expression.Call(propName, containsMethodInfo, constExpression);
                 break;
             default:
                 throw new InvalidOperationException();
         }
+
         return Expression.Lambda<Func<T, bool>>(filterExpression, parameter);
     }
-    private static Expression<Func<T, object>> GetSortExpression<T>(Sort sort)
 
+    private static Expression<Func<T, object>> GetSortExpression<T>(Sort sort)
     {
         var prop = Expression.Parameter(typeof(T));
         var property = Expression.PropertyOrField(prop, sort.PropertyName);
         return Expression.Lambda<Func<T, object>>(property, prop);
     }
-    public async static Task<IEnumerable<T>> ApplyFilter<T>(this IQueryable<T> query, QueryCriterial queryCriterial)
+
+    public async static Task<IEnumerable<T>> ApplyFilter<T>(this IQueryable<T> query, QueryCriteria? queryCriteria)
     {
-        if (queryCriterial is not null)
+        if (queryCriteria is not null)
         {
-            if (queryCriterial.Filters is not null)
+            if (queryCriteria.Filters is not null)
             {
-                foreach (var filter in queryCriterial.Filters)
+                foreach (var filter in queryCriteria.Filters)
                 {
                     query = query.Where(GetFilterExpression<T>(filter));
                 }
             }
 
-            if (queryCriterial.Sorts is not null)
+            if (queryCriteria.Sorts is not null)
             {
-                foreach (var sort in queryCriterial.Sorts)
+                foreach (var sort in queryCriteria.Sorts)
                 {
-                    query = sort.IsAscending ?
-                        query.OrderBy(GetSortExpression<T>(sort)) :
-                        query.OrderByDescending(GetSortExpression<T>(sort));
+                    query = sort.IsAscending
+                        ? query.OrderBy(GetSortExpression<T>(sort))
+                        : query.OrderByDescending(GetSortExpression<T>(sort));
                 }
             }
 
-            return query.Skip(queryCriterial.Skip)
-                        .Take(queryCriterial.Take)
-                        .ToList();
+            return query.Skip(queryCriteria.Skip)
+                .Take(queryCriteria.Take)
+                .ToList();
         }
         else
         {
             return query.ToList();
         }
     }
-
 }

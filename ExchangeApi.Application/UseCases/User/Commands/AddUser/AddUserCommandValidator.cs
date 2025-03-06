@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 
-namespace ExchangeApi.Application.UseCases.User.Commands;
+namespace ExchangeApi.Application.UseCases.User.Commands.AddUser;
+
 public class AddUserCommandValidator : AbstractValidator<AddUserCommand>
 {
     public AddUserCommandValidator()

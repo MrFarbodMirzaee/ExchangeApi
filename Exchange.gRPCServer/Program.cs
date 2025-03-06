@@ -1,6 +1,5 @@
 using Exchange.gRPCServer;
 using Exchange.gRPCServer.Services;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,7 +9,7 @@ var configurationBuilder = new ConfigurationBuilder()
     .AddJsonFile("secrets.json", optional: true, reloadOnChange: true);
 
 var con = builder.Configuration.GetConnectionString("ExchangeApiGrpc");
-builder.Services.RegisterGrpcServices(con);
+if (con != null) builder.Services.RegisterGrpcServices(con);
 
 
 //Add Grpc Reflection for test in postman
@@ -26,6 +25,8 @@ app.MapGrpcService<GrpcStreamingCurrencyService>();
 app.MapGrpcService<DownloadFileService>();
 app.MapGrpcService<GetAllFilesService>();
 
-app.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
+app.MapGet("/",
+    () =>
+        "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
 
 app.Run();

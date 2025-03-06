@@ -3,23 +3,22 @@ using ExchangeApi.Application.Contracts;
 using ExchangeApi.Domain.Wrappers;
 using MediatR;
 
-namespace ExchangeApi.Application.UseCases.ExchangeRate.Commands;
-public class UpdateExchangeRateCommandHandler : IRequestHandler<UpdateExchangeRateCommand, Response<bool>>
+namespace ExchangeApi.Application.UseCases.ExchangeRate.Commands.UpdateExchangeRate;
+
+public class UpdateExchangeRateCommandHandler(IExchangeRateService exchangeRateService, IMapper mapper)
+    : IRequestHandler<UpdateExchangeRateCommand, Response<bool>>
 {
-    private readonly IExchangeRateService _exchangeRateService;
-    private readonly IMapper _mapper;
-    public UpdateExchangeRateCommandHandler(IExchangeRateService exchangeRateService, IMapper mapper)
-    {
-        _exchangeRateService = exchangeRateService;
-        _mapper = mapper;
-    }
     public async Task<Response<bool>> Handle(UpdateExchangeRateCommand request, CancellationToken ct)
     {
-        request.ExchangeRate.Id = request.Id;
-        request.ExchangeRate.Updated = DateTime.Now;
+        var exchangeRateEntity = mapper.Map<Domain.Entities.ExchangeRate>(request.UpdateExchangeRateDto);
+        
+        exchangeRateEntity.Id = request.Id;
+        exchangeRateEntity.Updated = DateTime.Now;
 
-        Response<bool> currencyStatus = await _exchangeRateService.UpdateAsync(request.ExchangeRate, ct);
+        Response<bool> currencyStatus = await exchangeRateService.UpdateAsync(exchangeRateEntity, ct);
 
-        return currencyStatus.Succeeded ? new Response<bool>(currencyStatus.Data) : new Response<bool>(currencyStatus.Message);
+        return currencyStatus.Succeeded
+            ? new Response<bool>(currencyStatus.Data)
+            : new Response<bool>(currencyStatus.Message);
     }
 }

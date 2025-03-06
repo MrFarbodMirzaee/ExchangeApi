@@ -1,2 +1,12 @@
 ﻿namespace ExchangeApi.Application.Dtos;
-public record ExchangeTransactionDto(int Id, int FromCurrencyId, int ToCurrencyId, decimal Amount, decimal ResultAmount, int ExchangeRateId, bool IsActive, DateTime TransactionDate);
+
+public record ExchangeTransactionDto(
+    Guid Id,
+    Guid FromCurrencyId,
+    Guid ToCurrencyId,
+    decimal Amount,
+    decimal ResultAmount,
+    Guid ExchangeRateId,
+    bool IsActive,
+    DateTime TransactionDate
+);

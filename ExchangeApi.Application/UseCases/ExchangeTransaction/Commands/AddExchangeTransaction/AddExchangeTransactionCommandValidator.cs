@@ -1,16 +1,16 @@
-﻿using ExchangeApi.Application.UseCases.ExchangeTransaction.Commands.AddExchangeTransaction;
-using FluentValidation;
+﻿using FluentValidation;
 
-namespace ExchangeApi.Application.UseCases.ExchangeTransaction.Commands;
+namespace ExchangeApi.Application.UseCases.ExchangeTransaction.Commands.AddExchangeTransaction;
+
 public class AddExchangeTransactionCommandValidator : AbstractValidator<AddExchangeTransactionCommand>
 {
     public AddExchangeTransactionCommandValidator()
     {
         RuleFor(x => x.FromCurrencyId)
-           .NotEmpty()
-           .NotNull()
-           .GreaterThan(0)
-           .WithMessage("Please select a valid From Currency");
+            .NotEmpty()
+            .NotNull()
+            .GreaterThan(0)
+            .WithMessage("Please select a valid From Currency");
 
         RuleFor(x => x.ToCurrencyId)
             .NotEmpty()

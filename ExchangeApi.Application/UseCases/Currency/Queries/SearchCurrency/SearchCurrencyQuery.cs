@@ -2,10 +2,9 @@
 using ExchangeApi.Domain.Wrappers;
 using MediatR;
 
-namespace ExchangeApi.Application.UseCases.Currency.Queries;
+namespace ExchangeApi.Application.UseCases.Currency.Queries.SearchCurrency;
+
 public record SearchCurrencyQuery : IRequest<Response<List<CurrencyDto>>>
 {
     public string Word { get; set; }
 }
-
-

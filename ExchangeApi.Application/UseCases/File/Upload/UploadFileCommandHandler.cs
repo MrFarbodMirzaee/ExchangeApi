@@ -3,24 +3,18 @@ using ExchangeApi.Application.Contracts;
 using ExchangeApi.Domain.Wrappers;
 using MediatR;
 
-namespace ExchangeApi.Application.UseCases.File;
-public class UploadFileCommandHandler : IRequestHandler<UploadFileCommand, Response<bool>>
-{
-    private readonly IMapper _mapper;
-    private readonly IFileService _fileService;
-    public UploadFileCommandHandler(IMapper mapper, IFileService fileService)
-    {
-        _mapper = mapper;
-        _fileService = fileService;
-    }
+namespace ExchangeApi.Application.UseCases.File.Upload;
 
+public class UploadFileCommandHandler(IMapper mapper, IFileService fileService)
+    : IRequestHandler<UploadFileCommand, Response<bool>>
+{
     public async Task<Response<bool>> Handle(UploadFileCommand request, CancellationToken ct)
     {
         if (request.File == null || request.File.Length == 0)
             return new Response<bool>("No file uploaded.");
 
-        const int MaxFileSize = 5 * 1024 * 1024; // 5MB in bytes
-        if (request.File.Length > MaxFileSize)
+        const int maxFileSize = 5 * 1024 * 1024; // 5MB in bytes
+        if (request.File.Length > maxFileSize)
             return new Response<bool>("The File has to be 5mb");
 
         var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".heic", ".pdf" };
@@ -32,11 +26,10 @@ public class UploadFileCommandHandler : IRequestHandler<UploadFileCommand, Respo
         if (!allowedContentTypes.Contains(request.File.ContentType))
             return new Response<bool>("the type is not in correct format");
 
-        var fileEntity = _mapper.Map<ExchangeApi.Domain.Entities.File>(request);
+        var fileEntity = mapper.Map<ExchangeApi.Domain.Entities.File>(request);
 
-        var FileStatus = await _fileService.UploadFileAsync(fileEntity, ct);
+        var fileStatus = await fileService.UploadFileAsync(fileEntity, ct);
 
-        return FileStatus.Succeeded ? new Response<bool>(FileStatus.Data) : new Response<bool>(FileStatus.Message);
+        return fileStatus.Succeeded ? new Response<bool>(fileStatus.Data) : new Response<bool>(fileStatus.Message);
     }
-
 }

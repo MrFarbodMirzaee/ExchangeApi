@@ -1,10 +1,6 @@
-﻿namespace Exchange.gRPCClient.Entities;
+﻿namespace Exchange.gRPCServer.Entities;
 
-public class HttpStatusCodeException : Exception
+public class HttpStatusCodeException(int statusCode, string message) : Exception(message)
 {
-    public int StatusCode { get; }
-    public HttpStatusCodeException(int statusCode, string message) : base(message)
-    {
-        StatusCode = statusCode;
-    }
+    public int StatusCode { get; } = statusCode;
 }

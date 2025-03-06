@@ -1,4 +1,5 @@
 ﻿namespace Exchange.gRPCServer.Entities;
+
 public class File
 {
     public int Id { get; set; }
