@@ -9,17 +9,12 @@ public class ExchangeRateConfig : IEntityTypeConfiguration<ExchangeRate>
     public void Configure(EntityTypeBuilder<ExchangeRate> builder)
     {
         builder.HasKey(x => x.Id)
-            .IsClustered()
+            .IsClustered(false)
             .HasName("Pk_Base_ExchangeRate");
         
         builder.Property(p => p.Id)
-            .ValueGeneratedNever();
-        
-        builder.Property(x => x.FromCurrency)
-            .IsRequired();
-        
-        builder.Property(x => x.ToCurrency)
-            .IsRequired();
+            .ValueGeneratedNever()
+            .HasDefaultValue(Guid.NewGuid());
         
         builder.Property(x => x.Created)
             .IsRequired()
@@ -31,5 +26,17 @@ public class ExchangeRateConfig : IEntityTypeConfiguration<ExchangeRate>
         
         builder.Property(x => x.Rate)
             .IsRequired();
+        
+        builder.HasOne(current => current.FromCurrency)
+            .WithMany(other=> other.FromExchangeRates) 
+            .IsRequired()
+            .HasForeignKey(current => current.FromCurrencyId)
+            .OnDelete(deleteBehavior: DeleteBehavior.Restrict);
+
+        builder.HasOne(current => current.ToCurrency)
+            .WithMany(other=> other.ToExchangeRates)
+            .IsRequired()
+            .HasForeignKey(current => current.ToCurrencyId)
+            .OnDelete(deleteBehavior: DeleteBehavior.Restrict);
     }
 }

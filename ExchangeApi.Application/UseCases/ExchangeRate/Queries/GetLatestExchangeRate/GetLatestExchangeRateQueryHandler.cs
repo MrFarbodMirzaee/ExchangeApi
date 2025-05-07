@@ -13,13 +13,16 @@ public class GetLatestExchangeRateQueryHandler(IExchangeRateService exchangeRate
     {
         Response<List<ExchangeApi.Domain.Entities.ExchangeRate>> exchangeRate =
             await exchangeRateService.FindByCondition(
-                e => e.FromCurrency == request.FromCurrency && e.ToCurrency == request.ToCurrency, ct);
+                e => e.FromCurrencyId == request.FromCurrency
+                     && e.ToCurrencyId == request.ToCurrency, ct);
+        
         if (exchangeRate.Data is null)
             return new Response<List<ExchangeRateDto>>(exchangeRate.Message);
 
         var orderByDesc = exchangeRate.Data.OrderByDescending(e => e.Created);
 
         var exchangeRateMapped = mapper.Map<List<ExchangeRateDto>>(orderByDesc);
+        
         return exchangeRate.Succeeded
             ? new Response<List<ExchangeRateDto>>(exchangeRateMapped)
             : new Response<List<ExchangeRateDto>>(exchangeRate.Message);

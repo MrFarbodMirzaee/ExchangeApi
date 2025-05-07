@@ -11,12 +11,18 @@ public static class CustomFilter
         var parameter = Expression.Parameter(typeof(T));
 
         var propName = Expression.PropertyOrField(parameter, filter.PropertyName);
+        
         var targetType = propName.Type;
-        if (targetType.IsGenericType && targetType.GetGenericTypeDefinition() == typeof(Nullable<>))
+        
+        if (targetType.IsGenericType && targetType
+                            .GetGenericTypeDefinition() == typeof(Nullable<>))
+            
             targetType = Nullable.GetUnderlyingType(targetType);
+        
         var constExpression =
             Expression.Constant(Convert.ChangeType(filter.Value, targetType ?? throw new InvalidOperationException()),
                 propName.Type);
+        
         Expression filterExpression;
 
         switch (filter.Operation)
@@ -48,7 +54,8 @@ public static class CustomFilter
                 throw new InvalidOperationException();
         }
 
-        return Expression.Lambda<Func<T, bool>>(filterExpression, parameter);
+        return Expression
+                .Lambda<Func<T, bool>>(filterExpression, parameter);
     }
 
     private static Expression<Func<T, object>> GetSortExpression<T>(Sort sort)

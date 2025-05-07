@@ -13,6 +13,7 @@ public class GetAllUserQueryHandler(IUserService userService, IMapper mapper)
     {
         var pageSize = request.PageSize;
         var page = request.Page;
+        
         Response<List<Domain.Entities.User>> users = await userService.GetAllAsync(ct, page, pageSize);
 
         var userMapped = mapper.Map<List<UserDto>>(users.Data);

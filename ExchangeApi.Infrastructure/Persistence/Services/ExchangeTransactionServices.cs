@@ -13,10 +13,15 @@ public class ExchangeTransactionServices(AppDbContext applicationDbContext)
 
     public async Task<Response<bool>> Activate(Guid exchangeTransactionId)
     {
-        var exchangeTransaction = await _applicationDbContext.ExchangeTransaction
-            .Where(x => x.Id == exchangeTransactionId).FirstOrDefaultAsync();
+        var exchangeTransaction = await _applicationDbContext
+            .ExchangeTransaction
+            .Where(x => x.Id == exchangeTransactionId)
+            .FirstOrDefaultAsync();
+        
         exchangeTransaction?.Activate();
-        await _applicationDbContext.SaveChangesAsync();
+        
+        await _applicationDbContext
+                .SaveChangesAsync();
         return new Response<bool>(true);
     }
 }

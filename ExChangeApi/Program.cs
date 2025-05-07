@@ -12,12 +12,19 @@ using Microsoft.AspNetCore.Identity;
 using ExchangeApi.Middleware;
 using Microsoft.OpenApi.Models;
 
-var builder = WebApplication.CreateBuilder(args);
+var builder = WebApplication
+              .CreateBuilder(args);
 
-var connectionString = builder.Configuration.GetConnectionString("ExchangeApi");
-var identityConnectionString = builder.Configuration.GetConnectionString("ExchangeApi_Identity");
+var connectionString = builder
+    .Configuration
+    .GetConnectionString("ExchangeApi");
 
-var configurationBuilder = new ConfigurationBuilder()
+var identityConnectionString = builder
+    .Configuration
+    .GetConnectionString("ExchangeApi_Identity");
+
+var configurationBuilder = 
+    new ConfigurationBuilder()
     .SetBasePath(Directory.GetCurrentDirectory())
     .AddJsonFile($"appsettings.Development.json", optional: true, reloadOnChange: true)
     .AddJsonFile("secrets.json", optional: true, reloadOnChange: true)
@@ -26,6 +33,7 @@ var configurationBuilder = new ConfigurationBuilder()
 var configure = configurationBuilder.Build();
 
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
+
 if (connectionString != null)
     if (identityConnectionString != null)
         builder.Services
@@ -65,7 +73,8 @@ builder.Services.AddSwaggerGen(s =>
     });
 });
 
-var apiVersioning = builder.Services.AddApiVersioning(o =>
+var apiVersioning = builder.Services
+    .AddApiVersioning(o =>
 {
     o.AssumeDefaultVersionWhenUnspecified = true;
     o.DefaultApiVersion = new ApiVersion(1.0);
@@ -77,27 +86,32 @@ var apiVersioning = builder.Services.AddApiVersioning(o =>
 });
 
 var app = builder.Build();
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-    var context = services.GetRequiredService<AppDbContext>();
-    await CurrencySeeder.Initialize(services);
-    await ExchangeRateSeeder.Initialize(services);
-    await UserSeeder.Initialize(services);
-    await ExchangeTransactionSeeder.Initialize(services);
-
-    var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
-    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-
-    await DefaultRoles.SeedAsync(userManager, roleManager);
-    await DefaultBasicUser.SeedAsync(userManager, roleManager);
-}
+// using var scope = app.Services.CreateScope();
+// {
+//     var services = scope.ServiceProvider;
+//     var context = services.GetRequiredService<AppDbContext>();
+//     await CurrencySeeder.Initialize(services);
+//     await ExchangeRateSeeder.Initialize(services);
+//     await UserSeeder.Initialize(services);
+//     await ExchangeTransactionSeeder.Initialize(services);
+//
+//     var userManager = services
+//         .GetRequiredService<UserManager<ApplicationUser>>();
+//     
+//     var roleManager = services
+//         .GetRequiredService<RoleManager<IdentityRole>>();
+//
+//     await DefaultRoles.SeedAsync(userManager, roleManager);
+//     await DefaultBasicUser.SeedAsync(userManager, roleManager);
+// }
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "dotnetClaimAuthorization"));
+    app.UseSwaggerUI(c =>
+        c.SwaggerEndpoint("/swagger/v1/swagger.json",
+                         "dotnetClaimAuthorization"));
 }
 
 

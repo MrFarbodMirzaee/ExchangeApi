@@ -8,14 +8,9 @@ namespace ExchangeApi.Domain.Entities;
 /// This entity categorizes currencies and their attributes for better organization and retrieval.
 /// </summary>
 [Entity]
-public class Category : IBaseEntity<Guid>, IDeletable, IAuditable
+public class Category : BaseEntity<Guid>, IDeletable, IAuditable
 {
     #region Properties
-
-    /// <summary>
-    /// Represents the unique identifier of the category.
-    /// </summary>
-    public Guid Id { get; set; }
 
     /// <summary>
     /// Represents the name of the category.
@@ -23,24 +18,9 @@ public class Category : IBaseEntity<Guid>, IDeletable, IAuditable
     public string Name { get; set; }
 
     /// <summary>
-    /// A meta description for SEO or informational purposes.
-    /// </summary>
-    public string MetaDescription { get; set; }
-
-    /// <summary>
     /// A brief description of the category.
     /// </summary>
-    public string Description { get; set; }
-
-    /// <summary>
-    /// The timestamp indicating when the category was created.
-    /// </summary>
-    public DateTime Created { get; set; }
-
-    /// <summary>
-    /// The timestamp of the last update made to the category.
-    /// </summary>
-    public DateTime Updated { get; set; }
+    public string Description { get; set; } = null!;
 
     /// <summary>
     /// The identifier of the user who last updated this category.
@@ -55,6 +35,16 @@ public class Category : IBaseEntity<Guid>, IDeletable, IAuditable
     #endregion
 
     #region Navigatoions
+    
+    /// <summary>
+    /// Represents a collection of currencies associated with this category.
+    /// </summary>
+    public ICollection<Currency> Currencies { get; set; }
 
+    /// <summary>
+    /// Represents a collection of currency attributes associated with this category.
+    /// </summary>
+    public ICollection<CurrencyAttribute> CurrencyAttributes { get; set; }
+    
     #endregion
 }

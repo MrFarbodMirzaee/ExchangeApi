@@ -10,17 +10,23 @@ public class CurrencyConfig : IEntityTypeConfiguration<Currency>
     {
         builder
             .HasKey(x => x.Id)
-            .IsClustered()
+            .IsClustered(false)
             .HasName("PK_Base_Currency");
 
         builder.Property(p => p.Id)
-            .ValueGeneratedNever();
+            .ValueGeneratedNever()
+            .HasDefaultValue(Guid.NewGuid());
         
         builder.Property(x => x.CurrencyCode)
             .IsRequired()
+            .IsUnicode(false)
             .HasMaxLength(3);
+
+        builder.HasIndex(x => x.CurrencyCode)
+            .IsUnique();
         
         builder.Property(x => x.Name)
+            .IsUnicode(false)
             .IsRequired();
         
         builder.Property(x => x.IsActive)
@@ -30,5 +36,11 @@ public class CurrencyConfig : IEntityTypeConfiguration<Currency>
         builder.Property(x => x.Created)
             .IsRequired()
             .HasDefaultValue(DateTime.Now);
+
+        builder.HasOne(current => current.Category)
+            .WithMany(other => other.Currencies)
+            .IsRequired(true)
+            .HasForeignKey(s => s.CategoryId)
+            .OnDelete(DeleteBehavior.Restrict); 
     }
 }

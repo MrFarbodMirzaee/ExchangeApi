@@ -18,13 +18,12 @@ public class ExchangeRateSeeder
                 exchangeRates.Add(new ExchangeRate
                 {
                     Id = Guid.NewGuid(),
-                    FromCurrency = Guid.NewGuid(),
-                    ToCurrency = Guid.NewGuid(),
+                    FromCurrencyId = Guid.NewGuid(),
+                    ToCurrencyId = Guid.NewGuid(),
                     IsActive = i % 2 == 0,
                     Rate = (decimal)(1 + (i * 0.1)),
                     Created = DateTime.Now,
                     Updated = DateTime.Now,
-                    Description = $"Exchange rate from Currency {i} to Currency {(i % 10) + 1}.",
                     MetaDescription = $"Current exchange rate for Currency {i} to Currency {(i % 10) + 1}.",
                     UpdatedByUserId = Guid.NewGuid(),
                     DeletedByUserId = Guid.NewGuid()

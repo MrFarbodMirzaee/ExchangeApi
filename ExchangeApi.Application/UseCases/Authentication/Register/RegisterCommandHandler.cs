@@ -10,7 +10,7 @@ public class RegisterCommandHandler(IAuthenticationService authenticationService
 {
     public async Task<Response<AuthenticationResponseDto>> Handle(RegisterCommand request, CancellationToken ct)
     {
-        var result = await authenticationService.Register(request, ct);
+        var result = await authenticationService.RegisterAsync(request, ct);
         return result.Succeeded
             ? new Response<AuthenticationResponseDto>(result.Data)
             : new Response<AuthenticationResponseDto>(result.Message);

@@ -12,7 +12,9 @@ namespace ExchangeApi.Controllers;
 public class BaseController : Controller
 {
     private ISender _mediateR = null!;
-    private ISender Mediator => _mediateR ??= HttpContext.RequestServices.GetRequiredService<ISender>();
+    private ISender Mediator => _mediateR ??= HttpContext.
+                    RequestServices
+                    .GetRequiredService<ISender>();
 
     protected async Task<ObjectResult> SendAsync<T>(IRequest<Response<T>> request, CancellationToken ct = default)
     {
@@ -21,7 +23,6 @@ public class BaseController : Controller
         {
             return Ok(result);
         }
-
 
         return Ok(result);
     }

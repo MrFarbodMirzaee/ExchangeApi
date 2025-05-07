@@ -2,4 +2,6 @@
 
 namespace ExchangeApi.GraphQl.GraphQl.Currencies.Update;
 
-public record UpdateCurrencyPayload(Currency Currency);
+public record UpdateCurrencyPayload(
+    Currency Currency
+);

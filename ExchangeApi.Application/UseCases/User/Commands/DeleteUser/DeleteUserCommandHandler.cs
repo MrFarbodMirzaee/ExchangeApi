@@ -11,6 +11,7 @@ public class DeleteUserCommandHandler(IUserService userService, IMapper mapper)
     public async Task<Response<bool>> Handle(DeleteUserCommand request, CancellationToken ct)
     {
         var userFind = await userService.FindByCondition(x => x.Id == request.Id, ct);
+        
         if (!userFind.Succeeded)
             return new Response<bool>(userFind.Message);
 
