@@ -18,7 +18,7 @@ public class ExchangeRateConfig : IEntityTypeConfiguration<ExchangeRate>
         
         builder.Property(x => x.Created)
             .IsRequired()
-            .HasDefaultValue(DateTime.Now);
+            .HasDefaultValue(DateTimeOffset.Now);
         
         builder.Property(x => x.IsActive)
             .IsRequired()

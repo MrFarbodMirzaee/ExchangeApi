@@ -35,6 +35,10 @@ public class CurrencyAttributeConfig : IEntityTypeConfiguration<CurrencyAttribut
 
         builder.Property(ca => ca.UpdatedByUserId)
             .IsRequired();
+        
+        builder.Property(x => x.Created)
+            .IsRequired()
+            .HasDefaultValue(DateTimeOffset.Now);
 
         builder.HasOne(current => current.User)
             .WithMany(other => other.CurrencyAttributes)

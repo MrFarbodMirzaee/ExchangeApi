@@ -30,7 +30,7 @@ public class CategoryConfig : IEntityTypeConfiguration<Category>
 
         builder.Property(c => c.Created)
             .IsRequired()
-            .HasDefaultValue(DateTime.Now);
+            .HasDefaultValue(DateTimeOffset.Now);
 
         builder.Property(c => c.Updated)
             .IsRequired();

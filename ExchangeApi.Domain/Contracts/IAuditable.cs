@@ -3,5 +3,5 @@
 public interface IAuditable
 {
     public Guid UpdatedByUserId { get; set; }
-    public DateTime Updated { get; set; }
+    public DateTimeOffset Updated { get; set; }
 }

@@ -35,7 +35,7 @@ public class ExchangeTransaction : BaseEntity<Guid>, IDeletable, IAuditable
     /// <summary>
     /// Represents the date and time when the transaction occurred.
     /// </summary>
-    public DateTime? TransactionDate { get; set; }
+    public DateTimeOffset? TransactionDate { get; set; }
 
     /// <summary>
     /// A flag indicating whether the transaction is currently active.

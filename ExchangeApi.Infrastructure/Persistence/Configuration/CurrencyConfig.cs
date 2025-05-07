@@ -35,7 +35,7 @@ public class CurrencyConfig : IEntityTypeConfiguration<Currency>
         
         builder.Property(x => x.Created)
             .IsRequired()
-            .HasDefaultValue(DateTime.Now);
+            .HasDefaultValue(DateTimeOffset.Now);
 
         builder.HasOne(current => current.Category)
             .WithMany(other => other.Currencies)

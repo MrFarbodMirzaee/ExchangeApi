@@ -29,7 +29,7 @@ public class ExchangeTransactionConfig : IEntityTypeConfiguration<ExchangeTransa
             .IsRequired();
         
         builder.Property(x => x.Created)
-            .HasDefaultValue(DateTime.Now)
+            .HasDefaultValue(DateTimeOffset.Now)
             .IsRequired();
         
         builder.Property(x => x.TransactionDate)

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ExchangeApi.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250507154927_Db_init")]
-    partial class Db_init
+    [Migration("20250507173347_Db_Init")]
+    partial class Db_Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,12 +30,12 @@ namespace ExchangeApi.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier")
-                        .HasDefaultValue(new Guid("07a0f1d7-7dde-4f2c-bc1e-dc7cbd6ffa55"));
+                        .HasDefaultValue(new Guid("39d2c886-e558-4a02-8a0a-80d840f1ef68"));
 
-                    b.Property<DateTime>("Created")
+                    b.Property<DateTimeOffset>("Created")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2025, 5, 7, 19, 19, 26, 447, DateTimeKind.Local).AddTicks(5747));
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2025, 5, 7, 21, 3, 46, 512, DateTimeKind.Unspecified).AddTicks(2433), new TimeSpan(0, 3, 30, 0, 0)));
 
                     b.Property<Guid>("DeletedByUserId")
                         .HasColumnType("uniqueidentifier");
@@ -56,8 +56,8 @@ namespace ExchangeApi.Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<DateTime>("Updated")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("Updated")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<Guid>("UpdatedByUserId")
                         .HasColumnType("uniqueidentifier");
@@ -73,15 +73,15 @@ namespace ExchangeApi.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier")
-                        .HasDefaultValue(new Guid("ffaf2a3c-c1c9-4c0b-8395-83f5a834e434"));
+                        .HasDefaultValue(new Guid("9c381358-99cc-47a8-8c98-48786fee84a5"));
 
                     b.Property<Guid>("CategoryId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("Created")
+                    b.Property<DateTimeOffset>("Created")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2025, 5, 7, 19, 19, 26, 464, DateTimeKind.Local).AddTicks(3836));
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2025, 5, 7, 21, 3, 46, 526, DateTimeKind.Unspecified).AddTicks(2940), new TimeSpan(0, 3, 30, 0, 0)));
 
                     b.Property<string>("CurrencyCode")
                         .IsRequired()
@@ -114,8 +114,8 @@ namespace ExchangeApi.Infrastructure.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(max)");
 
-                    b.Property<DateTime>("Updated")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("Updated")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<Guid>("UpdatedByUserId")
                         .HasColumnType("uniqueidentifier");
@@ -137,13 +137,15 @@ namespace ExchangeApi.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier")
-                        .HasDefaultValue(new Guid("cb1ec762-9de4-4eaf-8396-0a935d960b62"));
+                        .HasDefaultValue(new Guid("b707811c-3ada-4e57-a36b-0642862896f5"));
 
                     b.Property<Guid?>("CategoryId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("Created")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2025, 5, 7, 21, 3, 46, 522, DateTimeKind.Unspecified).AddTicks(4301), new TimeSpan(0, 3, 30, 0, 0)));
 
                     b.Property<Guid>("CurrencyId")
                         .HasColumnType("uniqueidentifier");
@@ -170,8 +172,8 @@ namespace ExchangeApi.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("Updated")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("Updated")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<Guid>("UpdatedByUserId")
                         .HasColumnType("uniqueidentifier");
@@ -201,12 +203,12 @@ namespace ExchangeApi.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier")
-                        .HasDefaultValue(new Guid("ad22451e-b91b-4dce-b923-073465666197"));
+                        .HasDefaultValue(new Guid("f66ef84c-6c1f-427f-bfb4-24491c443173"));
 
-                    b.Property<DateTime>("Created")
+                    b.Property<DateTimeOffset>("Created")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2025, 5, 7, 19, 19, 26, 465, DateTimeKind.Local).AddTicks(6990));
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2025, 5, 7, 21, 3, 46, 527, DateTimeKind.Unspecified).AddTicks(1177), new TimeSpan(0, 3, 30, 0, 0)));
 
                     b.Property<Guid>("DeletedByUserId")
                         .HasColumnType("uniqueidentifier");
@@ -229,8 +231,8 @@ namespace ExchangeApi.Infrastructure.Migrations
                     b.Property<Guid>("ToCurrencyId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("Updated")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("Updated")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<Guid>("UpdatedByUserId")
                         .HasColumnType("uniqueidentifier");
@@ -251,15 +253,15 @@ namespace ExchangeApi.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier")
-                        .HasDefaultValue(new Guid("689d68e6-db68-4d82-9ba6-072763ecae5c"));
+                        .HasDefaultValue(new Guid("cf9935b6-9ebc-4ae3-9f3e-9a508d59ee00"));
 
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<DateTime>("Created")
+                    b.Property<DateTimeOffset>("Created")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2025, 5, 7, 19, 19, 26, 471, DateTimeKind.Local).AddTicks(1661));
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2025, 5, 7, 21, 3, 46, 531, DateTimeKind.Unspecified).AddTicks(9653), new TimeSpan(0, 3, 30, 0, 0)));
 
                     b.Property<Guid>("DeletedByUserId")
                         .HasColumnType("uniqueidentifier");
@@ -283,11 +285,11 @@ namespace ExchangeApi.Infrastructure.Migrations
                     b.Property<Guid>("ToCurrencyId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("TransactionDate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("TransactionDate")
+                        .HasColumnType("datetimeoffset");
 
-                    b.Property<DateTime>("Updated")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("Updated")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<Guid>("UpdatedByUserId")
                         .HasColumnType("uniqueidentifier");
@@ -321,8 +323,10 @@ namespace ExchangeApi.Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("Created")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2025, 5, 7, 21, 3, 46, 535, DateTimeKind.Unspecified).AddTicks(3242), new TimeSpan(0, 3, 30, 0, 0)));
 
                     b.Property<Guid>("CurrencyId")
                         .HasColumnType("uniqueidentifier");
@@ -340,8 +344,8 @@ namespace ExchangeApi.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("Updated")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("Updated")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<Guid>("UpdatedByUserId")
                         .HasColumnType("uniqueidentifier");
@@ -366,10 +370,10 @@ namespace ExchangeApi.Infrastructure.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("Created")
+                    b.Property<DateTimeOffset>("Created")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2025, 5, 7, 19, 19, 26, 476, DateTimeKind.Local).AddTicks(1999));
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2025, 5, 7, 21, 3, 46, 537, DateTimeKind.Unspecified).AddTicks(579), new TimeSpan(0, 3, 30, 0, 0)));
 
                     b.Property<Guid>("DeletedByUserId")
                         .HasColumnType("uniqueidentifier");
@@ -405,8 +409,8 @@ namespace ExchangeApi.Infrastructure.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(300)");
 
-                    b.Property<DateTime>("Updated")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("Updated")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<Guid>("UpdatedByUserId")
                         .HasColumnType("uniqueidentifier");

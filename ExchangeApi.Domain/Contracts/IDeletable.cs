@@ -3,5 +3,5 @@
 public interface IDeletable
 {
     public Guid DeletedByUserId { get; set; }
-    public DateTime Created { get; set; }
+    public DateTimeOffset Created { get; set; }
 }
