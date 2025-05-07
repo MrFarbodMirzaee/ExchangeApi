@@ -35,7 +35,6 @@ public class ExchangeTransactionSeeder
                     TransactionDate = DateTime.Now.AddMinutes(-i),
                     Created = DateTime.Now,
                     Updated = DateTime.Now,
-                    Description = $"Transaction {i} from Currency {i % 10 + 1} to Currency {(i + 1) % 10 + 1}.",
                     MetaDescription =
                         $"Exchange of {100.00m + (i * 5)} from Currency {i % 10 + 1} to Currency {(i + 1) % 10 + 1}.",
                     UserId = userId

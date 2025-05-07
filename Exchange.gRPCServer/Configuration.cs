@@ -8,7 +8,8 @@ public static class Configuration
     public static IServiceCollection RegisterGrpcServices(this IServiceCollection services, string con)
     {
         services.AddDbContext<AppDbContext>(options =>
-            options.UseSqlServer(con));
+                options.UseSqlServer(con));
+        
         return services;
     }
 }

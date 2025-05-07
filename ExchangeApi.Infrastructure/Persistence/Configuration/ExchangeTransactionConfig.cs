@@ -9,11 +9,12 @@ public class ExchangeTransactionConfig : IEntityTypeConfiguration<ExchangeTransa
     public void Configure(EntityTypeBuilder<ExchangeTransaction> builder)
     {
         builder.HasKey(x => x.Id)
-            .IsClustered()
+            .IsClustered(false)
             .HasName("Pk_BASE_ExchangeTransaction");
         
         builder.Property(p => p.Id)
-            .ValueGeneratedNever();
+            .ValueGeneratedNever()
+            .HasDefaultValue(Guid.NewGuid());
         
         builder.Property(x => x.Amount)
             .IsRequired();
@@ -32,7 +33,22 @@ public class ExchangeTransactionConfig : IEntityTypeConfiguration<ExchangeTransa
             .IsRequired();
         
         builder.Property(x => x.TransactionDate)
-            .HasDefaultValue(DateTime.Now)
             .IsRequired();
+        
+        builder.HasOne(current => current.FromCurrency) 
+            .WithMany(other=> other.FromExchangeTransactions) 
+            .HasForeignKey(x => x.FromCurrencyId) 
+            .OnDelete(DeleteBehavior.Restrict); 
+
+        builder.HasOne(x => x.ToCurrency) 
+            .WithMany(other=> other.ToExchangeTransactions)
+            .HasForeignKey(x => x.ToCurrencyId) 
+            .OnDelete(DeleteBehavior.Restrict); 
+
+
+        builder.HasOne(current => current.User) 
+            .WithMany(other => other.ExchangeTransactions) 
+            .HasForeignKey(current => current.UserId) 
+            .OnDelete(DeleteBehavior.Restrict); 
     }
 }

@@ -8,14 +8,19 @@ public class AppDbContextIdentityFactory : IDesignTimeDbContextFactory<IdentityA
 {
     public IdentityAppDbContext CreateDbContext(string[] args)
     {
-        var basePath = Path.Combine(Directory.GetCurrentDirectory(), "../ExchangeApi");
+        var basePath = Path.Combine
+                (Directory.GetCurrentDirectory(), "../ExchangeApi");
+        
         var configuration = new ConfigurationBuilder()
             .SetBasePath(basePath)
             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
             .Build();
 
-        var optionsBuilder = new DbContextOptionsBuilder<IdentityAppDbContext>();
-        var connectionString = configuration.GetConnectionString("ExchangeApi_Identity");
+        var optionsBuilder = new 
+                    DbContextOptionsBuilder<IdentityAppDbContext>();
+        
+        var connectionString = configuration
+                    .GetConnectionString("ExchangeApi_Identity");
 
         if (string.IsNullOrEmpty(connectionString))
         {

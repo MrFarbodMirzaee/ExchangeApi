@@ -14,6 +14,7 @@ public class TradingPairType(AppDbContext context) : ObjectType<TradingPair>
     private class Resolvers(AppDbContext context)
     {
         public Currency? GetAuthor(TradingPair tradingPair) =>
-            context.Currencies.FirstOrDefault(u => u.Id == tradingPair.Id);
+            context.Currencies
+                .FirstOrDefault(u => u.Id == tradingPair.Id);
     }
 }

@@ -10,7 +10,7 @@ public class LoginCommandHandler(IAuthenticationService authenticationService)
 {
     public async Task<Response<AuthenticationResponseDto>> Handle(LogInCommand request, CancellationToken ct)
     {
-        var loggedIn = await authenticationService.Login(request, ct);
+        var loggedIn = await authenticationService.LoginAsync(request, ct);
         return loggedIn.Succeeded
             ? new Response<AuthenticationResponseDto>(loggedIn.Data)
             : new Response<AuthenticationResponseDto>(loggedIn.Message);

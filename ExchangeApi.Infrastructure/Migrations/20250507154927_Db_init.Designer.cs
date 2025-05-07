@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ExchangeApi.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250228085249_Db_Int")]
-    partial class Db_Int
+    [Migration("20250507154927_Db_init")]
+    partial class Db_init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,29 +26,78 @@ namespace ExchangeApi.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ExchangeApi.Domain.Entities.Currency", b =>
+            modelBuilder.Entity("ExchangeApi.Domain.Entities.Category", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValue(new Guid("07a0f1d7-7dde-4f2c-bc1e-dc7cbd6ffa55"));
 
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2025, 2, 28, 12, 22, 48, 427, DateTimeKind.Local).AddTicks(1279));
-
-                    b.Property<string>("CurrencyCode")
-                        .IsRequired()
-                        .HasMaxLength(3)
-                        .HasColumnType("nvarchar(3)");
+                        .HasDefaultValue(new DateTime(2025, 5, 7, 19, 19, 26, 447, DateTimeKind.Local).AddTicks(5747));
 
                     b.Property<Guid>("DeletedByUserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("MetaDescription")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(200)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime>("Updated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("UpdatedByUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"), false);
+
+                    b.ToTable("Category", "BASE");
+                });
+
+            modelBuilder.Entity("ExchangeApi.Domain.Entities.Currency", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValue(new Guid("ffaf2a3c-c1c9-4c0b-8395-83f5a834e434"));
+
+                    b.Property<Guid>("CategoryId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Created")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2025, 5, 7, 19, 19, 26, 464, DateTimeKind.Local).AddTicks(3836));
+
+                    b.Property<string>("CurrencyCode")
+                        .IsRequired()
+                        .HasMaxLength(3)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(3)");
+
+                    b.Property<Guid>("DeletedByUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImagePath")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
@@ -57,11 +106,13 @@ namespace ExchangeApi.Infrastructure.Migrations
                         .HasDefaultValue(false);
 
                     b.Property<string>("MetaDescription")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(max)");
 
                     b.Property<DateTime>("Updated")
                         .HasColumnType("datetime2");
@@ -72,7 +123,12 @@ namespace ExchangeApi.Infrastructure.Migrations
                     b.HasKey("Id")
                         .HasName("PK_Base_Currency");
 
-                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"));
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"), false);
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("CurrencyCode")
+                        .IsUnique();
 
                     b.ToTable("Currency", "BASE");
                 });
@@ -80,7 +136,10 @@ namespace ExchangeApi.Infrastructure.Migrations
             modelBuilder.Entity("ExchangeApi.Domain.Entities.CurrencyAttribute", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValue(new Guid("cb1ec762-9de4-4eaf-8396-0a935d960b62"));
+
+                    b.Property<Guid?>("CategoryId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("Created")
@@ -94,14 +153,18 @@ namespace ExchangeApi.Infrastructure.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
 
                     b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.Property<string>("Key")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("MetaDescription")
                         .IsRequired()
@@ -118,11 +181,18 @@ namespace ExchangeApi.Infrastructure.Migrations
 
                     b.Property<string>("Value")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"), false);
+
+                    b.HasIndex("CategoryId");
+
                     b.HasIndex("CurrencyId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("CurrencyAttribute", "BASE");
                 });
@@ -130,24 +200,18 @@ namespace ExchangeApi.Infrastructure.Migrations
             modelBuilder.Entity("ExchangeApi.Domain.Entities.ExchangeRate", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValue(new Guid("ad22451e-b91b-4dce-b923-073465666197"));
 
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2025, 2, 28, 12, 22, 48, 434, DateTimeKind.Local).AddTicks(5334));
-
-                    b.Property<Guid?>("CurrencyId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasDefaultValue(new DateTime(2025, 5, 7, 19, 19, 26, 465, DateTimeKind.Local).AddTicks(6990));
 
                     b.Property<Guid>("DeletedByUserId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("FromCurrency")
+                    b.Property<Guid>("FromCurrencyId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("IsActive")
@@ -156,12 +220,13 @@ namespace ExchangeApi.Infrastructure.Migrations
                         .HasDefaultValue(false);
 
                     b.Property<string>("MetaDescription")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Rate")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<Guid>("ToCurrency")
+                    b.Property<Guid>("ToCurrencyId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("Updated")
@@ -173,9 +238,11 @@ namespace ExchangeApi.Infrastructure.Migrations
                     b.HasKey("Id")
                         .HasName("Pk_Base_ExchangeRate");
 
-                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"));
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"), false);
 
-                    b.HasIndex("CurrencyId");
+                    b.HasIndex("FromCurrencyId");
+
+                    b.HasIndex("ToCurrencyId");
 
                     b.ToTable("ExchangeRate", "BASE");
                 });
@@ -183,8 +250,8 @@ namespace ExchangeApi.Infrastructure.Migrations
             modelBuilder.Entity("ExchangeApi.Domain.Entities.ExchangeTransaction", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValue(new Guid("689d68e6-db68-4d82-9ba6-072763ecae5c"));
 
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
@@ -192,13 +259,10 @@ namespace ExchangeApi.Infrastructure.Migrations
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2025, 2, 28, 12, 22, 48, 435, DateTimeKind.Local).AddTicks(5883));
+                        .HasDefaultValue(new DateTime(2025, 5, 7, 19, 19, 26, 471, DateTimeKind.Local).AddTicks(1661));
 
                     b.Property<Guid>("DeletedByUserId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("ExChangeRateId")
                         .HasColumnType("uniqueidentifier");
@@ -210,6 +274,7 @@ namespace ExchangeApi.Infrastructure.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("MetaDescription")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("ResultAmount")
@@ -219,9 +284,7 @@ namespace ExchangeApi.Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("TransactionDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2025, 2, 28, 12, 22, 48, 435, DateTimeKind.Local).AddTicks(7670));
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("Updated")
                         .HasColumnType("datetime2");
@@ -235,7 +298,13 @@ namespace ExchangeApi.Infrastructure.Migrations
                     b.HasKey("Id")
                         .HasName("Pk_BASE_ExchangeTransaction");
 
-                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"));
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"), false);
+
+                    b.HasIndex("ExChangeRateId");
+
+                    b.HasIndex("FromCurrencyId");
+
+                    b.HasIndex("ToCurrencyId");
 
                     b.HasIndex("UserId");
 
@@ -245,13 +314,18 @@ namespace ExchangeApi.Infrastructure.Migrations
             modelBuilder.Entity("ExchangeApi.Domain.Entities.File", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ContentType")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("CurrencyId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<byte[]>("FileData")
                         .IsRequired()
@@ -262,10 +336,27 @@ namespace ExchangeApi.Infrastructure.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
+                    b.Property<string>("MetaDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("Updated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("UpdatedByUserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id")
                         .HasName("PK_File");
 
-                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"));
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"), false);
+
+                    b.HasIndex("CurrencyId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("File", "BASE");
                 });
@@ -273,24 +364,25 @@ namespace ExchangeApi.Infrastructure.Migrations
             modelBuilder.Entity("ExchangeApi.Domain.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2025, 2, 28, 12, 22, 48, 436, DateTimeKind.Local).AddTicks(9652));
+                        .HasDefaultValue(new DateTime(2025, 5, 7, 19, 19, 26, 476, DateTimeKind.Local).AddTicks(1999));
 
                     b.Property<Guid>("DeletedByUserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EmailAddress")
                         .IsRequired()
                         .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(300)");
 
                     b.Property<bool>("IsActive")
                         .ValueGeneratedOnAdd()
@@ -298,17 +390,20 @@ namespace ExchangeApi.Infrastructure.Migrations
                         .HasDefaultValue(false);
 
                     b.Property<string>("MetaDescription")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
+                        .IsUnicode(true)
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(300)");
 
                     b.Property<DateTime>("Updated")
                         .HasColumnType("datetime2");
@@ -319,53 +414,156 @@ namespace ExchangeApi.Infrastructure.Migrations
                     b.Property<string>("UserName")
                         .IsRequired()
                         .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(150)");
 
                     b.HasKey("Id")
                         .HasName("Pk_BASE_User");
 
-                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"));
+                    SqlServerKeyBuilderExtensions.IsClustered(b.HasKey("Id"), false);
+
+                    b.HasIndex("UserName")
+                        .IsUnique()
+                        .HasDatabaseName("IX_User_UserName");
 
                     b.ToTable("User", "BASE");
                 });
 
+            modelBuilder.Entity("ExchangeApi.Domain.Entities.Currency", b =>
+                {
+                    b.HasOne("ExchangeApi.Domain.Entities.Category", "Category")
+                        .WithMany("Currencies")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
             modelBuilder.Entity("ExchangeApi.Domain.Entities.CurrencyAttribute", b =>
                 {
+                    b.HasOne("ExchangeApi.Domain.Entities.Category", null)
+                        .WithMany("CurrencyAttributes")
+                        .HasForeignKey("CategoryId");
+
                     b.HasOne("ExchangeApi.Domain.Entities.Currency", "Currency")
                         .WithMany("CurrencyAttributes")
                         .HasForeignKey("CurrencyId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ExchangeApi.Domain.Entities.User", "User")
+                        .WithMany("CurrencyAttributes")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Currency");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ExchangeApi.Domain.Entities.ExchangeRate", b =>
                 {
-                    b.HasOne("ExchangeApi.Domain.Entities.Currency", null)
-                        .WithMany("ExchangeRates")
-                        .HasForeignKey("CurrencyId");
+                    b.HasOne("ExchangeApi.Domain.Entities.Currency", "FromCurrency")
+                        .WithMany("FromExchangeRates")
+                        .HasForeignKey("FromCurrencyId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ExchangeApi.Domain.Entities.Currency", "ToCurrency")
+                        .WithMany("ToExchangeRates")
+                        .HasForeignKey("ToCurrencyId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("FromCurrency");
+
+                    b.Navigation("ToCurrency");
                 });
 
             modelBuilder.Entity("ExchangeApi.Domain.Entities.ExchangeTransaction", b =>
                 {
-                    b.HasOne("ExchangeApi.Domain.Entities.User", null)
+                    b.HasOne("ExchangeApi.Domain.Entities.ExchangeRate", "ExchangeRate")
+                        .WithMany()
+                        .HasForeignKey("ExChangeRateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ExchangeApi.Domain.Entities.Currency", "FromCurrency")
+                        .WithMany("FromExchangeTransactions")
+                        .HasForeignKey("FromCurrencyId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ExchangeApi.Domain.Entities.Currency", "ToCurrency")
+                        .WithMany("ToExchangeTransactions")
+                        .HasForeignKey("ToCurrencyId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ExchangeApi.Domain.Entities.User", "User")
                         .WithMany("ExchangeTransactions")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("ExchangeRate");
+
+                    b.Navigation("FromCurrency");
+
+                    b.Navigation("ToCurrency");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("ExchangeApi.Domain.Entities.File", b =>
+                {
+                    b.HasOne("ExchangeApi.Domain.Entities.Currency", "Currency")
+                        .WithMany("Files")
+                        .HasForeignKey("CurrencyId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ExchangeApi.Domain.Entities.User", "User")
+                        .WithMany("Files")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("Currency");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("ExchangeApi.Domain.Entities.Category", b =>
+                {
+                    b.Navigation("Currencies");
+
+                    b.Navigation("CurrencyAttributes");
                 });
 
             modelBuilder.Entity("ExchangeApi.Domain.Entities.Currency", b =>
                 {
                     b.Navigation("CurrencyAttributes");
 
-                    b.Navigation("ExchangeRates");
+                    b.Navigation("Files");
+
+                    b.Navigation("FromExchangeRates");
+
+                    b.Navigation("FromExchangeTransactions");
+
+                    b.Navigation("ToExchangeRates");
+
+                    b.Navigation("ToExchangeTransactions");
                 });
 
             modelBuilder.Entity("ExchangeApi.Domain.Entities.User", b =>
                 {
+                    b.Navigation("CurrencyAttributes");
+
                     b.Navigation("ExchangeTransactions");
+
+                    b.Navigation("Files");
                 });
 #pragma warning restore 612, 618
         }

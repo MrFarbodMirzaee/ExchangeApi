@@ -5,7 +5,7 @@ namespace ExchangeApi.GraphQl.Data;
 
 public class AppDbContext(DbContextOptions options) : DbContext(options)
 {
-    #region Dbset
+    #region Dbsets
 
     public DbSet<Currency> Currencies { get; set; }
     public DbSet<TradingPair> TradingPairs { get; set; }

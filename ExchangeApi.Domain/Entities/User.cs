@@ -1,5 +1,4 @@
-﻿#nullable disable
-using ExchangeApi.Domain.Contracts;
+﻿using ExchangeApi.Domain.Contracts;
 
 namespace ExchangeApi.Domain.Entities;
 
@@ -8,14 +7,9 @@ namespace ExchangeApi.Domain.Entities;
 /// Implements interfaces for auditable and deletable entities.
 /// </summary>
 [Entity]
-public class User : IBaseEntity<Guid>, IDeletable, IAuditable
+public class User : BaseEntity<Guid>, IDeletable, IAuditable
 {
     #region Properties
-
-    /// <summary>
-    /// A unique identifier for each user.
-    /// </summary>
-    public Guid Id { get; set; }
 
     /// <summary>
     /// The full name of the user.
@@ -38,29 +32,14 @@ public class User : IBaseEntity<Guid>, IDeletable, IAuditable
     public string Password { get; set; }
 
     /// <summary>
-    /// The timestamp indicating when the user account was created.
-    /// </summary>
-    public DateTime Created { get; set; }
-
-    /// <summary>
     /// A flag indicating whether the user's account is currently active.
     /// </summary>
     public bool IsActive { get; private set; }
 
     /// <summary>
-    /// The timestamp of the last update made to the user’s account.
-    /// </summary>
-    public DateTime Updated { get; set; }
-
-    /// <summary>
     /// A brief description of the user.
     /// </summary>
     public string Description { get; set; }
-
-    /// <summary>
-    /// A meta description for SEO or informational purposes.
-    /// </summary>
-    public string MetaDescription { get; set; }
 
     /// <summary>
     /// The identifier of the user who deleted this account, if applicable.
@@ -91,5 +70,14 @@ public class User : IBaseEntity<Guid>, IDeletable, IAuditable
     /// </summary>
     public ICollection<ExchangeTransaction> ExchangeTransactions { get; set; }
 
+    /// <summary>
+    /// A collection of files associated with the user.
+    /// </summary>
+    public ICollection<File>? Files { get; set; }
+
+    /// <summary>
+    /// A collection of currency attributes associated with the user.
+    /// </summary>
+    public ICollection<CurrencyAttribute> CurrencyAttributes { get; set; }
     #endregion
 }

@@ -9,7 +9,7 @@ public class FileConfig : IEntityTypeConfiguration<ExchangeApi.Domain.Entities.F
     {
         builder
             .HasKey(x => x.Id)
-            .IsClustered()
+            .IsClustered(false)
             .HasName("PK_File");
         
         builder.Property(p => p.Id)
@@ -25,5 +25,15 @@ public class FileConfig : IEntityTypeConfiguration<ExchangeApi.Domain.Entities.F
 
         builder.Property(x => x.FileData)
             .IsRequired();
+        
+        builder.HasOne(current => current.User) 
+            .WithMany(other => other.Files) 
+            .HasForeignKey(current => current.UserId) 
+            .OnDelete(DeleteBehavior.Restrict); 
+        
+        builder.HasOne(current => current.Currency) 
+            .WithMany(other => other.Files) 
+            .HasForeignKey(current => current.CurrencyId) 
+            .OnDelete(DeleteBehavior.Restrict); 
     }
 }

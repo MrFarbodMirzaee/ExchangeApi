@@ -13,9 +13,12 @@ public class GetAllExchangeRateQueryHandler(IExchangeRateService exchangeRateSer
     {
         int pageSize = request.PageSize;
         int page = request.Page;
+        
         Response<List<ExchangeApi.Domain.Entities.ExchangeRate>> exchangeRate =
             await exchangeRateService.GetAllAsync(ct, page, pageSize);
+        
         var exchangeRateMapped = mapper.Map<List<ExchangeRateDto>>(exchangeRate.Data);
+        
         return exchangeRate.Succeeded
             ? new Response<List<ExchangeRateDto>>(exchangeRateMapped)
             : new Response<List<ExchangeRateDto>>(exchangeRate.Message);

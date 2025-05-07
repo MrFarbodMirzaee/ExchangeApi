@@ -13,8 +13,13 @@ public class UserServices(AppDbContext applicationDbContext)
 
     public async Task<Response<bool>> Activate(Guid userId)
     {
-        var user = await _applicationDbContext.User.Where(x => x.Id == userId).FirstOrDefaultAsync();
+        var user = await _applicationDbContext
+            .User
+            .Where(x => x.Id == userId)
+            .FirstOrDefaultAsync();
+        
         user?.Activate();
+        
         await _applicationDbContext.SaveChangesAsync();
         return new Response<bool>(true);
     }

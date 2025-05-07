@@ -8,24 +8,19 @@ namespace ExchangeApi.Domain.Entities;
 /// This entity captures the rates at which currencies can be exchanged.
 /// </summary>
 [Entity]
-public class ExchangeRate : IBaseEntity<Guid>, IDeletable, IAuditable
+public class ExchangeRate : BaseEntity<Guid>, IDeletable, IAuditable
 {
     #region Properties
 
     /// <summary>
-    /// Represents the unique identifier of the exchange rate.
-    /// </summary>
-    public Guid Id { get; set; }
-
-    /// <summary>
     /// Represents the identifier of the currency from which the exchange rate is calculated.
     /// </summary>
-    public Guid FromCurrency { get; set; }
+    public Guid FromCurrencyId { get; set; }
 
     /// <summary>
     /// Represents the identifier of the currency to which the exchange rate is calculated.
     /// </summary>
-    public Guid ToCurrency { get; set; }
+    public Guid ToCurrencyId { get; set; }
 
     /// <summary>
     /// Represents the exchange rate value between the two currencies.
@@ -33,29 +28,9 @@ public class ExchangeRate : IBaseEntity<Guid>, IDeletable, IAuditable
     public decimal Rate { get; set; }
 
     /// <summary>
-    /// The timestamp indicating when the exchange rate was created.
-    /// </summary>
-    public DateTime Created { get; set; }
-
-    /// <summary>
     /// A flag indicating whether the exchange rate is currently active.
     /// </summary>
     public bool IsActive { get; set; }
-
-    /// <summary>
-    /// Represents the date and time when the exchange rate was last updated.
-    /// </summary>
-    public DateTime Updated { get; set; }
-
-    /// <summary>
-    /// A brief description of the exchange rate.
-    /// </summary>
-    public string Description { get; set; }
-
-    /// <summary>
-    /// A meta description for SEO or informational purposes.
-    /// </summary>
-    public string MetaDescription { get; set; }
 
     /// <summary>
     /// The identifier of the user who last updated this exchange rate.
@@ -70,6 +45,16 @@ public class ExchangeRate : IBaseEntity<Guid>, IDeletable, IAuditable
     #endregion
 
     #region Navigations
+    
+    /// <summary>
+    /// The currency from which the exchange rate is calculated.
+    /// </summary>
+    public Currency FromCurrency { get; set; }
 
+    /// <summary>
+    /// The currency to which the exchange rate is calculated.
+    /// </summary>
+    public Currency ToCurrency { get; set; }
+    
     #endregion
 }

@@ -27,13 +27,20 @@ public class GenericRepository<TEntity>(AppDbContext applicationDbContext) : IGe
     public async Task<IEnumerable<TEntity>> FindByQueryCriteria(QueryCriteria? queryCriteria,
         CancellationToken cancellationToken)
     {
-        return await applicationDbContext.Set<TEntity>().ApplyFilter(queryCriteria);
+        return await applicationDbContext
+                .Set<TEntity>()
+                    .ApplyFilter(queryCriteria);
     }
 
     public async Task<Response<List<TEntity>>> FindByCondition(Expression<Func<TEntity, bool>> expression,
         CancellationToken ct)
     {
-        var entities = await applicationDbContext.Set<TEntity>().Where(expression).AsNoTracking().ToListAsync(ct);
+        var entities = await applicationDbContext
+                    .Set<TEntity>()
+                    .Where(expression)
+                    .AsNoTracking()
+                    .ToListAsync(ct);
+        
         if (!entities.Any())
             return new Response<List<TEntity>>("Entity not found");
 
@@ -46,7 +53,8 @@ public class GenericRepository<TEntity>(AppDbContext applicationDbContext) : IGe
         {
             applicationDbContext.Set<TEntity>().Add(entity);
 
-            var rowsAffected = await applicationDbContext.SaveChangesAsync(ct);
+            var rowsAffected = await applicationDbContext
+                        .SaveChangesAsync(ct);
 
             if (rowsAffected == 0)
                 return new Response<bool>("Add failed: Unable to save the new record.");
@@ -67,7 +75,8 @@ public class GenericRepository<TEntity>(AppDbContext applicationDbContext) : IGe
     {
         try
         {
-            applicationDbContext.Set<TEntity>().Update(entity);
+            applicationDbContext.Set<TEntity>()
+                        .Update(entity);
 
             var rowsAffected = await applicationDbContext.SaveChangesAsync(ct);
 
@@ -92,9 +101,12 @@ public class GenericRepository<TEntity>(AppDbContext applicationDbContext) : IGe
     {
         try
         {
-            applicationDbContext.Set<TEntity>().Remove(entity);
+            applicationDbContext
+                    .Set<TEntity>()
+                    .Remove(entity);
 
-            var rowsAffected = await applicationDbContext.SaveChangesAsync(ct);
+            var rowsAffected = await applicationDbContext
+                    .SaveChangesAsync(ct);
 
             if (rowsAffected == 0)
                 return new Response<bool>("Delete failed: The record may not exist or was already deleted.");

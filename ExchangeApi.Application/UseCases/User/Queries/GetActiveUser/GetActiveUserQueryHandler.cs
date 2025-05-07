@@ -12,6 +12,7 @@ public class GetActiveUserQueryHandler(IUserService userService, IMapper mapper)
     public async Task<Response<List<UserDto>>> Handle(GetActiveUserQuery request, CancellationToken ct)
     {
         Response<List<Domain.Entities.User>> userFind = await userService.FindByCondition(A => A.IsActive == true, ct);
+        
         var userMapped = mapper.Map<List<UserDto>>(userFind.Data);
 
         return userFind.Succeeded

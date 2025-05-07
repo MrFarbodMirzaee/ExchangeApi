@@ -14,9 +14,11 @@ public class GetExchangeRateByCurrencyPairQueryHandler(IExchangeRateService exch
     {
         Response<List<ExchangeApi.Domain.Entities.ExchangeRate>> exchangeRate =
             await exchangeRateService.FindByCondition(
-                e => e.FromCurrency == request.FromCurrency && e.ToCurrency == request.ToCurrency, ct);
+                e => e.FromCurrencyId == request.FromCurrency 
+                     && e.ToCurrencyId == request.ToCurrency, ct);
 
         var exchangeRatesMapped = mapper.Map<List<ExchangeRateDto>>(exchangeRate.Data);
+        
         return exchangeRate.Succeeded
             ? new Response<List<ExchangeRateDto>>(exchangeRatesMapped)
             : new Response<List<ExchangeRateDto>>(exchangeRate.Message);

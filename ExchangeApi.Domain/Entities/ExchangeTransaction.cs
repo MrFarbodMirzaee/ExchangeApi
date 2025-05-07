@@ -8,14 +8,9 @@ namespace ExchangeApi.Domain.Entities;
 /// This entity captures details about currency exchanges performed by users.
 /// </summary>
 [Entity]
-public class ExchangeTransaction : IBaseEntity<Guid>, IDeletable, IAuditable
+public class ExchangeTransaction : BaseEntity<Guid>, IDeletable, IAuditable
 {
     #region Properties
-
-    /// <summary>
-    /// Represents the unique identifier of the exchange transaction.
-    /// </summary>
-    public Guid Id { get; set; }
 
     /// <summary>
     /// Represents the identifier of the currency from which the transaction originates.
@@ -38,34 +33,14 @@ public class ExchangeTransaction : IBaseEntity<Guid>, IDeletable, IAuditable
     public decimal ResultAmount { get; set; }
 
     /// <summary>
-    /// Represents the identifier of the exchange rate used in the transaction.
-    /// </summary>
-    public Guid ExChangeRateId { get; set; }
-
-    /// <summary>
     /// Represents the date and time when the transaction occurred.
     /// </summary>
     public DateTime? TransactionDate { get; set; }
 
     /// <summary>
-    /// The timestamp indicating when the transaction was created.
-    /// </summary>
-    public DateTime Created { get; set; }
-
-    /// <summary>
     /// A flag indicating whether the transaction is currently active.
     /// </summary>
     public bool IsActive { get; private set; }
-
-    /// <summary>
-    /// The timestamp of the last update made to the transaction.
-    /// </summary>
-    public DateTime Updated { get; set; }
-
-    /// <summary>
-    /// A brief description of the transaction.
-    /// </summary>
-    public string Description { get; set; }
 
     /// <summary>
     /// Activates the transaction.
@@ -76,11 +51,6 @@ public class ExchangeTransaction : IBaseEntity<Guid>, IDeletable, IAuditable
     /// Deactivates the transaction.
     /// </summary>
     public void Deactivate() => IsActive = false;
-
-    /// <summary>
-    /// A meta description for SEO or informational purposes.
-    /// </summary>
-    public string MetaDescription { get; set; }
 
     /// <summary>
     /// The identifier of the user who last updated this transaction.
@@ -97,9 +67,33 @@ public class ExchangeTransaction : IBaseEntity<Guid>, IDeletable, IAuditable
     #region Navigations
 
     /// <summary>
+    /// The user associated with this transaction.
+    /// </summary>
+    public User User { get; set; }
+
+    /// <summary>
     /// The identifier of the user associated with this transaction.
     /// </summary>
     public Guid UserId { get; set; }
 
+    /// <summary>
+    /// The currency from which the transaction originates.
+    /// </summary>
+    public Currency FromCurrency { get; set; }
+
+    /// <summary>
+    /// The currency to which the transaction is made.
+    /// </summary>
+    public Currency ToCurrency { get; set; }
+    
+    /// <summary>
+    /// The exchange rate used for the transaction.
+    /// </summary>
+    public ExchangeRate ExchangeRate { get; set; }
+
+    /// <summary>
+    /// Represents the identifier of the exchange rate used in the transaction.
+    /// </summary>
+    public Guid ExChangeRateId { get; set; }
     #endregion
 }

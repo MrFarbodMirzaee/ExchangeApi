@@ -10,12 +10,14 @@ public static class Configuration
     {
         services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(con));
+
         services.AddGraphQLServer()
             .AddQueryType<Query>()
             .AddMutationType<Mutation>()
             .AddProjections()
             .AddFiltering()
             .AddSorting();
+
         return services;
     }
 }

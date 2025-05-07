@@ -7,4 +7,5 @@ public record AddTradingPairDto(
     int PriceDecimals,
     int AmountDecimals,
     decimal MinTradeSize,
-    decimal MaxTradeSize);
+    decimal MaxTradeSize
+);

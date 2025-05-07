@@ -22,7 +22,7 @@ public class Mutation
             CreatedAt = DateTime.Now,
             UpdatedAt = DateTime.Now,
             Description = dto.Description,
-            Volume24h = dto.Volume24h,
+            Volume24h = dto.Volume24H,
             Name = dto.Name
         };
 
@@ -42,7 +42,7 @@ public class Mutation
 
         data.Name = dto.Name;
         data.Description = dto.Description;
-        data.Volume24h = dto.Volume24h;
+        data.Volume24h = dto.Volume24H;
         _context.Currencies.Update(data);
         await _context.SaveChangesAsync();
 

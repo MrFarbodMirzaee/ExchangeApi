@@ -33,9 +33,10 @@ public class AuthenticationService : IAuthenticationService
         _signInManager = signInManager;
     }
 
-    public async Task<Response<AuthenticationResponseDto>> Login(LogInCommand dto, CancellationToken ct)
+    public async Task<Response<AuthenticationResponseDto>> LoginAsync(LogInCommand dto, CancellationToken ct)
     {
         var user = await _userManager.FindByNameAsync(dto.UserName);
+        
         if (user == null)
         {
             return new Response<AuthenticationResponseDto>("User not found");
@@ -43,26 +44,40 @@ public class AuthenticationService : IAuthenticationService
 
         var result =
             await _signInManager.PasswordSignInAsync(user.UserName, dto.Password, false, lockoutOnFailure: false);
+        
         if (!result.Succeeded)
         {
             return new Response<AuthenticationResponseDto>("User name or password is wrong");
         }
 
         JwtSecurityToken jwtSecurityToken = await GenerateJWToken(user);
+        
         AuthenticationResponseDto response = new AuthenticationResponseDto();
+        
         response.Id = user.Id;
-        response.JWToken = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
+        
+        response.JWToken = 
+            new JwtSecurityTokenHandler()
+            .WriteToken(jwtSecurityToken);
+        
         response.Email = user.Email;
         response.UserName = user.UserName;
-        var rolesList = await _userManager.GetRolesAsync(user).ConfigureAwait(false);
+        
+        var rolesList = await _userManager
+            .GetRolesAsync(user)
+            .ConfigureAwait(false);
+        
         response.Roles = rolesList.ToList();
+        
         response.IsVerified = user.EmailConfirmed;
         return new Response<AuthenticationResponseDto>(response);
     }
 
-    public async Task<Response<AuthenticationResponseDto>> Register(RegisterCommand dto, CancellationToken ct)
+    public async Task<Response<AuthenticationResponseDto>> RegisterAsync(RegisterCommand dto, CancellationToken ct)
     {
-        var userWithSameUserName = await _userManager.FindByNameAsync(dto.UserName);
+        var userWithSameUserName = await _userManager
+                    .FindByNameAsync(dto.UserName);
+        
         if (userWithSameUserName != null)
         {
             return new Response<AuthenticationResponseDto>("Username is already taken.");
@@ -75,13 +90,19 @@ public class AuthenticationService : IAuthenticationService
             LastName = dto.LastName,
             UserName = dto.UserName
         };
-        var userWithSameName = await _userManager.FindByNameAsync(dto.UserName);
+        var userWithSameName = await _userManager
+                    .FindByNameAsync(dto.UserName);
+        
         if (userWithSameName == null)
         {
-            var result = await _userManager.CreateAsync(user, dto.Password);
+            var result = await _userManager
+                    .CreateAsync(user, dto.Password);
+            
             if (result.Succeeded)
             {
-                await _userManager.AddToRoleAsync(user, Roles.User.ToString());
+                await _userManager
+                    .AddToRoleAsync(user, Roles.User.ToString());
+                
                 // Create AuthenticationResponseDto with user details
                 var responseDto = new AuthenticationResponseDto
                 {
@@ -106,8 +127,11 @@ public class AuthenticationService : IAuthenticationService
 
     private async Task<JwtSecurityToken> GenerateJWToken(ApplicationUser user)
     {
-        var userClaims = await _userManager.GetClaimsAsync(user);
-        var roles = await _userManager.GetRolesAsync(user);
+        var userClaims = await _userManager
+                        .GetClaimsAsync(user);
+        
+        var roles = await _userManager
+                        .GetRolesAsync(user);
 
         var roleClaims = new List<Claim>();
 
@@ -126,8 +150,13 @@ public class AuthenticationService : IAuthenticationService
             .Union(userClaims)
             .Union(roleClaims);
 
-        var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Key));
-        var signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256);
+        var symmetricSecurityKey = 
+            new SymmetricSecurityKey
+                (Encoding.UTF8.GetBytes(_jwtSettings.Key));
+        
+        var signingCredentials = 
+            new SigningCredentials(symmetricSecurityKey,
+                SecurityAlgorithms.HmacSha256);
 
         var jwtSecurityToken = new JwtSecurityToken(
             issuer: _jwtSettings.Issuer,
@@ -135,6 +164,7 @@ public class AuthenticationService : IAuthenticationService
             claims: claims,
             expires: DateTime.UtcNow.AddMinutes(_jwtSettings.DurationInMinutes),
             signingCredentials: signingCredentials);
+        
         return jwtSecurityToken;
     }
 }

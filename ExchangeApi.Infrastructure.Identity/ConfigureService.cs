@@ -25,14 +25,19 @@ public static class ConfigureService
         services.AddDbContext<IdentityAppDbContext>(options =>
             options.UseSqlServer(
                 connectionString,
-                b => b.MigrationsAssembly(typeof(IdentityAppDbContext).Assembly.FullName)));
-        services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<IdentityAppDbContext>()
+                b => b.MigrationsAssembly
+                    (typeof(IdentityAppDbContext).Assembly.FullName)));
+        
+        services.AddIdentity<ApplicationUser, IdentityRole>()
+            .AddEntityFrameworkStores<IdentityAppDbContext>()
             .AddDefaultTokenProviders();
+        
         services.AddTransient<IAuthenticationService, AuthenticationService>();
         services.AddScoped<AddAttributeCommandHandler>();
         services.AddScoped<RegisterCommandHandler>();
 
-        services.Configure<JwtSettings>(configuration.GetSection("JWTSetting"));
+        services.Configure<JwtSettings>
+            (configuration.GetSection("JWTSetting"));
 
         //Add Authentication
         services.AddAuthentication(options =>

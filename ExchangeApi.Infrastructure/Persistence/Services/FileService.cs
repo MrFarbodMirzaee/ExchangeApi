@@ -36,7 +36,8 @@ public class FileService(AppDbContext applicationDbContext, IMapper mapper)
             await _applicationDbContext.File.AddAsync(file, ct);
 
             // Save changes to persist the file in the database
-            var rowsAffected = await _applicationDbContext.SaveChangesAsync(ct);
+            var rowsAffected = await _applicationDbContext
+                    .SaveChangesAsync(ct);
 
             if (rowsAffected == 0)
                 return new Response<bool>("File didn't upload");

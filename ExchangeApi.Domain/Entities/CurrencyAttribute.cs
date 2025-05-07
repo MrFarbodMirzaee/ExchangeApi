@@ -7,14 +7,9 @@ namespace ExchangeApi.Domain.Entities;
 /// This entity captures key-value pairs that provide additional information about currencies.
 /// </summary>
 [Entity]
-public class CurrencyAttribute : IBaseEntity<Guid>, IDeletable, IAuditable
+public class CurrencyAttribute : BaseEntity<Guid>, IDeletable, IAuditable
 {
     #region Properties
-
-    /// <summary>
-    /// Represents the unique identifier of the currency attribute.
-    /// </summary>
-    public Guid Id { get; set; }
 
     /// <summary>
     /// Represents the key of the currency attribute.
@@ -27,16 +22,6 @@ public class CurrencyAttribute : IBaseEntity<Guid>, IDeletable, IAuditable
     public string Value { get; set; }
 
     /// <summary>
-    /// The timestamp indicating when the currency attribute was created.
-    /// </summary>
-    public DateTime Created { get; set; }
-
-    /// <summary>
-    /// The timestamp of the last update made to the currency attribute.
-    /// </summary>
-    public DateTime Updated { get; set; }
-
-    /// <summary>
     /// A flag indicating whether the currency attribute is currently active.
     /// </summary>
     public bool IsActive { get; set; }
@@ -45,11 +30,6 @@ public class CurrencyAttribute : IBaseEntity<Guid>, IDeletable, IAuditable
     /// A brief description of the currency attribute.
     /// </summary>
     public string Description { get; set; }
-
-    /// <summary>
-    /// A meta description for SEO or informational purposes.
-    /// </summary>
-    public string MetaDescription { get; set; }
 
     /// <summary>
     /// The identifier of the user who deleted this currency attribute, if applicable.
@@ -79,6 +59,12 @@ public class CurrencyAttribute : IBaseEntity<Guid>, IDeletable, IAuditable
     /// The identifier of the user associated with this currency attribute.
     /// </summary>
     public Guid UserId { get; set; }
+    
+    
+    /// <summary>
+    /// The user associated with this currency attribute.
+    /// </summary>
+    public User User { get; set; }
 
     /// <summary>
     /// The identifier of the associated currency.
