@@ -34,13 +34,14 @@ public class CurrencyAttribute : BaseEntity<Guid>, IDeletable, IAuditable
     /// <summary>
     /// The identifier of the user who deleted this currency attribute, if applicable.
     /// </summary>
-    public Guid DeletedByUserId { get; set; }
+    public Guid? DeletedByUserId { get; set; }
 
     /// <summary>
     /// The identifier of the user who last updated this currency attribute.
     /// </summary>
-    public Guid UpdatedByUserId { get; set; }
+    public Guid? UpdatedByUserId { get; set; }
 
+    DateTimeOffset IAuditable.Updated { get; set; }
     #endregion
 
     /// <summary>

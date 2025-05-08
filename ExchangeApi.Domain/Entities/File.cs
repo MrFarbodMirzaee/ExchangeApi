@@ -1,5 +1,4 @@
-﻿#nullable disable
-using ExchangeApi.Domain.Contracts;
+﻿using ExchangeApi.Domain.Contracts;
 
 namespace ExchangeApi.Domain.Entities;
 
@@ -7,7 +6,7 @@ namespace ExchangeApi.Domain.Entities;
 /// Represents a file entity within the Exchange API system.
 /// This entity stores information about files uploaded by users.
 /// </summary>
-public class File : BaseEntity<Guid> , IAuditable 
+public class File : BaseEntity<Guid> , IAuditable ,IDeletable
 {
     #region Properties
 
@@ -26,7 +25,8 @@ public class File : BaseEntity<Guid> , IAuditable
     /// </summary>
     public byte[] FileData { get; set; }
 
-    public Guid UpdatedByUserId { get; set; }
+    public Guid? UpdatedByUserId { get; set; }
+    DateTimeOffset IAuditable.Updated { get; set; }
     #endregion
 
     #region Navigations
@@ -50,7 +50,8 @@ public class File : BaseEntity<Guid> , IAuditable
     /// The currency associated with this file.
     /// </summary>
     public Currency Currency { get; set; }
-    
+    public Guid? DeletedByUserId { get ; set ; }
+
     #endregion
 
 }

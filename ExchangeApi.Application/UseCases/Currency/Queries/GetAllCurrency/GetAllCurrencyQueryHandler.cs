@@ -11,10 +11,14 @@ namespace ExchangeApi.Application.UseCases.Currency.Queries.GetAllCurrency
     {
         public async Task<Response<List<CurrencyDto>>> Handle(GetAllCurrencyQuery request, CancellationToken ct)
         {
-            var pageSize = request.PageSize;
-            var page = request.Page;
-            Response<List<Domain.Entities.Currency>> currency = await currencyService.GetAllAsync(ct, page, pageSize);
-            var currencyMapped = mapper.Map<List<CurrencyDto>>(currency.Data);
+            var currency =
+                await currencyService
+                .FindByQueryCriteria(request.QueryCriteria,ct);
+            
+            var currencyMapped = mapper
+                .Map<List<CurrencyDto>>
+                    (currency.Data);
+            
             return currency.Succeeded
                 ? new Response<List<CurrencyDto>>(currencyMapped)
                 : new Response<List<CurrencyDto>>(currency.Message);

@@ -11,13 +11,18 @@ public class GetAllUserQueryHandler(IUserService userService, IMapper mapper)
 {
     public async Task<Response<List<UserDto>>> Handle(GetAllUserQuery request, CancellationToken ct)
     {
-        var pageSize = request.PageSize;
-        var page = request.Page;
-        
-        Response<List<Domain.Entities.User>> users = await userService.GetAllAsync(ct, page, pageSize);
+        var users = await userService
+                                .FindByQueryCriteria
+                                    (request.QueryCriteria,ct);
 
-        var userMapped = mapper.Map<List<UserDto>>(users.Data);
+        var userMapped = mapper
+                .Map<List<UserDto>>
+                    (users.Data);
 
-        return users.Succeeded ? new Response<List<UserDto>>(userMapped) : new Response<List<UserDto>>(users.Message);
+        return users.Succeeded ? 
+            new Response<List<UserDto>>
+                    (userMapped)
+            : new Response<List<UserDto>>
+                    (users.Message);
     }
 }

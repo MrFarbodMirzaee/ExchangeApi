@@ -1,5 +1,4 @@
-﻿#nullable disable
-using ExchangeApi.Domain.Contracts;
+﻿using ExchangeApi.Domain.Contracts;
 
 namespace ExchangeApi.Domain.Entities;
 
@@ -55,13 +54,14 @@ public class ExchangeTransaction : BaseEntity<Guid>, IDeletable, IAuditable
     /// <summary>
     /// The identifier of the user who last updated this transaction.
     /// </summary>
-    public Guid UpdatedByUserId { get; set; }
+    public Guid? UpdatedByUserId { get; set; }
 
     /// <summary>
     /// The identifier of the user who deleted this transaction, if applicable.
     /// </summary>
-    public Guid DeletedByUserId { get; set; }
+    public Guid? DeletedByUserId { get; set; }
 
+    DateTimeOffset IAuditable.Updated { get; set; }
     #endregion
 
     #region Navigations

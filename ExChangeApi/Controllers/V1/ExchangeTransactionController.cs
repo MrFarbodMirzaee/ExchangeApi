@@ -18,11 +18,11 @@ public class ExchangeTransactionController(IOptionsMonitor<MySettings> settings)
         _settings = settings
             .CurrentValue; // I write this just because of showing OptionBuilder Pattern, but it is useless in my project
 
-    [HttpGet]
+    [HttpPost]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetAll([FromQuery] GetAllExchangeTransactionQuery request, CancellationToken ct) =>
+    public async Task<IActionResult> GetAll([FromBody] GetAllExchangeTransactionQuery request, CancellationToken ct) =>
         await SendAsync(request, ct);
 
     [HttpGet]

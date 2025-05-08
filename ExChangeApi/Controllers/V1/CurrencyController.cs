@@ -19,11 +19,11 @@ public class CurrencyController(IOptionsMonitor<MySettings> settings) : BaseCont
         _settings = settings
             .CurrentValue; // I write this just because of showing OptionBuilder Pattern, but it is useless in my project
 
-    [HttpGet]
+    [HttpPost]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetAll([FromQuery] GetAllCurrencyQuery request, CancellationToken ct) =>
+    public async Task<IActionResult> GetAll([FromBody] GetAllCurrencyQuery request, CancellationToken ct) =>
         await SendAsync(request, ct);
 
     [HttpGet]

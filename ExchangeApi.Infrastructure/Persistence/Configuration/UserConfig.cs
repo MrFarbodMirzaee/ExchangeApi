@@ -41,6 +41,12 @@ public class UserConfig : IEntityTypeConfiguration<User>
         builder.Property(x => x.Created)
             .IsRequired()
             .HasDefaultValue(DateTimeOffset.Now);
+
+        builder.Property(ca => ca.UpdatedByUserId)
+            .IsRequired(false);
+
+        builder.Property(x => x.Updated)
+            .IsRequired(false);
         
         builder.Property(x => x.Password)
             .IsRequired()

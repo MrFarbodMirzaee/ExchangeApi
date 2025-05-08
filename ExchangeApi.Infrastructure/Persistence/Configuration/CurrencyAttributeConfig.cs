@@ -31,10 +31,13 @@ public class CurrencyAttributeConfig : IEntityTypeConfiguration<CurrencyAttribut
             .HasMaxLength(250);
 
         builder.Property(ca => ca.DeletedByUserId)
-            .IsRequired();
+            .IsRequired(false);
 
         builder.Property(ca => ca.UpdatedByUserId)
-            .IsRequired();
+            .IsRequired(false);
+
+        builder.Property(x => x.Updated)
+            .IsRequired(false);
         
         builder.Property(x => x.Created)
             .IsRequired()
