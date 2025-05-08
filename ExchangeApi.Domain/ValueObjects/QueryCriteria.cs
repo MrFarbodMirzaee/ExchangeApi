@@ -12,12 +12,12 @@ public class QueryCriteria
     /// <summary>
     /// A list of filters to be applied to the query.
     /// </summary>
-    public List<Filter> Filters { get; set; }
+    public List<Filter>? Filters { get; set; }
 
     /// <summary>
     /// A list of sorting options to be applied to the query results.
     /// </summary>
-    public List<Sort> Sorts { get; set; }
+    public List<Sort>? Sorts { get; set; }
 
     /// <summary>
     /// The number of records to skip when retrieving results (for pagination).

@@ -14,16 +14,17 @@ public class GetAllExchangeTransactionQueryHandler(
     public async Task<Response<List<ExchangeTransactionDto>>> Handle(GetAllExchangeTransactionQuery request,
         CancellationToken ct)
     {
-        var pageSize = request.PageSize;
-        var page = request.Page;
-        
-        Response<List<ExchangeApi.Domain.Entities.ExchangeTransaction>> exchangeTransactions =
-            await exchangeTransactionServices.GetAllAsync(ct, page, pageSize);
+        var exchangeTransactions =
+            await exchangeTransactionServices.FindByQueryCriteria(request.QueryCriteria,ct);
 
-        var exchangeTransactionDtos = mapper.Map<List<ExchangeTransactionDto>>(exchangeTransactions.Data);
+        var exchangeTransactionDtos = mapper
+                    .Map<List<ExchangeTransactionDto>>
+                            (exchangeTransactions.Data);
 
         return exchangeTransactions.Succeeded
-            ? new Response<List<ExchangeTransactionDto>>(exchangeTransactionDtos)
-            : new Response<List<ExchangeTransactionDto>>(exchangeTransactions.Message);
+            ? new Response<List<ExchangeTransactionDto>>
+                                (exchangeTransactionDtos)
+            : new Response<List<ExchangeTransactionDto>>
+                                (exchangeTransactions.Message);
     }
 }

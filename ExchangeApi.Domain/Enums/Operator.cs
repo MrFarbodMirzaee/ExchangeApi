@@ -8,27 +8,27 @@ public enum Operator
     /// <summary>
     /// Represents the equality operator.
     /// </summary>
-    Eq,
+    Eq = 1,
 
     /// <summary>
     /// Represents the greater than or equal to operator.
     /// </summary>
-    GtOrEq,
+    GtOrEq = 2,
 
     /// <summary>
     /// Represents the less than or equal to operator.
     /// </summary>
-    LtOrEq,
+    LtOrEq = 3,
 
     /// <summary>
     /// Represents the less than operator.
     /// </summary>
-    Lt,
+    Lt = 4,
 
     /// <summary>
     /// Represents the greater than operator.
     /// </summary>
-    Gt,
+    Gt = 5,
 
     /// <summary>
     /// Represents the not equal to operator.

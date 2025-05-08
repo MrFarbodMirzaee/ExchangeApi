@@ -27,6 +27,15 @@ public class ExchangeRateConfig : IEntityTypeConfiguration<ExchangeRate>
         builder.Property(x => x.Rate)
             .IsRequired();
         
+        builder.Property(ca => ca.DeletedByUserId)
+            .IsRequired(false);
+
+        builder.Property(ca => ca.UpdatedByUserId)
+            .IsRequired(false);
+
+        builder.Property(x => x.Updated)
+            .IsRequired(false);
+        
         builder.HasOne(current => current.FromCurrency)
             .WithMany(other=> other.FromExchangeRates) 
             .IsRequired()

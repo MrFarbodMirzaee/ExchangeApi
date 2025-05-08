@@ -11,16 +11,18 @@ public class GetAllExchangeRateQueryHandler(IExchangeRateService exchangeRateSer
 {
     public async Task<Response<List<ExchangeRateDto>>> Handle(GetAllExchangeRateQuery request, CancellationToken ct)
     {
-        int pageSize = request.PageSize;
-        int page = request.Page;
+        var exchangeRate =
+            await exchangeRateService.FindByQueryCriteria
+                    (request.QueryCriteria,ct);
         
-        Response<List<ExchangeApi.Domain.Entities.ExchangeRate>> exchangeRate =
-            await exchangeRateService.GetAllAsync(ct, page, pageSize);
-        
-        var exchangeRateMapped = mapper.Map<List<ExchangeRateDto>>(exchangeRate.Data);
+        var exchangeRateMapped = mapper.Map
+                    <List<ExchangeRateDto>>
+                        (exchangeRate.Data);
         
         return exchangeRate.Succeeded
-            ? new Response<List<ExchangeRateDto>>(exchangeRateMapped)
-            : new Response<List<ExchangeRateDto>>(exchangeRate.Message);
+            ? new Response<List<ExchangeRateDto>>
+                                (exchangeRateMapped)
+            : new Response<List<ExchangeRateDto>>
+                                (exchangeRate.Message);
     }
 }

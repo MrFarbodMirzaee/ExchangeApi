@@ -35,6 +35,15 @@ public class ExchangeTransactionConfig : IEntityTypeConfiguration<ExchangeTransa
         builder.Property(x => x.TransactionDate)
             .IsRequired();
         
+        builder.Property(ca => ca.DeletedByUserId)
+            .IsRequired(false);
+
+        builder.Property(ca => ca.UpdatedByUserId)
+            .IsRequired(false);
+
+        builder.Property(x => x.Updated)
+            .IsRequired(false);
+        
         builder.HasOne(current => current.FromCurrency) 
             .WithMany(other=> other.FromExchangeTransactions) 
             .HasForeignKey(x => x.FromCurrencyId) 

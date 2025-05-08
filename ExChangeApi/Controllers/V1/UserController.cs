@@ -19,11 +19,11 @@ public class UserController(IOptionsMonitor<MySettings> settings) : BaseControll
         _settings = settings
             .CurrentValue; // I write this just because of showing OptionBuilder Pattern, but it is useless in my project
 
-    [HttpGet]
+    [HttpPost]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public async Task<IActionResult> GetAll([FromQuery] GetAllUserQuery request, CancellationToken ct) =>
+    public async Task<IActionResult> GetAll([FromBody] GetAllUserQuery request, CancellationToken ct) =>
         await SendAsync(request, ct);
 
     [HttpGet]

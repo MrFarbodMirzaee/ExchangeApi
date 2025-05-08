@@ -33,13 +33,13 @@ public class CategoryConfig : IEntityTypeConfiguration<Category>
             .HasDefaultValue(DateTimeOffset.Now);
 
         builder.Property(c => c.Updated)
-            .IsRequired();
+            .IsRequired(false);
 
         builder.Property(c => c.UpdatedByUserId)
-            .IsRequired();
+            .IsRequired(false);
 
         builder.Property(c => c.DeletedByUserId)
-            .IsRequired();
+            .IsRequired(false);
             
         
         builder.HasMany(u => u.Currencies)

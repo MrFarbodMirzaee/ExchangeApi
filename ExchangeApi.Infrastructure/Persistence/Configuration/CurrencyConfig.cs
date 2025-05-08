@@ -36,6 +36,15 @@ public class CurrencyConfig : IEntityTypeConfiguration<Currency>
         builder.Property(x => x.Created)
             .IsRequired()
             .HasDefaultValue(DateTimeOffset.Now);
+        
+        builder.Property(ca => ca.DeletedByUserId)
+            .IsRequired(false);
+
+        builder.Property(ca => ca.UpdatedByUserId)
+            .IsRequired(false);
+
+        builder.Property(x => x.Updated)
+            .IsRequired(false);
 
         builder.HasOne(current => current.Category)
             .WithMany(other => other.Currencies)

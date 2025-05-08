@@ -30,6 +30,12 @@ public class FileConfig : IEntityTypeConfiguration<ExchangeApi.Domain.Entities.F
             .IsRequired()
             .HasDefaultValue(DateTimeOffset.Now);
         
+        builder.Property(ca => ca.UpdatedByUserId)
+            .IsRequired(false);
+
+        builder.Property(x => x.Updated)
+            .IsRequired(false);
+        
         builder.HasOne(current => current.User) 
             .WithMany(other => other.Files) 
             .HasForeignKey(current => current.UserId) 

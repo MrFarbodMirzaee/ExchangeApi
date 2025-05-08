@@ -1,5 +1,7 @@
-﻿using ExchangeApi.Domain.ValueObjects;
+﻿using System.Globalization;
+using ExchangeApi.Domain.ValueObjects;
 using System.Linq.Expressions;
+using System.Text.Json;
 using ExchangeApi.Domain.Enums;
 
 namespace ExchangeApi.Application.Filters;
@@ -8,92 +10,128 @@ public static class CustomFilter
 {
     private static Expression<Func<T, bool>> GetFilterExpression<T>(Filter filter)
     {
-        var parameter = Expression.Parameter(typeof(T));
 
-        var propName = Expression.PropertyOrField(parameter, filter.PropertyName);
-        
-        var targetType = propName.Type;
-        
-        if (targetType.IsGenericType && targetType
-                            .GetGenericTypeDefinition() == typeof(Nullable<>))
-            
-            targetType = Nullable.GetUnderlyingType(targetType);
-        
-        var constExpression =
-            Expression.Constant(Convert.ChangeType(filter.Value, targetType ?? throw new InvalidOperationException()),
-                propName.Type);
-        
-        Expression filterExpression;
+    var parameter = Expression
+            .Parameter(typeof(T), "x");
+    
+    var propertyInfo = typeof(T)
+            .GetProperty(filter.PropertyName);
+    
+    var fieldInfo = typeof(T)
+            .GetField(filter.PropertyName);
+    
+    if (propertyInfo == null && fieldInfo == null)
+        throw new ArgumentException(
+            $"Property or field '{filter.PropertyName}' not found on type '{typeof(T).Name}'.");
 
-        switch (filter.Operation)
+    var propExpr = Expression
+            .PropertyOrField(parameter, filter.PropertyName);
+
+    var targetType = propExpr.Type;
+    
+    if (targetType.IsGenericType && targetType.GetGenericTypeDefinition() == typeof(Nullable<>))
+            targetType = Nullable.GetUnderlyingType(targetType)!;
+
+    object rawValue = filter.Value!;
+    
+    if (rawValue is JsonElement je)
+    {
+        rawValue = je.ValueKind switch
         {
-            case Operator.Eq:
-                filterExpression = Expression.Equal(propName, constExpression);
-                break;
-            case Operator.LtOrEq:
-                filterExpression = Expression.LessThanOrEqual(propName, constExpression);
-                break;
-            case Operator.Lt:
-                filterExpression = Expression.LessThan(propName, constExpression);
-                break;
-            case Operator.Gt:
-                filterExpression = Expression.GreaterThan(propName, constExpression);
-                break;
-            case Operator.GtOrEq:
-                filterExpression = Expression.GreaterThanOrEqual(propName, constExpression);
-                break;
-            case Operator.NotEq:
-                filterExpression = Expression.NotEqual(propName, constExpression);
-                break;
-            case Operator.Contains:
-                var containsMethodInfo =
-                    typeof(string).GetMethod(nameof(string.Contains), new Type[] { typeof(string) });
-                filterExpression = Expression.Call(propName, containsMethodInfo, constExpression);
-                break;
-            default:
-                throw new InvalidOperationException();
-        }
+            JsonValueKind.String when targetType == typeof(Guid)   => Guid.Parse(je.GetString()!),
+            JsonValueKind.String                                => je.GetString()!,
+            JsonValueKind.Number when targetType == typeof(int)    => je.GetInt32(),
+            JsonValueKind.Number when targetType == typeof(long)   => je.GetInt64(),
+            JsonValueKind.Number when targetType == typeof(double) => je.GetDouble(),
+            JsonValueKind.True  or JsonValueKind.False              => je.GetBoolean(),
+            _ => throw new InvalidOperationException(
+                    $"Cannot convert JSON value '{je.GetRawText()}' to {targetType.Name}")
+        };
+    }
 
-        return Expression
-                .Lambda<Func<T, bool>>(filterExpression, parameter);
+    var converted = Convert
+            .ChangeType(rawValue, targetType, CultureInfo.InvariantCulture);
+
+    var constExpr = Expression
+            .Constant(converted, propExpr.Type);
+
+    Expression body = filter.Operation switch
+    {
+        Operator.Eq     => Expression.Equal(propExpr, constExpr),
+        Operator.NotEq  => Expression.NotEqual(propExpr, constExpr),
+        Operator.Gt     => Expression.GreaterThan(propExpr, constExpr),
+        Operator.GtOrEq => Expression.GreaterThanOrEqual(propExpr, constExpr),
+        Operator.Lt     => Expression.LessThan(propExpr, constExpr),
+        Operator.LtOrEq => Expression.LessThanOrEqual(propExpr, constExpr),
+        Operator.Contains when propExpr.Type == typeof(string) =>
+            Expression.Call(propExpr,
+                typeof(string).GetMethod(nameof(string.Contains), new[] { typeof(string) })!,
+                constExpr),
+        _ => throw new InvalidOperationException(
+                $"Unsupported filter operation '{filter.Operation}' for property '{filter.PropertyName}'")
+    };
+
+    return Expression
+        .Lambda<Func<T, bool>>(body, parameter);
     }
 
     private static Expression<Func<T, object>> GetSortExpression<T>(Sort sort)
     {
-        var prop = Expression.Parameter(typeof(T));
-        var property = Expression.PropertyOrField(prop, sort.PropertyName);
-        return Expression.Lambda<Func<T, object>>(property, prop);
+        
+        var prop = Expression
+                    .Parameter(typeof(T));
+        
+        var property = Expression
+                    .PropertyOrField(prop, sort.PropertyName);
+        
+        return Expression
+                    .Lambda<Func<T, object>>(property, prop);
     }
 
-    public async static Task<IEnumerable<T>> ApplyFilter<T>(this IQueryable<T> query, QueryCriteria? queryCriteria)
+    public static IQueryable<T> ApplyFilter<T>(this IQueryable<T> query, QueryCriteria? queryCriteria)
     {
         if (queryCriteria is not null)
         {
-            if (queryCriteria.Filters is not null)
-            {
+            if (queryCriteria.Filters is not null && !queryCriteria.Filters!
+                    .Any(s=> s.PropertyName
+                        .Equals("string",StringComparison.OrdinalIgnoreCase)))
                 foreach (var filter in queryCriteria.Filters)
-                {
-                    query = query.Where(GetFilterExpression<T>(filter));
-                }
-            }
+                    query = query
+                        .Where(GetFilterExpression<T>(filter));
 
-            if (queryCriteria.Sorts is not null)
+            if (queryCriteria.Sorts is not null && queryCriteria
+                    .Sorts.Any() && !queryCriteria.Sorts
+                        .Any(s=> s.PropertyName
+                            .Equals("string",StringComparison.OrdinalIgnoreCase) ) )
             {
-                foreach (var sort in queryCriteria.Sorts)
-                {
-                    query = sort.IsAscending
-                        ? query.OrderBy(GetSortExpression<T>(sort))
-                        : query.OrderByDescending(GetSortExpression<T>(sort));
-                }
+                var first = queryCriteria
+                        .Sorts
+                        .First();
+                
+                var ord = first.IsAscending
+                    ? query
+                        .OrderBy(GetSortExpression<T>(first))
+                    : query
+                        .OrderByDescending(GetSortExpression<T>(first));
+
+                foreach (var s in queryCriteria.Sorts.Skip(1))
+                    ord = s.IsAscending
+                        ? ord
+                            .ThenBy(GetSortExpression<T>(s))
+                        : ord
+                            .ThenByDescending(GetSortExpression<T>(s));
+
+                query = ord;
             }
 
-            return query.Skip(queryCriteria.Skip)
-                .Take(queryCriteria.Take)
-                .ToList();
+            var skip = queryCriteria.Skip  >= 0 ? queryCriteria.Skip  : 0;
+            var take = queryCriteria.Take  >  0 ? queryCriteria.Take  : int.MaxValue;
+
+            query = query
+                .Skip(skip)
+                .Take(take);
         }
-        else
-        {
-            return query.ToList();
-        }
+
+        return query;
     }
 }

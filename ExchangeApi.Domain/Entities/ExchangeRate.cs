@@ -35,13 +35,14 @@ public class ExchangeRate : BaseEntity<Guid>, IDeletable, IAuditable
     /// <summary>
     /// The identifier of the user who last updated this exchange rate.
     /// </summary>
-    public Guid UpdatedByUserId { get; set; }
+    public Guid? UpdatedByUserId { get; set; }
 
     /// <summary>
     /// The identifier of the user who deleted this exchange rate, if applicable.
     /// </summary>
-    public Guid DeletedByUserId { get; set; }
+    public Guid? DeletedByUserId { get; set; }
 
+    DateTimeOffset IAuditable.Updated { get; set; }
     #endregion
 
     #region Navigations
@@ -55,6 +56,6 @@ public class ExchangeRate : BaseEntity<Guid>, IDeletable, IAuditable
     /// The currency to which the exchange rate is calculated.
     /// </summary>
     public Currency ToCurrency { get; set; }
-    
+
     #endregion
 }
