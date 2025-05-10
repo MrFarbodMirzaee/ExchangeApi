@@ -38,6 +38,17 @@ public class BaseController : Controller
 
     protected async Task<ObjectResult> SendAsync(IRequest<Response<long>> request, CancellationToken ct = default) =>
         await SendAsync<long>(request, ct);
+    
+    protected async Task<IActionResult> SendAsync<T>(IRequest<T> request, CancellationToken ct = default)
+    {
+        var result = await Mediator
+                        .Send(request, ct);
+        return result switch
+        {
+            FileResult file => file,
+            _ => Ok(result)
+        };
+    }
 
     protected async Task<ObjectResult> SendAsync(IRequest<Response<DownloadFileDto>> request,
         CancellationToken ct = default)

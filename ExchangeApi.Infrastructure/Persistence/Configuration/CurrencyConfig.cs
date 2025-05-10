@@ -15,6 +15,7 @@ public class CurrencyConfig : IEntityTypeConfiguration<Currency>
 
         builder.Property(p => p.Id)
             .ValueGeneratedNever()
+            .IsRequired()
             .HasDefaultValue(Guid.NewGuid());
         
         builder.Property(x => x.CurrencyCode)
