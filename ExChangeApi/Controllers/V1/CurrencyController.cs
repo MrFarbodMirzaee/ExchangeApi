@@ -5,8 +5,10 @@ using System.Net.Mime;
 using ExchangeApi.Application.UseCases.Currency.Commands.AddCurrency;
 using ExchangeApi.Application.UseCases.Currency.Commands.DeleteCurrency;
 using ExchangeApi.Application.UseCases.Currency.Commands.UpdateCurrency;
+using ExchangeApi.Application.UseCases.Currency.Commands.UploadExcleFile;
 using ExchangeApi.Application.UseCases.Currency.Queries.GetActiveCurrency;
 using ExchangeApi.Application.UseCases.Currency.Queries.GetAllCurrency;
+using ExchangeApi.Application.UseCases.Currency.Queries.GetAllInExcelFormat;
 using ExchangeApi.Application.UseCases.Currency.Queries.GetCurrencyById;
 using ExchangeApi.Application.UseCases.Currency.Queries.SearchCurrency;
 using Microsoft.AspNetCore.Authorization;
@@ -38,6 +40,12 @@ public class CurrencyController(IOptionsMonitor<MySettings> settings) : BaseCont
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetById([FromQuery] GetCurrencyByIdQuery request, CancellationToken ct) =>
         await SendAsync(request, ct);
+    
+    [HttpGet]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetAllInExcleFormat([FromQuery] GetAllCurrencyInExcelFormatQuery request, CancellationToken ct) =>
+        await SendAsync(request, ct);
 
     [Authorize]
     [HttpPost]
@@ -45,6 +53,13 @@ public class CurrencyController(IOptionsMonitor<MySettings> settings) : BaseCont
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Add([FromBody] AddCurrencyCommand command, CancellationToken ct) =>
+        await SendAsync(command, ct);
+    
+    [Authorize]
+    [HttpPost]
+    [ProducesResponseType(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> AddByExcel([FromForm] UploadCurrencyByExcleFileCommand command, CancellationToken ct) =>
         await SendAsync(command, ct);
 
     [HttpGet]

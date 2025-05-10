@@ -3,12 +3,7 @@ using ExchangeApi.Application;
 using ExchangeApi.Infrastructure;
 using Asp.Versioning;
 using ExchangeApi.Infrastructure.Identity;
-using ExchangeApi.Infrastructure.Identity.Entities;
-using ExchangeApi.Infrastructure.Identity.Seeds;
-using ExchangeApi.Infrastructure.Persistence.Contexts;
-using ExchangeApi.Infrastructure.Persistence.Seeders;
 using Ocelot.Middleware;
-using Microsoft.AspNetCore.Identity;
 using ExchangeApi.Middleware;
 using Microsoft.OpenApi.Models;
 

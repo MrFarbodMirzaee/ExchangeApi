@@ -6,6 +6,7 @@ using ExchangeApi.Application.UseCases.ExchangeRate.Commands.AddExchangeRate;
 using ExchangeApi.Application.UseCases.ExchangeRate.Commands.DeleteExchangeRate;
 using ExchangeApi.Application.UseCases.ExchangeRate.Commands.UpdateExchangeRate;
 using ExchangeApi.Application.UseCases.ExchangeRate.Queries.GetAllExchangeRate;
+using ExchangeApi.Application.UseCases.ExchangeRate.Queries.GetAllExchangeRateInExcelFormatQuery;
 using ExchangeApi.Application.UseCases.ExchangeRate.Queries.GetExchangeRateByCurrencyPair;
 using ExchangeApi.Application.UseCases.ExchangeRate.Queries.GetExchangeRateById;
 using ExchangeApi.Application.UseCases.ExchangeRate.Queries.GetLatestExchangeRate;
@@ -31,6 +32,12 @@ public class ExchangeRateController(IOptionsMonitor<MySettings> settings) : Base
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetById([FromQuery] GetExchangeRateByIdQuery request, CancellationToken ct) =>
+        await SendAsync(request, ct);
+    
+    [HttpGet]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetAllInExcleFormat([FromQuery] GetAllExchangeRateInExcelFormatQuery request, CancellationToken ct) =>
         await SendAsync(request, ct);
 
     [HttpGet]

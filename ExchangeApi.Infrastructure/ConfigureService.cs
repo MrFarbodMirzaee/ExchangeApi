@@ -20,7 +20,8 @@ public static class ConfigureService
         services.AddScoped<IExchangeTransactionServices, ExchangeTransactionServices>();
         services.AddScoped<IUserService, UserServices>();
         services.AddScoped<IFileService, FileService>();
-
+        services.AddScoped<IExcelFileProcessor, ExcelFileProcessor>();
+        
         return services;
     }
 }

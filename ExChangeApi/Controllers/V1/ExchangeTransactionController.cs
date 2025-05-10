@@ -5,6 +5,7 @@ using System.Net.Mime;
 using ExchangeApi.Application.UseCases.ExchangeTransaction.Commands.AddExchangeTransaction;
 using ExchangeApi.Application.UseCases.ExchangeTransaction.Commands.DeleteExchangeTransaction;
 using ExchangeApi.Application.UseCases.ExchangeTransaction.Commands.UpdateExchangeTransaction;
+using ExchangeApi.Application.UseCases.ExchangeTransaction.Queries.GetAllCurrencyAttributeInExcelFormatQuery;
 using ExchangeApi.Application.UseCases.ExchangeTransaction.Queries.GetAllExchangeTransaction;
 using ExchangeApi.Application.UseCases.ExchangeTransaction.Queries.GetExchangeTransactionByCurrencyPair;
 using ExchangeApi.Application.UseCases.ExchangeTransaction.Queries.GetExchangeTransactionById;
@@ -30,6 +31,12 @@ public class ExchangeTransactionController(IOptionsMonitor<MySettings> settings)
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult>
         GetById([FromQuery] GetExchangeTransactionByIdQuery request, CancellationToken ct) =>
+        await SendAsync(request, ct);
+    
+    [HttpGet]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetAllInExcleFormat([FromQuery] GetAllExchangeTransactionInExcelFormatQuery request, CancellationToken ct) =>
         await SendAsync(request, ct);
 
     [HttpGet]

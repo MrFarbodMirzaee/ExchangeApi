@@ -26,4 +26,8 @@
         <ProjectReference Include="..\ExchangeApi.Domain\ExchangeApi.Domain.csproj"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Remove="Persistence\Services\ExcelDataImportService.cs" />
+    </ItemGroup>
+
 </Project>
