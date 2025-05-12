@@ -21,6 +21,7 @@ public static class ConfigureService
         services.AddScoped<IUserService, UserServices>();
         services.AddScoped<IFileService, FileService>();
         services.AddScoped<IExcelFileProcessor, ExcelFileProcessor>();
+        services.AddScoped<IPdfService, PdfService>();
         
         return services;
     }

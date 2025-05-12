@@ -21,19 +21,14 @@
   <component name="ChangeListManager">
     <list default="true" id="45033fa8-705b-493c-89c2-5d0970f853b6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ExchangeApi/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ExchangeApi/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExChangeApi/Controllers/BaseController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExChangeApi/Controllers/BaseController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExChangeApi/ConfigureService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExChangeApi/ConfigureService.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ExChangeApi/Controllers/V1/CurrencyAttributeController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExChangeApi/Controllers/V1/CurrencyAttributeController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ExChangeApi/Controllers/V1/CurrencyController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExChangeApi/Controllers/V1/CurrencyController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ExChangeApi/Controllers/V1/ExchangeRateController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExChangeApi/Controllers/V1/ExchangeRateController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ExChangeApi/Controllers/V1/ExchangeTransactionController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExChangeApi/Controllers/V1/ExchangeTransactionController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ExChangeApi/Controllers/V1/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExChangeApi/Controllers/V1/UserController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExChangeApi/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExChangeApi/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/ExchangeApi.Application.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/ExchangeApi.Application.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/Currency/Queries/GetAllCurrency/GetAllCurrencyQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/Currency/Queries/GetAllCurrency/GetAllCurrencyQuery.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/Currency/Queries/GetAllCurrency/GetAllCurrencyQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/Currency/Queries/GetAllCurrency/GetAllCurrencyQueryHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ExchangeApi.Infrastructure/ConfigureService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Infrastructure/ConfigureService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Infrastructure/ExchangeApi.Infrastructure.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Infrastructure/ExchangeApi.Infrastructure.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Configuration/CurrencyConfig.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Configuration/CurrencyConfig.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,25 +54,24 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/dotnet/aspnetcore/b8139c5ee58f1708b0e3368a1b241400edd6cbc4/src/Mvc/Mvc.Core/src/FileContentResult.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/dotnet/aspnetcore/b8139c5ee58f1708b0e3368a1b241400edd6cbc4/src/Mvc/Mvc.Core/src/Infrastructure/ActionMethodExecutor.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/21fea9341ff54c65ba29ea08fdb4780161e28/bb/a6113741/Response`1.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5aeb6167299d4cfba30c86624130edbcc90938/5b/861f45b7/AsyncValueTaskMethodBuilder`1.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5aeb6167299d4cfba30c86624130edbcc90938/8a/dda8e327/MemoryStream.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/5aeb6167299d4cfba30c86624130edbcc90938/9a/56c4cd05/AsyncTaskMethodBuilder`1.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6753b151eaf047d495c4b9d5fde32208291020/43/316490ff/Property.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExChangeApi/Controllers/BaseController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d83c264d63fb4cc3a674b0565668f18669a00/3a/f0130de5/TableColumnsDefinitionDescriptor.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d83c264d63fb4cc3a674b0565668f18669a00/b8/8c803e37/TextSpanDescriptorExtensions.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e4918c8ac7be482996b82eec990f156d11200/1f/9dda71fa/RequestHandlerWrapperImpl`2.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e4918c8ac7be482996b82eec990f156d11200/9a/bae619c7/IRequestHandler`2.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/C#Project/ExchangeApi/ExChangeApi/ConfigureService.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://D:/C#Project/ExchangeApi/ExChangeApi/Controllers/V1/CurrencyAttributeController.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://D:/C#Project/ExchangeApi/ExChangeApi/Controllers/V1/CurrencyController.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://D:/C#Project/ExchangeApi/ExChangeApi/Controllers/V1/ExchangeRateController.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://D:/C#Project/ExchangeApi/ExChangeApi/Controllers/V1/ExchangeTransactionController.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://D:/C#Project/ExchangeApi/ExChangeApi/Controllers/V1/UserController.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExChangeApi/Program.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Application/UseCases/Currency/Queries/GetAllCurrency/GetAllCurrencyQuery.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Application/UseCases/Currency/Queries/GetAllCurrency/GetAllCurrencyQuery.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Application/UseCases/Currency/Queries/GetAllCurrency/GetAllCurrencyQueryHandler.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Infrastructure/ConfigureService.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Infrastructure/Persistence/Configuration/CurrencyConfig.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Infrastructure/Persistence/Contexts/AppDbContext.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="false" />
   <component name="ProjectColorInfo">{
@@ -93,6 +87,7 @@
     &quot;.NET Launch Settings Profile.ExchangeApi: https.executor&quot;: &quot;Debug&quot;,
     &quot;.NET Project.Unnamed.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.395202&quot;,
     &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -154,6 +149,9 @@
       <workItem from="1746678778123" duration="18027000" />
       <workItem from="1746848506342" duration="5847000" />
       <workItem from="1746871849231" duration="11122000" />
+      <workItem from="1746894200140" duration="8620000" />
+      <workItem from="1747025596288" duration="2282000" />
+      <workItem from="1747031818296" duration="1171000" />
     </task>
     <servers />
   </component>
@@ -238,13 +236,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/ExChangeApi/Controllers/V1/CurrencyController.cs</url>
-          <line>62</line>
+          <line>69</line>
           <properties documentPath="D:\C#Project\ExchangeApi\ExChangeApi\Controllers\V1\CurrencyController.cs" containingFunctionPresentation="Method 'AddCurrencyByExcel'">
             <startOffsets>
-              <option value="2973" />
+              <option value="3341" />
             </startOffsets>
             <endOffsets>
-              <option value="3001" />
+              <option value="3369" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="14" />
@@ -252,14 +250,7 @@
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/ExchangeApi.Application/UseCases/Currency/Commands/UploadExcleFile/UploadCurrencyByExcleFileCommandHandler.cs</url>
           <line>11</line>
-          <properties documentPath="D:\C#Project\ExchangeApi\ExchangeApi.Application\UseCases\Currency\Commands\UploadExcleFile\UploadExcleFileRequestHandler.cs" containingFunctionPresentation="Method 'Handle'">
-            <startOffsets>
-              <option value="553" />
-            </startOffsets>
-            <endOffsets>
-              <option value="618" />
-            </endOffsets>
-          </properties>
+          <properties documentPath="D:\C#Project\ExchangeApi\ExchangeApi.Application\UseCases\Currency\Commands\UploadExcleFile\UploadExcleFileRequestHandler.cs" containingFunctionPresentation="Method 'Handle'" />
           <option name="timeStamp" value="15" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
@@ -290,16 +281,29 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/ExChangeApi/Controllers/V1/CurrencyController.cs</url>
-          <line>47</line>
+          <line>54</line>
           <properties documentPath="D:\C#Project\ExchangeApi\ExChangeApi\Controllers\V1\CurrencyController.cs" containingFunctionPresentation="Method 'GetAllInExcleFormat'">
             <startOffsets>
-              <option value="2316" />
+              <option value="2684" />
             </startOffsets>
             <endOffsets>
-              <option value="2344" />
+              <option value="2712" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="26" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/ExchangeApi.Application/UseCases/Currency/Queries/GetAllCurrencyByPdf/GetAllCurrencyByPdfQueryHandler.cs</url>
+          <line>11</line>
+          <properties documentPath="D:\C#Project\ExchangeApi\ExchangeApi.Application\UseCases\Currency\Queries\GetAllByPdf\GetAllCurrencyByPdfQueryHandler.cs" containingFunctionPresentation="Method 'Handle'">
+            <startOffsets>
+              <option value="448" />
+            </startOffsets>
+            <endOffsets>
+              <option value="550" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="28" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
