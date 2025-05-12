@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
+using ExchangeApi.Application.Attributes;
 using ExchangeApi.Application.Dtos;
 using ExchangeApi.Application.UseCases.User.Commands.AddUser;
 using ExchangeApi.Domain.Wrappers;
 
 namespace ExchangeApi.Application.Profiles.User;
 
+[Profile]
 public class UserProfile : Profile
 {
     public UserProfile()

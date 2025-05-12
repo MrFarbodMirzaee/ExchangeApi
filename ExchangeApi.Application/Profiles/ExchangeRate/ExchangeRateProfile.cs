@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
+using ExchangeApi.Application.Attributes;
 using ExchangeApi.Application.Dtos;
 using ExchangeApi.Application.UseCases.ExchangeRate.Commands.AddExchangeRate;
 using ExchangeApi.Domain.Wrappers;
 
 namespace ExchangeApi.Application.Profiles.ExchangeRate;
 
+[Profile]
 public class ExchangeRateProfile : Profile
 {
     public ExchangeRateProfile()

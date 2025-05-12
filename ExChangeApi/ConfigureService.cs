@@ -1,12 +1,7 @@
-﻿using FluentValidation.AspNetCore;
-using ExchangeApi.Application.Profiles.Currency;
-using ExchangeApi.Application.Profiles.ExchangeRate;
-using ExchangeApi.Application.Profiles.ExchangeTransaction;
-using ExchangeApi.Application.Profiles.File;
-using ExchangeApi.Application.Profiles.User;
+﻿using AutoMapper;
+using ExchangeApi.Application.Attributes;
+using FluentValidation.AspNetCore;
 using ExchangeApi.Shared;
-using ExchangeApi.Domain.Wrappers;
-using ExchangeApi.Domain.Entities;
 using QuestPDF.Infrastructure;
 
 namespace ExchangeApi;
@@ -29,24 +24,24 @@ public static class ConfigureService
         services.AddFluentValidation();
         services.AddHealthChecks();
 
-        services.AddAutoMapper
-            (typeof(CurrencyProfile));
-        services.AddAutoMapper
-            (typeof(ExchangeRateProfile));
-        services.AddAutoMapper
-            (typeof(ExchangeTransactionProfile));
-        services.AddAutoMapper
-            (typeof(UserProfile));
-        services.AddAutoMapper
-            (typeof(Response<Currency>));
-        services.AddAutoMapper
-            (typeof(Response<ExchangeRate>));
-        services.AddAutoMapper
-            (typeof(Response<ExchangeTransaction>));
-        services.AddAutoMapper
-            (typeof(Response<User>));
-        services.AddAutoMapper
-            (typeof(FileProfile));
+        services.Scan(scan => scan
+            .FromAssemblies(AppDomain.CurrentDomain.GetAssemblies()
+                .Where(a => !a.IsDynamic && !string.IsNullOrWhiteSpace(a.FullName)))
+            .AddClasses(classes => classes.AssignableTo<Profile>()
+                .Where(type => type.GetCustomAttributes(typeof(ProfileAttribute), false).Any()))
+            .As<Profile>()
+            .WithSingletonLifetime());
+        
+        services.AddSingleton<IMapper>(provider =>
+        {
+            var profiles = provider.GetServices<Profile>();
+            var config = new MapperConfiguration(cfg =>
+            {
+                foreach (var profile in profiles)
+                    cfg.AddProfile(profile);
+            });
+            return config.CreateMapper();
+        });
 
         return services;
     }

@@ -1,6 +1,5 @@
-﻿using ExchangeApi.Application.Contracts;
+﻿using ExchangeApi.Application.Attributes;
 using ExchangeApi.Infrastructure.Persistence.Contexts;
-using ExchangeApi.Infrastructure.Persistence.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -14,14 +13,11 @@ public static class ConfigureService
         services.AddDbContext<AppDbContext>(option 
             => option.UseSqlServer(connectionString));
         
-        services.AddScoped<ICurrencyService, CurrencyService>();
-        services.AddScoped<ICurrencyAttributeService, CurrencyAttributeService>();
-        services.AddScoped<IExchangeRateService, ExchangeRateServices>();
-        services.AddScoped<IExchangeTransactionServices, ExchangeTransactionServices>();
-        services.AddScoped<IUserService, UserServices>();
-        services.AddScoped<IFileService, FileService>();
-        services.AddScoped<IExcelFileProcessor, ExcelFileProcessor>();
-        services.AddScoped<IPdfService, PdfService>();
+        services.Scan(s => s
+            .FromAssemblies(AppDomain.CurrentDomain.GetAssemblies())
+            .AddClasses(classes => classes.WithAttribute<ScopedServiceAttribute>())
+            .AsImplementedInterfaces()
+            .WithScopedLifetime());
         
         return services;
     }

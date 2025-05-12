@@ -1,4 +1,5 @@
-﻿using ExchangeApi.Application.Contracts;
+﻿using ExchangeApi.Application.Attributes;
+using ExchangeApi.Application.Contracts;
 using ExchangeApi.Domain.Entities;
 using ExchangeApi.Domain.Wrappers;
 using ExchangeApi.Infrastructure.Persistence.Contexts;
@@ -6,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ExchangeApi.Infrastructure.Persistence.Services;
 
+[ScopedService]
 public class UserServices(AppDbContext applicationDbContext)
     : GenericRepository<User>(applicationDbContext), IUserService
 {

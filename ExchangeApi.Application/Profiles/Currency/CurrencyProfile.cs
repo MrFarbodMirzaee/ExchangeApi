@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ExchangeApi.Application.Attributes;
 using ExchangeApi.Application.Dtos;
 using ExchangeApi.Application.UseCases.Currency.Commands.AddCurrency;
 using ExchangeApi.Domain.Entities;
@@ -6,6 +7,7 @@ using ExchangeApi.Domain.Wrappers;
 
 namespace ExchangeApi.Application.Profiles.Currency;
 
+[Profile]
 public class CurrencyProfile : Profile
 {
     public CurrencyProfile()
