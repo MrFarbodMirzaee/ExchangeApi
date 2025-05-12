@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
+using ExchangeApi.Application.Attributes;
 using ExchangeApi.Application.Dtos;
 using ExchangeApi.Application.UseCases.File.Upload;
 
 namespace ExchangeApi.Application.Profiles.File;
 
+[Profile]
 public class FileProfile : Profile
 {
     public FileProfile()

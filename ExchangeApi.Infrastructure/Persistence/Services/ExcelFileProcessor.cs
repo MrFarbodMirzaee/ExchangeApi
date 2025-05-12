@@ -1,4 +1,5 @@
 using ClosedXML.Excel;
+using ExchangeApi.Application.Attributes;
 using ExchangeApi.Application.Contracts;
 using ExchangeApi.Application.Dtos;
 using ExchangeApi.Infrastructure.Persistence.Contexts;
@@ -7,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ExchangeApi.Infrastructure.Persistence.Services;
 
+[ScopedService]
 public class ExcelFileProcessor(AppDbContext context) : IExcelFileProcessor
 {
     public async Task<Domain.Wrappers.Response<ExcelFileResponseDto>> ImportDataByExcel<TEntity>(IFormFile file, bool hasHeader,

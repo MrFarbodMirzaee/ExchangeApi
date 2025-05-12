@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ExchangeApi.Application.Attributes;
 using ExchangeApi.Application.Contracts;
 using ExchangeApi.Application.Dtos;
 using ExchangeApi.Domain.Wrappers;
@@ -7,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ExchangeApi.Infrastructure.Persistence.Services;
 
+[ScopedService]
 public class FileService(AppDbContext applicationDbContext, IMapper mapper)
     : GenericRepository<ExchangeApi.Domain.Entities.File>(applicationDbContext), IFileService
 {

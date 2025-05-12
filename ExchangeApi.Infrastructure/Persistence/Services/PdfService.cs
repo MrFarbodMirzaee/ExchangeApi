@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Reflection;
+using ExchangeApi.Application.Attributes;
 using ExchangeApi.Application.Contracts;
 using ExchangeApi.Infrastructure.Persistence.Contexts;
 using QuestPDF.Helpers;
@@ -9,6 +10,7 @@ using Document = QuestPDF.Fluent.Document;
 
 namespace ExchangeApi.Infrastructure.Persistence.Services;
 
+[ScopedService]
 public class PdfService(AppDbContext context) : IPdfService
 {
     public byte[] GeneratePdf<TEntity>(string title) where TEntity : class

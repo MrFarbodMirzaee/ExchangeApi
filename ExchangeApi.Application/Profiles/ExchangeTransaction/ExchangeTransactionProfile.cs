@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
+using ExchangeApi.Application.Attributes;
 using ExchangeApi.Application.Dtos;
 using ExchangeApi.Application.UseCases.ExchangeTransaction.Commands.AddExchangeTransaction;
 using ExchangeApi.Domain.Wrappers;
 
 namespace ExchangeApi.Application.Profiles.ExchangeTransaction;
 
+[Profile]
 public class ExchangeTransactionProfile : Profile
 {
     public ExchangeTransactionProfile()

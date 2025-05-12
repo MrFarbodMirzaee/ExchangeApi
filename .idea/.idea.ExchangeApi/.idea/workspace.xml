@@ -19,16 +19,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="45033fa8-705b-493c-89c2-5d0970f853b6" name="Changes" comment="">
+    <list default="true" id="45033fa8-705b-493c-89c2-5d0970f853b6" name="Changes" comment="Add PDF generation capabilities for user, currency, and exchange transaction data">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ExchangeApi/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ExchangeApi/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ExChangeApi/ConfigureService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExChangeApi/ConfigureService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExChangeApi/Controllers/V1/CurrencyAttributeController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExChangeApi/Controllers/V1/CurrencyAttributeController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExChangeApi/Controllers/V1/CurrencyController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExChangeApi/Controllers/V1/CurrencyController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExChangeApi/Controllers/V1/ExchangeRateController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExChangeApi/Controllers/V1/ExchangeRateController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExChangeApi/Controllers/V1/ExchangeTransactionController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExChangeApi/Controllers/V1/ExchangeTransactionController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExChangeApi/Controllers/V1/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExChangeApi/Controllers/V1/UserController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/ExchangeApi.Application.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/ExchangeApi.Application.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/Profiles/Currency/CurrencyProfile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/Profiles/Currency/CurrencyProfile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/Profiles/ExchangeRate/ExchangeRateProfile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/Profiles/ExchangeRate/ExchangeRateProfile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/Profiles/ExchangeTransaction/ExchangeTransactionProfile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/Profiles/ExchangeTransaction/ExchangeTransactionProfile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/Profiles/File/FileProfile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/Profiles/File/FileProfile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/Profiles/User/UserProfile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/Profiles/User/UserProfile.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ExchangeApi.Infrastructure/ConfigureService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Infrastructure/ConfigureService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Infrastructure/ExchangeApi.Infrastructure.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Infrastructure/ExchangeApi.Infrastructure.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Services/CurrencyAttributeService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Services/CurrencyAttributeService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Services/CurrencyService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Services/CurrencyService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Services/ExcelFileProcessor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Services/ExcelFileProcessor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Services/ExchangeRateServices.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Services/ExchangeRateServices.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Services/ExchangeTransactionServices.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Services/ExchangeTransactionServices.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Services/FileService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Services/FileService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Services/PdfService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Services/PdfService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Services/UserServices.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Services/UserServices.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,12 +55,22 @@
     &quot;assignee&quot;: &quot;MrFarbodMirzaee&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/MrFarbodMirzaee/ExchangeApi.git&quot;,
-    &quot;accountId&quot;: &quot;13cac956-4560-465f-90e0-f94f2e3dcc1b&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/MrFarbodMirzaee/ExchangeApi.git",
+    "accountId": "13cac956-4560-465f-90e0-f94f2e3dcc1b"
+  },
+  "recentNewPullRequestHead": {
+    "server": {
+      "useHttp": false,
+      "host": "github.com",
+      "port": null,
+      "suffix": null
+    },
+    "owner": "MrFarbodMirzaee",
+    "repository": "ExchangeApi"
   }
-}</component>
+}]]></component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/dotnet/aspnetcore/b8139c5ee58f1708b0e3368a1b241400edd6cbc4/src/Mvc/Mvc.Core/src/FileContentResult.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/dotnet/aspnetcore/b8139c5ee58f1708b0e3368a1b241400edd6cbc4/src/Mvc/Mvc.Core/src/Infrastructure/ActionMethodExecutor.cs" root0="SKIP_HIGHLIGHTING" />
@@ -66,12 +84,16 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e4918c8ac7be482996b82eec990f156d11200/1f/9dda71fa/RequestHandlerWrapperImpl`2.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e4918c8ac7be482996b82eec990f156d11200/9a/bae619c7/IRequestHandler`2.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://D:/C#Project/ExchangeApi/ExChangeApi/ConfigureService.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExChangeApi/Controllers/V1/CurrencyAttributeController.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExChangeApi/Controllers/V1/CurrencyController.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExChangeApi/Controllers/V1/ExchangeRateController.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExChangeApi/Controllers/V1/ExchangeTransactionController.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExChangeApi/Controllers/V1/UserController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/C#Project/ExchangeApi/ExChangeApi/ConfigureService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Application/Profiles/Currency/CurrencyProfile.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Infrastructure/ConfigureService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Infrastructure/Persistence/Services/CurrencyService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Infrastructure/Persistence/Services/ExcelFileProcessor.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Infrastructure/Persistence/Services/ExchangeRateServices.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Infrastructure/Persistence/Services/ExchangeTransactionServices.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Infrastructure/Persistence/Services/FileService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Infrastructure/Persistence/Services/PdfService.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Infrastructure/Persistence/Services/UserServices.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="false" />
   <component name="ProjectColorInfo">{
@@ -82,30 +104,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;.NET Launch Settings Profile.ExchangeApi: https.executor&quot;: &quot;Debug&quot;,
-    &quot;.NET Project.Unnamed.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.395202&quot;,
-    &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    ".NET Launch Settings Profile.ExchangeApi: https.executor": "Debug",
+    ".NET Project.Unnamed.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "XThreadsFramesViewSplitterKey": "0.395202",
+    "deletionFromPopupRequiresConfirmation": "false",
+    "git-widget-placeholder": "feature/automationRegisterDependencies",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;rider.external.source.directories&quot;: [
-      &quot;C:\\Users\\Farbod\\AppData\\Roaming\\JetBrains\\Rider2024.1\\resharper-host\\DecompilerCache&quot;,
-      &quot;C:\\Users\\Farbod\\AppData\\Roaming\\JetBrains\\Rider2024.1\\resharper-host\\SourcesCache&quot;,
-      &quot;C:\\Users\\Farbod\\AppData\\Local\\Symbols\\src&quot;
+  "keyToStringList": {
+    "rider.external.source.directories": [
+      "C:\\Users\\Farbod\\AppData\\Roaming\\JetBrains\\Rider2024.1\\resharper-host\\DecompilerCache",
+      "C:\\Users\\Farbod\\AppData\\Roaming\\JetBrains\\Rider2024.1\\resharper-host\\SourcesCache",
+      "C:\\Users\\Farbod\\AppData\\Local\\Symbols\\src"
     ]
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="ExchangeApi: https" type="LaunchSettings" factoryName=".NET Launch Settings Profile" temporary="true">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/ExChangeApi/ExchangeApi.csproj" />
@@ -152,7 +174,17 @@
       <workItem from="1746894200140" duration="8620000" />
       <workItem from="1747025596288" duration="2282000" />
       <workItem from="1747031818296" duration="1171000" />
+      <workItem from="1747033039732" duration="3869000" />
     </task>
+    <task id="LOCAL-00001" summary="Add PDF generation capabilities for user, currency, and exchange transaction data">
+      <option name="closed" value="true" />
+      <created>1747033211215</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1747033211215</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -164,7 +196,8 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="Update entity properties to use nullable Guid for user IDs and make Updated timestamps optional apply QueryCriteria for GetAll Functionalities" />
     <MESSAGE value="Add Migration" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add Migration" />
+    <MESSAGE value="Add PDF generation capabilities for user, currency, and exchange transaction data" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add PDF generation capabilities for user, currency, and exchange transaction data" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -255,13 +288,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Services/ExcelFileProcessor.cs</url>
-          <line>187</line>
+          <line>189</line>
           <properties documentPath="D:\C#Project\ExchangeApi\ExchangeApi.Infrastructure\Persistence\Services\ExcelFileProcessor.cs" containingFunctionPresentation="Method 'ExportToExcelAsync'">
             <startOffsets>
-              <option value="5911" />
+              <option value="5969" />
             </startOffsets>
             <endOffsets>
-              <option value="5943" />
+              <option value="6001" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="24" />
@@ -295,14 +328,7 @@
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/ExchangeApi.Application/UseCases/Currency/Queries/GetAllCurrencyByPdf/GetAllCurrencyByPdfQueryHandler.cs</url>
           <line>11</line>
-          <properties documentPath="D:\C#Project\ExchangeApi\ExchangeApi.Application\UseCases\Currency\Queries\GetAllByPdf\GetAllCurrencyByPdfQueryHandler.cs" containingFunctionPresentation="Method 'Handle'">
-            <startOffsets>
-              <option value="448" />
-            </startOffsets>
-            <endOffsets>
-              <option value="550" />
-            </endOffsets>
-          </properties>
+          <properties documentPath="D:\C#Project\ExchangeApi\ExchangeApi.Application\UseCases\Currency\Queries\GetAllByPdf\GetAllCurrencyByPdfQueryHandler.cs" containingFunctionPresentation="Method 'Handle'" />
           <option name="timeStamp" value="28" />
         </line-breakpoint>
       </breakpoints>
