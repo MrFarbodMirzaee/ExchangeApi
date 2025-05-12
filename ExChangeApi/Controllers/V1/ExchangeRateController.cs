@@ -5,6 +5,7 @@ using System.Net.Mime;
 using ExchangeApi.Application.UseCases.ExchangeRate.Commands.AddExchangeRate;
 using ExchangeApi.Application.UseCases.ExchangeRate.Commands.DeleteExchangeRate;
 using ExchangeApi.Application.UseCases.ExchangeRate.Commands.UpdateExchangeRate;
+using ExchangeApi.Application.UseCases.ExchangeRate.Queries.GetAllExcahngeRateByPdf;
 using ExchangeApi.Application.UseCases.ExchangeRate.Queries.GetAllExchangeRate;
 using ExchangeApi.Application.UseCases.ExchangeRate.Queries.GetAllExchangeRateInExcelFormatQuery;
 using ExchangeApi.Application.UseCases.ExchangeRate.Queries.GetExchangeRateByCurrencyPair;
@@ -28,11 +29,18 @@ public class ExchangeRateController(IOptionsMonitor<MySettings> settings) : Base
         await SendAsync(request, ct);
 
     [HttpGet]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetAllByPdf([FromQuery] GetAllExchangeRateByPdfQuery request, CancellationToken ct) =>
+        await SendAsync(request, ct);
+    
+    [HttpGet]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetById([FromQuery] GetExchangeRateByIdQuery request, CancellationToken ct) =>
         await SendAsync(request, ct);
+    
     
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

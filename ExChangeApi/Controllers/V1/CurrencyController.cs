@@ -8,6 +8,7 @@ using ExchangeApi.Application.UseCases.Currency.Commands.UpdateCurrency;
 using ExchangeApi.Application.UseCases.Currency.Commands.UploadExcleFile;
 using ExchangeApi.Application.UseCases.Currency.Queries.GetActiveCurrency;
 using ExchangeApi.Application.UseCases.Currency.Queries.GetAllCurrency;
+using ExchangeApi.Application.UseCases.Currency.Queries.GetAllCurrencyByPdf;
 using ExchangeApi.Application.UseCases.Currency.Queries.GetAllInExcelFormat;
 using ExchangeApi.Application.UseCases.Currency.Queries.GetCurrencyById;
 using ExchangeApi.Application.UseCases.Currency.Queries.SearchCurrency;
@@ -27,6 +28,12 @@ public class CurrencyController(IOptionsMonitor<MySettings> settings) : BaseCont
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetAll([FromBody] GetAllCurrencyQuery request, CancellationToken ct) =>
         await SendAsync(request, ct);
+    
+    [HttpGet]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetAllByPdf([FromQuery] GetAllCurrencyByPdfQuery request, CancellationToken ct) =>
+            await SendAsync(request, ct);
 
     [HttpGet]
     [Consumes(MediaTypeNames.Application.Json)]

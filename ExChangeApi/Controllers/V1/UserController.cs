@@ -7,6 +7,7 @@ using ExchangeApi.Application.UseCases.User.Commands.DeleteUser;
 using ExchangeApi.Application.UseCases.User.Commands.UpdateUser;
 using ExchangeApi.Application.UseCases.User.Queries.GetActiveUser;
 using ExchangeApi.Application.UseCases.User.Queries.GetAllUser;
+using ExchangeApi.Application.UseCases.User.Queries.GetAllUserByPdf;
 using ExchangeApi.Application.UseCases.User.Queries.GetAllUserInExcelFormatQuery;
 using ExchangeApi.Application.UseCases.User.Queries.GetUserByEmail;
 using ExchangeApi.Application.UseCases.User.Queries.GetUserById;
@@ -26,6 +27,12 @@ public class UserController(IOptionsMonitor<MySettings> settings) : BaseControll
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetAll([FromBody] GetAllUserQuery request, CancellationToken ct) =>
+        await SendAsync(request, ct);
+    
+    [HttpGet]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetAllByPdf([FromQuery] GetAllUserByPdfQuery request, CancellationToken ct) =>
         await SendAsync(request, ct);
 
     [HttpGet]
