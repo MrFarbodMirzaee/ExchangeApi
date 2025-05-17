@@ -19,12 +19,21 @@ public class BaseController : Controller
     protected async Task<ObjectResult> SendAsync<T>(IRequest<Response<T>> request, CancellationToken ct = default)
     {
         var result = await Mediator.Send(request, ct);
+        
         if (result.Succeeded)
         {
             return Ok(result);
         }
-
-        return Ok(result);
+        else if (result.Data is null)
+        {
+            return NotFound(result);
+        }
+        else if (result.Succeeded is false)
+        {
+            return BadRequest(result);
+        }
+        
+        return StatusCode(500, "Something went wrong");
     }
 
     protected async Task<ObjectResult> SendAsync(IRequest<Response<object>> request, CancellationToken ct = default) =>
@@ -53,10 +62,21 @@ public class BaseController : Controller
     protected async Task<ObjectResult> SendAsync(IRequest<Response<DownloadFileDto>> request,
         CancellationToken ct = default)
     {
-        var result = await Mediator.Send(request, ct);
+        var result =
+            await Mediator
+            .Send(request, ct);
+        
         if (result.Succeeded)
         {
             return Ok(result);
+        }
+        else if (result.Data is null)
+        {
+            return NotFound(result);
+        }
+        else if (result.Succeeded is false)
+        {
+            return BadRequest(result);
         }
 
         return Ok(result);
