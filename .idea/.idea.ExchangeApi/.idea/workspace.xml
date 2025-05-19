@@ -19,22 +19,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="45033fa8-705b-493c-89c2-5d0970f853b6" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.ExchangeApi/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ExchangeApi/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExChangeApi/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExChangeApi/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Infrastructure.Identity/Seeds/DefaultRoles.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Infrastructure.Identity/Seeds/DefaultRoles.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Infrastructure/ExchangeApi.Infrastructure.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Infrastructure/ExchangeApi.Infrastructure.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Migrations/20250508060401_Db_Init.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Migrations/20250508060401_Db_Init.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Migrations/AppDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Migrations/AppDbContextModelSnapshot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Configuration/CurrencyConfig.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Configuration/CurrencyConfig.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Configuration/UserConfig.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Configuration/UserConfig.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Contexts/AppDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Contexts/AppDbContext.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Seeders/CurrencySeeder.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Seeders/ExchangeRateSeeder.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Seeders/ExchangeTransactionSeeder.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Seeders/UserSeeder.cs" beforeDir="false" />
-    </list>
+    <list default="true" id="45033fa8-705b-493c-89c2-5d0970f853b6" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -101,30 +86,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    ".NET Launch Settings Profile.ExchangeApi: https.executor": "Debug",
-    ".NET Project.Unnamed.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "XThreadsFramesViewSplitterKey": "0.395202",
-    "deletionFromPopupRequiresConfirmation": "false",
-    "git-widget-placeholder": "master",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.General",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;.NET Launch Settings Profile.ExchangeApi: https.executor&quot;: &quot;Debug&quot;,
+    &quot;.NET Project.Unnamed.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.395202&quot;,
+    &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.General&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "rider.external.source.directories": [
-      "C:\\Users\\Farbod\\AppData\\Roaming\\JetBrains\\Rider2024.1\\resharper-host\\DecompilerCache",
-      "C:\\Users\\Farbod\\AppData\\Roaming\\JetBrains\\Rider2024.1\\resharper-host\\SourcesCache",
-      "C:\\Users\\Farbod\\AppData\\Local\\Symbols\\src"
+  &quot;keyToStringList&quot;: {
+    &quot;rider.external.source.directories&quot;: [
+      &quot;C:\\Users\\Farbod\\AppData\\Roaming\\JetBrains\\Rider2024.1\\resharper-host\\DecompilerCache&quot;,
+      &quot;C:\\Users\\Farbod\\AppData\\Roaming\\JetBrains\\Rider2024.1\\resharper-host\\SourcesCache&quot;,
+      &quot;C:\\Users\\Farbod\\AppData\\Local\\Symbols\\src&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="ExchangeApi: https" type="LaunchSettings" factoryName=".NET Launch Settings Profile" temporary="true">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/ExChangeApi/ExchangeApi.csproj" />
@@ -197,7 +182,8 @@
     <MESSAGE value="Update entity properties to use nullable Guid for user IDs and make Updated timestamps optional apply QueryCriteria for GetAll Functionalities" />
     <MESSAGE value="Add Migration" />
     <MESSAGE value="Add PDF generation capabilities for user, currency, and exchange transaction data" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add PDF generation capabilities for user, currency, and exchange transaction data" />
+    <MESSAGE value="Rename AuthenticationService to AuthenticationRepository and update dependency injection; enhance error handling in SendAsync method" />
+    <option name="LAST_COMMIT_MESSAGE" value="Rename AuthenticationService to AuthenticationRepository and update dependency injection; enhance error handling in SendAsync method" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
