@@ -217,19 +217,6 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/ExchangeApi.Application/Filters/CustomFilter.cs</url>
-          <line>92</line>
-          <properties documentPath="D:\C#Project\ExchangeApi\ExchangeApi.Application\Filters\CustomFilter.cs" containingFunctionPresentation="Method 'ApplyFilter'">
-            <startOffsets>
-              <option value="3504" />
-            </startOffsets>
-            <endOffsets>
-              <option value="3534" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/ExchangeApi.Application/Filters/CustomFilter.cs</url>
           <line>11</line>
           <properties documentPath="D:\C#Project\ExchangeApi\ExchangeApi.Application\Filters\CustomFilter.cs" containingFunctionPresentation="Method 'GetFilterExpression'">
             <startOffsets>
@@ -240,19 +227,6 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="9" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/ExchangeApi.Application/Filters/CustomFilter.cs</url>
-          <line>105</line>
-          <properties documentPath="D:\C#Project\ExchangeApi\ExchangeApi.Application\Filters\CustomFilter.cs" containingFunctionPresentation="Method 'ApplyFilter'">
-            <startOffsets>
-              <option value="4173" />
-            </startOffsets>
-            <endOffsets>
-              <option value="4174" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="10" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/ExchangeApi.Application/Filters/CustomFilter.cs</url>
@@ -268,7 +242,7 @@
           <option name="timeStamp" value="13" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/ExchangeApi/Controllers/V1/CurrencyController.cs</url>
+          <url>file://$PROJECT_DIR$/ExChangeApi/Controllers/V1/CurrencyController.cs</url>
           <line>69</line>
           <properties documentPath="D:\C#Project\ExchangeApi\ExChangeApi\Controllers\V1\CurrencyController.cs" containingFunctionPresentation="Method 'AddCurrencyByExcel'">
             <startOffsets>
@@ -369,6 +343,19 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="34" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/ExChangeApi/Controllers/BaseController.cs</url>
+          <line>19</line>
+          <properties documentPath="D:\C#Project\ExchangeApi\ExChangeApi\Controllers\BaseController.cs" containingFunctionPresentation="Method 'SendAsync'">
+            <startOffsets>
+              <option value="620" />
+            </startOffsets>
+            <endOffsets>
+              <option value="621" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="29" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

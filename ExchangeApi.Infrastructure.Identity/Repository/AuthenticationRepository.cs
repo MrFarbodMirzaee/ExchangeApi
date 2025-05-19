@@ -15,44 +15,48 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace ExchangeApi.Infrastructure.Identity.Repository;
 
-public class AuthenticationService : IAuthenticationService
+public class AuthenticationRepository(
+    UserManager<ApplicationUser> userManager,
+    RoleManager<IdentityRole> roleManager,
+    IOptionsMonitor<JwtSettings> jwtSettings,
+    SignInManager<ApplicationUser> signInManager)
+    : IAuthenticationService
 {
-    private readonly UserManager<ApplicationUser> _userManager;
-    private readonly RoleManager<IdentityRole> _roleManager;
-    private readonly SignInManager<ApplicationUser> _signInManager;
-    private readonly JwtSettings _jwtSettings;
-
-    public AuthenticationService(UserManager<ApplicationUser> userManager,
-        RoleManager<IdentityRole> roleManager,
-        IOptionsMonitor<JwtSettings> jwtSettings,
-        SignInManager<ApplicationUser> signInManager)
-    {
-        _jwtSettings = jwtSettings.CurrentValue;
-        _userManager = userManager;
-        _roleManager = roleManager;
-        _signInManager = signInManager;
-    }
+    private readonly RoleManager<IdentityRole> _roleManager = roleManager;
+    private readonly JwtSettings _jwtSettings = jwtSettings.CurrentValue;
 
     public async Task<Response<AuthenticationResponseDto>> LoginAsync(LogInCommand dto, CancellationToken ct)
     {
-        var user = await _userManager.FindByNameAsync(dto.UserName);
+        var user = await userManager
+            .FindByNameAsync(dto.UserName);
         
         if (user == null)
         {
-            return new Response<AuthenticationResponseDto>("User not found");
+            return new 
+                Response<AuthenticationResponseDto>
+                ("User not found");
         }
 
         var result =
-            await _signInManager.PasswordSignInAsync(user.UserName, dto.Password, false, lockoutOnFailure: false);
+            await signInManager
+                .PasswordSignInAsync
+                    (user.UserName, dto.Password,
+                    false, lockoutOnFailure: false);
         
         if (!result.Succeeded)
         {
-            return new Response<AuthenticationResponseDto>("User name or password is wrong");
+            return new 
+                Response<AuthenticationResponseDto>
+                ("User name or password is wrong");
         }
 
-        JwtSecurityToken jwtSecurityToken = await GenerateJWToken(user);
+        JwtSecurityToken jwtSecurityToken = 
+            await 
+            GenerateJWToken(user);
         
-        AuthenticationResponseDto response = new AuthenticationResponseDto();
+        AuthenticationResponseDto response =
+            new
+            AuthenticationResponseDto();
         
         response.Id = user.Id;
         
@@ -63,19 +67,21 @@ public class AuthenticationService : IAuthenticationService
         response.Email = user.Email;
         response.UserName = user.UserName;
         
-        var rolesList = await _userManager
+        var rolesList = await userManager
             .GetRolesAsync(user)
             .ConfigureAwait(false);
         
         response.Roles = rolesList.ToList();
         
         response.IsVerified = user.EmailConfirmed;
-        return new Response<AuthenticationResponseDto>(response);
+        return new 
+            Response<AuthenticationResponseDto>
+            (response);
     }
 
     public async Task<Response<AuthenticationResponseDto>> RegisterAsync(RegisterCommand dto, CancellationToken ct)
     {
-        var userWithSameUserName = await _userManager
+        var userWithSameUserName = await userManager
                     .FindByNameAsync(dto.UserName);
         
         if (userWithSameUserName != null)
@@ -90,17 +96,17 @@ public class AuthenticationService : IAuthenticationService
             LastName = dto.LastName,
             UserName = dto.UserName
         };
-        var userWithSameName = await _userManager
+        var userWithSameName = await userManager
                     .FindByNameAsync(dto.UserName);
         
         if (userWithSameName == null)
         {
-            var result = await _userManager
+            var result = await userManager
                     .CreateAsync(user, dto.Password);
             
             if (result.Succeeded)
             {
-                await _userManager
+                await userManager
                     .AddToRoleAsync(user, Roles.User.ToString());
                 
                 // Create AuthenticationResponseDto with user details
@@ -127,10 +133,10 @@ public class AuthenticationService : IAuthenticationService
 
     private async Task<JwtSecurityToken> GenerateJWToken(ApplicationUser user)
     {
-        var userClaims = await _userManager
+        var userClaims = await userManager
                         .GetClaimsAsync(user);
         
-        var roles = await _userManager
+        var roles = await userManager
                         .GetRolesAsync(user);
 
         var roleClaims = new List<Claim>();

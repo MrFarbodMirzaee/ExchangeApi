@@ -32,7 +32,7 @@ public static class ConfigureService
             .AddEntityFrameworkStores<IdentityAppDbContext>()
             .AddDefaultTokenProviders();
         
-        services.AddTransient<IAuthenticationService, AuthenticationService>();
+        services.AddTransient<IAuthenticationService, AuthenticationRepository>();
         services.AddScoped<AddAttributeCommandHandler>();
         services.AddScoped<RegisterCommandHandler>();
 
