@@ -21,7 +21,7 @@ public class CurrencyConfig : IEntityTypeConfiguration<Currency>
         builder.Property(x => x.CurrencyCode)
             .IsRequired()
             .IsUnicode(false)
-            .HasMaxLength(3);
+            .HasMaxLength(4);
 
         builder.HasIndex(x => x.CurrencyCode)
             .IsUnique();
