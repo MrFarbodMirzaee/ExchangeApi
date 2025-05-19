@@ -19,13 +19,13 @@ namespace ExchangeApi.Infrastructure.Migrations
                 schema: "BASE",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValue: new Guid("a4ee4e9f-a1bc-4490-9a9f-60c3587e110a")),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValue: new Guid("e1d92352-06b7-47d2-be76-a043b648636b")),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
                     UpdatedByUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     DeletedByUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     MetaDescription = table.Column<string>(type: "varchar(200)", unicode: false, maxLength: 200, nullable: false),
-                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false, defaultValue: new DateTimeOffset(new DateTime(2025, 5, 8, 9, 34, 0, 427, DateTimeKind.Unspecified).AddTicks(686), new TimeSpan(0, 3, 30, 0, 0))),
+                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false, defaultValue: new DateTimeOffset(new DateTime(2025, 5, 19, 17, 49, 7, 827, DateTimeKind.Unspecified).AddTicks(9976), new TimeSpan(0, 3, 30, 0, 0))),
                     Updated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
                 },
                 constraints: table =>
@@ -49,7 +49,7 @@ namespace ExchangeApi.Infrastructure.Migrations
                     DeletedByUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     UpdatedByUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     MetaDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false, defaultValue: new DateTimeOffset(new DateTime(2025, 5, 8, 9, 34, 0, 454, DateTimeKind.Unspecified).AddTicks(3288), new TimeSpan(0, 3, 30, 0, 0))),
+                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false, defaultValue: new DateTimeOffset(new DateTime(2025, 5, 19, 17, 49, 7, 856, DateTimeKind.Unspecified).AddTicks(9092), new TimeSpan(0, 3, 30, 0, 0))),
                     Updated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
                 },
                 constraints: table =>
@@ -63,8 +63,8 @@ namespace ExchangeApi.Infrastructure.Migrations
                 schema: "BASE",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValue: new Guid("cc62f936-2b87-4545-933a-1d12867b1724")),
-                    CurrencyCode = table.Column<string>(type: "varchar(3)", unicode: false, maxLength: 3, nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValue: new Guid("bd142552-7376-49a2-afd0-c378d54ea013")),
+                    CurrencyCode = table.Column<string>(type: "varchar(4)", unicode: false, maxLength: 4, nullable: false),
                     Name = table.Column<string>(type: "varchar(max)", unicode: false, nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
                     ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -73,7 +73,7 @@ namespace ExchangeApi.Infrastructure.Migrations
                     UpdatedByUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     MetaDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false, defaultValue: new DateTimeOffset(new DateTime(2025, 5, 8, 9, 34, 0, 440, DateTimeKind.Unspecified).AddTicks(3670), new TimeSpan(0, 3, 30, 0, 0))),
+                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false, defaultValue: new DateTimeOffset(new DateTime(2025, 5, 19, 17, 49, 7, 842, DateTimeKind.Unspecified).AddTicks(2152), new TimeSpan(0, 3, 30, 0, 0))),
                     Updated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
                 },
                 constraints: table =>
@@ -94,7 +94,7 @@ namespace ExchangeApi.Infrastructure.Migrations
                 schema: "BASE",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValue: new Guid("7b053c18-79a0-48ad-8545-b173e3d88267")),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValue: new Guid("2b5ed690-b520-4aa4-a319-f2319848d824")),
                     Key = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Value = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
@@ -105,7 +105,7 @@ namespace ExchangeApi.Infrastructure.Migrations
                     CurrencyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     MetaDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false, defaultValue: new DateTimeOffset(new DateTime(2025, 5, 8, 9, 34, 0, 435, DateTimeKind.Unspecified).AddTicks(7150), new TimeSpan(0, 3, 30, 0, 0))),
+                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false, defaultValue: new DateTimeOffset(new DateTime(2025, 5, 19, 17, 49, 7, 837, DateTimeKind.Unspecified).AddTicks(9961), new TimeSpan(0, 3, 30, 0, 0))),
                     Updated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
                 },
                 constraints: table =>
@@ -130,8 +130,7 @@ namespace ExchangeApi.Infrastructure.Migrations
                         column: x => x.UserId,
                         principalSchema: "BASE",
                         principalTable: "User",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -139,7 +138,7 @@ namespace ExchangeApi.Infrastructure.Migrations
                 schema: "BASE",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValue: new Guid("e6443c65-af3c-4dda-b04b-4c10bf0bc272")),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValue: new Guid("cbe1e4b9-ab24-4d2d-8a30-9f8b4e2a54e7")),
                     FromCurrencyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ToCurrencyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Rate = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
@@ -147,7 +146,7 @@ namespace ExchangeApi.Infrastructure.Migrations
                     UpdatedByUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     DeletedByUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     MetaDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false, defaultValue: new DateTimeOffset(new DateTime(2025, 5, 8, 9, 34, 0, 441, DateTimeKind.Unspecified).AddTicks(9654), new TimeSpan(0, 3, 30, 0, 0))),
+                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false, defaultValue: new DateTimeOffset(new DateTime(2025, 5, 19, 17, 49, 7, 843, DateTimeKind.Unspecified).AddTicks(2809), new TimeSpan(0, 3, 30, 0, 0))),
                     Updated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
                 },
                 constraints: table =>
@@ -184,7 +183,7 @@ namespace ExchangeApi.Infrastructure.Migrations
                     CurrencyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     DeletedByUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     MetaDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false, defaultValue: new DateTimeOffset(new DateTime(2025, 5, 8, 9, 34, 0, 452, DateTimeKind.Unspecified).AddTicks(1978), new TimeSpan(0, 3, 30, 0, 0))),
+                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false, defaultValue: new DateTimeOffset(new DateTime(2025, 5, 19, 17, 49, 7, 854, DateTimeKind.Unspecified).AddTicks(7396), new TimeSpan(0, 3, 30, 0, 0))),
                     Updated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
                 },
                 constraints: table =>
@@ -212,7 +211,7 @@ namespace ExchangeApi.Infrastructure.Migrations
                 schema: "BASE",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValue: new Guid("e01f9735-8250-4988-86f5-992dff30114b")),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValue: new Guid("8615e79f-a806-4739-8d2d-190d005c5f8a")),
                     FromCurrencyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ToCurrencyId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
@@ -224,7 +223,7 @@ namespace ExchangeApi.Infrastructure.Migrations
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ExChangeRateId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     MetaDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false, defaultValue: new DateTimeOffset(new DateTime(2025, 5, 8, 9, 34, 0, 448, DateTimeKind.Unspecified).AddTicks(1727), new TimeSpan(0, 3, 30, 0, 0))),
+                    Created = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false, defaultValue: new DateTimeOffset(new DateTime(2025, 5, 19, 17, 49, 7, 850, DateTimeKind.Unspecified).AddTicks(1183), new TimeSpan(0, 3, 30, 0, 0))),
                     Updated = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true)
                 },
                 constraints: table =>

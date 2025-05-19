@@ -31,4 +31,20 @@
       <Compile Remove="Persistence\Services\ExcelDataImportService.cs" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Update="Persistence\Seeders\Images\Currencies\USDT.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Persistence\Seeders\Images\Currencies\ETC.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="Persistence\Seeders\Images\Currencies\BTC.jpeg">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Persistence\Seeders\Images\Users\" />
+    </ItemGroup>
+
 </Project>

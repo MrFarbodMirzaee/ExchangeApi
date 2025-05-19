@@ -56,7 +56,7 @@ public class UserConfig : IEntityTypeConfiguration<User>
         builder.HasMany(u => u.CurrencyAttributes)
             .WithOne(ca => ca.User)
             .HasForeignKey(ca => ca.UserId)
-            .OnDelete(DeleteBehavior.Cascade); 
+            .OnDelete(DeleteBehavior.NoAction); 
 
         builder.HasMany(u => u.ExchangeTransactions)
             .WithOne(et => et.User)

@@ -13,7 +13,8 @@ public class AppDbContext : DbContext
     }
 
     #region DbSets<>
-
+    public DbSet<Category> Category { get; set; }
+    public DbSet<CurrencyAttribute> CurrencyAttribute { get; set; }
     public DbSet<Currency> Currency { get; set; }
     public DbSet<ExchangeRate> ExchangeRate { get; set; }
     public DbSet<ExchangeTransaction> ExchangeTransaction { get; set; }

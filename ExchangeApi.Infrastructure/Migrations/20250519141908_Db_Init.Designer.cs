@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ExchangeApi.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250508060401_Db_Init")]
+    [Migration("20250519141908_Db_Init")]
     partial class Db_Init
     {
         /// <inheritdoc />
@@ -30,12 +30,12 @@ namespace ExchangeApi.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier")
-                        .HasDefaultValue(new Guid("a4ee4e9f-a1bc-4490-9a9f-60c3587e110a"));
+                        .HasDefaultValue(new Guid("e1d92352-06b7-47d2-be76-a043b648636b"));
 
                     b.Property<DateTimeOffset>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2025, 5, 8, 9, 34, 0, 427, DateTimeKind.Unspecified).AddTicks(686), new TimeSpan(0, 3, 30, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2025, 5, 19, 17, 49, 7, 827, DateTimeKind.Unspecified).AddTicks(9976), new TimeSpan(0, 3, 30, 0, 0)));
 
                     b.Property<Guid?>("DeletedByUserId")
                         .HasColumnType("uniqueidentifier");
@@ -73,7 +73,7 @@ namespace ExchangeApi.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier")
-                        .HasDefaultValue(new Guid("cc62f936-2b87-4545-933a-1d12867b1724"));
+                        .HasDefaultValue(new Guid("bd142552-7376-49a2-afd0-c378d54ea013"));
 
                     b.Property<Guid>("CategoryId")
                         .HasColumnType("uniqueidentifier");
@@ -81,13 +81,13 @@ namespace ExchangeApi.Infrastructure.Migrations
                     b.Property<DateTimeOffset>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2025, 5, 8, 9, 34, 0, 440, DateTimeKind.Unspecified).AddTicks(3670), new TimeSpan(0, 3, 30, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2025, 5, 19, 17, 49, 7, 842, DateTimeKind.Unspecified).AddTicks(2152), new TimeSpan(0, 3, 30, 0, 0)));
 
                     b.Property<string>("CurrencyCode")
                         .IsRequired()
-                        .HasMaxLength(3)
+                        .HasMaxLength(4)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(3)");
+                        .HasColumnType("varchar(4)");
 
                     b.Property<Guid?>("DeletedByUserId")
                         .HasColumnType("uniqueidentifier");
@@ -137,7 +137,7 @@ namespace ExchangeApi.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier")
-                        .HasDefaultValue(new Guid("7b053c18-79a0-48ad-8545-b173e3d88267"));
+                        .HasDefaultValue(new Guid("2b5ed690-b520-4aa4-a319-f2319848d824"));
 
                     b.Property<Guid?>("CategoryId")
                         .HasColumnType("uniqueidentifier");
@@ -145,7 +145,7 @@ namespace ExchangeApi.Infrastructure.Migrations
                     b.Property<DateTimeOffset>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2025, 5, 8, 9, 34, 0, 435, DateTimeKind.Unspecified).AddTicks(7150), new TimeSpan(0, 3, 30, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2025, 5, 19, 17, 49, 7, 837, DateTimeKind.Unspecified).AddTicks(9961), new TimeSpan(0, 3, 30, 0, 0)));
 
                     b.Property<Guid>("CurrencyId")
                         .HasColumnType("uniqueidentifier");
@@ -203,12 +203,12 @@ namespace ExchangeApi.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier")
-                        .HasDefaultValue(new Guid("e6443c65-af3c-4dda-b04b-4c10bf0bc272"));
+                        .HasDefaultValue(new Guid("cbe1e4b9-ab24-4d2d-8a30-9f8b4e2a54e7"));
 
                     b.Property<DateTimeOffset>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2025, 5, 8, 9, 34, 0, 441, DateTimeKind.Unspecified).AddTicks(9654), new TimeSpan(0, 3, 30, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2025, 5, 19, 17, 49, 7, 843, DateTimeKind.Unspecified).AddTicks(2809), new TimeSpan(0, 3, 30, 0, 0)));
 
                     b.Property<Guid?>("DeletedByUserId")
                         .HasColumnType("uniqueidentifier");
@@ -253,7 +253,7 @@ namespace ExchangeApi.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier")
-                        .HasDefaultValue(new Guid("e01f9735-8250-4988-86f5-992dff30114b"));
+                        .HasDefaultValue(new Guid("8615e79f-a806-4739-8d2d-190d005c5f8a"));
 
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
@@ -261,7 +261,7 @@ namespace ExchangeApi.Infrastructure.Migrations
                     b.Property<DateTimeOffset>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2025, 5, 8, 9, 34, 0, 448, DateTimeKind.Unspecified).AddTicks(1727), new TimeSpan(0, 3, 30, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2025, 5, 19, 17, 49, 7, 850, DateTimeKind.Unspecified).AddTicks(1183), new TimeSpan(0, 3, 30, 0, 0)));
 
                     b.Property<Guid?>("DeletedByUserId")
                         .HasColumnType("uniqueidentifier");
@@ -326,7 +326,7 @@ namespace ExchangeApi.Infrastructure.Migrations
                     b.Property<DateTimeOffset>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2025, 5, 8, 9, 34, 0, 452, DateTimeKind.Unspecified).AddTicks(1978), new TimeSpan(0, 3, 30, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2025, 5, 19, 17, 49, 7, 854, DateTimeKind.Unspecified).AddTicks(7396), new TimeSpan(0, 3, 30, 0, 0)));
 
                     b.Property<Guid>("CurrencyId")
                         .HasColumnType("uniqueidentifier");
@@ -376,7 +376,7 @@ namespace ExchangeApi.Infrastructure.Migrations
                     b.Property<DateTimeOffset>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2025, 5, 8, 9, 34, 0, 454, DateTimeKind.Unspecified).AddTicks(3288), new TimeSpan(0, 3, 30, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2025, 5, 19, 17, 49, 7, 856, DateTimeKind.Unspecified).AddTicks(9092), new TimeSpan(0, 3, 30, 0, 0)));
 
                     b.Property<Guid?>("DeletedByUserId")
                         .HasColumnType("uniqueidentifier");
@@ -462,7 +462,7 @@ namespace ExchangeApi.Infrastructure.Migrations
                     b.HasOne("ExchangeApi.Domain.Entities.User", "User")
                         .WithMany("CurrencyAttributes")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Currency");

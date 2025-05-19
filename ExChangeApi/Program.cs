@@ -3,8 +3,12 @@ using ExchangeApi.Application;
 using ExchangeApi.Infrastructure;
 using Asp.Versioning;
 using ExchangeApi.Infrastructure.Identity;
+using ExchangeApi.Infrastructure.Identity.Entities;
+using ExchangeApi.Infrastructure.Identity.Seeds;
+using ExchangeApi.Infrastructure.Persistence.Seeders;
 using Ocelot.Middleware;
 using ExchangeApi.Middleware;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication
@@ -81,24 +85,30 @@ var apiVersioning = builder.Services
 });
 
 var app = builder.Build();
-// using var scope = app.Services.CreateScope();
-// {
-//     var services = scope.ServiceProvider;
-//     var context = services.GetRequiredService<AppDbContext>();
-//     await CurrencySeeder.Initialize(services);
-//     await ExchangeRateSeeder.Initialize(services);
-//     await UserSeeder.Initialize(services);
-//     await ExchangeTransactionSeeder.Initialize(services);
-//
-//     var userManager = services
-//         .GetRequiredService<UserManager<ApplicationUser>>();
-//     
-//     var roleManager = services
-//         .GetRequiredService<RoleManager<IdentityRole>>();
-//
-//     await DefaultRoles.SeedAsync(userManager, roleManager);
-//     await DefaultBasicUser.SeedAsync(userManager, roleManager);
-// }
+using var scope = app.Services.CreateScope();
+{
+    var services = scope
+        .ServiceProvider;
+    
+    await DataSeeder
+        .Initialize(services);
+
+    var userManager = services
+        .GetRequiredService
+            <UserManager
+            <ApplicationUser>>();
+    
+    var roleManager = services
+        .GetRequiredService
+            <RoleManager
+            <IdentityRole>>();
+
+    await DefaultRoles
+            .SeedAsync(userManager, roleManager);
+    
+    await DefaultBasicUser
+            .SeedAsync(userManager, roleManager);
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
