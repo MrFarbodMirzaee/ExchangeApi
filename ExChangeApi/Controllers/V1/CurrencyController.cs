@@ -11,6 +11,7 @@ using ExchangeApi.Application.UseCases.Currency.Queries.GetAllCurrency;
 using ExchangeApi.Application.UseCases.Currency.Queries.GetAllCurrencyByPdf;
 using ExchangeApi.Application.UseCases.Currency.Queries.GetAllInExcelFormat;
 using ExchangeApi.Application.UseCases.Currency.Queries.GetCurrencyById;
+using ExchangeApi.Application.UseCases.Currency.Queries.GetCurrencyWithDetails;
 using ExchangeApi.Application.UseCases.Currency.Queries.SearchCurrency;
 using Microsoft.AspNetCore.Authorization;
 
@@ -38,7 +39,13 @@ public class CurrencyController(IOptionsMonitor<MySettings> settings) : BaseCont
     [HttpGet]
     [Consumes(MediaTypeNames.Application.Json)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetActive([FromQuery] GetCurrencyActiveQuery request, CancellationToken ct) =>
+    public async Task<IActionResult> GetActive([FromQuery] GetCurrencyActiveQuery request, CancellationToken ct) => 
+        await SendAsync(request, ct);
+    
+    [HttpGet]
+    [Consumes(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetCurrencyWithDetails([FromQuery] GetCurrencyWithDetailsQuery request, CancellationToken ct) =>
         await SendAsync(request, ct);
 
     [HttpGet]
@@ -54,6 +61,13 @@ public class CurrencyController(IOptionsMonitor<MySettings> settings) : BaseCont
     public async Task<IActionResult> GetAllInExcleFormat([FromQuery] GetAllCurrencyInExcelFormatQuery request, CancellationToken ct) =>
         await SendAsync(request, ct);
 
+    [HttpGet]
+    [Consumes(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> Search([FromQuery] SearchCurrencyQuery request, CancellationToken ct) =>
+        await SendAsync(request, ct);
+    
     [Authorize]
     [HttpPost]
     [Consumes(MediaTypeNames.Application.Json)]
@@ -68,13 +82,6 @@ public class CurrencyController(IOptionsMonitor<MySettings> settings) : BaseCont
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> AddByExcel([FromForm] UploadCurrencyByExcleFileCommand command, CancellationToken ct) =>
         await SendAsync(command, ct);
-
-    [HttpGet]
-    [Consumes(MediaTypeNames.Application.Json)]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> Search([FromBody] SearchCurrencyQuery request, CancellationToken ct) =>
-        await SendAsync(request, ct);
 
     [Authorize]
     [HttpPut]

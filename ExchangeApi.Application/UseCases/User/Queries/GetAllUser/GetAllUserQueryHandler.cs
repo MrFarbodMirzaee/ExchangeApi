@@ -13,11 +13,11 @@ public class GetAllUserQueryHandler(IUserService userService, IMapper mapper)
     {
         var users = await userService
                                 .FindByQueryCriteria
-                                    (request.QueryCriteria,ct);
+                                (request.QueryCriteria,ct);
 
         var userMapped = mapper
-                .Map<List<UserDto>>
-                    (users.Data);
+                .Map<List<UserDto>> 
+                (users.Data);
 
         return users.Succeeded ? 
             new Response<List<UserDto>>

@@ -11,6 +11,8 @@ using ExchangeApi.Application.UseCases.User.Queries.GetAllUserByPdf;
 using ExchangeApi.Application.UseCases.User.Queries.GetAllUserInExcelFormatQuery;
 using ExchangeApi.Application.UseCases.User.Queries.GetUserByEmail;
 using ExchangeApi.Application.UseCases.User.Queries.GetUserById;
+using ExchangeApi.Application.UseCases.User.Queries.GetUserWithDetails;
+using ExchangeApi.Application.UseCases.User.Queries.SearchUser;
 using ExchangeApi.Application.UseCases.User.UploadByExcleFile;
 using Microsoft.AspNetCore.Authorization;
 
@@ -59,6 +61,20 @@ public class UserController(IOptionsMonitor<MySettings> settings) : BaseControll
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetByEmail([FromQuery] GetUserByEmailQuery request, CancellationToken ct) =>
+        await SendAsync(request, ct);
+    
+    [HttpGet]
+    [Consumes(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> SearchUser([FromQuery] SearchUserQuery request, CancellationToken ct) =>
+        await SendAsync(request, ct);
+    
+    [HttpGet]
+    [Consumes(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetUserWithDetails([FromQuery] GetUserWithDetailsQuery request, CancellationToken ct) =>
         await SendAsync(request, ct);
 
     [Authorize]

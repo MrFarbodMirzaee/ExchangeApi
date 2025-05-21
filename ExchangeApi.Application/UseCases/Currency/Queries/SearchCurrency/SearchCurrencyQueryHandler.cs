@@ -12,8 +12,12 @@ public class SearchCurrencyQueryHandler(ICurrencyService currencyService, IMappe
     public async Task<Response<List<CurrencyDto>>> Handle(SearchCurrencyQuery request, CancellationToken ct)
     {
         Response<List<Domain.Entities.Currency>> currency =
-            await currencyService.FindByCondition(x => x.CurrencyCode == request.Word, ct);
-        var currencies = mapper.Map<List<CurrencyDto>>(currency.Data);
+            await currencyService.DynamicSearchCurrencyAsync(request, ct);
+        
+        var currencies = mapper
+            .Map<List<CurrencyDto>>
+            (currency.Data);
+        
         return currency.Succeeded
             ? new Response<List<CurrencyDto>>(currencies)
             : new Response<List<CurrencyDto>>(currency.Message);
