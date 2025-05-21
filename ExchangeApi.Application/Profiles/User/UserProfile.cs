@@ -20,6 +20,7 @@ public class UserProfile : Profile
         CreateMap<AddUserCommand, Domain.Entities.User>();
         CreateMap<UpdateUserDto, Domain.Entities.User>();
         CreateMap<Domain.Entities.User, UpdateUserDto>();
+        CreateMap<Domain.Entities.User, UserDetailDto>();
 
         CreateMap<bool, Domain.Entities.User>()
             .ConvertUsing(src => (src ? new Domain.Entities.User() : null)!);

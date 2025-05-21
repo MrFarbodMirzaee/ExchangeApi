@@ -2,7 +2,6 @@
 using ExchangeApi.Application.Attributes;
 using ExchangeApi.Application.Dtos;
 using ExchangeApi.Application.UseCases.Currency.Commands.AddCurrency;
-using ExchangeApi.Domain.Entities;
 using ExchangeApi.Domain.Wrappers;
 
 namespace ExchangeApi.Application.Profiles.Currency;
@@ -14,8 +13,8 @@ public class CurrencyProfile : Profile
     {
         #region CurrencyAttribute
 
-        CreateMap<AddCurrencyAttributeDto, CurrencyAttribute>();
-        CreateMap<CurrencyAttribute, AddCurrencyAttributeDto>();
+        CreateMap<AddCurrencyAttributeDto, Domain.Entities.CurrencyAttribute>();
+        CreateMap<Domain.Entities.CurrencyAttribute, AddCurrencyAttributeDto>();
 
         #endregion
 
@@ -33,6 +32,7 @@ public class CurrencyProfile : Profile
         CreateMap<Domain.Entities.Currency, AddCurrencyDto>();
         CreateMap<UpdateCurrencyDto, Domain.Entities.Currency>();
         CreateMap<Domain.Entities.Currency, UpdateCurrencyDto>();
+        CreateMap<Domain.Entities.Currency, CurrencyDatailDto>();
         #endregion
 
         CreateMap<AddCurrencyCommand, Domain.Entities.Currency>();
