@@ -19,12 +19,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="45033fa8-705b-493c-89c2-5d0970f853b6" name="Changes" comment="">
+    <list default="true" id="45033fa8-705b-493c-89c2-5d0970f853b6" name="Changes" comment="Implement password hashing with Argon2 in AddUserCommand; update DataSeeder for hashed password generation and add PasswordHelper class">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ExchangeApi/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ExchangeApi/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/ExchangeApi.Application.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/ExchangeApi.Application.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/User/Commands/AddUser/AddUserCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/User/Commands/AddUser/AddUserCommand.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/User/Commands/AddUser/AddUserCommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/User/Commands/AddUser/AddUserCommandHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Seeders/DataSeeder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Seeders/DataSeeder.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Migrations/20250519141908_Db_Init.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Migrations/20250519141908_Db_Init.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Services/CurrencyService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Services/CurrencyService.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,20 +73,9 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d83c264d63fb4cc3a674b0565668f18669a00/b8/8c803e37/TextSpanDescriptorExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e4918c8ac7be482996b82eec990f156d11200/1f/9dda71fa/RequestHandlerWrapperImpl`2.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e4918c8ac7be482996b82eec990f156d11200/9a/bae619c7/IRequestHandler`2.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExChangeApi/Controllers/V1/CurrencyController.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Application/Contracts/ICurrencyService.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Application/Contracts/IUserService.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Application/Profiles/Currency/CurrencyProfile.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Application/Profiles/Currency/CurrencyProfile.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Application/Profiles/Currency/CurrencyProfile.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Application/Profiles/User/UserProfile.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Application/UseCases/Currency/Queries/SearchCurrency/SearchCurrencyQuery.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Application/UseCases/Currency/Queries/SearchCurrency/SearchCurrencyQueryHandler.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Application/UseCases/User/Queries/GetAllUser/GetAllUserQueryHandler.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Infrastructure/Persistence/Services/CurrencyService.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Infrastructure/Persistence/Services/FileService.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Infrastructure/Persistence/Services/GenericRepository.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Infrastructure/Persistence/Services/UserServices.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Application/UseCases/User/Commands/AddUser/AddUserCommand.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Application/UseCases/User/Commands/AddUser/AddUserCommandHandler.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Infrastructure/Persistence/Seeders/DataSeeder.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="false" />
   <component name="ProjectColorInfo">{
@@ -99,30 +86,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;.NET Launch Settings Profile.ExchangeApi: https.executor&quot;: &quot;Debug&quot;,
-    &quot;.NET Project.Unnamed.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.395202&quot;,
-    &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.General&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    ".NET Launch Settings Profile.ExchangeApi: https.executor": "Debug",
+    ".NET Project.Unnamed.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "XThreadsFramesViewSplitterKey": "0.395202",
+    "deletionFromPopupRequiresConfirmation": "false",
+    "git-widget-placeholder": "feature/addResourses",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.General",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;rider.external.source.directories&quot;: [
-      &quot;C:\\Users\\Farbod\\AppData\\Roaming\\JetBrains\\Rider2024.1\\resharper-host\\DecompilerCache&quot;,
-      &quot;C:\\Users\\Farbod\\AppData\\Roaming\\JetBrains\\Rider2024.1\\resharper-host\\SourcesCache&quot;,
-      &quot;C:\\Users\\Farbod\\AppData\\Local\\Symbols\\src&quot;
+  "keyToStringList": {
+    "rider.external.source.directories": [
+      "C:\\Users\\Farbod\\AppData\\Roaming\\JetBrains\\Rider2024.1\\resharper-host\\DecompilerCache",
+      "C:\\Users\\Farbod\\AppData\\Roaming\\JetBrains\\Rider2024.1\\resharper-host\\SourcesCache",
+      "C:\\Users\\Farbod\\AppData\\Local\\Symbols\\src"
     ]
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="ExchangeApi: https" type="LaunchSettings" factoryName=".NET Launch Settings Profile" temporary="true">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/ExChangeApi/ExchangeApi.csproj" />
@@ -175,7 +162,7 @@
       <workItem from="1747654394758" duration="10489000" />
       <workItem from="1747747859913" duration="1314000" />
       <workItem from="1747800117085" duration="20948000" />
-      <workItem from="1748234539693" duration="3750000" />
+      <workItem from="1748234539693" duration="9125000" />
     </task>
     <task id="LOCAL-00001" summary="Add PDF generation capabilities for user, currency, and exchange transaction data">
       <option name="closed" value="true" />
@@ -201,7 +188,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747842299036</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Implement password hashing with Argon2 in AddUserCommand; update DataSeeder for hashed password generation and add PasswordHelper class">
+      <option name="closed" value="true" />
+      <created>1748238670919</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1748238670919</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -217,7 +212,8 @@
     <MESSAGE value="Rename AuthenticationService to AuthenticationRepository and update dependency injection; enhance error handling in SendAsync method" />
     <MESSAGE value="Clean up workspace.xml by removing unnecessary change entries and updating last commit message" />
     <MESSAGE value="Add dynamic search and detail retrieval for currency and user; refactor related services and queries" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add dynamic search and detail retrieval for currency and user; refactor related services and queries" />
+    <MESSAGE value="Implement password hashing with Argon2 in AddUserCommand; update DataSeeder for hashed password generation and add PasswordHelper class" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implement password hashing with Argon2 in AddUserCommand; update DataSeeder for hashed password generation and add PasswordHelper class" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -340,13 +336,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Services/CurrencyService.cs</url>
-          <line>87</line>
+          <line>86</line>
           <properties documentPath="D:\C#Project\ExchangeApi\ExchangeApi.Infrastructure\Persistence\Services\CurrencyService.cs" containingFunctionPresentation="Method 'GetCurrencyDetailsAsync'">
             <startOffsets>
-              <option value="2865" />
+              <option value="2864" />
             </startOffsets>
             <endOffsets>
-              <option value="2936" />
+              <option value="2935" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="39" />

@@ -61,7 +61,6 @@ public class CurrencyService(AppDbContext applicationDbContext,IMapper mapper)
             currencies = currencies
                 .Where(current =>
                 current.IsActive == request.IsActive);
-
         }
 
         currencies = currencies

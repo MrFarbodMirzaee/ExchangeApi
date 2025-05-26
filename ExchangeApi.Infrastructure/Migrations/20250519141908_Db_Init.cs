@@ -11,6 +11,32 @@ namespace ExchangeApi.Infrastructure.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            #region SP
+            var getAllSql = @"
+            CREATE PROCEDURE GetAllCurrencies
+            AS
+            BEGIN
+                SET NOCOUNT ON;
+                SELECT * FROM BASE.Currency;
+            END
+            ";
+
+            var getByIdSql = @"
+            CREATE PROCEDURE GetCurrencyById
+                @Id UNIQUEIDENTIFIER
+            AS
+            BEGIN
+                SET NOCOUNT ON;
+                SELECT * FROM BASE.Currency WHERE Id = @Id;
+            END
+            ";
+
+            migrationBuilder.Sql(getAllSql);
+            migrationBuilder.Sql(getByIdSql);
+
+            #endregion
+
+
             migrationBuilder.EnsureSchema(
                 name: "BASE");
 
@@ -350,6 +376,11 @@ namespace ExchangeApi.Infrastructure.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            #region SP
+            migrationBuilder.Sql("DROP PROCEDURE IF EXISTS GetAllCurrencies;");
+            migrationBuilder.Sql("DROP PROCEDURE IF EXISTS GetCurrencyById;");
+            #endregion
+            
             migrationBuilder.DropTable(
                 name: "CurrencyAttribute",
                 schema: "BASE");
