@@ -21,45 +21,6 @@
   <component name="ChangeListManager">
     <list default="true" id="45033fa8-705b-493c-89c2-5d0970f853b6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ExchangeApi/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ExchangeApi/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExChangeApi/ExChangeApi.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/ExChangeApi/ExChangeApi.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExChangeApi/Middleware/GlobalExceptionMiddleware.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExChangeApi/Middleware/GlobalExceptionMiddleware.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/ExchangeApi.Application.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/ExchangeApi.Application.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/Authentication/Login/LogInCommandValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/Authentication/Login/LogInCommandValidator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/Authentication/Register/RegisterCommandValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/Authentication/Register/RegisterCommandValidator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/Currency/Commands/AddCurrency/AddCurrencyCommandValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/Currency/Commands/AddCurrency/AddCurrencyCommandValidator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/CurrencyAttribute/AddAttributes/AddAttributeCommandValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/CurrencyAttribute/AddAttributes/AddAttributeCommandValidator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/ExchangeRate/Commands/AddExchangeRate/AddExchangeRateCommandValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/ExchangeRate/Commands/AddExchangeRate/AddExchangeRateCommandValidator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/ExchangeTransaction/Commands/AddExchangeTransaction/AddExchangeTransactionCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/ExchangeTransaction/Commands/AddExchangeTransaction/AddExchangeTransactionCommand.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/ExchangeTransaction/Commands/AddExchangeTransaction/AddExchangeTransactionCommandValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/ExchangeTransaction/Commands/AddExchangeTransaction/AddExchangeTransactionCommandValidator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/User/Commands/AddUser/AddUserCommandValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/User/Commands/AddUser/AddUserCommandValidator.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Domain/Contracts/BaseEntity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Domain/Contracts/BaseEntity.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Domain/Contracts/IAuditable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Domain/Contracts/IAuditable.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Domain/Contracts/IDeletable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Domain/Contracts/IDeletable.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Domain/Entities/Currency.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Domain/Entities/Currency.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Domain/ExchangeApi.Domain.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Domain/ExchangeApi.Domain.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Domain/Wrappers/Response.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Domain/Wrappers/Response.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.GraphQl/Migrations/20240614095516_First-init.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.GraphQl/Migrations/20240614095516_First-init.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Infrastructure.Identity/ConfigureService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Infrastructure.Identity/ConfigureService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Infrastructure.Identity/Entities/ApplicationUser.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Infrastructure.Identity/Entities/ApplicationUser.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Infrastructure.Identity/ExchangeApi.Infrastructure.Identity.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Infrastructure.Identity/ExchangeApi.Infrastructure.Identity.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Infrastructure.Identity/Migrations/20250228091607_Db_Int.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Infrastructure.Identity/Migrations/20250228091607_Db_Int.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Infrastructure.Identity/Repository/AuthenticationRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Infrastructure.Identity/Repository/AuthenticationRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Infrastructure/ExchangeApi.Infrastructure.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Infrastructure/ExchangeApi.Infrastructure.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Migrations/20250519141908_Db_Init.Designer.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Migrations/20250519141908_Db_Init.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Migrations/AppDbContextModelSnapshot.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Configuration/CategoryConfig.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Configuration/CategoryConfig.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Configuration/CurrencyAttributeConfig.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Configuration/CurrencyAttributeConfig.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Configuration/CurrencyConfig.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Configuration/CurrencyConfig.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Configuration/ExchangeRateConfig.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Configuration/ExchangeRateConfig.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Configuration/ExchangeTransactionConfig.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Configuration/ExchangeTransactionConfig.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Configuration/FileConfig.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Configuration/FileConfig.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Configuration/UserConfig.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Configuration/UserConfig.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Services/CurrencyService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Services/CurrencyService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Services/ExcelFileProcessor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Services/ExcelFileProcessor.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Services/FileService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Services/FileService.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Services/GenericRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Services/GenericRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ExchangeApi.sln" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.sln" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -164,7 +125,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;XThreadsFramesViewSplitterKey&quot;: &quot;0.395202&quot;,
     &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature/addResourses&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
