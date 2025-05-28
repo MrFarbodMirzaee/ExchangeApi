@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Update="DataDictionary.resx">
+        <Generator>PublicResXFileCodeGenerator</Generator>
+        <LastGenOutput>DataDictionary.Designer.cs</LastGenOutput>
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Messages\Validations.resx">
+        <Generator>PublicResXFileCodeGenerator</Generator>
+        <LastGenOutput>Validations.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="DataDictionary.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>DataDictionary.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Messages\Validations.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>Validations.resx</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
+</Project>

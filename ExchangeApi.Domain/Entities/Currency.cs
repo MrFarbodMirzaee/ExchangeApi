@@ -63,7 +63,7 @@ public class Currency : BaseEntity<Guid>, IDeletable, IAuditable
     /// <summary>
     /// Represents a collection of exchange rates where this currency is the source currency.
     /// </summary>
-    public ICollection<ExchangeRate> FromExchangeRates { get; set; }
+    public ICollection<ExchangeRate> FromExchangeRates { get; set; } 
 
     /// <summary>
     /// Represents a collection of exchange rates where this currency is the destination currency.

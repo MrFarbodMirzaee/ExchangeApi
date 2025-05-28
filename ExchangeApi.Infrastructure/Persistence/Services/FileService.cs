@@ -5,6 +5,7 @@ using ExchangeApi.Application.Dtos;
 using ExchangeApi.Domain.Wrappers;
 using ExchangeApi.Infrastructure.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
+using ResourceApi.Messages;
 
 namespace ExchangeApi.Infrastructure.Persistence.Services;
 
@@ -24,7 +25,7 @@ public class FileService(AppDbContext applicationDbContext, IMapper mapper)
         {
             throw new 
                 FileNotFoundException
-                ($"File not found with ID: {fileId}");
+                (Validations.NoData,fileId.ToString());
         }
 
         var fileDto = mapper
@@ -46,7 +47,7 @@ public class FileService(AppDbContext applicationDbContext, IMapper mapper)
         if (rowsAffected == 0)
             return new 
                 Response<bool>
-                ("File didn't upload");
+                (Validations.NotUploaded);
 
         return new 
             Response<bool>

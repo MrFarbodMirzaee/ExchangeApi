@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
+using ResourceApi.Messages;
 
 namespace ExchangeApi.Infrastructure.Identity;
 
@@ -76,14 +77,14 @@ public static class ConfigureService
                         context.HandleResponse();
                         context.Response.StatusCode = 401;
                         context.Response.ContentType = "application/json";
-                        var result = JsonConvert.SerializeObject("You are not Authorized");
+                        var result = JsonConvert.SerializeObject(string.Format(Validations.Unauthorized, "system"));
                         return context.Response.WriteAsync(result);
                     },
                     OnForbidden = context =>
                     {
                         context.Response.StatusCode = 403;
                         context.Response.ContentType = "application/json";
-                        var result = JsonConvert.SerializeObject("You are not authorized to access this resource");
+                        var result = JsonConvert.SerializeObject(string.Format(Validations.Unauthorized, "resource"));
                         return context.Response.WriteAsync(result);
                     },
                 };

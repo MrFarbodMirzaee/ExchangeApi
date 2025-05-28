@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using ResourceApi.Messages;
 
 namespace ExchangeApi.Application.UseCases.CurrencyAttribute.AddAttributes;
 
@@ -9,18 +10,20 @@ public class AddAttributeCommandValidator : AbstractValidator<AddAttributeComman
         RuleFor(x => x.CurrencyId)
             .NotEmpty()
             .NotNull()
-            .WithMessage("CurrencyId must not be empty");
+            .WithMessage(string.Format(Validations.Required, "CurrencyId"));
 
         RuleFor(x => x.Value)
             .NotEmpty()
             .NotNull()
+            .WithMessage(string.Format(Validations.Required, "Value"))
             .MinimumLength(2)
-            .WithMessage("Value not be empty and should have a minimum length of 2 characters");
+            .WithMessage(string.Format(Validations.MinLength, "Value", 2));
 
         RuleFor(x => x.Key)
             .NotEmpty()
             .NotNull()
+            .WithMessage(string.Format(Validations.Required, "Key"))
             .MinimumLength(2)
-            .WithMessage("Key must not be empty and should not less than 3 characters");
+            .WithMessage(string.Format(Validations.MinLength, "Key", 2));
     }
 }

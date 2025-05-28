@@ -1,3 +1,5 @@
+using System.Security.Cryptography;
+using ExchangeApi.Application.Helper;
 using ExchangeApi.Domain.Entities;
 using ExchangeApi.Infrastructure.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +16,9 @@ public class DataSeeder
             new AppDbContext
             (service
                 .GetRequiredService
-                    <DbContextOptions<AppDbContext>>());
+                <DbContextOptions<AppDbContext>>());
+
+
 
         if (!await context.Currency.AnyAsync() &&
             !await context.User.AnyAsync() &&
@@ -29,6 +33,14 @@ public class DataSeeder
            
             for (int count = 0; count <= 2; count++)
             {
+                byte[] salt = new byte[16];
+        
+                using  var numberGenerator = RandomNumberGenerator.Create();
+                numberGenerator.GetBytes(salt);
+                   
+                var uniquePassword = $"hashed_password{count}";
+                var hashedPassword = PasswordHelper.HashPasswordWithArgon2(uniquePassword, salt);
+                
                 var (code, name, fileName) = count switch
                 {
                     0 => ("BTC", "Bitcoin", "BTC.jpeg"),
@@ -77,6 +89,8 @@ public class DataSeeder
                     throw new FileNotFoundException($"Image file not found at {userFiles}");
                 }
 
+           
+                
                 var currencyId = Guid.NewGuid();
                 var userId = Guid.NewGuid();
                 var user = new User()
@@ -85,7 +99,7 @@ public class DataSeeder
                     Name = $"Test User {count + 1}",
                     UserName = $"testuser{count + 1}",
                     EmailAddress = $"user{count + 1}@example.com",
-                    Password = "hashed_password", 
+                    Password = hashedPassword, 
                     Description = "Seeded user account",
                     DeletedByUserId = null,
                     UpdatedByUserId = null,

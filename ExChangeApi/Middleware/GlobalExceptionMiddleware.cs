@@ -22,7 +22,8 @@ public class GlobalExceptionMiddleware(RequestDelegate next, ILogger<GlobalExcep
     {
         context.Response.ContentType = "application/json";
         context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-
+        
+        //anonymous object  
         var response = new
         {
             IsSuccessful = false,

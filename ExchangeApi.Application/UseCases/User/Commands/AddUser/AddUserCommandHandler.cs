@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using ExchangeApi.Application.Contracts;
+using ExchangeApi.Application.Helper;
 using ExchangeApi.Domain.Wrappers;
 using MediatR;
 
@@ -10,10 +11,23 @@ public class AddUserCommandHandler(IUserService userService, IMapper mapper)
 {
     public async Task<Response<bool>> Handle(AddUserCommand request, CancellationToken ct)
     {
-        var userMapped = mapper.Map<Domain.Entities.User>(request);
+        byte[] salt = 
+            new 
+            byte[16];
+        request.Password = PasswordHelper
+            .HashPasswordWithArgon2
+            (request.Password, salt);
+            
+        var userMapped = mapper
+            .Map<Domain.Entities.User>
+                (request);
 
-        var userStatus = await userService.AddAsync(userMapped, ct);
+        var userStatus = await 
+                userService
+                .AddAsync(userMapped, ct);
 
-        return userStatus.Succeeded ? new Response<bool>(userStatus.Data) : new Response<bool>(userStatus.Message);
+        return userStatus.Succeeded ?
+            new Response<bool>(userStatus.Data) 
+            : new Response<bool>(userStatus.Message);
     }
 }

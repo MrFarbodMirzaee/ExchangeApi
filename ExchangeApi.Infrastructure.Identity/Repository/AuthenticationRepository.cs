@@ -12,6 +12,7 @@ using ExchangeApi.Infrastructure.Identity.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using ResourceApi.Messages;
 
 namespace ExchangeApi.Infrastructure.Identity.Repository;
 
@@ -34,7 +35,7 @@ public class AuthenticationRepository(
         {
             return new 
                 Response<AuthenticationResponseDto>
-                ("User not found");
+                (string.Format(Validations.NoData, "User"));
         }
 
         var result =
@@ -47,7 +48,7 @@ public class AuthenticationRepository(
         {
             return new 
                 Response<AuthenticationResponseDto>
-                ("User name or password is wrong");
+                (string.Format(Validations.ParametersWrong, "UserName","Password"));
         }
 
         JwtSecurityToken jwtSecurityToken = 
@@ -86,7 +87,7 @@ public class AuthenticationRepository(
         
         if (userWithSameUserName != null)
         {
-            return new Response<AuthenticationResponseDto>("Username is already taken.");
+            return new Response<AuthenticationResponseDto>(Validations.AlreadyExists,"UserName");
         }
 
         var user = new ApplicationUser
@@ -122,12 +123,12 @@ public class AuthenticationRepository(
             }
             else
             {
-                return new Response<AuthenticationResponseDto>("User didn't create");
+                return new Response<AuthenticationResponseDto>(Validations.UnCreated,"User");
             }
         }
         else
         {
-            return new Response<AuthenticationResponseDto>("User already register");
+            return new Response<AuthenticationResponseDto>(Validations.Registerd,"User");
         }
     }
 

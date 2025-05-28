@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using ResourceApi.Messages;
 
 namespace ExchangeApi.Application.UseCases.User.Commands.AddUser;
 
@@ -10,24 +11,40 @@ public class AddUserCommandValidator : AbstractValidator<AddUserCommand>
             .MinimumLength(2)
             .NotEmpty()
             .NotNull()
+            .WithMessage(string.Format(Validations.Required, "Name"))
             .MaximumLength(100)
-            .WithMessage("Please Enter Valid Name");
+            .WithMessage(string.Format(Validations.MaxLength, "Name", 100));
 
         RuleFor(x => x.UserName)
             .NotEmpty()
             .NotNull()
+            .WithMessage(string.Format(Validations.Required, "UserName"))
             .MaximumLength(300)
-            .WithMessage("User Name must be less than or equal to 20 characters");
+            .WithMessage(string.Format(Validations.MaxLength, "UserName", 300));
 
         RuleFor(x => x.EmailAddress)
             .NotEmpty()
             .NotNull()
-            .EmailAddress()
-            .WithMessage("Please Enter Valid Email Address");
+            .WithMessage(string.Format(Validations.Required, "EmailAddress"))
+            .EmailAddress();
+
         RuleFor(x => x.Password)
             .NotEmpty()
             .NotNull()
+            .WithMessage(string.Format(Validations.Required, "Password"))
             .MinimumLength(8)
-            .WithMessage("Please Enter Valid Password");
+            .WithMessage(string.Format(Validations.MaxLength, "Password", 8));
+
+        RuleFor(x => x.MetaDescription)
+          .NotEmpty()
+          .NotNull()
+          .WithMessage(string.Format(Validations.Required, "MetaDescription"))
+          .MinimumLength(8)
+          .WithMessage(string.Format(Validations.MaxLength, "MetaDescription",8));
+
+        RuleFor(x => x.IsActive)
+          .NotEmpty()
+          .NotNull()
+          .WithMessage(string.Format(Validations.Required, "IsActive"));
     }
 }

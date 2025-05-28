@@ -24,7 +24,8 @@ public class CurrencyService(AppDbContext applicationDbContext,IMapper mapper)
             .Where(x => x.Id == currencyId)
             .FirstOrDefaultAsync();
         
-        if (currency != null) currency.IsActive = true;
+        if (currency != null) 
+            currency.IsActive = true;
         
         await _applicationDbContext
                 .SaveChangesAsync();
@@ -61,7 +62,6 @@ public class CurrencyService(AppDbContext applicationDbContext,IMapper mapper)
             currencies = currencies
                 .Where(current =>
                 current.IsActive == request.IsActive);
-
         }
 
         currencies = currencies
