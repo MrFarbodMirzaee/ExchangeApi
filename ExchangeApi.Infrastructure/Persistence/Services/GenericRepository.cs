@@ -5,6 +5,7 @@ using ExchangeApi.Domain.ValueObjects;
 using ExchangeApi.Domain.Wrappers;
 using ExchangeApi.Infrastructure.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
+using ResourceApi.Messages;
 
 namespace ExchangeApi.Infrastructure.Persistence.Services;
 
@@ -30,7 +31,7 @@ public class GenericRepository<TEntity>(AppDbContext applicationDbContext) : IGe
         {
             return new Response
                 <IEnumerable<TEntity>>
-                ("No data found.");
+                (Validations.NoDataFoundEntity,typeof(TEntity).Name);
         }
 
         return new Response
@@ -50,7 +51,7 @@ public class GenericRepository<TEntity>(AppDbContext applicationDbContext) : IGe
         if (!entities.Any())
             return new 
                 Response<List<TEntity>>
-                ("Entity not found");
+                (Validations.NoDataFoundEntity,typeof(TEntity).Name);
 
         return new 
             Response<List<TEntity>>
@@ -85,9 +86,7 @@ public class GenericRepository<TEntity>(AppDbContext applicationDbContext) : IGe
             if (rowsAffected == 0)
                 return new 
                     Response<bool>
-                    ("Update failed: The record may have" +
-                     " been modified or deleted by" +
-                     " another operation.");
+                    (Validations.UpdateFailed);
 
             return new 
                 Response<bool>
@@ -107,9 +106,7 @@ public class GenericRepository<TEntity>(AppDbContext applicationDbContext) : IGe
             if (rowsAffected == 0)
                 return new
                     Response<bool>
-                    ("Delete failed: " +
-                     "The record may not exist" +
-                     " or was already deleted.");
+                    (Validations.NoDataFoundEntity);
 
             return new 
                 Response<bool>

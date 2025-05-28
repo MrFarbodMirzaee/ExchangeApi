@@ -16,6 +16,18 @@ public class Response<T>
     }
 
     /// <summary>
+    /// Initializes a failed response with a formatted message and no data.
+    /// </summary>
+    /// <param name="message">The message format string describing the error or outcome.</param>
+    /// <param name="args">Optional arguments to be formatted into the message string.</param>
+    public Response(string message, params object[] args)
+    {
+        Succeeded = false;
+        Message = string.Format(message, args);
+        Data = default!;
+    }
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="Response{T}"/> class with data and an optional message.
     /// </summary>
     /// <param name="data">The data to return in the response.</param>

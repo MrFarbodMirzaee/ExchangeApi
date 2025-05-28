@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using ResourceApi.Messages;
 
 namespace ExchangeApi.Application.UseCases.Authentication.Register;
 
@@ -9,25 +10,31 @@ public class RegisterCommandValidator : AbstractValidator<RegisterCommand>
         RuleFor(x => x.UserName)
             .NotEmpty()
             .NotNull()
+            .WithMessage(string.Format(Validations.Required, "UserName"))
             .MinimumLength(2)
-            .WithMessage("UserName must not be empty and should not less than 3 characters");
+            .WithMessage(string.Format(Validations.MinLength, "UserName",2));
 
         RuleFor(x => x.Password)
             .NotEmpty()
             .NotNull()
+            .WithMessage(string.Format(Validations.Required, "Password"))
             .MinimumLength(6)
-            .WithMessage("Password not be empty and should have a minimum length of 6 characters");
+            .WithMessage(string.Format(Validations.MinLength, "Password",6));
 
         RuleFor(x => x.FirstName)
             .NotEmpty()
             .NotNull()
+            .WithMessage(string.Format(Validations.Required, "FirstName"))
             .MinimumLength(2)
-            .WithMessage("FirstName must not be empty and should not less than 3 characters");
+            .WithMessage(string.Format(Validations.MinLength, "FirstName",2))
+            .MaximumLength(50)
+            .WithMessage(string.Format(Validations.MaxLength, "FirstName", 50));
 
         RuleFor(x => x.LastName)
             .NotEmpty()
             .NotNull()
+            .WithMessage(string.Format(Validations.Required, "LastName"))
             .MinimumLength(2)
-            .WithMessage("LastName not be empty and should have a minimum length of 2 characters");
+            .WithMessage(string.Format(Validations.MinLength, "LastName", 2));
     }
 }

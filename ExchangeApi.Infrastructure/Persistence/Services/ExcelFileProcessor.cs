@@ -5,6 +5,7 @@ using ExchangeApi.Application.Dtos;
 using ExchangeApi.Infrastructure.Persistence.Contexts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using ResourceApi.Messages;
 
 namespace ExchangeApi.Infrastructure.Persistence.Services;
 
@@ -37,12 +38,12 @@ public class ExcelFileProcessor(AppDbContext context) : IExcelFileProcessor
         var headers = hasHeader
             ? worksheet.Row(1)
                 .Cells(1, columnCount)
-                .Select(c => 
+                .Select(c =>
                  c.GetString()
                 .Trim())
                 .ToList()
-            : throw new 
-                InvalidOperationException("Header is required for dynamic mapping");
+            : throw new InvalidOperationException(
+                string.Format(Validations.Required, "Header"));
 
         var entityProps = typeof(TEntity)
                 .GetProperties()
@@ -57,9 +58,8 @@ public class ExcelFileProcessor(AppDbContext context) : IExcelFileProcessor
         {
             var invalids = string
                     .Join(", ", invalidHeaders);
-            return new
-                 Domain.Wrappers.Response<ExcelFileResponseDto>
-                        ($"Invalid header(s) detected: {invalids}");
+            return new Domain.Wrappers.Response<ExcelFileResponseDto>(
+                    string.Format(Validations.InvalidFormat, invalids));
         }
 
         var headerToIndex = 

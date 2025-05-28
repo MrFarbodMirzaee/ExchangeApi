@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ExchangeApi.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250519141908_Db_Init")]
-    partial class Db_Init
+    [Migration("20250527185103_Db-Init")]
+    partial class DbInit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,37 +30,45 @@ namespace ExchangeApi.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier")
-                        .HasDefaultValue(new Guid("e1d92352-06b7-47d2-be76-a043b648636b"));
+                        .HasDefaultValue(new Guid("69b516d8-055a-4459-a9a1-bf4bc00a39ba"))
+                        .HasComment("Gets or sets the unique identifier for the entity.");
 
                     b.Property<DateTimeOffset>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2025, 5, 19, 17, 49, 7, 827, DateTimeKind.Unspecified).AddTicks(9976), new TimeSpan(0, 3, 30, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2025, 5, 27, 22, 21, 2, 914, DateTimeKind.Unspecified).AddTicks(6140), new TimeSpan(0, 3, 30, 0, 0)))
+                        .HasComment("Gets or sets the creation date and time of the entity.");
 
                     b.Property<Guid?>("DeletedByUserId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Gets or sets the ID of the user who marked the entity as deleted, if applicable.");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasColumnType("nvarchar(500)")
+                        .HasComment("Description");
 
                     b.Property<string>("MetaDescription")
                         .IsRequired()
                         .HasMaxLength(200)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(200)");
+                        .HasColumnType("varchar(200)")
+                        .HasComment("Gets or sets the meta description or summary information for the entity.");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("Name");
 
                     b.Property<DateTimeOffset?>("Updated")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("datetimeoffset")
+                        .HasComment("Gets or sets the last updated date and time of the entity, if any.");
 
                     b.Property<Guid?>("UpdatedByUserId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Gets or sets the ID of the user who last updated the entity, if applicable.");
 
                     b.HasKey("Id");
 
@@ -73,7 +81,8 @@ namespace ExchangeApi.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier")
-                        .HasDefaultValue(new Guid("bd142552-7376-49a2-afd0-c378d54ea013"));
+                        .HasDefaultValue(new Guid("8e7c04a2-6997-4e1b-aa71-c90415162293"))
+                        .HasComment("Gets or sets the unique identifier for the entity.");
 
                     b.Property<Guid>("CategoryId")
                         .HasColumnType("uniqueidentifier");
@@ -81,44 +90,54 @@ namespace ExchangeApi.Infrastructure.Migrations
                     b.Property<DateTimeOffset>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2025, 5, 19, 17, 49, 7, 842, DateTimeKind.Unspecified).AddTicks(2152), new TimeSpan(0, 3, 30, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2025, 5, 27, 22, 21, 2, 942, DateTimeKind.Unspecified).AddTicks(6339), new TimeSpan(0, 3, 30, 0, 0)))
+                        .HasComment("Gets or sets the creation date and time of the entity.");
 
                     b.Property<string>("CurrencyCode")
                         .IsRequired()
                         .HasMaxLength(4)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(4)");
+                        .HasColumnType("varchar(4)")
+                        .HasComment("Represents the code that identifies the currency (e.g., USD, EUR).");
 
                     b.Property<Guid?>("DeletedByUserId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Gets or sets the ID of the user who marked the entity as deleted, if applicable.");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("Description");
 
                     b.Property<string>("ImagePath")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("The path to an image representing the entity (e.g., flag or symbol).");
 
                     b.Property<bool>("IsActive")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasDefaultValue(false)
+                        .HasComment("A flag indicating whether the entity is currently active.");
 
                     b.Property<string>("MetaDescription")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("Gets or sets the meta description or summary information for the entity.");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .IsUnicode(false)
-                        .HasColumnType("varchar(max)");
+                        .HasColumnType("varchar(max)")
+                        .HasComment("Name");
 
                     b.Property<DateTimeOffset?>("Updated")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("datetimeoffset")
+                        .HasComment("Gets or sets the last updated date and time of the entity, if any.");
 
                     b.Property<Guid?>("UpdatedByUserId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Gets or sets the ID of the user who last updated the entity, if applicable.");
 
                     b.HasKey("Id")
                         .HasName("PK_Base_Currency");
@@ -137,7 +156,8 @@ namespace ExchangeApi.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier")
-                        .HasDefaultValue(new Guid("2b5ed690-b520-4aa4-a319-f2319848d824"));
+                        .HasDefaultValue(new Guid("8b49b030-f9a5-4bb7-8dba-da09c9e18b88"))
+                        .HasComment("Gets or sets the unique identifier for the entity.");
 
                     b.Property<Guid?>("CategoryId")
                         .HasColumnType("uniqueidentifier");
@@ -145,38 +165,46 @@ namespace ExchangeApi.Infrastructure.Migrations
                     b.Property<DateTimeOffset>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2025, 5, 19, 17, 49, 7, 837, DateTimeKind.Unspecified).AddTicks(9961), new TimeSpan(0, 3, 30, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2025, 5, 27, 22, 21, 2, 932, DateTimeKind.Unspecified).AddTicks(8367), new TimeSpan(0, 3, 30, 0, 0)))
+                        .HasComment("Gets or sets the creation date and time of the entity.");
 
                     b.Property<Guid>("CurrencyId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("DeletedByUserId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Gets or sets the ID of the user who marked the entity as deleted, if applicable.");
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
+                        .HasColumnType("nvarchar(250)")
+                        .HasComment("Description");
 
                     b.Property<bool>("IsActive")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasDefaultValue(false)
+                        .HasComment("A flag indicating whether the entity is currently active.");
 
                     b.Property<string>("Key")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("Represents the key of the currency attribute.");
 
                     b.Property<string>("MetaDescription")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("Gets or sets the meta description or summary information for the entity.");
 
                     b.Property<DateTimeOffset?>("Updated")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("datetimeoffset")
+                        .HasComment("Gets or sets the last updated date and time of the entity, if any.");
 
                     b.Property<Guid?>("UpdatedByUserId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Gets or sets the ID of the user who last updated the entity, if applicable.");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
@@ -184,7 +212,8 @@ namespace ExchangeApi.Infrastructure.Migrations
                     b.Property<string>("Value")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("Represents the value associated with the currency attribute key.");
 
                     b.HasKey("Id");
 
@@ -203,15 +232,18 @@ namespace ExchangeApi.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier")
-                        .HasDefaultValue(new Guid("cbe1e4b9-ab24-4d2d-8a30-9f8b4e2a54e7"));
+                        .HasDefaultValue(new Guid("873ba7f4-eb9f-4f8c-ac4b-0d46efe00596"))
+                        .HasComment("Gets or sets the unique identifier for the entity.");
 
                     b.Property<DateTimeOffset>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2025, 5, 19, 17, 49, 7, 843, DateTimeKind.Unspecified).AddTicks(2809), new TimeSpan(0, 3, 30, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2025, 5, 27, 22, 21, 2, 947, DateTimeKind.Unspecified).AddTicks(9534), new TimeSpan(0, 3, 30, 0, 0)))
+                        .HasComment("Gets or sets the creation date and time of the entity.");
 
                     b.Property<Guid?>("DeletedByUserId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Gets or sets the ID of the user who marked the entity as deleted, if applicable.");
 
                     b.Property<Guid>("FromCurrencyId")
                         .HasColumnType("uniqueidentifier");
@@ -219,23 +251,28 @@ namespace ExchangeApi.Infrastructure.Migrations
                     b.Property<bool>("IsActive")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasDefaultValue(false)
+                        .HasComment("A flag indicating whether the entity is currently active.");
 
                     b.Property<string>("MetaDescription")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("Gets or sets the meta description or summary information for the entity.");
 
                     b.Property<decimal>("Rate")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,2)")
+                        .HasComment("Represents the exchange rate value between the two currencies.");
 
                     b.Property<Guid>("ToCurrencyId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTimeOffset?>("Updated")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("datetimeoffset")
+                        .HasComment("Gets or sets the last updated date and time of the entity, if any.");
 
                     b.Property<Guid?>("UpdatedByUserId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Gets or sets the ID of the user who last updated the entity, if applicable.");
 
                     b.HasKey("Id")
                         .HasName("Pk_Base_ExchangeRate");
@@ -253,46 +290,57 @@ namespace ExchangeApi.Infrastructure.Migrations
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier")
-                        .HasDefaultValue(new Guid("8615e79f-a806-4739-8d2d-190d005c5f8a"));
+                        .HasDefaultValue(new Guid("02a12ee5-8a0d-496f-8d67-8ade513690b2"))
+                        .HasComment("Gets or sets the unique identifier for the entity.");
 
                     b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,2)")
+                        .HasComment("Represents the amount of currency being exchanged in the transaction.");
 
                     b.Property<DateTimeOffset>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2025, 5, 19, 17, 49, 7, 850, DateTimeKind.Unspecified).AddTicks(1183), new TimeSpan(0, 3, 30, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2025, 5, 27, 22, 21, 2, 962, DateTimeKind.Unspecified).AddTicks(284), new TimeSpan(0, 3, 30, 0, 0)))
+                        .HasComment("Gets or sets the creation date and time of the entity.");
 
                     b.Property<Guid?>("DeletedByUserId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Gets or sets the ID of the user who marked the entity as deleted, if applicable.");
 
                     b.Property<Guid>("ExChangeRateId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("FromCurrencyId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Represents the identifier of the currency from which the entity is calculated");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<string>("MetaDescription")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("Gets or sets the meta description or summary information for the entity.");
 
                     b.Property<decimal>("ResultAmount")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,2)")
+                        .HasComment("Represents the resulting amount of currency after the exchange transaction.");
 
                     b.Property<Guid>("ToCurrencyId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Represents the identifier of the currency to which the entity is calculated.");
 
                     b.Property<DateTimeOffset>("TransactionDate")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("datetimeoffset")
+                        .HasComment("Represents the date and time when the transaction occurred.");
 
                     b.Property<DateTimeOffset?>("Updated")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("datetimeoffset")
+                        .HasComment("Gets or sets the last updated date and time of the entity, if any.");
 
                     b.Property<Guid?>("UpdatedByUserId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Gets or sets the ID of the user who last updated the entity, if applicable.");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
@@ -316,42 +364,51 @@ namespace ExchangeApi.Infrastructure.Migrations
             modelBuilder.Entity("ExchangeApi.Domain.Entities.File", b =>
                 {
                     b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Gets or sets the unique identifier for the entity.");
 
                     b.Property<string>("ContentType")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(100)")
+                        .HasComment("The MIME type of the file, indicating the format of the file's content.");
 
                     b.Property<DateTimeOffset>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2025, 5, 19, 17, 49, 7, 854, DateTimeKind.Unspecified).AddTicks(7396), new TimeSpan(0, 3, 30, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2025, 5, 27, 22, 21, 2, 970, DateTimeKind.Unspecified).AddTicks(3452), new TimeSpan(0, 3, 30, 0, 0)))
+                        .HasComment("Gets or sets the creation date and time of the entity.");
 
                     b.Property<Guid>("CurrencyId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("DeletedByUserId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Gets or sets the ID of the user who marked the entity as deleted, if applicable.");
 
                     b.Property<byte[]>("FileData")
                         .IsRequired()
-                        .HasColumnType("varbinary(max)");
+                        .HasColumnType("varbinary(max)")
+                        .HasComment("The binary data of the file, stored as a byte array.");
 
                     b.Property<string>("FileName")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("nvarchar(255)")
+                        .HasComment("The name of the file as it was uploaded by the user.");
 
                     b.Property<string>("MetaDescription")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("Gets or sets the meta description or summary information for the entity.");
 
                     b.Property<DateTimeOffset?>("Updated")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("datetimeoffset")
+                        .HasComment("Gets or sets the last updated date and time of the entity, if any.");
 
                     b.Property<Guid?>("UpdatedByUserId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Gets or sets the unique identifier for the entity.");
 
                     b.Property<Guid?>("UserId")
                         .HasColumnType("uniqueidentifier");
@@ -371,58 +428,70 @@ namespace ExchangeApi.Infrastructure.Migrations
             modelBuilder.Entity("ExchangeApi.Domain.Entities.User", b =>
                 {
                     b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Gets or sets the unique identifier for the entity.");
 
                     b.Property<DateTimeOffset>("Created")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2025, 5, 19, 17, 49, 7, 856, DateTimeKind.Unspecified).AddTicks(9092), new TimeSpan(0, 3, 30, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2025, 5, 27, 22, 21, 2, 977, DateTimeKind.Unspecified).AddTicks(2454), new TimeSpan(0, 3, 30, 0, 0)))
+                        .HasComment("Gets or sets the creation date and time of the entity.");
 
                     b.Property<Guid?>("DeletedByUserId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Gets or sets the ID of the user who marked the entity as deleted, if applicable.");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("Description");
 
                     b.Property<string>("EmailAddress")
                         .IsRequired()
                         .HasMaxLength(300)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(300)");
+                        .HasColumnType("varchar(300)")
+                        .HasComment("The user's email address for communication and notifications.");
 
                     b.Property<bool>("IsActive")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasDefaultValue(false)
+                        .HasComment("A flag indicating whether the entity is currently active.");
 
                     b.Property<string>("MetaDescription")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("A unique username chosen by the user for login.");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
                         .IsUnicode(true)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(50)")
+                        .HasComment("Name");
 
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasMaxLength(300)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(300)");
+                        .HasColumnType("varchar(300)")
+                        .HasComment("A hashed representation of the user's password for authentication.");
 
                     b.Property<DateTimeOffset?>("Updated")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("datetimeoffset")
+                        .HasComment("Gets or sets the last updated date and time of the entity, if any.");
 
                     b.Property<Guid?>("UpdatedByUserId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasComment("Gets or sets the ID of the user who last updated the entity, if applicable.");
 
                     b.Property<string>("UserName")
                         .IsRequired()
                         .HasMaxLength(150)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(150)");
+                        .HasColumnType("varchar(150)")
+                        .HasComment("A unique username chosen by the user for login.");
 
                     b.HasKey("Id")
                         .HasName("Pk_BASE_User");
