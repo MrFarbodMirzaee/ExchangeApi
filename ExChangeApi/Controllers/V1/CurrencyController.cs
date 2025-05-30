@@ -5,7 +5,7 @@ using System.Net.Mime;
 using ExchangeApi.Application.UseCases.Currency.Commands.AddCurrency;
 using ExchangeApi.Application.UseCases.Currency.Commands.DeleteCurrency;
 using ExchangeApi.Application.UseCases.Currency.Commands.UpdateCurrency;
-using ExchangeApi.Application.UseCases.Currency.Commands.UploadExcleFile;
+using ExchangeApi.Application.UseCases.Currency.Commands.UploadExcelFile;
 using ExchangeApi.Application.UseCases.Currency.Queries.GetActiveCurrency;
 using ExchangeApi.Application.UseCases.Currency.Queries.GetAllCurrency;
 using ExchangeApi.Application.UseCases.Currency.Queries.GetAllCurrencyByPdf;
@@ -80,7 +80,7 @@ public class CurrencyController(IOptionsMonitor<MySettings> settings) : BaseCont
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> AddByExcel([FromForm] UploadCurrencyByExcleFileCommand command, CancellationToken ct) =>
+    public async Task<IActionResult> AddByExcel([FromForm] UploadCurrencyByExcelFileCommand command, CancellationToken ct) =>
         await SendAsync(command, ct);
 
     [Authorize]

@@ -114,6 +114,15 @@ namespace ResourceApi.Messages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The {0} must be greatherthan {1}.
+        /// </summary>
+        public static string GreatherThan {
+            get {
+                return ResourceManager.GetString("GreatherThan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} cannot be changed after creation..
         /// </summary>
         public static string Immutable {

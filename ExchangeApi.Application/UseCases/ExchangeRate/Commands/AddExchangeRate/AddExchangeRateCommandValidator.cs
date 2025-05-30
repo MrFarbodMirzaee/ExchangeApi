@@ -1,8 +1,11 @@
-﻿using FluentValidation;
+﻿using DocumentFormat.OpenXml.Spreadsheet;
+using ExchangeApi.Application.Attributes;
+using FluentValidation;
 using ResourceApi.Messages;
 
 namespace ExchangeApi.Application.UseCases.ExchangeRate.Commands.AddExchangeRate;
 
+[Validator]
 public class AddExchangeRateCommandValidator : AbstractValidator<AddExchangeRateCommand>
 {
     public AddExchangeRateCommandValidator()
@@ -10,24 +13,24 @@ public class AddExchangeRateCommandValidator : AbstractValidator<AddExchangeRate
         RuleFor(x => x.FromCurrency)
             .NotEmpty()
             .NotNull()
-            .WithMessage(string.Format(Validations.Required, "FromCurrency"));
+            .WithMessage(item =>string.Format(Validations.Required, nameof(item.FromCurrency)));
 
         RuleFor(x => x.ToCurrency)
             .NotEmpty()
             .NotNull()
-            .WithMessage(string.Format(Validations.Required, "ToCurrency"));
+            .WithMessage(item =>string.Format(Validations.Required, nameof(item.ToCurrency)));
 
         RuleFor(x => x.Rate)
             .NotEmpty()
             .NotNull()
-            .WithMessage(string.Format(Validations.Required, "Rate"))
+            .WithMessage(item =>string.Format(Validations.Required, nameof(item.Rate)))
             .GreaterThan(0)
-            .WithMessage(string.Format(Validations.MaxLength, "Rate", 0));
+            .WithMessage(item =>string.Format(Validations.GreatherThan, nameof(item.Rate), 0));
 
         RuleFor(x => x.IsActive)
             .NotEmpty()
             .NotNull()
-            .WithMessage(string.Format(Validations.Required, "IsActive"));
+            .WithMessage(item =>string.Format(Validations.Required, nameof(item.IsActive)));
           
     }
 }
