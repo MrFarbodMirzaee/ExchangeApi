@@ -1,5 +1,4 @@
-﻿using ExchangeApi.Domain.Entities;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 
 namespace ExchangeApi.Infrastructure.Identity.Entities;
 

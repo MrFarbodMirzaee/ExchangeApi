@@ -2,18 +2,23 @@
 using ExchangeApi.Application.Contracts;
 using ExchangeApi.Application.Helper;
 using ExchangeApi.Domain.Wrappers;
+using FluentValidation;
 using MediatR;
 
 namespace ExchangeApi.Application.UseCases.User.Commands.AddUser;
 
-public class AddUserCommandHandler(IUserService userService, IMapper mapper)
+public class AddUserCommandHandler(IUserService userService,
+    IValidator<AddUserCommand> addUserCommandValidator
+    , IMapper mapper)
     : IRequestHandler<AddUserCommand, Response<bool>>
 {
     public async Task<Response<bool>> Handle(AddUserCommand request, CancellationToken ct)
     {
-        byte[] salt = 
-            new 
-            byte[16];
+        await addUserCommandValidator
+        .ValidateAndThrowAsync(request,ct);
+
+        byte[] salt = new byte[16];
+        
         request.Password = PasswordHelper
             .HashPasswordWithArgon2
             (request.Password, salt);

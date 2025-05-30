@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using ExchangeApi.Application.Contracts;
 using ExchangeApi.Application.UseCases.Authentication.Register;
-using ExchangeApi.Application.UseCases.CurrencyAttribute.AddAttributes;
+using ExchangeApi.Application.UseCases.CurrencyAttribute.Commands.AddAttributes;
 using ExchangeApi.Domain.Settings;
 using ExchangeApi.Infrastructure.Identity.Context;
 using ExchangeApi.Infrastructure.Identity.Entities;

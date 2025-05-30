@@ -6,8 +6,8 @@ using ExchangeApi.Application.UseCases.ExchangeTransaction.Commands.AddExchangeT
 using ExchangeApi.Application.UseCases.ExchangeTransaction.Commands.DeleteExchangeTransaction;
 using ExchangeApi.Application.UseCases.ExchangeTransaction.Commands.UpdateExchangeTransaction;
 using ExchangeApi.Application.UseCases.ExchangeTransaction.Queries.GetAllCurrencyAttributeInExcelFormatQuery;
-using ExchangeApi.Application.UseCases.ExchangeTransaction.Queries.GetAllExcahngeTransactionByPdf;
 using ExchangeApi.Application.UseCases.ExchangeTransaction.Queries.GetAllExchangeTransaction;
+using ExchangeApi.Application.UseCases.ExchangeTransaction.Queries.GetAllExchangeTransactionByPdf;
 using ExchangeApi.Application.UseCases.ExchangeTransaction.Queries.GetExchangeTransactionByCurrencyPair;
 using ExchangeApi.Application.UseCases.ExchangeTransaction.Queries.GetExchangeTransactionById;
 using Microsoft.AspNetCore.Authorization;

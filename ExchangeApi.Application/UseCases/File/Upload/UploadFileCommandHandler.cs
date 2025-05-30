@@ -1,15 +1,20 @@
 ﻿using AutoMapper;
 using ExchangeApi.Application.Contracts;
 using ExchangeApi.Domain.Wrappers;
+using FluentValidation;
 using MediatR;
 
 namespace ExchangeApi.Application.UseCases.File.Upload;
 
-public class UploadFileCommandHandler(IMapper mapper, IFileService fileService)
+public class UploadFileCommandHandler(IMapper mapper, IFileService fileService,
+    IValidator<UploadFileCommand> uploadFileCommandValidator)
     : IRequestHandler<UploadFileCommand, Response<bool>>
 {
     public async Task<Response<bool>> Handle(UploadFileCommand request, CancellationToken ct)
     {
+        await uploadFileCommandValidator
+        .ValidateAndThrowAsync(request, ct);
+        
         if (request.File == null || request.File.Length == 0)
             return new Response<bool>("No file uploaded.");
 
@@ -34,6 +39,8 @@ public class UploadFileCommandHandler(IMapper mapper, IFileService fileService)
 
         var fileStatus = await fileService.UploadFileAsync(fileEntity, ct);
 
-        return fileStatus.Succeeded ? new Response<bool>(fileStatus.Data) : new Response<bool>(fileStatus.Message);
+        return fileStatus.Succeeded 
+            ? new Response<bool>(fileStatus.Data)
+            : new Response<bool>(fileStatus.Message);
     }
 }

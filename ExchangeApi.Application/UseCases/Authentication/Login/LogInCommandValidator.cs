@@ -1,8 +1,10 @@
-﻿using FluentValidation;
+﻿using ExchangeApi.Application.Attributes;
+using FluentValidation;
 using ResourceApi.Messages;
 
 namespace ExchangeApi.Application.UseCases.Authentication.Login;
 
+[Validator]
 public class LogInCommandValidator : AbstractValidator<LogInCommand>
 {
     public LogInCommandValidator()
@@ -10,15 +12,15 @@ public class LogInCommandValidator : AbstractValidator<LogInCommand>
         RuleFor(x => x.UserName)
             .NotEmpty()
             .NotNull()
-            .WithMessage(string.Format(Validations.Required, "UserName"))
+            .WithMessage(item =>string.Format(Validations.Required, nameof(item.UserName)))
             .MinimumLength(2)
-            .WithMessage(string.Format(Validations.MaxLength, "UserName",2));
+            .WithMessage(item =>string.Format(Validations.MaxLength, nameof(item.UserName),2));
 
         RuleFor(x => x.Password)
             .NotEmpty()
             .NotNull()
-            .WithMessage(string.Format(Validations.Required, "Password"))
+            .WithMessage(item =>string.Format(Validations.Required, nameof(item.Password)))
             .MinimumLength(6)
-            .WithMessage(string.Format(Validations.MinLength, "Password", 6));
+            .WithMessage(item =>string.Format(Validations.MinLength, nameof(item.Password), 6));
     }
 }

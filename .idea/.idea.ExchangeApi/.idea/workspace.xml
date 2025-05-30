@@ -20,7 +20,67 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="45033fa8-705b-493c-89c2-5d0970f853b6" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/CurrencyAttribute/Commands/AddAttributes/AddAttributeCommandHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ExchangeApi/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ExchangeApi/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExChangeApi/Controllers/V1/CurrencyAttributeController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExChangeApi/Controllers/V1/CurrencyAttributeController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExChangeApi/Controllers/V1/CurrencyController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExChangeApi/Controllers/V1/CurrencyController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExChangeApi/Controllers/V1/ExchangeTransactionController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExChangeApi/Controllers/V1/ExchangeTransactionController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExChangeApi/Middleware/GlobalExceptionMiddleware.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExChangeApi/Middleware/GlobalExceptionMiddleware.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/ConfigurationService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/ConfigurationService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/Dtos/UpdateCurrencyDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/Dtos/UpdateCurrencyDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/Dtos/UpdateExchangeRateDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/Dtos/UpdateExchangeRateDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/Dtos/UpdateExchangeTransactionDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/Dtos/UpdateExchangeTransactionDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/ExchangeApi.Application.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/ExchangeApi.Application.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/Authentication/Login/LogInCommandValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/Authentication/Login/LogInCommandValidator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/Authentication/Login/LoginCommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/Authentication/Login/LoginCommandHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/Authentication/Register/RegisterCommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/Authentication/Register/RegisterCommandHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/Authentication/Register/RegisterCommandValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/Authentication/Register/RegisterCommandValidator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/Currency/Commands/AddCurrency/AddCurrencyCommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/Currency/Commands/AddCurrency/AddCurrencyCommandHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/Currency/Commands/AddCurrency/AddCurrencyCommandValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/Currency/Commands/AddCurrency/AddCurrencyCommandValidator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/Currency/Commands/UploadExcleFile/UploadCurrencyByExcleFileCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/Currency/Commands/UploadExcelFile/UploadCurrencyByExcelFileCommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/Currency/Commands/UploadExcleFile/UploadCurrencyByExcleFileCommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/Currency/Commands/UploadExcelFile/UploadCurrencyByExcelFileCommandHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/Currency/Queries/GetAllCurrency/GetAllCurrencyQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/Currency/Queries/GetAllCurrency/GetAllCurrencyQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/Currency/Queries/GetAllCurrencyByPdf/GetAllCurrencyByPdfQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/Currency/Queries/GetAllCurrencyByPdf/GetAllCurrencyByPdfQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/Currency/Queries/GetCurrencyById/GetCurrencyByIdQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/Currency/Queries/GetCurrencyById/GetCurrencyByIdQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/Currency/Queries/GetCurrencyWithDetails/GetCurrencyWithDetailsQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/Currency/Queries/GetCurrencyWithDetails/GetCurrencyWithDetailsQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/Currency/Queries/SearchCurrency/SearchCurrencyQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/Currency/Queries/SearchCurrency/SearchCurrencyQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/CurrencyAttribute/AddAttributes/AddAttributeCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/CurrencyAttribute/Commands/AddAttributes/AddAttributeCommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/CurrencyAttribute/AddAttributes/AddAttributeCommandHandler.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/CurrencyAttribute/AddAttributes/AddAttributeCommandValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/CurrencyAttribute/Commands/AddAttributes/AddAttributeCommandValidator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/CurrencyAttribute/GetAllCurrencyAttributeByPdf/GetAllCurrencyAttributeByPdfQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/CurrencyAttribute/Query/GetAllCurrencyAttributeByPdf/GetAllCurrencyAttributeByPdfQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/CurrencyAttribute/GetAllCurrencyAttributeByPdf/GetAllCurrencyAttributeByPdfQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/CurrencyAttribute/Query/GetAllCurrencyAttributeByPdf/GetAllCurrencyAttributeByPdfQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/CurrencyAttribute/GetAllCurrencyAttributeInExcelFormatQuery/GetAllCurrencyAttributeInExcelFormatQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/CurrencyAttribute/Query/GetAllCurrencyAttributeInExcelFormatQuery/GetAllCurrencyAttributeInExcelFormatQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/CurrencyAttribute/GetAllCurrencyAttributeInExcelFormatQuery/GetAllCurrencyAttributeInExcelFormatQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/CurrencyAttribute/Query/GetAllCurrencyAttributeInExcelFormatQuery/GetAllCurrencyAttributeInExcelFormatQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/CurrencyAttribute/UploadCurrencyAttributeByExcle/UploadCurrencyAttributeByExcleCommand.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/CurrencyAttribute/Commands/UploadCurrencyAttributeByExcel/UploadCurrencyAttributeByExcelCommand.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/CurrencyAttribute/UploadCurrencyAttributeByExcle/UploadCurrencyAttributeByExcleCommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/CurrencyAttribute/Commands/UploadCurrencyAttributeByExcel/UploadCurrencyAttributeByExcleCommandHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/ExchangeRate/Commands/AddExchangeRate/AddExchangeRateCommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/ExchangeRate/Commands/AddExchangeRate/AddExchangeRateCommandHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/ExchangeRate/Commands/AddExchangeRate/AddExchangeRateCommandValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/ExchangeRate/Commands/AddExchangeRate/AddExchangeRateCommandValidator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/ExchangeRate/Commands/UpdateExchangeRate/UpdateExchangeRateCommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/ExchangeRate/Commands/UpdateExchangeRate/UpdateExchangeRateCommandHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/ExchangeRate/Queries/GetAllExcahngeRateByPdf/GetAllExchangeRateByPdfQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/ExchangeRate/Queries/GetAllExcahngeRateByPdf/GetAllExchangeRateByPdfQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/ExchangeRate/Queries/GetAllExchangeRate/GetAllExchangeRateQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/ExchangeRate/Queries/GetAllExchangeRate/GetAllExchangeRateQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/ExchangeRate/Queries/GetExchangeRateByCurrencyPair/GetExchangeRateByCurrencyPairQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/ExchangeRate/Queries/GetExchangeRateByCurrencyPair/GetExchangeRateByCurrencyPairQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/ExchangeRate/Queries/GetExchangeRateById/GetExchangeRateByIdQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/ExchangeRate/Queries/GetExchangeRateById/GetExchangeRateByIdQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/ExchangeTransaction/Commands/AddExchangeTransaction/AddExchangeTransactionCommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/ExchangeTransaction/Commands/AddExchangeTransaction/AddExchangeTransactionCommandHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/ExchangeTransaction/Commands/AddExchangeTransaction/AddExchangeTransactionCommandValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/ExchangeTransaction/Commands/AddExchangeTransaction/AddExchangeTransactionCommandValidator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/ExchangeTransaction/Commands/DeleteExchangeTransaction/DeleteExchangeTransactionCommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/ExchangeTransaction/Commands/DeleteExchangeTransaction/DeleteExchangeTransactionCommandHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/ExchangeTransaction/Queries/GetAllExcahngeTransactionByPdf/GetAllExchangeTransactionByPdfQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/ExchangeTransaction/Queries/GetAllExchangeTransactionByPdf/GetAllExchangeTransactionByPdfQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/ExchangeTransaction/Queries/GetAllExcahngeTransactionByPdf/GetAllExchangeTransactionByPdfQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/ExchangeTransaction/Queries/GetAllExchangeTransactionByPdf/GetAllExchangeTransactionByPdfQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/ExchangeTransaction/Queries/GetExchangeTransactionByCurrencyPair/GetExchangeTransactionByCurrencyPairQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/ExchangeTransaction/Queries/GetExchangeTransactionByCurrencyPair/GetExchangeTransactionByCurrencyPairQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/ExchangeTransaction/Queries/GetExchangeTransactionById/GetExchangeTransactionByIdQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/ExchangeTransaction/Queries/GetExchangeTransactionById/GetExchangeTransactionByIdQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/File/Download/DownloadFileCommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/File/Download/DownloadFileCommandHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/File/Upload/UploadFileCommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/File/Upload/UploadFileCommandHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/User/Commands/AddUser/AddUserCommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/User/Commands/AddUser/AddUserCommandHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/User/Commands/AddUser/AddUserCommandValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/User/Commands/AddUser/AddUserCommandValidator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/User/Commands/DeleteUser/DeleteUserCommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/User/Commands/DeleteUser/DeleteUserCommandHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/User/Queries/GetAllUser/GetAllUserQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/User/Queries/GetAllUser/GetAllUserQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/User/Queries/GetAllUserByPdf/GetAllUserByPdfQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/User/Queries/GetAllUserByPdf/GetAllUserByPdfQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/User/Queries/GetUserById/GetUserByIdQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/User/Queries/GetUserById/GetUserByIdQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/User/Queries/GetUserWithDetails/GetUserWithDetailsQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/User/Queries/GetUserWithDetails/GetUserWithDetailsQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/User/Queries/SearchUser/SearchUserQuesryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/User/Queries/SearchUser/SearchUserQuesryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Infrastructure.Identity/ConfigureService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Infrastructure.Identity/ConfigureService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Infrastructure.Identity/Entities/ApplicationUser.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Infrastructure.Identity/Entities/ApplicationUser.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ResourceApi/Messages/Validations.Designer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ResourceApi/Messages/Validations.Designer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ResourceApi/Messages/Validations.resx" beforeDir="false" afterPath="$PROJECT_DIR$/ResourceApi/Messages/Validations.resx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,6 +119,7 @@
     <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/dotnet/aspnetcore/b8139c5ee58f1708b0e3368a1b241400edd6cbc4/src/Mvc/Mvc.Core/src/FileContentResult.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$USER_HOME$/AppData/Local/Symbols/src/dotnet/aspnetcore/b8139c5ee58f1708b0e3368a1b241400edd6cbc4/src/Mvc/Mvc.Core/src/Infrastructure/ActionMethodExecutor.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/21fea9341ff54c65ba29ea08fdb4780161e28/bb/a6113741/Response`1.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2b90705926ae4f10aa01bbe3f1025828c90908/5f/4666478c/ThrowHelper.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2b90705926ae4f10aa01bbe3f1025828c90908/71/3dde3d1d/ExceptionDispatchInfo.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2b90705926ae4f10aa01bbe3f1025828c90908/73/9afb8e56/Activator.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/2b90705926ae4f10aa01bbe3f1025828c90908/b0/cae5dd33/InvalidOperationException.cs" root0="SKIP_HIGHLIGHTING" />
@@ -73,42 +134,11 @@
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/d83c264d63fb4cc3a674b0565668f18669a00/b8/8c803e37/TextSpanDescriptorExtensions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e4918c8ac7be482996b82eec990f156d11200/1f/9dda71fa/RequestHandlerWrapperImpl`2.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/e4918c8ac7be482996b82eec990f156d11200/9a/bae619c7/IRequestHandler`2.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExChangeApi/Middleware/GlobalExceptionMiddleware.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Application/UseCases/Authentication/Login/LogInCommandValidator.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Application/UseCases/Authentication/Register/RegisterCommandValidator.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Application/UseCases/Currency/Commands/AddCurrency/AddCurrencyCommandValidator.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Application/UseCases/CurrencyAttribute/AddAttributes/AddAttributeCommandValidator.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Application/UseCases/ExchangeRate/Commands/AddExchangeRate/AddExchangeRateCommandValidator.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Application/UseCases/ExchangeTransaction/Commands/AddExchangeTransaction/AddExchangeTransactionCommand.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Application/UseCases/ExchangeTransaction/Commands/AddExchangeTransaction/AddExchangeTransactionCommandValidator.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Application/UseCases/User/Commands/AddUser/AddUserCommandValidator.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Domain/Contracts/BaseEntity.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Domain/Contracts/IAuditable.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Domain/Contracts/IDeletable.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Domain/Entities/Currency.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Domain/Wrappers/Response.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.GraphQl/Migrations/20240614095516_First-init.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Infrastructure.Identity/ConfigureService.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Infrastructure.Identity/Entities/ApplicationUser.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Infrastructure.Identity/Repository/AuthenticationRepository.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Infrastructure/Persistence/Configuration/CategoryConfig.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Infrastructure/Persistence/Configuration/CurrencyAttributeConfig.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Infrastructure/Persistence/Configuration/CurrencyConfig.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Infrastructure/Persistence/Configuration/ExchangeRateConfig.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Infrastructure/Persistence/Configuration/ExchangeTransactionConfig.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Infrastructure/Persistence/Configuration/FileConfig.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Infrastructure/Persistence/Configuration/UserConfig.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Infrastructure/Persistence/Services/CurrencyService.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Infrastructure/Persistence/Services/ExcelFileProcessor.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Infrastructure/Persistence/Services/FileService.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="mock://D:/C#Project/ExchangeApi/ExchangeApi.Infrastructure/Persistence/Services/GenericRepository.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Resources/DataDictionary.Designer.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Resources/DataDictionary.resx" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Resources/Messages/Validations.Designer.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/ce37be1a06b16c6faa02038d2cc477dd3bca5b217ceeb41c5f2ad45c1bf9/ServiceProvider.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="false" />
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="Toolset" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
@@ -204,6 +234,8 @@
       <workItem from="1748323383083" duration="3473000" />
       <workItem from="1748354072638" duration="12240000" />
       <workItem from="1748410835626" duration="732000" />
+      <workItem from="1748412441564" duration="399000" />
+      <workItem from="1748582401368" duration="18920000" />
     </task>
     <task id="LOCAL-00001" summary="Add PDF generation capabilities for user, currency, and exchange transaction data">
       <option name="closed" value="true" />
@@ -245,7 +277,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748251867603</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Clean up workspace.xml by removing unnecessary change entries and updating git widget placeholder">
+      <option name="closed" value="true" />
+      <created>1748412754026</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1748412754026</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -263,20 +303,21 @@
     <MESSAGE value="Add dynamic search and detail retrieval for currency and user; refactor related services and queries" />
     <MESSAGE value="Implement password hashing with Argon2 in AddUserCommand; update DataSeeder for hashed password generation and add PasswordHelper class" />
     <MESSAGE value="Create stored procedure in ef migration" />
-    <option name="LAST_COMMIT_MESSAGE" value="Create stored procedure in ef migration" />
+    <MESSAGE value="Clean up workspace.xml by removing unnecessary change entries and updating git widget placeholder" />
+    <option name="LAST_COMMIT_MESSAGE" value="Clean up workspace.xml by removing unnecessary change entries and updating git widget placeholder" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/ExchangeApi.Application/UseCases/Currency/Commands/AddCurrency/AddCurrencyCommandHandler.cs</url>
-          <line>12</line>
+          <line>17</line>
           <properties documentPath="D:\C#Project\ExchangeApi\ExchangeApi.Application\UseCases\Currency\Commands\AddCurrency\AddCurrencyCommandHandler.cs" containingFunctionPresentation="Method 'Handle'">
             <startOffsets>
-              <option value="443" />
+              <option value="626" />
             </startOffsets>
             <endOffsets>
-              <option value="504" />
+              <option value="713" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="4" />
@@ -308,7 +349,7 @@
           <option name="timeStamp" value="13" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/ExchangeApi.Application/UseCases/Currency/Commands/UploadExcleFile/UploadCurrencyByExcleFileCommandHandler.cs</url>
+          <url>file://$PROJECT_DIR$/ExchangeApi.Application/UseCases/Currency/Commands/UploadExcelFile/UploadCurrencyByExcelFileCommandHandler.cs</url>
           <line>11</line>
           <properties documentPath="D:\C#Project\ExchangeApi\ExchangeApi.Application\UseCases\Currency\Commands\UploadExcleFile\UploadExcleFileRequestHandler.cs" containingFunctionPresentation="Method 'Handle'" />
           <option name="timeStamp" value="15" />
@@ -354,7 +395,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/ExchangeApi.Application/UseCases/Currency/Queries/GetAllCurrencyByPdf/GetAllCurrencyByPdfQueryHandler.cs</url>
-          <line>11</line>
+          <line>13</line>
           <properties documentPath="D:\C#Project\ExchangeApi\ExchangeApi.Application\UseCases\Currency\Queries\GetAllByPdf\GetAllCurrencyByPdfQueryHandler.cs" containingFunctionPresentation="Method 'Handle'" />
           <option name="timeStamp" value="28" />
         </line-breakpoint>
@@ -373,13 +414,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/ExchangeApi.Application/UseCases/User/Queries/GetUserWithDetails/GetUserWithDetailsQueryHandler.cs</url>
-          <line>12</line>
+          <line>16</line>
           <properties documentPath="D:\C#Project\ExchangeApi\ExchangeApi.Application\UseCases\User\Queries\GetUserWithDetails\GetUserWithDetailsQueryHandler.cs" containingFunctionPresentation="Method 'Handle'">
             <startOffsets>
-              <option value="469" />
+              <option value="658" />
             </startOffsets>
             <endOffsets>
-              <option value="551" />
+              <option value="740" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="36" />
@@ -396,19 +437,6 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="39" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/ExchangeApi/Program.cs</url>
-          <line>87</line>
-          <properties documentPath="D:\C#Project\ExchangeApi\ExchangeApi\Program.cs" containingFunctionPresentation="">
-            <startOffsets>
-              <option value="2829" />
-            </startOffsets>
-            <endOffsets>
-              <option value="2874" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="41" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

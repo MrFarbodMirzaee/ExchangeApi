@@ -207,4 +207,7 @@
   <data name="UpdateFailed" xml:space="preserve">
     <value>The record may not exist or has already been modified or deleted.</value>
   </data>
+  <data name="GreatherThan" xml:space="preserve">
+    <value>The {0} must be greatherthan {1}</value>
+  </data>
 </root>

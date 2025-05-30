@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Mime;
-using ExchangeApi.Application.UseCases.CurrencyAttribute.AddAttributes;
-using ExchangeApi.Application.UseCases.CurrencyAttribute.GetAllCurrencyAttributeByPdf;
-using ExchangeApi.Application.UseCases.CurrencyAttribute.GetAllCurrencyAttributeInExcelFormatQuery;
-using ExchangeApi.Application.UseCases.CurrencyAttribute.UploadCurrencyAttributeByExcle;
+using ExchangeApi.Application.UseCases.CurrencyAttribute.Commands.AddAttributes;
+using ExchangeApi.Application.UseCases.CurrencyAttribute.Commands.UploadCurrencyAttributeByExcel;
+using ExchangeApi.Application.UseCases.CurrencyAttribute.Query.GetAllCurrencyAttributeByPdf;
+using ExchangeApi.Application.UseCases.CurrencyAttribute.Query.GetAllCurrencyAttributeInExcelFormatQuery;
 
 namespace ExchangeApi.Controllers.V1;
 
@@ -35,7 +35,7 @@ public class CurrencyAttributeController : BaseController
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> AddByExcel([FromForm] UploadCurrencyAttributeByExcleCommand command,
+    public async Task<IActionResult> AddByExcel([FromForm] UploadCurrencyAttributeByExcelCommand command,
         CancellationToken ct) =>
         await SendAsync(command, ct);
 }

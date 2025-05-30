@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using ExchangeApi.Application.Attributes;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ExchangeApi.Application;
 
@@ -10,6 +11,12 @@ public static class ConfigurationService
         
         services.AddMediatR(config =>
                     config.RegisterServicesFromAssemblies(assembly));
+
+        services.Scan(scan => scan
+            .FromAssemblies(AppDomain.CurrentDomain.GetAssemblies())
+            .AddClasses(classes => classes.WithAttribute<ValidatorAttribute>())
+            .AsImplementedInterfaces()
+            .WithTransientLifetime());
         
         return services;
     }
