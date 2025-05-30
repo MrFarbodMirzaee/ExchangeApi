@@ -46,7 +46,7 @@ public class UserController(IOptionsMonitor<MySettings> settings) : BaseControll
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetAllInExcleFormat([FromQuery] GetAllUserInExcelFormatQuery request, CancellationToken ct) =>
+    public async Task<IActionResult> GetAllInExcelFormat([FromQuery] GetAllUserInExcelFormatQuery request, CancellationToken ct) =>
         await SendAsync(request, ct);
 
     [HttpGet]

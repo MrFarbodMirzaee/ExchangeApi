@@ -45,7 +45,7 @@ public class ExchangeRateController(IOptionsMonitor<MySettings> settings) : Base
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetAllInExcleFormat([FromQuery] GetAllExchangeRateInExcelFormatQuery request, CancellationToken ct) =>
+    public async Task<IActionResult> GetAllInExcelFormat([FromQuery] GetAllExchangeRateInExcelFormatQuery request, CancellationToken ct) =>
         await SendAsync(request, ct);
 
     [HttpGet]

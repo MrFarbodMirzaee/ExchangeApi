@@ -58,7 +58,7 @@ public class CurrencyController(IOptionsMonitor<MySettings> settings) : BaseCont
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetAllInExcleFormat([FromQuery] GetAllCurrencyInExcelFormatQuery request, CancellationToken ct) =>
+    public async Task<IActionResult> GetAllInExcelFormat([FromQuery] GetAllCurrencyInExcelFormatQuery request, CancellationToken ct) =>
         await SendAsync(request, ct);
 
     [HttpGet]

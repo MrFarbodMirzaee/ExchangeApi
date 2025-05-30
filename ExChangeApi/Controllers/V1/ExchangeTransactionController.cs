@@ -43,7 +43,7 @@ public class ExchangeTransactionController(IOptionsMonitor<MySettings> settings)
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetAllInExcleFormat([FromQuery] GetAllExchangeTransactionInExcelFormatQuery request, CancellationToken ct) =>
+    public async Task<IActionResult> GetAllInExcelFormat([FromQuery] GetAllExchangeTransactionInExcelFormatQuery request, CancellationToken ct) =>
         await SendAsync(request, ct);
 
     [HttpGet]

@@ -13,7 +13,7 @@ public class CurrencyAttributeController : BaseController
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetAllInExcleFormat([FromQuery] GetAllCurrencyAttributeInExcelFormatQuery request,
+    public async Task<IActionResult> GetAllInExcelFormat([FromQuery] GetAllCurrencyAttributeInExcelFormatQuery request,
         CancellationToken ct) =>
         await SendAsync(request, ct);
 
