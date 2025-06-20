@@ -19,7 +19,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="45033fa8-705b-493c-89c2-5d0970f853b6" name="Changes" comment="" />
+    <list default="true" id="45033fa8-705b-493c-89c2-5d0970f853b6" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.ExchangeApi/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ExchangeApi/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/Contracts/ICurrencyService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/Contracts/ICurrencyService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/Dtos/CurrencyDatailDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/Dtos/CurrencyDetailDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/Profiles/Currency/CurrencyProfile.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/Profiles/Currency/CurrencyProfile.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/Currency/Queries/GetCurrencyWithDetails/GetCurrencyWithDetailsQuery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/Currency/Queries/GetCurrencyWithDetails/GetCurrencyWithDetailsQuery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/Currency/Queries/GetCurrencyWithDetails/GetCurrencyWithDetailsQueryHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Application/UseCases/Currency/Queries/GetCurrencyWithDetails/GetCurrencyWithDetailsQueryHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Services/CurrencyService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ExchangeApi.Infrastructure/Persistence/Services/CurrencyService.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -174,6 +182,9 @@
       <workItem from="1748410835626" duration="732000" />
       <workItem from="1748412441564" duration="399000" />
       <workItem from="1748582401368" duration="18920000" />
+      <workItem from="1750001213468" duration="1015000" />
+      <workItem from="1750056933677" duration="2000" />
+      <workItem from="1750396930037" duration="301000" />
     </task>
     <task id="LOCAL-00001" summary="Add PDF generation capabilities for user, currency, and exchange transaction data">
       <option name="closed" value="true" />

@@ -1,6 +1,5 @@
 using ExchangeApi.Application.Attributes;
 using FluentValidation;
-using Microsoft.VisualBasic;
 using ResourceApi.Messages;
 
 namespace ExchangeApi.Application.UseCases.Currency.Commands.DeleteCurrency;

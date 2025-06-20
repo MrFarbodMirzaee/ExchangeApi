@@ -1,5 +1,4 @@
-﻿using DocumentFormat.OpenXml.Spreadsheet;
-using ExchangeApi.Application.Attributes;
+﻿using ExchangeApi.Application.Attributes;
 using FluentValidation;
 using ResourceApi.Messages;
 

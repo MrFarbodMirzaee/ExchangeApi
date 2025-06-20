@@ -32,7 +32,8 @@ public class CurrencyProfile : Profile
         CreateMap<Domain.Entities.Currency, AddCurrencyDto>();
         CreateMap<UpdateCurrencyDto, Domain.Entities.Currency>();
         CreateMap<Domain.Entities.Currency, UpdateCurrencyDto>();
-        CreateMap<Domain.Entities.Currency, CurrencyDatailDto>();
+        CreateMap<Domain.Entities.Currency, CurrencyDetailDto>();
+        
         #endregion
 
         CreateMap<AddCurrencyCommand, Domain.Entities.Currency>();
