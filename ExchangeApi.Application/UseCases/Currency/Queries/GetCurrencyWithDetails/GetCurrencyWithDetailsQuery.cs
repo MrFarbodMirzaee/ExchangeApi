@@ -4,7 +4,7 @@ using MediatR;
 
 namespace ExchangeApi.Application.UseCases.Currency.Queries.GetCurrencyWithDetails;
 
-public class GetCurrencyWithDetailsQuery : IRequest<Response<CurrencyDatailDto>>
+public class GetCurrencyWithDetailsQuery : IRequest<Response<CurrencyDetailDto>>
 {
     public Guid Id { get; set; }
 }

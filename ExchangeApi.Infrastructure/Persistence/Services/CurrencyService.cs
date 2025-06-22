@@ -73,7 +73,7 @@ public class CurrencyService(AppDbContext applicationDbContext,IMapper mapper)
             (await currencies.ToListAsync(ct));
     }
 
-    public async Task<Response<CurrencyDatailDto>> GetCurrencyDetailsAsync(GetCurrencyWithDetailsQuery request, CancellationToken ct)
+    public async Task<Response<CurrencyDetailDto>> GetCurrencyDetailsAsync(GetCurrencyWithDetailsQuery request, CancellationToken ct)
     {
         var currency = await _applicationDbContext
             .Currency
@@ -86,10 +86,10 @@ public class CurrencyService(AppDbContext applicationDbContext,IMapper mapper)
             
 
         var currencyDto = mapper
-            .Map<CurrencyDatailDto>(currency);
+            .Map<CurrencyDetailDto>(currency);
 
         return new 
-            Response<CurrencyDatailDto>
+            Response<CurrencyDetailDto>
             (currencyDto);
     }
 }

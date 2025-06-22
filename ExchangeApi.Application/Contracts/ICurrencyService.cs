@@ -10,5 +10,5 @@ namespace ExchangeApi.Application.Contracts;
 public interface ICurrencyService : IGenericRepository<Currency>
 {
    Task<Response<List<Currency>>> DynamicSearchCurrencyAsync(SearchCurrencyQuery request, CancellationToken ct);
-   Task<Response<CurrencyDatailDto>> GetCurrencyDetailsAsync(GetCurrencyWithDetailsQuery request,CancellationToken ct);
+   Task<Response<CurrencyDetailDto>> GetCurrencyDetailsAsync(GetCurrencyWithDetailsQuery request,CancellationToken ct);
 }

@@ -10,9 +10,9 @@ namespace ExchangeApi.Application.UseCases.Currency.Queries.GetCurrencyWithDetai
 public class GetCurrencyWithDetailsQueryHandler(ICurrencyService service,
     IValidator<GetCurrencyWithDetailsQuery> getCurrencyWithDetailsQueryValidator,
     IMapper mapper) 
-    : IRequestHandler<GetCurrencyWithDetailsQuery,Response<CurrencyDatailDto>>
+    : IRequestHandler<GetCurrencyWithDetailsQuery,Response<CurrencyDetailDto>>
 {
-    public async Task<Response<CurrencyDatailDto>> Handle(GetCurrencyWithDetailsQuery request, CancellationToken ct)
+    public async Task<Response<CurrencyDetailDto>> Handle(GetCurrencyWithDetailsQuery request, CancellationToken ct)
     {
         await getCurrencyWithDetailsQueryValidator
         .ValidateAndThrowAsync(request,ct);
@@ -22,7 +22,7 @@ public class GetCurrencyWithDetailsQueryHandler(ICurrencyService service,
             .GetCurrencyDetailsAsync(request,ct);
         
         return currencyDetailsAsync.Succeeded
-            ? new Response<CurrencyDatailDto>(currencyDetailsAsync.Data)
-            : new Response<CurrencyDatailDto>(currencyDetailsAsync.Message);
+            ? new Response<CurrencyDetailDto>(currencyDetailsAsync.Data)
+            : new Response<CurrencyDetailDto>(currencyDetailsAsync.Message);
     }
 }

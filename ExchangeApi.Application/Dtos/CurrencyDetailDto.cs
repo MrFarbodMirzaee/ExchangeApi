@@ -1,6 +1,6 @@
 namespace ExchangeApi.Application.Dtos;
 
-public record CurrencyDatailDto(
+public record CurrencyDetailDto(
 string CurrencyCode,
 string Name,
 bool IsActive,
