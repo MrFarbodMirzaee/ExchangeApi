@@ -26,9 +26,24 @@ Here's an example of the GraphQl:
 To install and run the API locally, follow these steps:
 
 1. **Clone the Repository:**
+```bash
+git clone https://github.com/MrFarbodMirzaee/ExchangeApi.git
+```
+```bash
+cd ExchangeApi
+```
 2. **Install Dependencies:**
+```bash
+dotnet restore
+```
+```bash
+dotnet build
+```
 3. **Set Up Environment Variables:**
-5. **Start the API:**
+4. **Start the API:**
+```bash
+dotnet run TheProjectName
+```
 6. **Verify the Installation:**
 Open a web browser or use an API testing tool like Postman to send requests to the API endpoints and verify that it's running correctly.
 
