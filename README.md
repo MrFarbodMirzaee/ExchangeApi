@@ -103,7 +103,7 @@ ExchangeApi exposes the same underlying exchange-rate/order functionality throug
 
 | Protocol | Project | Typical Use Case |
 |---|---|---|
-| REST | `ExchangeApi.Api.Rest` | Public HTTP clients, browser/mobile apps, simple integrations |
+| REST | `ExchangeApi.Api` | Public HTTP clients, browser/mobile apps, simple integrations |
 | gRPC | `ExchangeApi.Grpc` | Internal service-to-service calls, low-latency/high-throughput scenarios |
 | GraphQL | `ExchangeApi.GraphQl` | Flexible querying, clients that need to shape their own response payloads |
 
@@ -189,13 +189,6 @@ Configuration can be provided through:
 [⬆ Back to Top](#top)
 
 ExchangeApi uses **SQL Server** as its only supported database provider (no provider-switching support at this time).
-
-Configure your connection strings via User Secrets:
-
-```
-dotnet user-secrets set "ConnectionStrings:ExchangeApi" "<your_connection_string>"
-dotnet user-secrets set "ConnectionStrings:ExchangeApi_Identity" "<your_connection_string>"
-```
 
 Current configuration:
 
